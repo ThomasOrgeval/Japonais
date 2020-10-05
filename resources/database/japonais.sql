@@ -17,7 +17,7 @@ create table `WORDS`
 (
     `id`     int auto_increment not null,
     `fr`     varchar(255)       not null,
-    `jp`     varchar(255)       not null,
+    `kana`     varchar(255)       not null,
     `kanji`  varchar(255)       not null,
     `romaji` varchar(255)       not null,
     primary key (`id`)
@@ -66,12 +66,5 @@ values (1, 'raiwtsu', '', 'orgevalthomas@gmail.com', null, 1);
 insert into `GROUPE` (libelle)
 values ('Famille');
 
-insert into `WORDS` (fr, jp, kanji, romaji)
+insert into `WORDS` (fr, kana, kanji, romaji)
 values ('Maison', '家', '', 'ie');
-
-select words.id, groupe.*
-from words
-         inner join words_groupe as wg
-                    on wg.id_word = WORDS.id
-         inner join groupe
-                    on wg.id_groupe = groupe.id
