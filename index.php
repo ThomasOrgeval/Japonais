@@ -35,5 +35,5 @@ try {
     }
 } catch (Exception $e) {
     $php_errormsg = $e->getMessage();
-    require './view/errorView.php';
+    require './view/error.php';
 }
