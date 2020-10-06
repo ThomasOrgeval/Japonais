@@ -9,13 +9,34 @@ function dbConnect()
 }
 
 /**
+ * User
+ */
+
+function createUser($pseudo, $pass, $mail)
+{
+    $db = dbConnect();
+    date_default_timezone_set(date_default_timezone_get());
+    $addUser = $db->prepare('insert into japonais.user(pseudo, pass, mail, date, droits) values(?, ?, ?, ?, ?)');
+    $addUser = $addUser->execute(array($pseudo, $pass, $mail, time(), 0));
+    return $addUser;
+}
+
+function loginUser($pseudo, $pass)
+{
+    $db = dbConnect();
+    $selectUser = $db->prepare('select pseudo, mail from japonais.user where pseudo=? and pass=?');
+    $selectUser = $selectUser->execute(array($pseudo, $pass));
+    return $selectUser;
+}
+
+/**
  * Groupes
  */
 
 function createGroupe($libelle)
 {
     $db = dbConnect();
-    $addGroupe = $db->prepare('insert into groupe(libelle) values(?)');
+    $addGroupe = $db->prepare('insert into japonais.groupe(libelle) values(?)');
     $addGroupe = $addGroupe->execute(array($libelle));
     return $addGroupe;
 }
@@ -25,14 +46,14 @@ function editGroupe($id, $libelle)
     $db = dbConnect();
     $id = $db->quote($id);
     $libelle = $db->quote($libelle);
-    $editGroupe = $db->query("update groupe set libelle=$libelle where id=$id");
+    $editGroupe = $db->query("update japonais.groupe set libelle=$libelle where id=$id");
     return $editGroupe;
 }
 
 function supprGroupe($id)
 {
     $db = dbConnect();
-    $select = $db->prepare('delete from groupe where id=?');
+    $select = $db->prepare('delete from japonais.groupe where id=?');
     $select = $select->execute(array($id));
     return $select;
 }
@@ -40,7 +61,7 @@ function supprGroupe($id)
 function listGroupe()
 {
     $db = dbConnect();
-    $select = $db->query('select id, libelle from groupe');
+    $select = $db->query('select id, libelle from japonais.groupe');
     return $select->fetchAll();
 }
 
@@ -48,7 +69,7 @@ function testGroupe($id)
 {
     $db = dbConnect();
     $id = $db->quote($id);
-    return $db->query("select id, libelle from groupe where id=$id");
+    return $db->query("select id, libelle from japonais.groupe where id=$id");
 }
 
 /**
@@ -59,13 +80,13 @@ function testWord($id)
 {
     $db = dbConnect();
     $id = $db->quote($id);
-    return $db->query("select * from words where id=$id");
+    return $db->query("select * from japonais.words where id=$id");
 }
 
 function listWords()
 {
     $db = dbConnect();
-    $select = $db->query("select id, fr, kana, kanji, romaji from words order by fr asc");
+    $select = $db->query("select id, fr, kana, kanji, romaji from japonais.words order by fr asc");
     return $select->fetchAll();
 }
 
@@ -77,7 +98,7 @@ function editWord($fr, $kana, $kanji, $romaji, $id)
     $kanji = $db->quote($kanji);
     $romaji = $db->quote($romaji);
     $id = $db->quote($id);
-    return $db->query("update words set fr=$fr, kana=$kana, kanji=$kanji, romaji=$romaji where id=$id");
+    return $db->query("update japonais.words set fr=$fr, kana=$kana, kanji=$kanji, romaji=$romaji where id=$id");
 }
 
 function createWord($fr, $kana, $kanji, $romaji)
@@ -87,13 +108,13 @@ function createWord($fr, $kana, $kanji, $romaji)
     $kana = $db->quote($kana);
     $kanji = $db->quote($kanji);
     $romaji = $db->quote($romaji);
-    return $db->query("insert into words set fr=$fr, kana=$kana, kanji=$kanji, romaji=$romaji");
+    return $db->query("insert into japonais.words set fr=$fr, kana=$kana, kanji=$kanji, romaji=$romaji");
 }
 
 function supprWord($id)
 {
     $db = dbConnect();
-    $select = $db->prepare('delete from words where id=?');
+    $select = $db->prepare('delete from japonais.words where id=?');
     $select = $select->execute(array($id));
     return $select;
 }
@@ -107,10 +128,10 @@ function listGroupeToWord()
     $db = dbConnect();
     if (isset($_GET['id'])) {
         $id = $db->quote($_GET['id']);
-        $select = $db->query("select words.id, groupe.* from words
-    inner join words_groupe as wg
+        $select = $db->query("select words.id, groupe.* from japonais.words
+    inner join japonais.words_groupe as wg
         on wg.id_word = words.id
-    inner join groupe
+    inner join japonais.groupe
         on wg.id_groupe = groupe.id
     where words.id=$id");
     } else {
@@ -123,7 +144,7 @@ function addGroupeToWord($id_groupe, $id) {
     $db = dbConnect();
     $word = $db->quote($id);
     $groupe = $db->quote($id_groupe);
-    return $db->query("insert into words_groupe set id_word=$word, id_groupe=$groupe");
+    return $db->query("insert into japonais.words_groupe set id_word=$word, id_groupe=$groupe");
 }
 
 function deleteGroupeToWord($id_groupe, $id)
@@ -131,17 +152,17 @@ function deleteGroupeToWord($id_groupe, $id)
     $db = dbConnect();
     $idWord = $db->quote($id);
     $idGroupe = $db->quote($id_groupe);
-    return $db->query("delete from words_groupe where id_word=$idWord and id_groupe=$idGroupe");
+    return $db->query("delete from japonais.words_groupe where id_word=$idWord and id_groupe=$idGroupe");
 }
 
 function deleteAllGroupeForWord($id_word) {
     $db = dbConnect();
     $id = $db->quote($id_word);
-    $db->query("delete from words_groupe where id_word=$id");
+    $db->query("delete from japonais.words_groupe where id_word=$id");
 }
 
 function deleteAllGroupeForGroupe($id_groupe) {
     $db = dbConnect();
     $id = $db->quote($id_groupe);
-    $db->query("delete from words_groupe where id_groupe=$id");
+    $db->query("delete from japonais.words_groupe where id_groupe=$id");
 }
