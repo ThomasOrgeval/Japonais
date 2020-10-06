@@ -139,3 +139,9 @@ function deleteAllGroupeForWord($id_word) {
     $id = $db->quote($id_word);
     $db->query("delete from words_groupe where id_word=$id");
 }
+
+function deleteAllGroupeForGroupe($id_groupe) {
+    $db = dbConnect();
+    $id = $db->quote($id_groupe);
+    $db->query("delete from words_groupe where id_groupe=$id");
+}

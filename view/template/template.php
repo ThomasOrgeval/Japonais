@@ -29,6 +29,16 @@
 </head>
 
 <body>
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark " id="navbar-top">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <ul class="navbar-nav mr-auto">
+            <li><a class="nav-item nav-link" href="index.php?p=accueil">Accueil</a></li>
+        </ul>
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="index.php?p=login">Connexion</a>
+        </div>
+    </div>
+</nav>
 <div class="container">
     <?= $content ?>
 </div>

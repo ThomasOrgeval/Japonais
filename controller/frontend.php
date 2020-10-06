@@ -1,9 +1,13 @@
 <?php
 
-require './model/frontend.php';
-require './controller/form.php';
+require_once './controller/form.php';
 require './controller/session.php';
 require './controller/csrf.php';
+
+require './model/frontend.php';
+/*require_once './model/GroupeManager.php';
+require_once './model/WordManager.php';
+require_once './model/WordGroupeManager.php';*/
 
 /**
  * Chargement de pages
@@ -13,6 +17,21 @@ function accueil()
 {
     $groupes = listGroupe();
     require './view/frontend/index.php';
+}
+
+function login()
+{
+    require './view/frontend/login.php';
+}
+
+function register()
+{
+    require './view/frontend/register.php';
+}
+
+function logout()
+{
+
 }
 
 function groupe()
@@ -77,8 +96,9 @@ function addGroupe($libelle, $id)
     }
 }
 
-function deleteGroupe($id)
+function deleteGroupe($id)  
 {
+    deleteAllGroupeForGroupe($id);
     $deleteGroupe = supprGroupe($id);
     if ($deleteGroupe === false) {
         setFlash('Le groupe n\'a pas été supprimé', 'danger');
@@ -151,4 +171,18 @@ function wordGroupe($id_groupe, $id, $bool)
     } else {
         header('Location: index.php?p=word_edit&id=' . $id);
     }
+}
+
+/**
+ * Login
+ */
+
+function submitLogin()
+{
+
+}
+
+function submitRegister()
+{
+
 }
