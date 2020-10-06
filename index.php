@@ -23,7 +23,7 @@ try {
             word_edit();
         } elseif ($p === 'word_add') {
             if (isset($_POST['save'])) {
-                addWord($_POST['fr'], $_POST['kana'], $_POST['kanji'], $_POST['romaji'], $_GET['id']);
+                addWord($_POST['fr'], $_POST['kana'], $_POST['kanji'], $_POST['romaji'], $_GET['id'], $_POST['id_type']);
             }
         } elseif ($p === 'word_delete') {
             deleteWord($_GET['id']);

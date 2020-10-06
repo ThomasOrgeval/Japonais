@@ -20,6 +20,10 @@ ob_start(); ?>
                 <label for="romaji">Mot en romaji</label>
                 <?= input('romaji'); ?>
             </div>
+            <div class="form-group">
+                <label for="id_type">Catégorie</label>
+                <?= select('id_type', $type_list); ?>
+            </div>
 
             <?= csrfInput(); ?>
             <button type="submit" class="btn btn-outline-dark" name="save">Enregistrer</button>

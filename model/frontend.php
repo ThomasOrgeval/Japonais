@@ -90,25 +90,27 @@ function listWords()
     return $select->fetchAll();
 }
 
-function editWord($fr, $kana, $kanji, $romaji, $id)
+function editWord($fr, $kana, $kanji, $romaji, $id, $id_type)
 {
     $db = dbConnect();
     $fr = $db->quote($fr);
     $kana = $db->quote($kana);
     $kanji = $db->quote($kanji);
     $romaji = $db->quote($romaji);
+    $id_type = $db->quote($id_type);
     $id = $db->quote($id);
-    return $db->query("update japonais.words set fr=$fr, kana=$kana, kanji=$kanji, romaji=$romaji where id=$id");
+    return $db->query("update japonais.words set fr=$fr, kana=$kana, kanji=$kanji, romaji=$romaji, id_type=$id_type where id=$id");
 }
 
-function createWord($fr, $kana, $kanji, $romaji)
+function createWord($fr, $kana, $kanji, $romaji, $id_type)
 {
     $db = dbConnect();
     $fr = $db->quote($fr);
     $kana = $db->quote($kana);
     $kanji = $db->quote($kanji);
     $romaji = $db->quote($romaji);
-    return $db->query("insert into japonais.words set fr=$fr, kana=$kana, kanji=$kanji, romaji=$romaji");
+    $id_type = $db->quote($id_type);
+    return $db->query("insert into japonais.words set fr=$fr, kana=$kana, kanji=$kanji, romaji=$romaji, id_type=$id_type");
 }
 
 function supprWord($id)
@@ -140,7 +142,8 @@ function listGroupeToWord()
     return $select->fetchAll();
 }
 
-function addGroupeToWord($id_groupe, $id) {
+function addGroupeToWord($id_groupe, $id)
+{
     $db = dbConnect();
     $word = $db->quote($id);
     $groupe = $db->quote($id_groupe);
@@ -155,14 +158,27 @@ function deleteGroupeToWord($id_groupe, $id)
     return $db->query("delete from japonais.words_groupe where id_word=$idWord and id_groupe=$idGroupe");
 }
 
-function deleteAllGroupeForWord($id_word) {
+function deleteAllGroupeForWord($id_word)
+{
     $db = dbConnect();
     $id = $db->quote($id_word);
     $db->query("delete from japonais.words_groupe where id_word=$id");
 }
 
-function deleteAllGroupeForGroupe($id_groupe) {
+function deleteAllGroupeForGroupe($id_groupe)
+{
     $db = dbConnect();
     $id = $db->quote($id_groupe);
     $db->query("delete from japonais.words_groupe where id_groupe=$id");
+}
+
+/**
+ * Type
+ */
+
+function listType()
+{
+    $db = dbConnect();
+    $select = $db->query('select id, type from japonais.type order by type asc');
+    return $select->fetchAll();
 }

@@ -13,14 +13,23 @@ create table `USER`
     primary key (`id`)
 ) engine = InnoDB;
 
+create table `TYPE`
+(
+    `id`   int auto_increment not null,
+    `type` varchar(255)       not null,
+    primary key (`id`)
+) engine = InnoDB;
+
 create table `WORDS`
 (
-    `id`     int auto_increment not null,
-    `fr`     varchar(255)       not null,
-    `kana`     varchar(255)       not null,
-    `kanji`  varchar(255)       not null,
-    `romaji` varchar(255)       not null,
-    primary key (`id`)
+    `id`      int auto_increment not null,
+    `fr`      varchar(255)       not null,
+    `kana`    varchar(255)       not null,
+    `kanji`   varchar(255)       not null,
+    `romaji`  varchar(255)       not null,
+    `id_type` int                not null,
+    primary key (`id`),
+    foreign key (`id_type`) references TYPE (`id`)
 ) engine = InnoDB,
   character set utf8;
 
@@ -63,8 +72,7 @@ create table `WORDS_LISTES`
 insert into `USER` (id, pseudo, pass, mail, date, droits)
 values (1, 'raiwtsu', '', 'orgevalthomas@gmail.com', null, 1);
 
-insert into `GROUPE` (libelle)
-values ('Famille');
-
-insert into `WORDS` (fr, kana, kanji, romaji)
-values ('Maison', '家', '', 'ie');
+insert into `TYPE` (type)
+values ('Nom'),
+       ('Verbe'),
+       ('Adjectif');

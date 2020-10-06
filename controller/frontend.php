@@ -60,6 +60,13 @@ function word()
 
 function word_edit()
 {
+    // Ajout de tous les types de mots
+    $types = listType();
+    $type_list = array();
+    foreach ($types as $type) {
+        $type_list[$type['id']] = $type['type'];
+    }
+
     if (isset($_GET['id'])) {
         $word = testWord($_GET['id']);
         $groupes = listGroupeToWord();
@@ -113,12 +120,12 @@ function deleteGroupe($id)
  * Word
  */
 
-function addWord($fr, $kana, $kanji, $romaji, $id)
+function addWord($fr, $kana, $kanji, $romaji, $id, $id_type)
 {
     if ($id > 0) {
-        $addWord = editWord($fr, $kana, $kanji, $romaji, $id);
+        $addWord = editWord($fr, $kana, $kanji, $romaji, $id, $id_type);
     } else {
-        $addWord = createWord($fr, $kana, $kanji, $romaji);
+        $addWord = createWord($fr, $kana, $kanji, $romaji, $id_type);
     }
 
     if ($addWord === false) {
