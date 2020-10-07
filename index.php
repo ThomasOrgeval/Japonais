@@ -36,10 +36,9 @@ try {
         } elseif ($p === 'logout') {
             logout();
         } elseif ($p === 'submitLogin') {
-            submitLogin();
-        } elseif ($p === 'submitRegister')
-        {
-            submitRegister();
+            submitLogin($_POST['pseudo'], $_POST['password']);
+        } elseif ($p === 'submitRegister') {
+            submitRegister($_POST['pseudo'], $_POST['password'], $_POST['mail']);
         }
     } else {
         accueil();

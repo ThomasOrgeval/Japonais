@@ -15,9 +15,8 @@ function dbConnect()
 function createUser($pseudo, $pass, $mail)
 {
     $db = dbConnect();
-    date_default_timezone_set(date_default_timezone_get());
-    $addUser = $db->prepare('insert into japonais.user(pseudo, pass, mail, date, droits) values(?, ?, ?, ?, ?)');
-    $addUser = $addUser->execute(array($pseudo, $pass, $mail, time(), 0));
+    $addUser = $db->prepare('insert into japonais.user(pseudo, pass, mail, date, droits) values(?, ?, ?, CURRENT_DATE, ?)');
+    $addUser = $addUser->execute(array($pseudo, $pass, $mail, 0));
     return $addUser;
 }
 

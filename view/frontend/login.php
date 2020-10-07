@@ -2,8 +2,8 @@
 ob_start(); ?>
 <form action="index.php?p=submitLogin" method="post">
     <div class="form-group">
-        <label for="username">Nom d'utilisateur</label>
-        <?= input('username') ?>
+        <label for="pseudo">Nom d'utilisateur</label>
+        <?= input('pseudo') ?>
     </div>
     <div class="form-group">
         <label for="password">Mot de passe</label>

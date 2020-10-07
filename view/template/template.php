@@ -35,7 +35,12 @@
             <li><a class="nav-item nav-link" href="index.php?p=accueil">Accueil</a></li>
         </ul>
         <div class="navbar-nav">
-            <a class="nav-item nav-link" href="index.php?p=login">Connexion</a>
+            <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] == 'OK'): ?>
+                <label>Bienvenue, <?= $_SESSION['pseudo']; ?></label>
+                <a class="nav-item nav-link" href="index.php?p=logout">Déconnexion</a>
+            <?php else: ?>
+                <a class="nav-item nav-link" href="index.php?p=login">Connexion</a>
+            <?php endif; ?>
         </div>
     </div>
 </nav>

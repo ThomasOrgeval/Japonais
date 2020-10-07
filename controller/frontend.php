@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 require_once './controller/form.php';
 require './controller/session.php';
 require './controller/csrf.php';
@@ -31,53 +32,72 @@ function register()
 
 function logout()
 {
-
+    session_destroy();
+    header('Location:index.php?p=accueil');
 }
 
 function groupe()
 {
-    $groupes = listGroupe();
-    require './view/frontend/groupe.php';
+    if (test_connect()) {
+        $groupes = listGroupe();
+        require './view/frontend/groupe.php';
+    }
 }
 
-function groupe_edit() {
-    if (isset($_GET['id'])) {
-        $groupe = testGroupe($_GET['id']);
-        if ($groupe->rowCount() == 0) {
-            setFlash('Il n\'y a pas de groupe avec cet ID', 'danger');
-            header('Location: index.php?p=groupe');
+function groupe_edit()
+{
+    if (test_connect()) {
+        if (isset($_GET['id'])) {
+            $groupe = testGroupe($_GET['id']);
+            if ($groupe->rowCount() == 0) {
+                setFlash('Il n\'y a pas de groupe avec cet ID', 'danger');
+                header('Location: index.php?p=groupe');
+            }
+            $_POST = $groupe->fetch();
         }
-        $_POST = $groupe->fetch();
+        require 'view/frontend/groupe_edit.php';
     }
-    require 'view/frontend/groupe_edit.php';
 }
 
 function word()
 {
-    $words = listWords();
-    require './view/frontend/word.php';
+    if (test_connect()) {
+        $words = listWords();
+        require './view/frontend/word.php';
+    }
 }
 
 function word_edit()
 {
-    // Ajout de tous les types de mots
-    $types = listType();
-    $type_list = array();
-    foreach ($types as $type) {
-        $type_list[$type['id']] = $type['type'];
-    }
-
-    if (isset($_GET['id'])) {
-        $word = testWord($_GET['id']);
-        $groupes = listGroupeToWord();
-        $otherGroupes = otherGroupeToWord();
-        if ($word->rowCount() == 0) {
-            setFlash("Il n'y a pas de mot avec cet ID", "danger");
-            header("Location: index.php?p=word");
+    if (test_connect()) {
+        // Ajout de tous les types de mots
+        $types = listType();
+        $type_list = array();
+        foreach ($types as $type) {
+            $type_list[$type['id']] = $type['type'];
         }
-        $_POST = $word->fetch();
+
+        if (isset($_GET['id'])) {
+            $word = testWord($_GET['id']);
+            $groupes = listGroupeToWord();
+            $otherGroupes = otherGroupeToWord();
+            if ($word->rowCount() == 0) {
+                setFlash("Il n'y a pas de mot avec cet ID", "danger");
+                header("Location:index.php?p=word");
+            }
+            $_POST = $word->fetch();
+        }
+        require './view/frontend/word_edit.php';
     }
-    require './view/frontend/word_edit.php';
+}
+
+function test_connect()
+{
+    if ($_SESSION['connect'] != 'OK') {
+        header('Location:index.php?p=accueil');
+        return false;
+    }
+    return true;
 }
 
 
@@ -99,11 +119,11 @@ function addGroupe($libelle, $id)
         throw new Exception();
     } else {
         setFlash('Le groupe a bien été ajouté');
-        header('Location: index.php?p=groupe');
+        header('Location:index.php?p=groupe');
     }
 }
 
-function deleteGroupe($id)  
+function deleteGroupe($id)
 {
     deleteAllGroupeForGroupe($id);
     $deleteGroupe = supprGroupe($id);
@@ -112,7 +132,7 @@ function deleteGroupe($id)
         throw new Exception();
     } else {
         setFlash('Le groupe a bien été supprimé');
-        header('Location: index.php?p=groupe');
+        header('Location:index.php?p=groupe');
     }
 }
 
@@ -133,7 +153,7 @@ function addWord($fr, $kana, $kanji, $romaji, $id, $id_type)
         throw new Exception();
     } else {
         setFlash('Le mot a bien été crée');
-        header('Location: index.php?p=word');
+        header('Location:index.php?p=word');
     }
 }
 
@@ -146,7 +166,7 @@ function deleteWord($id)
         throw new Exception();
     } else {
         setFlash('Le mot a bien été supprimé');
-        header('Location: index.php?p=word');
+        header('Location:index.php?p=word');
     }
 }
 
@@ -176,7 +196,7 @@ function wordGroupe($id_groupe, $id, $bool)
     if ($wordGroupe === false) {
         throw new Exception();
     } else {
-        header('Location: index.php?p=word_edit&id=' . $id);
+        header('Location:index.php?p=word_edit&id=' . $id);
     }
 }
 
@@ -184,12 +204,25 @@ function wordGroupe($id_groupe, $id, $bool)
  * Login
  */
 
-function submitLogin()
+function submitLogin($pseudo, $password)
 {
-
+    if (!empty($pseudo) && !empty($password)) {
+        if (loginUser($pseudo, $password)) {
+            $_SESSION['pseudo'] = $pseudo;
+            $_SESSION['connect'] = 'OK';
+            header('Location:index.php?p=accueil');
+        } else {
+            echo 'Mot de passe ou identifiant incorrect';
+        }
+    } else {
+        echo 'Un champ est vide';
+    }
 }
 
-function submitRegister()
+function submitRegister($pseudo, $password, $mail)
 {
-
+    if (!empty($pseudo) && !empty($password) && !empty($mail)) {
+        createUser($pseudo, $password, $mail);
+        submitLogin($pseudo, $password);
+    }
 }
