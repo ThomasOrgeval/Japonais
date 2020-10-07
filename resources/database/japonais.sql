@@ -25,7 +25,7 @@ create table `WORDS`
     `id`      int auto_increment not null,
     `fr`      varchar(255)       not null,
     `kana`    varchar(255)       not null,
-    `kanji`   varchar(255)       not null,
+    `kanji`   varchar(255),
     `romaji`  varchar(255)       not null,
     `id_type` int                not null,
     primary key (`id`),
@@ -74,5 +74,4 @@ values (1, 'raiwtsu', '', 'orgevalthomas@gmail.com', null, 1);
 
 insert into `TYPE` (type)
 values ('Nom'),
-       ('Verbe'),
-       ('Adjectif');
+       ('Verbe');

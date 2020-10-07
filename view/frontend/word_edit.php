@@ -9,12 +9,12 @@ ob_start(); ?>
                 <?= input('fr'); ?>
             </div>
             <div class="form-group">
-                <label for="kana">Mot en kana</label>
-                <?= input('kana'); ?>
-            </div>
-            <div class="form-group">
                 <label for="kanji">Mot en kanji</label>
                 <?= input('kanji'); ?>
+            </div>
+            <div class="form-group">
+                <label for="kana">Mot en kana</label>
+                <?= input('kana'); ?>
             </div>
             <div class="form-group">
                 <label for="romaji">Mot en romaji</label>

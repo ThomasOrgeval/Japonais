@@ -8,8 +8,8 @@ ob_start(); ?>
         <thead>
         <tr>
             <th>Français</th>
-            <th>Kana</th>
             <th>Kanji</th>
+            <th>Kana</th>
             <th>Romaji</th>
             <th>Actions</th>
         </tr>
@@ -18,8 +18,8 @@ ob_start(); ?>
         <?php foreach ($words as $word): ?>
             <tr>
                 <td><?= $word['fr']; ?></td>
-                <td><?= $word['kana']; ?></td>
                 <td><?= $word['kanji']; ?></td>
+                <td><?= $word['kana']; ?></td>
                 <td><?= $word['romaji']; ?></td>
                 <td>
                     <a href="index.php?p=word_edit&id=<?= $word['id']; ?>" class="btn btn-outline-dark">Edit</a>
