@@ -38,7 +38,7 @@ function logout()
 
 function groupe()
 {
-    if (test_connect()) {
+    if (connect_admin()) {
         $groupes = listGroupe();
         require './view/frontend/groupe.php';
     }
@@ -46,7 +46,7 @@ function groupe()
 
 function groupe_edit()
 {
-    if (test_connect()) {
+    if (connect_admin()) {
         if (isset($_GET['id'])) {
             $groupe = testGroupe($_GET['id']);
             if ($groupe->rowCount() == 0) {
@@ -61,7 +61,7 @@ function groupe_edit()
 
 function word()
 {
-    if (test_connect()) {
+    if (connect_admin()) {
         $words = listWords();
         require './view/frontend/word.php';
     }
@@ -69,7 +69,7 @@ function word()
 
 function word_edit()
 {
-    if (test_connect()) {
+    if (connect_admin()) {
         // Ajout de tous les types de mots
         $types = listType();
         $type_list = array();
@@ -91,7 +91,16 @@ function word_edit()
     }
 }
 
-function test_connect()
+function connect_admin()
+{
+    if ($_SESSION['connect'] != 'OK' || $_SESSION['admin'] == 0) {
+        header('Location:index.php?p=accueil');
+        return false;
+    }
+    return true;
+}
+
+function connect()
 {
     if ($_SESSION['connect'] != 'OK') {
         header('Location:index.php?p=accueil');
@@ -207,8 +216,10 @@ function wordGroupe($id_groupe, $id, $bool)
 function submitLogin($pseudo, $password)
 {
     if (!empty($pseudo) && !empty($password)) {
-        if (loginUser($pseudo, $password)) {
+        $statements = loginUser($pseudo, $password);
+        if ($statements == true) {
             $_SESSION['pseudo'] = $pseudo;
+            $_SESSION['admin'] = $statements['droits'];
             $_SESSION['connect'] = 'OK';
             header('Location:index.php?p=accueil');
         } else {
