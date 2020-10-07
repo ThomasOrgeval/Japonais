@@ -221,19 +221,33 @@ function submitLogin($pseudo, $password)
             $_SESSION['pseudo'] = $pseudo;
             $_SESSION['admin'] = $statements['droits'];
             $_SESSION['connect'] = 'OK';
+            setFlash('Connexion réussie');
             header('Location:index.php?p=accueil');
         } else {
-            echo 'Mot de passe ou identifiant incorrect';
+            setFlash('Mot de passe ou identifiant incorrect', 'danger');
+            header('Location:index.php?p=login');
         }
     } else {
-        echo 'Un champ est vide';
+        setFlash('Un champ est vide', 'danger');
+        header('Location:index.php?p=login');
     }
 }
 
 function submitRegister($pseudo, $password, $mail)
 {
     if (!empty($pseudo) && !empty($password) && !empty($mail)) {
-        createUser($pseudo, $password, $mail);
-        submitLogin($pseudo, $password);
+        $correctMail = searchMail($mail);
+        $correctPseudo = searchPseudo($pseudo);
+        if ($correctMail) {
+           setFlash('L\'adresse mail est déjà utilisée', 'danger');
+           header('Location:index.php?p=register');
+        } elseif ($correctPseudo) {
+            setFlash('Le pseudo est déjà utilisé', 'danger');
+            header('Location:index.php?p=register');
+        } else {
+            $password = password_hash($password, PASSWORD_DEFAULT);
+            createUser($pseudo, $password, $mail);
+            submitLogin($pseudo, $password);
+        }
     }
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8"/>
     <title><?= $title ?></title>
 
     <!-- Bootstrap -->
@@ -12,10 +12,14 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- Google Fonts Roboto -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Google Icons Material -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../resources/css/bootstrap.css">
     <!-- Material Design Bootstrap -->
-    <link rel="stylesheet" href="../../resources/css/mdb.min.css">
+    <link rel="stylesheet" href="../../resources/css/mdb.css">
+    <!-- Materialize -->
+    <link rel="stylesheet" href="../../resources/css/materialize.css">
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -26,6 +30,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
+    <script src="../../resources/js/materialize.js"></script>
 </head>
 
 <body>
@@ -45,6 +50,8 @@
     </div>
 </nav>
 <div class="container">
+    <?php print_r($_SESSION); ?>
+    <?= flash();?>
     <?= $content ?>
 </div>
 </body>

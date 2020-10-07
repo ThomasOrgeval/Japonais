@@ -23,8 +23,29 @@ function createUser($pseudo, $pass, $mail)
 function loginUser($pseudo, $pass)
 {
     $db = dbConnect();
-    $selectUser = $db->prepare('select pseudo, mail, droits from japonais.user where pseudo=? and pass=?');
-    $selectUser->execute(array($pseudo, $pass));
+    $selectUser = $db->prepare('select pseudo, pass, mail, droits from japonais.user where pseudo=?');
+    $selectUser->execute(array($pseudo));
+    $selectUser = $selectUser->fetch();
+    if (password_verify($pass, $selectUser['pass'])) {
+        return $selectUser;
+    } else {
+        return false;
+    }
+}
+
+function searchPseudo($pseudo)
+{
+    $db = dbConnect();
+    $selectUser = $db->prepare('select pseudo from japonais.user where pseudo=?');
+    $selectUser->execute(array($pseudo));
+    return $selectUser->fetch();
+}
+
+function searchMail($mail)
+{
+    $db = dbConnect();
+    $selectUser = $db->prepare('select pseudo from japonais.user where mail=?');
+    $selectUser->execute(array($mail));
     return $selectUser->fetch();
 }
 
