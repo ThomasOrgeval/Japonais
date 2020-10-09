@@ -39,6 +39,16 @@ try {
             submitLogin($_POST['pseudo'], $_POST['password']);
         } elseif ($p === 'submitRegister') {
             submitRegister($_POST['pseudo'], $_POST['password'], $_POST['mail']);
+        } elseif ($p === 'listes') {
+            listes();
+        } elseif ($p === 'liste_edit') {
+            liste_edit();
+        } elseif ($p === 'liste_delete') {
+            deleteListe($_GET['id']);
+        } elseif ($p === 'liste_add') {
+            if (isset($_POST['save'])) {
+                addListe($_POST['nom'], $_POST['description'], $_POST['id_confidentiality'], $_GET['id']);
+            }
         }
     } else {
         accueil();

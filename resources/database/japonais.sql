@@ -20,6 +20,13 @@ create table `TYPE`
     primary key (`id`)
 ) engine = InnoDB;
 
+create table `CONFIDENTIALITY`
+(
+    `id`              int auto_increment not null,
+    `confidentiality` varchar(255)       not null,
+    primary key (`id`)
+) engine = InnoDB;
+
 create table `WORDS`
 (
     `id`      int auto_increment not null,
@@ -42,9 +49,11 @@ create table `GROUPE`
 
 create table `LISTES`
 (
-    `id`      int auto_increment not null,
-    `nom`     varchar(255)       not null,
-    `id_user` int                not null,
+    `id`                 int auto_increment not null,
+    `nom`                varchar(255)       not null,
+    `description`        longtext           not null,
+    `id_confidentiality` int                not null,
+    `id_user`            int                not null,
     primary key (`id`),
     foreign key (`id_user`) references `USER` (`id`)
 ) engine = InnoDB;
@@ -69,9 +78,11 @@ create table `WORDS_LISTES`
     foreign key (`id_liste`) references LISTES (`id`)
 ) engine = InnoDB;
 
-insert into `USER` (id, pseudo, pass, mail, date, droits)
-values (1, 'raiwtsu', '', 'orgevalthomas@gmail.com', null, 1);
-
 insert into `TYPE` (type)
 values ('Nom'),
        ('Verbe');
+
+insert into `CONFIDENTIALITY` (confidentiality)
+values ('Public'),
+       ('Amis'),
+       ('Privé');

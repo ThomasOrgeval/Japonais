@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8"/>
     <title><?= $title ?></title>
@@ -30,6 +30,9 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <ul class="navbar-nav mr-auto">
             <li><a class="nav-item nav-link" href="index.php?p=accueil">Accueil</a></li>
+            <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] == 'OK'): ?>
+            <li><a class="nav-item nav-link" href="index.php?p=listes">Mes listes</a></li>
+            <?php endif; ?>
         </ul>
         <div class="navbar-nav">
             <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] == 'OK'): ?>

@@ -2,7 +2,9 @@
 ob_start(); ?>
     <h1 class="h1-admin">Editer un mot</h1>
 
-    <form action="index.php?p=word_add<?php if (isset($_GET['id'])) {echo '&id=' . $_GET['id'];} ?>" method="post" style="display: flex;">
+    <form action="index.php?p=word_add<?php if (isset($_GET['id'])) {
+        echo '&id=' . $_GET['id'];
+    } ?>" method="post" style="display: flex;">
         <div class="col-sm-8">
             <div class="form-group">
                 <label for="fr">Mot en français</label>
