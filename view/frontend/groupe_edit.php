@@ -1,4 +1,8 @@
-<?php $title = 'Edition - groupe';
+<?php if (isset($_POST['id'])) {
+    $title = $_POST['libelle'] . ' - Edition';
+} else {
+    $title = 'Mon nouveau groupe';
+}
 ob_start(); ?>
 <h1 class="h1-admin">Editer un groupe</h1>
 

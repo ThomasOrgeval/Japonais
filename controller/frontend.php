@@ -6,9 +6,9 @@ require './controller/session.php';
 require './controller/csrf.php';
 
 require './model/frontend.php';
-/*require_once './model/GroupeManager.php';
-require_once './model/WordManager.php';
-require_once './model/WordGroupeManager.php';*/
+/*require_once './model/class/GroupeManager.php';
+require_once './model/class/WordManager.php';
+require_once './model/class/WordGroupeManager.php';*/
 
 /**
  * Chargement de pages

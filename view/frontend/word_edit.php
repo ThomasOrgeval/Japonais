@@ -1,4 +1,8 @@
-<?php $title = 'Les mots';
+<?php if (isset($_POST['id'])) {
+    $title = $_POST['fr'] . ' - Edition';
+} else {
+    $title = 'Mon nouveau mot';
+}
 ob_start(); ?>
     <h1 class="h1-admin">Editer un mot</h1>
 
