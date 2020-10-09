@@ -37,6 +37,13 @@ function logout()
     header('Location:index.php?p=accueil');
 }
 
+function account()
+{
+    if (connect()) {
+        require './view/frontend/account.php';
+    }
+}
+
 function listes()
 {
     if (connect()) {

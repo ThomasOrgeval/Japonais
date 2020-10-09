@@ -40,7 +40,9 @@
         </ul>
         <div class="navbar-nav">
             <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] == 'OK'): ?>
-                <label>Bienvenue, <?= $_SESSION['pseudo']; ?></label>
+                <label class="navbar" style="color: rgba(255,255,255,.5);">Bienvenue, &thinsp;
+                    <a class="nav-item nav-ling" href="index.php?p=account" style="color: rgba(255,255,255);"><?= $_SESSION['pseudo']; ?></a>
+                </label>
                 <a class="nav-item nav-link" href="index.php?p=logout">Déconnexion</a>
             <?php else: ?>
                 <a class="nav-item nav-link" href="index.php?p=login">Connexion</a>

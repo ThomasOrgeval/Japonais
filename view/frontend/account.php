@@ -1,4 +1,4 @@
-<?php $title = 'Accueil';
+<?php $title = 'Mon compte';
 ob_start(); ?>
 
 <?php $content = ob_get_clean();

@@ -49,6 +49,8 @@ try {
             if (isset($_POST['save'])) {
                 addListe($_POST['nom'], $_POST['description'], $_POST['id_confidentiality'], $_GET['id']);
             }
+        } elseif ($p === 'account') {
+            account();
         }
     } else {
         accueil();
