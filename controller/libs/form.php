@@ -6,6 +6,12 @@ function input($id)
     return "<input type='text' class='form-control' id='$id' name='$id' value='$value'>";
 }
 
+function inputRequired($id)
+{
+    $value = isset($_POST[$id]) ? $_POST[$id] : '';
+    return "<input type='text' class='form-control' id='$id' name='$id' value='$value' required>";
+}
+
 function textarea($id)
 {
     $value = isset($_POST[$id]) ? $_POST[$id] : '';

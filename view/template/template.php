@@ -31,8 +31,12 @@
         <ul class="navbar-nav mr-auto">
             <li><a class="nav-item nav-link" href="index.php?p=accueil">Accueil</a></li>
             <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] == 'OK'): ?>
-            <li><a class="nav-item nav-link" href="index.php?p=listes">Mes listes</a></li>
-            <?php endif; ?>
+                <li><a class="nav-item nav-link" href="index.php?p=listes">Mes listes</a></li>
+                <?php if ($_SESSION['admin'] == 1): ?>
+                    <li><a class="nav-item nav-link" href="index.php?p=word">Les mots</a></li>
+                    <li><a class="nav-item nav-link" href="index.php?p=groupe">Les groupes</a></li>
+                <?php endif;
+            endif; ?>
         </ul>
         <div class="navbar-nav">
             <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] == 'OK'): ?>

@@ -12,7 +12,7 @@ ob_start(); ?>
         <div class="col-sm-8">
             <div class="form-group">
                 <label for="nom">Nom de la liste</label>
-                <?= input('nom'); ?>
+                <?= inputRequired('nom'); ?>
             </div>
             <div class="form-group">
                 <label for="description">Description de la liste</label>

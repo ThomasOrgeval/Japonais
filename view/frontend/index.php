@@ -1,4 +1,4 @@
-<?php $title = 'Mon blog';
+<?php $title = 'Accueil';
 ob_start(); ?>
     <div id="groupe">
         <?php foreach ($groupes as $groupe): ?>
