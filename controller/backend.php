@@ -66,12 +66,22 @@ function connect_admin()
     return true;
 }
 
+function securize($var)
+{
+    $var = htmlspecialchars($var);
+    $var = trim($var);
+    $var = strip_tags($var);
+    return $var;
+}
+
 /**
  * Groupe
  */
 
 function addGroupe($libelle, $id)
 {
+    $libelle = securize($libelle);
+
     if ($id > 0) {
         $addGroupe = editGroupe($id, $libelle);
     } else {
@@ -106,6 +116,11 @@ function deleteGroupe($id)
 
 function addWord($fr, $kana, $kanji, $romaji, $id, $id_type)
 {
+    $fr = securize($fr);
+    $kana = securize($kana);
+    $kanji = securize($kanji);
+    $romaji = securize($romaji);
+
     if ($id > 0) {
         $addWord = editWord($fr, $kana, $kanji, $romaji, $id, $id_type);
     } else {

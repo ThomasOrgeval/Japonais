@@ -113,6 +113,10 @@ function submitLogin($pseudo, $password)
 
 function submitRegister($pseudo, $password, $mail)
 {
+    $pseudo = securize($pseudo);
+    $password = securize($password);
+    $mail = securize($mail);
+
     if (!empty($pseudo) && !empty($password) && !empty($mail)) {
         $correctMail = searchMail($mail);
         $correctPseudo = searchPseudo($pseudo);
@@ -148,6 +152,9 @@ function deleteListe($id)
 
 function addListe($nom, $desc, $id_confidentiality, $id)
 {
+    $nom = securize($nom);
+    $desc = securize($desc);
+
     if ($id > 0) {
         $addListe = editListe($nom, $desc, $id_confidentiality, $id, $_SESSION['id']);
     } else {
