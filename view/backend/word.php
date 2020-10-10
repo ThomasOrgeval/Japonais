@@ -2,7 +2,10 @@
 ob_start(); ?>
     <h1 class="h1-admin-left">Les mots</h1>
 
-    <p class="add"><a href="index.php?p=word_edit" class="btn btn-success">Ajout</a></p>
+    <p class="add">
+        <a href="index.php?p=word_edit" class="btn btn-success">Ajout</a>
+        <a href="index.php?p=exportxml" class="btn btn-grey">Export XML</a>
+    </p>
 
     <table class="table table-striped">
         <thead>

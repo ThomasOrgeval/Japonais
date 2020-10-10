@@ -74,6 +74,32 @@ function securize($var)
     return $var;
 }
 
+function exportxml()
+{
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>
+<pages>
+';
+
+    $words = listWords();
+    foreach ($words as $word) {
+        $xml .= '    <link>
+';
+        $xml .= '        <title>' . $word['fr'] . '</title>
+';
+        $xml .= '        <url>index.php?p=search&amp;t=word&amp;q=' . $word['fr'] . '</url>
+';
+        $xml .= '    </link>
+';
+    }
+
+    $xml .= '</pages>';
+    $fp = fopen("links.xml", 'w+');
+    fputs($fp, $xml);
+    fclose($fp);
+    setFlash('Export xml réussi');
+    header('Location:index.php?p=accueil');
+}
+
 /**
  * Groupe
  */

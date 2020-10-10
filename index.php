@@ -51,6 +51,10 @@ try {
             }
         } elseif ($p === 'account') {
             account();
+        } elseif ($p === 'search') {
+            search($_GET['search']);
+        } elseif ($p === 'exportxml') {
+            exportxml();
         }
     } else {
         accueil();

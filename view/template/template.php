@@ -15,9 +15,11 @@
     <!-- Google Icons Material -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="../../resources/css/bootstrap.css">
+    <link rel="stylesheet" href="./resources/css/bootstrap.css">
     <!-- Material Design Bootstrap -->
-    <link rel="stylesheet" href="../../resources/css/mdb.css">
+    <link rel="stylesheet" href="./resources/css/mdb.css">
+
+    <link rel="stylesheet" href="./resources/css/style.css">
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -39,9 +41,14 @@
             endif; ?>
         </ul>
         <div class="navbar-nav">
+            <form action="index.php?p=search" method="post" class="navbar" style="display: block; width: 194px; margin-right: 20px">
+                <input type="text" name="search" size="20" onkeyup="showResult(this.value)">
+                <div id="search" class="search"></div>
+            </form>
             <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] == 'OK'): ?>
                 <label class="navbar" style="color: rgba(255,255,255,.5);">Bienvenue, &thinsp;
-                    <a class="nav-item nav-ling" href="index.php?p=account" style="color: rgba(255,255,255);"><?= $_SESSION['pseudo']; ?></a>
+                    <a class="nav-item nav-ling" href="index.php?p=account"
+                       style="color: rgba(255,255,255);"><?= $_SESSION['pseudo']; ?></a>
                 </label>
                 <a class="nav-item nav-link" href="index.php?p=logout">Déconnexion</a>
             <?php else: ?>
@@ -51,9 +58,46 @@
     </div>
 </nav>
 <div class="container">
-    <?php print_r($_SESSION); ?>
     <?= flash() ?>
+    <? checkCsrf() ?>
+    <div>
+        <h2>Session</h2>
+        <?php var_dump($_SESSION); ?>
+        <?php var_dump($_POST); ?>
+    </div>
     <?= $content ?>
 </div>
+<script>
+    function showResult(str) {
+        if (str.length === 0) {
+            document.getElementById("search").innerHTML = "";
+            document.getElementById("search").style.border = "0px";
+            return;
+        }
+        var xmlhttp;
+        if (window.XMLHttpRequest || window.ActiveXObject) {
+            if (window.ActiveXObject) {
+                try {
+                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+                } catch (e) {
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+            } else {
+                xmlhttp = new XMLHttpRequest();
+            }
+        } else {
+            xmlhttp = new XMLHttpRequest();
+        }
+
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById("search").innerHTML = this.responseText;
+                document.getElementById("search").style.border = "1px solid #A5ACB2";
+            }
+        }
+        xmlhttp.open("GET", "index.php?p=search&search=" + str, true);
+        xmlhttp.send();
+    }
+</script>
 </body>
 </html>

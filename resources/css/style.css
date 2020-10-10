@@ -1,0 +1,14 @@
+.search {
+    margin: 0;
+    width: 190px;
+    display: block;
+    background-color: white;
+}
+
+.search-a {
+    color: black;
+}
+
+.search-a:hover {
+    color: red;
+}
