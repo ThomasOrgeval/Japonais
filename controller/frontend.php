@@ -77,46 +77,6 @@ function liste_edit()
     }
 }
 
-function search($search)
-{
-    $xmlDoc=new DOMDocument();
-    $xmlDoc->load("links.xml");
-
-    $x=$xmlDoc->getElementsByTagName('link');
-
-    if (strlen($search)>0) {
-        $hint="";
-        for($i=0; $i<($x->length); $i++) {
-            $y=$x->item($i)->getElementsByTagName('title');
-            $z=$x->item($i)->getElementsByTagName('url');
-            if ($y->item(0)->nodeType==1) {
-                //find a link matching the search text
-                if (stristr($y->item(0)->childNodes->item(0)->nodeValue,$search)) {
-                    if ($hint=="") {
-                        $hint="<a class='search-a' href='" .
-                            $z->item(0)->childNodes->item(0)->nodeValue .
-                            "'>" .
-                            $y->item(0)->childNodes->item(0)->nodeValue . "</a>";
-                    } else {
-                        $hint=$hint . "<br /><a class='search-a' href='" .
-                            $z->item(0)->childNodes->item(0)->nodeValue .
-                            "'>" .
-                            $y->item(0)->childNodes->item(0)->nodeValue . "</a>";
-                    }
-                }
-            }
-        }
-    }
-
-    if ($hint=="") {
-        $response="no suggestion";
-    } else {
-        $response=$hint;
-    }
-
-    echo $response;
-}
-
 function connect()
 {
     if ($_SESSION['connect'] != 'OK') {
@@ -208,4 +168,66 @@ function addListe($nom, $desc, $id_confidentiality, $id)
         setFlash('La liste a bien été crée');
         header('Location:index.php?p=listes');
     }
+}
+
+/**
+ * Formulaire de recherche
+ */
+
+function search($search)
+{
+    $search = securize($search);
+    $xmlDoc=new DOMDocument();
+    $xmlDoc->load("links.xml");
+    $x=$xmlDoc->getElementsByTagName('link');
+
+    if (strlen($search)>0) {
+        $hint="";
+        for($i=0; $i<($x->length); $i++) {
+            $y=$x->item($i)->getElementsByTagName('title');
+            $z=$x->item($i)->getElementsByTagName('url');
+            if ($y->item(0)->nodeType==1) {
+                //find a link matching the search text
+                if (stristr($y->item(0)->childNodes->item(0)->nodeValue,$search)) {
+                    if ($hint=="") {
+                        $hint="<a class='search-a' href='" .
+                            $z->item(0)->childNodes->item(0)->nodeValue .
+                            "'>" .
+                            $y->item(0)->childNodes->item(0)->nodeValue . "</a>";
+                    } else {
+                        $hint=$hint . "<br /><a class='search-a' href='" .
+                            $z->item(0)->childNodes->item(0)->nodeValue .
+                            "'>" .
+                            $y->item(0)->childNodes->item(0)->nodeValue . "</a>";
+                    }
+                }
+            }
+        }
+    }
+
+    if ($hint=="") {
+        $response="no suggestion";
+    } else {
+        $response=$hint;
+    }
+
+    echo $response;
+}
+
+function search2($type, $search)
+{
+    $type = securize($type);
+    $search = securize($search);
+
+
+}
+
+function search3($search)
+{
+    $search = securize($search);
+    $_POST['words'] = listSearchWord($search);
+    $_POST['groupes'] = listSearchGroupe($search);
+    $_POST['listes'] = listSearchListe($search);
+
+    require './view/frontend/search/3.php';
 }

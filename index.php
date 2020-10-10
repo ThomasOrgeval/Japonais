@@ -52,7 +52,13 @@ try {
         } elseif ($p === 'account') {
             account();
         } elseif ($p === 'search') {
-            search($_GET['search']);
+            if (isset($_POST['search'])) {
+                search3($_POST['search']);
+            } elseif (isset($_GET['t']) && isset($_GET['q'])) {
+                search2($_GET['t'], $_GET['q']);
+            } else {
+                search($_GET['search']);
+            }
         } elseif ($p === 'exportxml') {
             exportxml();
         }

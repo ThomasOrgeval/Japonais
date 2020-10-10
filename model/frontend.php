@@ -106,3 +106,28 @@ function listConfidentiality()
     $select = $db->query('select id, confidentiality from japonais.confidentiality order by confidentiality asc');
     return $select->fetchAll();
 }
+
+/**
+ * Formulaire de recherche
+ */
+
+function listSearchWord($search)
+{
+    $db = dbConnect();
+    $select = $db->query("select * from japonais.words where fr like '%$search%'");
+    return $select->fetchAll();
+}
+
+function listSearchGroupe($search)
+{
+    $db = dbConnect();
+    $select = $db->query("select * from japonais.groupe where libelle like '%$search%'");
+    return $select->fetchAll();
+}
+
+function listSearchListe($search)
+{
+    $db = dbConnect();
+    $select = $db->query("select * from japonais.listes where nom like '%$search%' and id_confidentiality=1");
+    return $select->fetchAll();
+}
