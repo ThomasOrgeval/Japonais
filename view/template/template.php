@@ -59,7 +59,6 @@
 </nav>
 <div class="container">
     <?= flash() ?>
-    <? checkCsrf() ?>
     <div>
         <h2>Session</h2>
         <?php var_dump($_SESSION); ?>

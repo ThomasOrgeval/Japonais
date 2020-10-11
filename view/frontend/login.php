@@ -1,4 +1,4 @@
-<?php $title = 'Mon blog';
+<?php $title = 'Connexion';
 ob_start(); ?>
 <form action="index.php?p=submitLogin" method="post">
     <div class="form-group">

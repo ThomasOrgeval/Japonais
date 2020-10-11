@@ -7,7 +7,7 @@
 function createGroupe($libelle)
 {
     $db = dbConnect();
-    $addGroupe = $db->prepare('insert into lexiqumjaponais.groupe(libelle) values(?)');
+    $addGroupe = $db->prepare('insert into lexiqumjaponais.GROUPE(libelle) values(?)');
     $addGroupe = $addGroupe->execute(array($libelle));
     return $addGroupe;
 }
@@ -17,14 +17,14 @@ function editGroupe($id, $libelle)
     $db = dbConnect();
     $id = $db->quote($id);
     $libelle = $db->quote($libelle);
-    $editGroupe = $db->query("update lexiqumjaponais.groupe set libelle=$libelle where id=$id");
+    $editGroupe = $db->query("update lexiqumjaponais.GROUPE set libelle=$libelle where id=$id");
     return $editGroupe;
 }
 
 function supprGroupe($id)
 {
     $db = dbConnect();
-    $select = $db->prepare('delete from lexiqumjaponais.groupe where id=?');
+    $select = $db->prepare('delete from lexiqumjaponais.GROUPE where id=?');
     $select = $select->execute(array($id));
     return $select;
 }
@@ -32,7 +32,7 @@ function supprGroupe($id)
 function listGroupe()
 {
     $db = dbConnect();
-    $select = $db->query('select id, libelle from lexiqumjaponais.groupe');
+    $select = $db->query('select id, libelle from lexiqumjaponais.GROUPE');
     return $select->fetchAll();
 }
 
@@ -40,7 +40,7 @@ function testGroupe($id)
 {
     $db = dbConnect();
     $id = $db->quote($id);
-    return $db->query("select id, libelle from lexiqumjaponais.groupe where id=$id");
+    return $db->query("select id, libelle from lexiqumjaponais.GROUPE where id=$id");
 }
 
 /**
@@ -51,13 +51,13 @@ function testWord($id)
 {
     $db = dbConnect();
     $id = $db->quote($id);
-    return $db->query("select * from lexiqumjaponais.words where id=$id");
+    return $db->query("select * from lexiqumjaponais.WORDS where id=$id");
 }
 
 function listWords()
 {
     $db = dbConnect();
-    $select = $db->query("select id, fr, kana, kanji, romaji from lexiqumjaponais.words order by fr asc");
+    $select = $db->query("select id, fr, kana, kanji, romaji from lexiqumjaponais.WORDS order by fr asc");
     return $select->fetchAll();
 }
 
@@ -70,7 +70,7 @@ function editWord($fr, $kana, $kanji, $romaji, $id, $id_type)
     $romaji = $db->quote($romaji);
     $id_type = $db->quote($id_type);
     $id = $db->quote($id);
-    return $db->query("update lexiqumjaponais.words set fr=$fr, kana=$kana, kanji=$kanji, romaji=$romaji, id_type=$id_type where id=$id");
+    return $db->query("update lexiqumjaponais.WORDS set fr=$fr, kana=$kana, kanji=$kanji, romaji=$romaji, id_type=$id_type where id=$id");
 }
 
 function createWord($fr, $kana, $kanji, $romaji, $id_type)
@@ -81,13 +81,13 @@ function createWord($fr, $kana, $kanji, $romaji, $id_type)
     $kanji = $db->quote($kanji);
     $romaji = $db->quote($romaji);
     $id_type = $db->quote($id_type);
-    return $db->query("insert into lexiqumjaponais.words set fr=$fr, kana=$kana, kanji=$kanji, romaji=$romaji, id_type=$id_type");
+    return $db->query("insert into lexiqumjaponais.WORDS set fr=$fr, kana=$kana, kanji=$kanji, romaji=$romaji, id_type=$id_type");
 }
 
 function supprWord($id)
 {
     $db = dbConnect();
-    $select = $db->prepare('delete from lexiqumjaponais.words where id=?');
+    $select = $db->prepare('delete from lexiqumjaponais.WORDS where id=?');
     $select = $select->execute(array($id));
     return $select;
 }
@@ -101,12 +101,12 @@ function listGroupeToWord()
     $db = dbConnect();
     if (isset($_GET['id'])) {
         $id = $db->quote($_GET['id']);
-        $select = $db->query("select words.id, groupe.* from lexiqumjaponais.words
-    inner join lexiqumjaponais.words_groupe as wg
-        on wg.id_word = words.id
-    inner join lexiqumjaponais.groupe
-        on wg.id_groupe = groupe.id
-    where words.id=$id");
+        $select = $db->query("select WORDS.id, groupe.* from lexiqumjaponais.WORDS
+    inner join lexiqumjaponais.WORDS_GROUPE as wg
+        on wg.id_word = WORDS.id
+    inner join lexiqumjaponais.GROUPE
+        on wg.id_groupe = GROUPE.id
+    where WORDS.id=$id");
     } else {
         return null;
     }
@@ -118,7 +118,7 @@ function addGroupeToWord($id_groupe, $id)
     $db = dbConnect();
     $word = $db->quote($id);
     $groupe = $db->quote($id_groupe);
-    return $db->query("insert into lexiqumjaponais.words_groupe set id_word=$word, id_groupe=$groupe");
+    return $db->query("insert into lexiqumjaponais.WORDS_GROUPE set id_word=$word, id_groupe=$groupe");
 }
 
 function deleteGroupeToWord($id_groupe, $id)
@@ -126,21 +126,21 @@ function deleteGroupeToWord($id_groupe, $id)
     $db = dbConnect();
     $idWord = $db->quote($id);
     $idGroupe = $db->quote($id_groupe);
-    return $db->query("delete from lexiqumjaponais.words_groupe where id_word=$idWord and id_groupe=$idGroupe");
+    return $db->query("delete from lexiqumjaponais.WORDS_GROUPE where id_word=$idWord and id_groupe=$idGroupe");
 }
 
 function deleteAllGroupeForWord($id_word)
 {
     $db = dbConnect();
     $id = $db->quote($id_word);
-    $db->query("delete from lexiqumjaponais.words_groupe where id_word=$id");
+    $db->query("delete from lexiqumjaponais.WORDS_GROUPE where id_word=$id");
 }
 
 function deleteAllGroupeForGroupe($id_groupe)
 {
     $db = dbConnect();
     $id = $db->quote($id_groupe);
-    $db->query("delete from lexiqumjaponais.words_groupe where id_groupe=$id");
+    $db->query("delete from lexiqumjaponais.WORDS_GROUPE where id_groupe=$id");
 }
 
 /**
@@ -150,6 +150,6 @@ function deleteAllGroupeForGroupe($id_groupe)
 function listType()
 {
     $db = dbConnect();
-    $select = $db->query('select id, type from lexiqumjaponais.type order by type asc');
+    $select = $db->query('select id, type from lexiqumjaponais.TYPE order by type asc');
     return $select->fetchAll();
 }

@@ -17,7 +17,6 @@ require_once './model/class/WordGroupeManager.php';*/
 
 function accueil()
 {
-    $groupes = listGroupe();
     require './view/frontend/index.php';
 }
 

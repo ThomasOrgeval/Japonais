@@ -15,7 +15,7 @@ function dbConnect()
 function createUser($pseudo, $pass, $mail)
 {
     $db = dbConnect();
-    $addUser = $db->prepare('insert into lexiqumjaponais.user(pseudo, pass, mail, date, droits) values(?, ?, ?, CURRENT_DATE, ?)');
+    $addUser = $db->prepare('insert into lexiqumjaponais.USER(pseudo, pass, mail, date, droits) values(?, ?, ?, CURRENT_DATE, ?)');
     $addUser = $addUser->execute(array($pseudo, $pass, $mail, 0));
     return $addUser;
 }
@@ -23,7 +23,7 @@ function createUser($pseudo, $pass, $mail)
 function loginUser($pseudo, $pass)
 {
     $db = dbConnect();
-    $selectUser = $db->prepare('select id, pseudo, pass, mail, droits from lexiqumjaponais.user where pseudo=?');
+    $selectUser = $db->prepare('select id, pseudo, pass, mail, droits from lexiqumjaponais.USER where pseudo=?');
     $selectUser->execute(array($pseudo));
     $selectUser = $selectUser->fetch();
     if (password_verify($pass, $selectUser['pass'])) {
@@ -36,7 +36,7 @@ function loginUser($pseudo, $pass)
 function searchPseudo($pseudo)
 {
     $db = dbConnect();
-    $selectUser = $db->prepare('select pseudo from lexiqumjaponais.user where pseudo=?');
+    $selectUser = $db->prepare('select pseudo from lexiqumjaponais.USER where pseudo=?');
     $selectUser->execute(array($pseudo));
     return $selectUser->fetch();
 }
@@ -44,7 +44,7 @@ function searchPseudo($pseudo)
 function searchMail($mail)
 {
     $db = dbConnect();
-    $selectUser = $db->prepare('select pseudo from lexiqumjaponais.user where mail=?');
+    $selectUser = $db->prepare('select pseudo from lexiqumjaponais.USER where mail=?');
     $selectUser->execute(array($mail));
     return $selectUser->fetch();
 }
@@ -57,7 +57,7 @@ function listListes($id_user)
 {
     $db = dbConnect();
     $id_user = $db->quote($id_user);
-    $select = $db->query("select id, nom, description, id_confidentiality, id_user from lexiqumjaponais.listes where id_user=$id_user");
+    $select = $db->query("select id, nom, description, id_confidentiality, id_user from lexiqumjaponais.LISTES where id_user=$id_user");
     return $select->fetchAll();
 }
 
@@ -65,14 +65,14 @@ function selectListe($id)
 {
     $db = dbConnect();
     $id = $db->quote($id);
-    return $db->query("select id, nom, description, id_confidentiality, id_user from lexiqumjaponais.listes where id=$id");;
+    return $db->query("select id, nom, description, id_confidentiality, id_user from lexiqumjaponais.LISTES where id=$id");;
 }
 
 function supprListe($id)
 {
     $db = dbConnect();
     $id = $db->quote($id);
-    return $db->query("delete from lexiqumjaponais.listes where id=$id");
+    return $db->query("delete from lexiqumjaponais.LISTES where id=$id");
 }
 
 function editListe($nom, $desc, $id_confidentiality, $id, $id_user)
@@ -83,7 +83,7 @@ function editListe($nom, $desc, $id_confidentiality, $id, $id_user)
     $id_confidentiality = $db->quote($id_confidentiality);
     $id = $db->quote($id);
     $id_user = $db->quote($id_user);
-    return $db->query("update lexiqumjaponais.listes set nom=$nom, description=$desc, id_confidentiality=$id_confidentiality, id_user=$id_user where id=$id");
+    return $db->query("update lexiqumjaponais.LISTES set nom=$nom, description=$desc, id_confidentiality=$id_confidentiality, id_user=$id_user where id=$id");
 }
 
 function createListe($nom, $desc, $id_confidentiality, $id_user)
@@ -93,7 +93,7 @@ function createListe($nom, $desc, $id_confidentiality, $id_user)
     $desc = $db->quote($desc);
     $id_confidentiality = $db->quote($id_confidentiality);
     $id_user = $db->quote($id_user);
-    return $db->query("insert into lexiqumjaponais.listes set nom=$nom, description=$desc, id_confidentiality=$id_confidentiality, id_user=$id_user");
+    return $db->query("insert into lexiqumjaponais.LISTES set nom=$nom, description=$desc, id_confidentiality=$id_confidentiality, id_user=$id_user");
 }
 
 /**
@@ -103,7 +103,7 @@ function createListe($nom, $desc, $id_confidentiality, $id_user)
 function listConfidentiality()
 {
     $db = dbConnect();
-    $select = $db->query('select id, confidentiality from lexiqumjaponais.confidentiality order by confidentiality asc');
+    $select = $db->query('select id, confidentiality from lexiqumjaponais.CONFIDENTIALITY order by confidentiality asc');
     return $select->fetchAll();
 }
 
@@ -114,20 +114,20 @@ function listConfidentiality()
 function listSearchWord($search)
 {
     $db = dbConnect();
-    $select = $db->query("select * from lexiqumjaponais.words where fr like '%$search%'");
+    $select = $db->query("select * from lexiqumjaponais.WORDS where fr like '%$search%'");
     return $select->fetchAll();
 }
 
 function listSearchGroupe($search)
 {
     $db = dbConnect();
-    $select = $db->query("select * from lexiqumjaponais.groupe where libelle like '%$search%'");
+    $select = $db->query("select * from lexiqumjaponais.GROUPE where libelle like '%$search%'");
     return $select->fetchAll();
 }
 
 function listSearchListe($search)
 {
     $db = dbConnect();
-    $select = $db->query("select * from lexiqumjaponais.listes where nom like '%$search%' and id_confidentiality=1");
+    $select = $db->query("select * from lexiqumjaponais.LISTES where nom like '%$search%' and id_confidentiality=1");
     return $select->fetchAll();
 }

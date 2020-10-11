@@ -1,4 +1,4 @@
-<?php $title = 'Mon blog';
+<?php $title = 'Créer un compte';
 ob_start(); ?>
 <form action="index.php?p=submitRegister" method="post">
     <div class="form-group">
