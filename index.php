@@ -63,6 +63,14 @@ try {
             exportxml();
         } elseif ($p === 'admin_portail') {
             admin_portail();
+        } elseif ($p === 'type') {
+            type();
+        } elseif ($p === 'type_edit') {
+            type_edit();
+        } elseif ($p === 'type_add') {
+            addType($_GET['id'], $_POST['type']);
+        } elseif ($p === 'type_delete') {
+            deleteType($_GET['id']);
         }
     } else {
         accueil();

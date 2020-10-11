@@ -64,6 +64,29 @@ function word_edit()
     }
 }
 
+function type()
+{
+    if (connect_admin()) {
+        $types = listType();
+        require './view/backend/type.php';
+    }
+}
+
+function type_edit()
+{
+    if (connect_admin()) {
+        if (isset($_GET['id'])) {
+            $type = testType($_GET['id']);
+            if ($type->rowCount() == 0) {
+                setFlash("Il n'y a pas de type avec cet ID", "danger");
+                header("Location:index.php?p=type");
+            }
+            $_POST = $type->fetch();
+        }
+        require './view/backend/type_edit.php';
+    }
+}
+
 function connect_admin()
 {
     if ($_SESSION['connect'] != 'OK' || $_SESSION['admin'] == 0) {
@@ -209,5 +232,40 @@ function wordGroupe($id_groupe, $id, $bool)
         throw new Exception();
     } else {
         header('Location:index.php?p=word_edit&id=' . $id);
+    }
+}
+
+/**
+ * Type
+ */
+
+function addType($id, $type)
+{
+    $type = securize($type);
+
+    if ($id > 0) {
+        $addType = editType($id, $type);
+    } else {
+        $addType = createType($type);
+    }
+
+    if ($addType === false) {
+        setFlash('Le type n\'a pas été ajouté', 'danger');
+        throw new Exception();
+    } else {
+        setFlash('Le type a bien été crée');
+        header('Location:index.php?p=type');
+    }
+}
+
+function deleteType($id)
+{
+    $deleteType = supprType($id);
+    if ($deleteType === false) {
+        setFlash('Le type n\'a pas été supprimé', 'danger');
+        throw new Exception();
+    } else {
+        setFlash('Le type a bien été supprimé');
+        header('Location:index.php?p=type');
     }
 }

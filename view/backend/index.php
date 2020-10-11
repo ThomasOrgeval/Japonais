@@ -6,6 +6,7 @@ ob_start(); ?>
     <p>Les éditions</p>
     <a class="btn btn-outline-dark" href="index.php?p=word">Les mots</a>
     <a class="btn btn-outline-dark" href="index.php?p=groupe">Les groupes</a>
+    <a class="btn btn-outline-dark" href="index.php?p=type">Les types</a>
 </div><br/><br/>
 <div>
 <p>Les commandes</p>

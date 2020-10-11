@@ -153,3 +153,33 @@ function listType()
     $select = $db->query('select id, type from lexiqumjaponais.TYPE order by type asc');
     return $select->fetchAll();
 }
+
+function testType($id)
+{
+    $db = dbConnect();
+    $id = $db->quote($id);
+    return $db->query("select * from lexiqumjaponais.TYPE where id=$id");
+}
+
+function createType($type)
+{
+    $db = dbConnect();
+    $type = $db->quote($type);
+    return $db->query("insert into lexiqumjaponais.TYPE set type=$type");
+}
+
+function editType($id, $type)
+{
+    $db = dbConnect();
+    $type = $db->quote($type);
+    $id = $db->quote($id);
+    return $db->query("update lexiqumjaponais.TYPE set type=$type where id=$id");
+}
+
+function supprType($id)
+{
+    $db = dbConnect();
+    $id = $db->quote($id);
+    $db->query("update lexiqumjaponais.WORDS set id_type=null where id_type=$id");
+    return $db->query("delete from lexiqumjaponais.TYPE where id=$id");
+}
