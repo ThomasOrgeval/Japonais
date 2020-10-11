@@ -1,6 +1,6 @@
-drop database if exists japonais;
-create database japonais;
-use japonais;
+drop database if exists lexiqumjaponais;
+create database lexiqumjaponais;
+use lexiqumjaponais;
 
 create table `USER`
 (
