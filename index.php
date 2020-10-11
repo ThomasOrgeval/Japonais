@@ -53,9 +53,9 @@ try {
             account();
         } elseif ($p === 'search') {
             if (isset($_POST['search'])) {
-                search3($_POST['search']);
+                searchByTape($_POST['search']);
             } elseif (isset($_GET['t']) && isset($_GET['q'])) {
-                search2($_GET['t'], $_GET['q']);
+                searchByItem($_GET['t'], $_GET['q']);
             } else {
                 search($_GET['search']);
             }

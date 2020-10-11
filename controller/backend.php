@@ -52,7 +52,7 @@ function word_edit()
 
         if (isset($_GET['id'])) {
             $word = testWord($_GET['id']);
-            $groupes = listGroupeToWord();
+            $groupes = listGroupeToWord($_GET['id']);
             $otherGroupes = otherGroupeToWord();
             if ($word->rowCount() == 0) {
                 setFlash("Il n'y a pas de mot avec cet ID", "danger");
@@ -207,7 +207,7 @@ function deleteWord($id)
 
 function otherGroupeToWord()
 {
-    $listePresent = listGroupeToWord();
+    $listePresent = listGroupeToWord($_GET['id']);
     $listAll = listGroupe();
     $listOther = $listAll;
     foreach ($listePresent as $present) {

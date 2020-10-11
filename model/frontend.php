@@ -135,3 +135,20 @@ function listSearchListe($search)
     $select = $db->query("select * from lexiqumjaponais.LISTES where nom like '%$search%' and id_confidentiality=1");
     return $select->fetchAll();
 }
+
+function researchWord($search)
+{
+    $db = dbConnect();
+    $select = $db->query("select * from lexiqumjaponais.WORDS where fr like '$search'");
+    return $select->fetch();
+}
+
+function researchGroupe($search)
+{
+
+}
+
+function researchListe($search)
+{
+
+}

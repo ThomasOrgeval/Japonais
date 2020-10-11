@@ -4,8 +4,4 @@
         <title>Maison</title>
         <url>index.php?p=search&amp;t=word&amp;q=Maison</url>
     </link>
-    <link>
-        <title>test</title>
-        <url>index.php?p=search&amp;t=word&amp;q=test</url>
-    </link>
 </pages>

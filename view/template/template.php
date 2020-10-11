@@ -40,10 +40,6 @@
             endif; ?>
         </ul>
         <div class="navbar-nav">
-            <form action="index.php?p=search" method="post" class="navbar" style="display: block; width: 194px; margin-right: 20px">
-                <input type="text" name="search" size="20" onkeyup="showResult(this.value)">
-                <div id="search" class="search"></div>
-            </form>
             <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] == 'OK'): ?>
                 <label class="navbar" style="color: rgba(255,255,255,.5);">Bienvenue, &thinsp;
                     <a class="nav-item nav-ling" href="index.php?p=account"
@@ -56,17 +52,6 @@
         </div>
     </div>
 </nav>
-<div class="container">
-    <?= flash() ?>
-    <p>
-        <?php if ($_SERVER['HTTP_HOST'] == 'localhost') {
-            echo '<h2>Session</h2>';
-            var_dump($_SESSION);
-            var_dump($_POST);
-        } ?>
-    </p>
-    <?= $content ?>
-</div>
 <script>
     function showResult(str) {
         if (str.length === 0) {
@@ -99,5 +84,16 @@
         xmlhttp.send();
     }
 </script>
+<div class="container">
+    <?= flash() ?>
+    <p>
+        <?php if ($_SERVER['HTTP_HOST'] == 'localhost') {
+            echo '<h2>Session</h2>';
+            var_dump($_SESSION);
+            var_dump($_POST);
+        } ?>
+    </p>
+    <?= $content ?>
+</div>
 </body>
 </html>

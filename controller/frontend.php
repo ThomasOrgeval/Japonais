@@ -189,12 +189,12 @@ function search($search)
                 //find a link matching the search text
                 if (stristr($y->item(0)->childNodes->item(0)->nodeValue,$search)) {
                     if ($hint=="") {
-                        $hint="<a class='search-a' href='" .
+                        $hint="<a class='search-a' style='display: block;' href='" .
                             $z->item(0)->childNodes->item(0)->nodeValue .
                             "'>" .
                             $y->item(0)->childNodes->item(0)->nodeValue . "</a>";
                     } else {
-                        $hint=$hint . "<br /><a class='search-a' href='" .
+                        $hint=$hint . "<br /><a class='search-a' style='display: block;' href='" .
                             $z->item(0)->childNodes->item(0)->nodeValue .
                             "'>" .
                             $y->item(0)->childNodes->item(0)->nodeValue . "</a>";
@@ -213,20 +213,26 @@ function search($search)
     echo $response;
 }
 
-function search2($type, $search)
+function searchByItem($type, $search)
 {
     $type = securize($type);
     $search = securize($search);
 
-
+    if ($type === 'word') {
+        $_POST['word'] = researchWord($search);
+        $_POST['groupe'] = listGroupeToWord($_POST['word']['id']);
+        require './view/frontend/search/byItemWord.php';
+    } elseif ($type === 'groupe') {
+        //$_POST['groupe'] = researchGroupe($search);
+    }
 }
 
-function search3($search)
+function searchByTape($search)
 {
     $search = securize($search);
     $_POST['words'] = listSearchWord($search);
     $_POST['groupes'] = listSearchGroupe($search);
     $_POST['listes'] = listSearchListe($search);
 
-    require './view/frontend/search/3.php';
+    require './view/frontend/search/byTape.php';
 }

@@ -96,20 +96,16 @@ function supprWord($id)
  * Groupe - Mots
  */
 
-function listGroupeToWord()
+function listGroupeToWord($id)
 {
     $db = dbConnect();
-    if (isset($_GET['id'])) {
-        $id = $db->quote($_GET['id']);
-        $select = $db->query("select WORDS.id, GROUPE.* from lexiqumjaponais.WORDS
+    $id = $db->quote($id);
+    $select = $db->query("select WORDS.id, GROUPE.* from lexiqumjaponais.WORDS
     inner join lexiqumjaponais.WORDS_GROUPE as wg
         on wg.id_word = WORDS.id
     inner join lexiqumjaponais.GROUPE
         on wg.id_groupe = GROUPE.id
     where WORDS.id=$id");
-    } else {
-        return null;
-    }
     return $select->fetchAll();
 }
 
