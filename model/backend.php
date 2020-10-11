@@ -101,7 +101,7 @@ function listGroupeToWord()
     $db = dbConnect();
     if (isset($_GET['id'])) {
         $id = $db->quote($_GET['id']);
-        $select = $db->query("select WORDS.id, groupe.* from lexiqumjaponais.WORDS
+        $select = $db->query("select WORDS.id, GROUPE.* from lexiqumjaponais.WORDS
     inner join lexiqumjaponais.WORDS_GROUPE as wg
         on wg.id_word = WORDS.id
     inner join lexiqumjaponais.GROUPE

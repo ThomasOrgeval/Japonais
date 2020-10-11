@@ -35,8 +35,7 @@
             <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] == 'OK'): ?>
                 <li><a class="nav-item nav-link" href="index.php?p=listes">Mes listes</a></li>
                 <?php if ($_SESSION['admin'] == 1): ?>
-                    <li><a class="nav-item nav-link" href="index.php?p=word">Les mots</a></li>
-                    <li><a class="nav-item nav-link" href="index.php?p=groupe">Les groupes</a></li>
+                    <li><a class="nav-item nav-link" href="index.php?p=admin_portail">Administration</a></li>
                 <?php endif;
             endif; ?>
         </ul>
@@ -59,11 +58,13 @@
 </nav>
 <div class="container">
     <?= flash() ?>
-    <div>
-        <h2>Session</h2>
-        <?php var_dump($_SESSION); ?>
-        <?php var_dump($_POST); ?>
-    </div>
+    <p>
+        <?php if ($_SERVER['HTTP_HOST'] == 'localhost') {
+            echo '<h2>Session</h2>';
+            var_dump($_SESSION);
+            var_dump($_POST);
+        } ?>
+    </p>
     <?= $content ?>
 </div>
 <script>

@@ -2,7 +2,11 @@
 
 function dbConnect()
 {
-    $db = new PDO('mysql:host=localhost;dbname=japonais;charset=utf8', 'root', '');
+    if ($_SERVER['HTTP_HOST'] == 'localhost') {
+        $db = new PDO('mysql:host=localhost;dbname=japonais;charset=utf8', 'root', '');
+    } else {
+        $db = new PDO('mysql:host=lexiqumjaponais.mysql.db; dbname=lexiqumjaponais; charset=utf8', 'lexiqumjaponais', 'Cvd38Q8am5X8D');
+    }
     $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING); // Affiche toutes les alertes
     return $db;

@@ -61,6 +61,8 @@ try {
             }
         } elseif ($p === 'exportxml') {
             exportxml();
+        } elseif ($p === 'admin_portail') {
+            admin_portail();
         }
     } else {
         accueil();
