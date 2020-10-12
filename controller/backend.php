@@ -121,6 +121,17 @@ function exportxml()
         $xml .= '    </link>
 ';
     }
+    $groupes = listGroupe();
+    foreach ($groupes as $groupe) {
+        $xml .= '    <link>
+';
+        $xml .= '        <title>' . $groupe['libelle'] . '</title>
+';
+        $xml .= '        <url>index.php?p=search&amp;t=groupe&amp;q=' . $groupe['libelle'] . '</url>
+';
+        $xml .= '    </link>
+';
+    }
 
     $xml .= '</pages>';
     $fp = fopen("links.xml", 'w+');

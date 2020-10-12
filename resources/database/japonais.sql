@@ -55,7 +55,8 @@ create table `LISTES`
     `id_confidentiality` int                not null,
     `id_user`            int                not null,
     primary key (`id`),
-    foreign key (`id_user`) references `USER` (`id`)
+    foreign key (`id_user`) references `USER` (`id`),
+    foreign key (`id_confidentiality`) references `CONFIDENTIALITY` (`id`)
 ) engine = InnoDB;
 
 create table `WORDS_GROUPE`

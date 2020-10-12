@@ -220,10 +220,12 @@ function searchByItem($type, $search)
 
     if ($type === 'word') {
         $_POST['word'] = researchWord($search);
-        $_POST['groupe'] = listGroupeToWord($_POST['word']['id']);
+        $_POST['groupes'] = listGroupeToWord($_POST['word']['id']);
         require './view/frontend/search/byItemWord.php';
     } elseif ($type === 'groupe') {
-        //$_POST['groupe'] = researchGroupe($search);
+        $_POST['groupe'] = researchGroupe($search);
+        $_POST['words'] = listWordToGroupe($_POST['groupe']['id']);
+        require './view/frontend/search/byItemGroupe.php';
     }
 }
 

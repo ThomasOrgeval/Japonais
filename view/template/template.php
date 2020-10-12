@@ -92,7 +92,7 @@
             var_dump($_SESSION);
             var_dump($_POST);
         } ?>
-    </p>
+    </p><br/>
     <?= $content ?>
 </div>
 </body>

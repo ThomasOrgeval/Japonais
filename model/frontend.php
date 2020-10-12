@@ -145,10 +145,14 @@ function researchWord($search)
 
 function researchGroupe($search)
 {
-
+    $db = dbConnect();
+    $select = $db->query("select * from lexiqumjaponais.GROUPE where libelle like '$search'");
+    return $select->fetch();
 }
 
 function researchListe($search)
 {
-
+    $db = dbConnect();
+    $select = $db->query("select * from lexiqumjaponais.LISTES where nom like '$search' and id_confidentiality = 0");
+    return $select->fetch();
 }

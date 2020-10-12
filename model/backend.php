@@ -109,6 +109,19 @@ function listGroupeToWord($id)
     return $select->fetchAll();
 }
 
+function listWordToGroupe($id)
+{
+    $db = dbConnect();
+    $id = $db->quote($id);
+    $select = $db->query("select WORDS.*, GROUPE.id from lexiqumjaponais.WORDS
+    inner join lexiqumjaponais.WORDS_GROUPE as wg
+        on wg.id_word = WORDS.id
+    inner join lexiqumjaponais.GROUPE
+        on wg.id_groupe = GROUPE.id
+    where GROUPE.id=$id");
+    return $select->fetchAll();
+}
+
 function addGroupeToWord($id_groupe, $id)
 {
     $db = dbConnect();

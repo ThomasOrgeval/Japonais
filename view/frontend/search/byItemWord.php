@@ -16,9 +16,9 @@ if (isset($_POST['word']['romaji'])): ?>
     <h3><?= $_POST['word']['fr'] ?> en romaji : <?= $_POST['word']['romaji'] ?></h3>
 <?php endif;
 
-if (!empty($_POST['groupe'])):
-    foreach ($_POST['groupe'] as $item): ?>
-        <a class="btn" href="index.php?p=search&t=groupe&q=<?= $item['libelle']; ?>"><?= $item['libelle']; ?></a>
+if (!empty($_POST['groupes'])):
+    foreach ($_POST['groupes'] as $groupe): ?>
+        <a class="btn" href="index.php?p=search&t=groupe&q=<?= $groupe['libelle']; ?>"><?= $groupe['libelle']; ?></a>
     <?php endforeach;
 else: ?>
     <p><?= $_POST['word']['fr']; ?> ne fait parti d'aucun groupe</p>
