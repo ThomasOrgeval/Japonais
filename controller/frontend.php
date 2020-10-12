@@ -17,6 +17,11 @@ require_once './model/class/WordGroupeManager.php';*/
 
 function accueil()
 {
+    if (isset($_SESSION['nombreWords']) && !empty($_SESSION['nombreWords'])) {
+        $_POST['words'] = listRandomWords($_SESSION['nombreWords']);
+    } else {
+        $_POST['words'] = listRandomWords(10);
+    }
     require './view/frontend/index.php';
 }
 

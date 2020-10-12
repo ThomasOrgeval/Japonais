@@ -8,7 +8,7 @@ create table `USER`
     `pseudo` varchar(255) not null,
     `pass`   varchar(255) not null,
     `mail`   varchar(255) not null,
-    `date`   date,
+    `date`   date         not null,
     `droits` int          not null,
     primary key (`id`)
 ) engine = InnoDB;

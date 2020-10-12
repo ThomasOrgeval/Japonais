@@ -54,6 +54,19 @@ function searchMail($mail)
 }
 
 /**
+ * Word
+ */
+
+function listRandomWords($nombre)
+{
+    $db = dbConnect();
+    $select = $db->query("SELECT * FROM lexiqumjaponais.WORDS
+    ORDER BY RAND()
+    LIMIT $nombre");
+    return $select->fetchAll();
+}
+
+/**
  * Listes
  */
 
