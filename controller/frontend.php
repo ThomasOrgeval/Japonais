@@ -227,10 +227,11 @@ function searchByItem($type, $search)
     if ($type === 'word') {
         $_POST['word'] = researchWord($search);
         $_POST['groupes'] = listGroupeToWord($_POST['word']['id']);
+        $_POST['japonais'] = listJaponaisToFrancais($_POST['word']['id']);
         require './view/frontend/search/byItemWord.php';
     } elseif ($type === 'groupe') {
         $_POST['groupe'] = researchGroupe($search);
-        $_POST['words'] = listWordToGroupe($_POST['groupe']['id']);
+        $_POST['words'] = listFrancaisAndJaponaisWhereGroupe($_POST['groupe']['id']);
         require './view/frontend/search/byItemGroupe.php';
     }
 }
