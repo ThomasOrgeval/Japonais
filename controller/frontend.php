@@ -102,6 +102,7 @@ function submitLogin($pseudo, $password)
             $_SESSION['pseudo'] = $pseudo;
             $_SESSION['admin'] = $statements['droits'];
             $_SESSION['id'] = $statements['id'];
+            $_SESSION['nombreWords'] = $statements['nombre'];
             $_SESSION['connect'] = 'OK';
             setFlash('Connexion réussie');
             header('Location:index.php?p=accueil');

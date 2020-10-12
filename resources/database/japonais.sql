@@ -10,6 +10,7 @@ create table `USER`
     `mail`   varchar(255) not null,
     `date`   date         not null,
     `droits` int          not null,
+    `nombre` int          not null,
     primary key (`id`)
 ) engine = InnoDB;
 
@@ -27,24 +28,43 @@ create table `CONFIDENTIALITY`
     primary key (`id`)
 ) engine = InnoDB;
 
-create table `WORDS`
+create table `FRANCAIS`
 (
-    `id`      int auto_increment not null,
-    `fr`      varchar(255)       not null,
-    `kana`    varchar(255)       not null,
-    `kanji`   varchar(255),
-    `romaji`  varchar(255)       not null,
-    `id_type` int                not null,
+    `id`       int auto_increment not null,
+    `francais` varchar(255)       not null,
+    `id_type`  int,
     primary key (`id`),
     foreign key (`id_type`) references TYPE (`id`)
+) engine = InnoDB;
+
+create table `JAPONAIS`
+(
+    `id`     int auto_increment not null,
+    `kanji`  varchar(255)       not null,
+    `kana`   varchar(255)       not null,
+    `romaji` varchar(255)       not null,
+    primary key (`id`)
+) engine = InnoDB,
+  character set utf8;
+
+create table `KANJI`
+(
+    `id`            int auto_increment not null,
+    `kanji`         varchar(10)        not null,
+    `kana`          varchar(255)       not null,
+    `romaji`        varchar(255)       not null,
+    `signification` longtext,
+    primary key (`id`)
 ) engine = InnoDB,
   character set utf8;
 
 create table `GROUPE`
 (
-    `id`      int auto_increment not null,
-    `libelle` varchar(255)       not null,
-    primary key (`id`)
+    `id`        int auto_increment not null,
+    `libelle`   varchar(255)       not null,
+    `id_parent` int,
+    primary key (`id`),
+    foreign key (`id_parent`) references `GROUPE` (`id`)
 ) engine = InnoDB;
 
 create table `LISTES`
@@ -65,7 +85,7 @@ create table `WORDS_GROUPE`
     `id_word`   int                not null,
     `id_groupe` int                not null,
     primary key (`id`),
-    foreign key (`id_word`) references WORDS (`id`),
+    foreign key (`id_word`) references FRANCAIS (`id`),
     foreign key (`id_groupe`) references GROUPE (`id`)
 ) engine = InnoDB;
 
@@ -75,8 +95,28 @@ create table `WORDS_LISTES`
     `id_word`  int                not null,
     `id_liste` int                not null,
     primary key (`id`),
-    foreign key (`id_word`) references WORDS (`id`),
+    foreign key (`id_word`) references FRANCAIS (`id`),
     foreign key (`id_liste`) references LISTES (`id`)
+) engine = InnoDB;
+
+create table `JAPONAIS_KANJI`
+(
+    `id`          int auto_increment not null,
+    `id_japonais` int                not null,
+    `id_kanji`    int                not null,
+    primary key (`id`),
+    foreign key (`id_japonais`) references JAPONAIS (`id`),
+    foreign key (`id_kanji`) references KANJI (`id`)
+) engine = InnoDB;
+
+create table `WORDS_JAPONAIS`
+(
+    `id`          int auto_increment not null,
+    `id_word`     int                not null,
+    `id_japonais` int                not null,
+    primary key (`id`),
+    foreign key (`id_word`) references FRANCAIS (`id`),
+    foreign key (`id_japonais`) references JAPONAIS (`id`)
 ) engine = InnoDB;
 
 insert into `TYPE` (type)

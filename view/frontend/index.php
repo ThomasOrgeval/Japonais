@@ -21,7 +21,7 @@ ob_start(); ?>
         <tbody>
         <?php foreach ($_POST['words'] as $word): ?>
             <tr>
-                <td style="font-size: 30px"><?= $word['fr']; ?></td>
+                <td style="font-size: 30px"><?= $word['francais']; ?></td>
                 <td style="font-size: 30px"><?= $word['kanji']; ?></td>
                 <td style="font-size: 30px"><?= $word['kana']; ?></td>
                 <td style="font-size: 30px"><?= $word['romaji']; ?></td>

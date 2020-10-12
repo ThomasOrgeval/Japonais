@@ -22,9 +22,13 @@ try {
         } elseif ($p === 'word_edit') {
             word_edit();
         } elseif ($p === 'word_add') {
-            if (isset($_POST['save'])) {
-                addWord($_POST['fr'], $_POST['kana'], $_POST['kanji'], $_POST['romaji'], $_GET['id'], $_POST['id_type']);
-            }
+            francais_add();
+            /*var_dump($_POST, $_GET);
+            if (!isset($_POST['id_jap']) || !empty($_POST['id_jap'])) {
+                addWord($_GET['id'], $_POST['francais'], $_POST['id_type'], $_POST['id_jap'], $_POST['kanji'], $_POST['kana'], $_POST['romaji']);
+            } else {
+                addWord($_GET['id'], $_POST['francais'], $_POST['id_type'], 0, $_POST['kanji'], $_POST['kana'], $_POST['romaji']);
+            }*/
         } elseif ($p === 'word_delete') {
             deleteWord($_GET['id']);
         } elseif ($p === 'word_groupe') {
@@ -71,6 +75,14 @@ try {
             addType($_GET['id'], $_POST['type']);
         } elseif ($p === 'type_delete') {
             deleteType($_GET['id']);
+        } elseif ($p === 'japonais') {
+            japonais();
+        } elseif ($p === 'japonais_edit') {
+            japonais_edit();
+        } elseif ($p === 'japonais_add') {
+            japonais_add();
+        } elseif ($p === 'japonais_delete') {
+            deleteJaponais($_GET['id']);
         }
     } else {
         accueil();

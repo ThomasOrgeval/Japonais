@@ -7,20 +7,20 @@ ob_start(); ?>
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Id</th>
-            <th>Libelle</th>
-            <th>Actions</th>
+            <th style="font-size: 24px">Id</th>
+            <th style="font-size: 24px">Libelle</th>
+            <th style="font-size: 24px">Actions</th>
         </tr>
         </thead>
         <tbody>
         <?php foreach ($groupes as $groupe): ?>
             <tr>
-                <td><?= $groupe['id']; ?></td>
-                <td><?= $groupe['libelle']; ?></td>
+                <td style="font-size: 24px"><?= $groupe['id']; ?></td>
+                <td style="font-size: 24px"><?= $groupe['libelle']; ?></td>
                 <td>
                     <a href="index.php?p=groupe_edit&id=<?= $groupe['id']; ?>" class="btn btn-outline-dark">Edit</a>
-                    <a href="index.php?p=groupe_delete&id=<?= $groupe['id']; ?>&<?= csrf(); ?>" class="btn btn-outline-danger"
-                       onclick="return confirm('Voulez-vous vraiment supprimer ce groupe ?')">Remove</a>
+                    <a href="index.php?p=groupe_delete&id=<?= $groupe['id']; ?>&<?= csrf(); ?>"
+                       class="btn btn-outline-danger">Remove</a>
                 </td>
             </tr>
         <?php endforeach ?>

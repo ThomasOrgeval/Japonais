@@ -1,4 +1,4 @@
-<?php $title = 'Les mots';
+<?php $title = 'Les mots en français';
 ob_start(); ?>
     <h1 class="h1-admin-left">Les mots</h1>
 
@@ -7,25 +7,28 @@ ob_start(); ?>
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Français</th>
-            <th>Kanji</th>
-            <th>Kana</th>
-            <th>Romaji</th>
-            <th>Actions</th>
+            <th style="font-size: 24px">Français</th>
+            <th style="font-size: 24px">Kanji</th>
+            <th style="font-size: 24px">Actions</th>
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($words as $word): ?>
+        <?php foreach ($_POST['words'] as $word): ?>
             <tr>
-                <td><?= $word['fr']; ?></td>
-                <td><?= $word['kanji']; ?></td>
-                <td><?= $word['kana']; ?></td>
-                <td><?= $word['romaji']; ?></td>
+                <td style="font-size: 24px"><?= $word['francais']; ?></td>
+                <td style="font-size: 24px"><?php $japonais = listJaponaisToFrancais($word['id']);
+                    if (sizeof($japonais) > 1) {
+                        foreach ($japonais as $value) {
+                            echo $value['kanji'] . ", ";
+                        }
+                    } elseif (sizeof($japonais) == 1) {
+                        echo $japonais['0']['kanji'];
+                    }
+                    ?></td>
                 <td>
                     <a href="index.php?p=word_edit&id=<?= $word['id']; ?>" class="btn btn-outline-dark">Edit</a>
                     <a href="index.php?p=word_delete&id=<?= $word['id']; ?>&<?= csrf(); ?>"
-                       class="btn btn-outline-danger"
-                       onclick="return confirm('Voulez-vous vraiment supprimer ce mot ?')">Remove</a>
+                       class="btn btn-outline-danger">Remove</a>
                 </td>
             </tr>
         <?php endforeach ?>
