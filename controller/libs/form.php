@@ -38,12 +38,12 @@ function select($id, $list = array())
     return $return;
 }
 
-function selectFormListe($list, $id, $arraylist = array(), $nombre)
+function selectFormListe($list, $id, $arraylist = array())
 {
-    $return = "<select class='form-control' id='$id$nombre' name='$id$nombre'>";
+    $return = "<select class='form-control' id='$id' name='$id'>";
     foreach ($arraylist as $k => $value) {
         $selected = '';
-        if (isset($list[$id]) && $k == $list[$id]) {
+        if (isset($list) && $k == $list) {
             $selected = ' selected="selected"';
         }
         $return .= "<option value='$k' $selected>$value</option>";

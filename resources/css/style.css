@@ -11,3 +11,8 @@
 .search-a:hover {
     color: red;
 }
+
+.btn_delete {
+    border-radius: 50%;
+    padding: .375rem .75rem;
+}

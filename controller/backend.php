@@ -131,9 +131,11 @@ function japonais_add()
 {
     $francais = array();
 
-    for ($i = 1; $i <= $_POST['nombre']; $i++) {
-        addFrancaisFromJaponais($_POST['id_francais' . $i], $_POST['francais' . $i], $_POST['id_type' . $i]);
-        array_push($francais, $_POST['francais' . $i]);
+    for ($i = 0; $i <= sizeof($_POST['id_francais']); $i++) {
+        if (!empty($_POST['francais'][$i])) {
+            addFrancaisFromJaponais($_POST['id_francais'][$i], $_POST['francais'][$i], $_POST['id_type'][$i]);
+            array_push($francais, $_POST['francais'][$i]);
+        }
     }
     addJaponais($_GET['id'], $_POST['kanji'], $_POST['kana'], $_POST['romaji'], $francais);
 }
@@ -313,6 +315,20 @@ function wordGroupe($id_groupe, $id, $bool)
         throw new Exception();
     } else {
         header('Location:index.php?p=word_edit&id=' . $id);
+    }
+}
+
+function deleteWordInJaponais($id_francais, $id_japonais)
+{
+    deleteAllGroupeForWord($id_francais);
+    deleteAllJaponaisForWord($id_francais);
+    $delete = supprWord($id_francais);
+    if ($delete === false) {
+        setFlash('Le mot japonais n\'a pas été supprimé', 'danger');
+        throw new Exception();
+    } else {
+        setFlash('Le mot japonais a bien été supprimé');
+        header('Location:index.php?p=japonais_edit&id='.$id_japonais);
     }
 }
 

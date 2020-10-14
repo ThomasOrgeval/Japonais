@@ -83,6 +83,8 @@ try {
             japonais_add();
         } elseif ($p === 'japonais_delete') {
             deleteJaponais($_GET['id']);
+        } elseif ($p === 'francais_delete_in_japonais') {
+            deleteWordInJaponais($_GET['id_francais'], $_GET['id']);
         }
     } else {
         accueil();
