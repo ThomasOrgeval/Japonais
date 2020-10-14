@@ -331,3 +331,21 @@ function supprType($id)
     $db->query("update lexiqumjaponais.FRANCAIS set id_type=null where id_type=$id");
     return $db->query("delete from lexiqumjaponais.TYPE where id=$id");
 }
+
+/**
+ * Japonais - Kanji
+ */
+
+function deleteAllKanjiForJaponais($id_japonais)
+{
+    $db = dbConnect();
+    $id = $db->quote($id_japonais);
+    $db->query("delete from lexiqumjaponais.JAPONAIS_KANJI where id_japonais=$id");
+}
+
+function deleteAllJaponaisForKanji($id_kanji)
+{
+    $db = dbConnect();
+    $id = $db->quote($id_kanji);
+    $db->query("delete from lexiqumjaponais.JAPONAIS_KANJI where id_kanji=$id");
+}

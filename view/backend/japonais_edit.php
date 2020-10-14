@@ -84,11 +84,10 @@ ob_start(); ?>
 
         <div class="invisible" style="display: flex" id="duplicate">
             <div class="form-group col-1">
-                <input type='text' class='form-control' id='id_francais[]' name='id_francais[]'
-                       readonly>
+                <?= inputReadonly('id_francais[]'); ?>
             </div>
             <div class="form-group col-7">
-                <input type='text' class='form-control' id='francais[]' name='francais[]'>
+                <?= input('francais[]'); ?>
             </div>
             <div class="form-group col-3">
                 <?= select('id_type[]', $type_list); ?>

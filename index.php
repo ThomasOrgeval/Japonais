@@ -84,7 +84,9 @@ try {
         } elseif ($p === 'japonais_delete') {
             deleteJaponais($_GET['id']);
         } elseif ($p === 'francais_delete_in_japonais') {
-            deleteWordInJaponais($_GET['id_francais'], $_GET['id']);
+            deleteFrancaisInJaponais($_GET['id_francais'], $_GET['id']);
+        } elseif ($p === 'japonais_delete_in_francais') {
+            deleteJaponaisInFrancais($_GET['id_japonais'], $_GET['id']);
         }
     } else {
         accueil();
