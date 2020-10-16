@@ -47,6 +47,14 @@ create table `JAPONAIS`
 ) engine = InnoDB,
   character set utf8;
 
+create table `ANGLAIS`
+(
+    `id`              int auto_increment not null,
+    `anglais`         varchar(255)       not null,
+    `id_type_anglais` int,
+    primary key (`id`)
+) engine = InnoDB;
+
 create table `KANJI`
 (
     `id`            int auto_increment not null,
@@ -114,9 +122,11 @@ create table `WORDS_JAPONAIS`
     `id`          int auto_increment not null,
     `id_word`     int                not null,
     `id_japonais` int                not null,
+    `id_anglais`  int                not null,
     primary key (`id`),
     foreign key (`id_word`) references FRANCAIS (`id`),
-    foreign key (`id_japonais`) references JAPONAIS (`id`)
+    foreign key (`id_japonais`) references JAPONAIS (`id`),
+    foreign key (`id_anglais`) references ANGLAIS (`id`)
 ) engine = InnoDB;
 
 insert into `TYPE` (type)

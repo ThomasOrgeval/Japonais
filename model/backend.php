@@ -349,3 +349,21 @@ function deleteAllJaponaisForKanji($id_kanji)
     $id = $db->quote($id_kanji);
     $db->query("delete from lexiqumjaponais.JAPONAIS_KANJI where id_kanji=$id");
 }
+
+/**
+ * Anglais
+ */
+
+function testAnglais($id)
+{
+    $db = dbConnect();
+    $id = $db->quote($id);
+    return $db->query("select * from lexiqumjaponais.ANGLAIS where id=$id");
+}
+
+function listAnglais()
+{
+    $db = dbConnect();
+    $select = $db->query("select * from lexiqumjaponais.ANGLAIS order by anglais asc");
+    return $select->fetchAll();
+}
