@@ -25,7 +25,7 @@ ob_start(); ?>
                 <td style="font-size: 30px"><?= $word['kanji']; ?></td>
                 <td style="font-size: 30px"><?= $word['kana']; ?></td>
                 <td style="font-size: 30px"><?= $word['romaji']; ?></td>
-                <td style="font-size: 30px"><?= $word['id_type']; ?></td>
+                <td style="font-size: 30px"><?= $word['type']; ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
