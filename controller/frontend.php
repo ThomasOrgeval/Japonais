@@ -7,9 +7,6 @@ require './controller/libs/csrf.php';
 
 require './controller/backend.php';
 require './model/frontend.php';
-/*require_once './model/class/GroupeManager.php';
-require_once './model/class/WordManager.php';
-require_once './model/class/WordGroupeManager.php';*/
 
 /**
  * Chargement de pages
@@ -102,6 +99,7 @@ function submitLogin($pseudo, $password)
             $_SESSION['pseudo'] = $pseudo;
             $_SESSION['admin'] = $statements['droits'];
             $_SESSION['id'] = $statements['id'];
+            $_SESSION['nombreWords'] = $statements['nombre'];
             $_SESSION['connect'] = 'OK';
             setFlash('Connexion réussie');
             header('Location:index.php?p=accueil');
@@ -226,10 +224,11 @@ function searchByItem($type, $search)
     if ($type === 'word') {
         $_POST['word'] = researchWord($search);
         $_POST['groupes'] = listGroupeToWord($_POST['word']['id']);
+        $_POST['japonais'] = listJaponaisToFrancais($_POST['word']['id']);
         require './view/frontend/search/byItemWord.php';
     } elseif ($type === 'groupe') {
         $_POST['groupe'] = researchGroupe($search);
-        $_POST['words'] = listWordToGroupe($_POST['groupe']['id']);
+        $_POST['words'] = listFrancaisAndJaponaisWhereGroupe($_POST['groupe']['id']);
         require './view/frontend/search/byItemGroupe.php';
     }
 }

@@ -95,5 +95,9 @@
     </p><br/>
     <?= $content ?>
 </div>
+<br/><br/>
 </body>
+<footer>
+
+</footer>
 </html>

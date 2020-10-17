@@ -3,7 +3,7 @@
 function dbConnect()
 {
     if ($_SERVER['HTTP_HOST'] == 'localhost') {
-        $db = new PDO('mysql:host=localhost;dbname=japonais;charset=utf8', 'root', '');
+        $db = new PDO('mysql:host=localhost;dbname=lexiqumjaponais;charset=utf8', 'root', '');
     } else {
         $db = new PDO('mysql:host=lexiqumjaponais.mysql.db; dbname=lexiqumjaponais; charset=utf8', 'lexiqumjaponais', 'Cvd38Q8am5X8D');
     }
@@ -19,7 +19,7 @@ function dbConnect()
 function createUser($pseudo, $pass, $mail)
 {
     $db = dbConnect();
-    $addUser = $db->prepare('insert into lexiqumjaponais.USER(pseudo, pass, mail, date, droits) values(?, ?, ?, CURRENT_DATE, ?)');
+    $addUser = $db->prepare('insert into lexiqumjaponais.USER(pseudo, pass, mail, date, droits, nombre) values(?, ?, ?, CURRENT_DATE, ?, 10)');
     $addUser = $addUser->execute(array($pseudo, $pass, $mail, 0));
     return $addUser;
 }
@@ -27,7 +27,7 @@ function createUser($pseudo, $pass, $mail)
 function loginUser($pseudo, $pass)
 {
     $db = dbConnect();
-    $selectUser = $db->prepare('select id, pseudo, pass, mail, droits from lexiqumjaponais.USER where pseudo=?');
+    $selectUser = $db->prepare('select id, pseudo, pass, mail, droits, nombre from lexiqumjaponais.USER where pseudo=?');
     $selectUser->execute(array($pseudo));
     $selectUser = $selectUser->fetch();
     if (password_verify($pass, $selectUser['pass'])) {
@@ -60,7 +60,13 @@ function searchMail($mail)
 function listRandomWords($nombre)
 {
     $db = dbConnect();
-    $select = $db->query("SELECT * FROM lexiqumjaponais.WORDS
+    $select = $db->query("select FRANCAIS.id, FRANCAIS.francais, FRANCAIS.id_type, JAPONAIS.id, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji, TYPE.id, TYPE.type from lexiqumjaponais.JAPONAIS
+    inner join lexiqumjaponais.WORDS_JAPONAIS as wj
+        on wj.id_japonais = JAPONAIS.id
+    inner join lexiqumjaponais.FRANCAIS
+        on wj.id_word = FRANCAIS.id
+    inner join lexiqumjaponais.TYPE
+        on FRANCAIS.id_type = TYPE.id
     ORDER BY RAND()
     LIMIT $nombre");
     return $select->fetchAll();
@@ -131,7 +137,7 @@ function listConfidentiality()
 function listSearchWord($search)
 {
     $db = dbConnect();
-    $select = $db->query("select * from lexiqumjaponais.WORDS where fr like '%$search%'");
+    $select = $db->query("select * from lexiqumjaponais.FRANCAIS where francais like '%$search%'");
     return $select->fetchAll();
 }
 
@@ -152,7 +158,7 @@ function listSearchListe($search)
 function researchWord($search)
 {
     $db = dbConnect();
-    $select = $db->query("select * from lexiqumjaponais.WORDS where fr like '$search'");
+    $select = $db->query("select * from lexiqumjaponais.FRANCAIS where francais like '$search'");
     return $select->fetch();
 }
 

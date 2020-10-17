@@ -9,6 +9,12 @@ ob_start(); ?>
 <form action="index.php?p=groupe_add<?php if (isset($_GET['id'])) {
     echo '&id=' . $_GET['id'];
 } ?>" method="post">
+    <?php if (isset($_GET['id'])): ?>
+        <div class="form-group">
+            <label for="id">ID</label>
+            <?= inputReadonly('id'); ?>
+        </div>
+    <?php endif; ?>
     <div class="form-group">
         <label for="libelle">Nom du groupe</label>
         <?= input('libelle'); ?>

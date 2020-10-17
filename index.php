@@ -22,11 +22,9 @@ try {
         } elseif ($p === 'word_edit') {
             word_edit();
         } elseif ($p === 'word_add') {
-            if (isset($_POST['save'])) {
-                addWord($_POST['fr'], $_POST['kana'], $_POST['kanji'], $_POST['romaji'], $_GET['id'], $_POST['id_type']);
-            }
+            francais_add();
         } elseif ($p === 'word_delete') {
-            deleteWord($_GET['id']);
+            deleteFrancais($_GET['id']);
         } elseif ($p === 'word_groupe') {
             wordGroupe($_GET['id_groupe'], $_GET['id'], $_GET['bool']);
         } elseif ($p === 'login') {
@@ -71,6 +69,36 @@ try {
             addType($_GET['id'], $_POST['type']);
         } elseif ($p === 'type_delete') {
             deleteType($_GET['id']);
+        } elseif ($p === 'japonais') {
+            japonais();
+        } elseif ($p === 'japonais_edit') {
+            japonais_edit();
+        } elseif ($p === 'japonais_add') {
+            japonais_add();
+        } elseif ($p === 'japonais_delete') {
+            deleteJaponais($_GET['id']);
+        } elseif ($p === 'francais_delete_in_japonais') {
+            deleteFrancaisInJaponais($_GET['id_francais'], $_GET['id']);
+        } elseif ($p === 'anglais_delete_in_japonais') {
+            deleteAnglaisInJaponais($_GET['id_anglais'], $_GET['id']);
+        } elseif ($p === 'japonais_delete_in_francais') {
+            deleteJaponaisInFrancais($_GET['id_japonais'], $_GET['id']);
+        } elseif ($p === 'anglais_delete_in_francais') {
+            deleteAnglaisInFrancais($_GET['id_anglais'], $_GET['id']);
+        } elseif ($p === 'anglais') {
+            anglais();
+        } elseif ($p === 'anglais_edit') {
+            anglais_edit();
+        } elseif ($p === 'anglais_add') {
+            anglais_add();
+        } elseif ($p === 'anglais_delete') {
+            deleteAnglais($_GET['id']);
+        } elseif ($p === 'francais_delete_in_anglais') {
+            deleteFrancaisInAnglais($_GET['id_francais'], $_GET['id']);
+        } elseif ($p === 'japonais_delete_in_anglais') {
+            deleteJaponaisInAnglais($_GET['id_japonais'], $_GET['id']);
+        } elseif ($p === 'kanji') {
+            kanji();
         }
     } else {
         accueil();

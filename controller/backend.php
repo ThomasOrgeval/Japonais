@@ -35,7 +35,7 @@ function groupe_edit()
 function word()
 {
     if (connect_admin()) {
-        $words = listWords();
+        $_POST['words'] = listWords();
         require './view/backend/word.php';
     }
 }
@@ -64,6 +64,26 @@ function word_edit()
     }
 }
 
+function francais_add()
+{
+    $japonais = array();
+    $anglais = array();
+
+    for ($i = 0; $i <= sizeof($_POST['id_jap']); $i++) {
+        if (!empty($_POST['kanji'][$i]) || !empty($_POST['kana'][$i] || !empty($_POST['romaji'][$i]))) {
+            addJaponaisFromOther($_POST['id_jap'][$i], $_POST['kanji'][$i], $_POST['kana'][$i], $_POST['romaji'][$i]);
+            array_push($japonais, $_POST['romaji'][$i]);
+        }
+    }
+    for ($i = 0; $i <= sizeof($_POST['id_anglais']); $i++) {
+        if (!empty($_POST['anglais'][$i])) {
+            addAnglaisFromOther($_POST['id_anglais'][$i], $_POST['anglais'][$i], $_POST['id_type_anglais'][$i]);
+            array_push($anglais, $_POST['anglais'][$i]);
+        }
+    }
+    addFrancais($_GET['id'], $_POST['francais'], $_POST['id_type'], $japonais, $anglais);
+}
+
 function type()
 {
     if (connect_admin()) {
@@ -84,6 +104,112 @@ function type_edit()
             $_POST = $type->fetch();
         }
         require './view/backend/type_edit.php';
+    }
+}
+
+function japonais()
+{
+    if (connect_admin()) {
+        $_POST['japonais'] = listJaponais();
+        require './view/backend/japonais.php';
+    }
+}
+
+function japonais_edit()
+{
+    if (connect_admin()) {
+        $types = listType();
+        $type_list = array();
+        foreach ($types as $type) {
+            $type_list[$type['id']] = $type['type'];
+        }
+
+        if (isset($_GET['id'])) {
+            $japonais = testJaponaisID($_GET['id']);
+            if ($japonais->rowCount() == 0) {
+                setFlash("Il n'y a pas de mot japonais avec cet ID", "danger");
+                header("Location:index.php?p=japonais");
+            }
+            $_POST = $japonais->fetch();
+        }
+        require './view/backend/japonais_edit.php';
+    }
+}
+
+function japonais_add()
+{
+    $francais = array();
+    $anglais = array();
+
+    for ($i = 0; $i <= sizeof($_POST['id_francais']); $i++) {
+        if (!empty($_POST['francais'][$i])) {
+            addFrancaisFromOther($_POST['id_francais'][$i], $_POST['francais'][$i], $_POST['id_type'][$i]);
+            array_push($francais, $_POST['francais'][$i]);
+        }
+    }
+    for ($i = 0; $i <= sizeof($_POST['id_anglais']); $i++) {
+        if (!empty($_POST['anglais'][$i])) {
+            addAnglaisFromOther($_POST['id_anglais'][$i], $_POST['anglais'][$i], $_POST['id_type_anglais'][$i]);
+            array_push($anglais, $_POST['anglais'][$i]);
+        }
+    }
+    addJaponais($_GET['id'], $_POST['kanji'], $_POST['kana'], $_POST['romaji'], $francais, $anglais);
+}
+
+function anglais()
+{
+    if (connect_admin()) {
+        $_POST['anglais'] = listAnglais();
+        require './view/backend/anglais.php';
+    }
+}
+
+function anglais_edit()
+{
+    if (connect_admin()) {
+        $types = listType();
+        $type_list = array();
+        foreach ($types as $type) {
+            $type_list[$type['id']] = $type['type'];
+        }
+
+        if (isset($_GET['id'])) {
+            $anglais = testAnglais($_GET['id']);
+            if ($anglais->rowCount() == 0) {
+                setFlash("Il n'y a pas de mot anglais avec cet ID", "danger");
+                header("Location:index.php?p=japonais");
+            }
+            $_POST = $anglais->fetch();
+        }
+        require './view/backend/anglais_edit.php';
+    }
+}
+
+function anglais_add()
+{
+    $japonais = array();
+    $francais = array();
+
+    for ($i = 0; $i <= sizeof($_POST['id_jap']); $i++) {
+        if (!empty($_POST['kanji'][$i]) || !empty($_POST['kana'][$i] || !empty($_POST['romaji'][$i]))) {
+            addJaponaisFromOther($_POST['id_jap'][$i], $_POST['kanji'][$i], $_POST['kana'][$i], $_POST['romaji'][$i]);
+            array_push($japonais, $_POST['romaji'][$i]);
+        }
+    }
+    for ($i = 0; $i <= sizeof($_POST['id_francais']); $i++) {
+        if (!empty($_POST['francais'][$i])) {
+            addFrancaisFromOther($_POST['id_francais'][$i], $_POST['francais'][$i], $_POST['id_type_francais'][$i]);
+            array_push($francais, $_POST['francais'][$i]);
+        }
+    }
+    addAnglais($_GET['id'], $_POST['anglais'], $_POST['id_type'], $francais, $japonais);
+}
+
+function kanji()
+{
+    if (connect_admin()) {
+        $_POST['kanji'] = listKanji();
+        require './view/backend/kanji.php';
     }
 }
 
@@ -114,9 +240,9 @@ function exportxml()
     foreach ($words as $word) {
         $xml .= '    <link>
 ';
-        $xml .= '        <title>' . $word['fr'] . '</title>
+        $xml .= '        <title>' . $word['francais'] . '</title>
 ';
-        $xml .= '        <url>index.php?p=search&amp;t=word&amp;q=' . $word['fr'] . '</url>
+        $xml .= '        <url>index.php?p=search&amp;t=word&amp;q=' . $word['francais'] . '</url>
 ';
         $xml .= '    </link>
 ';
@@ -178,34 +304,69 @@ function deleteGroupe($id)
 }
 
 /**
- * Word
+ * Francais
  */
 
-function addWord($fr, $kana, $kanji, $romaji, $id, $id_type)
+function addFrancaisFromOther($id, $francais, $id_type)
 {
-    $fr = securize($fr);
-    $kana = securize($kana);
-    $kanji = securize($kanji);
-    $romaji = securize($romaji);
+    $francais = securize($francais);
 
     if ($id > 0) {
-        $addWord = editWord($fr, $kana, $kanji, $romaji, $id, $id_type);
+        editWord($francais, $id, $id_type);
     } else {
-        $addWord = createWord($fr, $kana, $kanji, $romaji, $id_type);
+        createWord($francais, $id_type);
+    }
+}
+
+function addFrancais($id, $francais, $id_type, $listJaponais, $listAnglais)
+{
+    $francais = securize($francais);
+
+    if ($id > 0) {
+        $addWord = editWord($francais, $id, $id_type);
+    } else {
+        $addWord = createWord($francais, $id_type);
+        $id = researchWord($francais);
+        $id = $id['id'];
+    }
+
+    foreach ($listJaponais as $japonais) {
+        $id_japonais = researchJaponais($japonais);
+        if (empty(selectJaponaisAndFrancais($id, $id_japonais['id']))) {
+            createJaponaisAndFrancais($id, $id_japonais['id']);
+        }
+    }
+
+    foreach ($listAnglais as $anglais) {
+        $id_anglais = researchAnglais($anglais);
+        if (empty(selectAnglaisAndFrancais($id, $id_anglais['id']))) {
+            createAnglaisAndFrancais($id, $id_anglais['id']);
+        }
+    }
+
+    $japonais = listJaponaisToFrancais($id);
+    foreach ($japonais as $mot) {
+        foreach ($listAnglais as $anglais) {
+            $id_anglais = researchAnglais($anglais);
+            if (empty(selectAnglaisAndJaponais($mot['id'], $id_anglais['id']))) {
+                createAnglaisAndJaponais($mot['id'], $id_anglais['id']);
+            }
+        }
     }
 
     if ($addWord === false) {
         setFlash('Le mot n\'a pas été ajouté', 'danger');
-        throw new Exception();
     } else {
         setFlash('Le mot a bien été crée');
         header('Location:index.php?p=word');
     }
+
 }
 
-function deleteWord($id)
+function deleteFrancais($id)
 {
     deleteAllGroupeForWord($id);
+    deleteAllForFrancais($id);
     $deleteWord = supprWord($id);
     if ($deleteWord === false) {
         setFlash('Le mot n\'a pas été supprimé', 'danger');
@@ -246,6 +407,34 @@ function wordGroupe($id_groupe, $id, $bool)
     }
 }
 
+function deleteFrancaisInJaponais($id_francais, $id_japonais)
+{
+    deleteAllGroupeForWord($id_francais);
+    deleteAllForFrancais($id_francais);
+    $delete = supprWord($id_francais);
+    if ($delete === false) {
+        setFlash('Le mot francais n\'a pas été supprimé', 'danger');
+        throw new Exception();
+    } else {
+        setFlash('Le mot francais a bien été supprimé');
+        header('Location:index.php?p=japonais_edit&id='.$id_japonais);
+    }
+}
+
+function deleteFrancaisInAnglais($id_francais, $id_anglais)
+{
+    deleteAllGroupeForWord($id_francais);
+    deleteAllForFrancais($id_francais);
+    $delete = supprWord($id_francais);
+    if ($delete === false) {
+        setFlash('Le mot francais n\'a pas été supprimé', 'danger');
+        throw new Exception();
+    } else {
+        setFlash('Le mot francais a bien été supprimé');
+        header('Location:index.php?p=anglais_edit&id='.$id_anglais);
+    }
+}
+
 /**
  * Type
  */
@@ -278,5 +467,210 @@ function deleteType($id)
     } else {
         setFlash('Le type a bien été supprimé');
         header('Location:index.php?p=type');
+    }
+}
+
+/**
+ * Japonais
+ */
+
+function addJaponaisFromOther($id, $kanji, $kana, $romaji)
+{
+    $kanji = securize($kanji);
+    $kana = securize($kana);
+    $romaji = securize($romaji);
+
+    if ($id > 0) {
+        editJaponais($kana, $kanji, $romaji, $id);
+    } else {
+        createJaponais($kana, $kanji, $romaji);
+    }
+}
+
+function addJaponais($id, $kanji, $kana, $romaji, $listFrancais, $listAnglais)
+{
+    $kanji = securize($kanji);
+    $kana = securize($kana);
+    $romaji = securize($romaji);
+
+    if ($id > 0) {
+        $addWord = editJaponais($kana, $kanji, $romaji, $id);
+    } else {
+        $addWord = createJaponais($kana, $kanji, $romaji);
+        $id = researchJaponais($romaji);
+        $id = $id['id'];
+    }
+
+    foreach ($listFrancais as $francais) {
+        $id_francais = researchWord($francais);
+        if (empty(selectJaponaisAndFrancais($id_francais['id'], $id))) {
+            createJaponaisAndFrancais($id_francais['id'], $id);
+        }
+    }
+
+    foreach ($listAnglais as $anglais) {
+        $id_anglais = researchAnglais($anglais);
+        if (empty(selectAnglaisAndJaponais($id, $id_anglais['id']))) {
+            createAnglaisAndJaponais($id, $id_anglais['id']);
+        }
+    }
+
+    $francais = listFrancaisToJaponais($id);
+    foreach ($francais as $mot) {
+        foreach ($listAnglais as $anglais) {
+            $id_anglais = researchAnglais($anglais);
+            if (empty(selectAnglaisAndFrancais($mot['id'], $id_anglais['id']))) {
+                createAnglaisAndFrancais($mot['id'], $id_anglais['id']);
+            }
+        }
+    }
+
+    if ($addWord === false) {
+        setFlash('Le mot n\'a pas été ajouté', 'danger');
+        throw new Exception();
+    } else {
+        setFlash('Le mot a bien été crée');
+        header('Location:index.php?p=japonais');
+    }
+}
+
+function deleteJaponais($id)
+{
+    deleteAllKanjiForJaponais($id);
+    deleteAllForJaponais($id);
+    $deleteJaponais = supprJaponais($id);
+    if ($deleteJaponais === false) {
+        setFlash('Le mot japonais n\'a pas été supprimé', 'danger');
+        throw new Exception();
+    } else {
+        setFlash('Le mot japonais a bien été supprimé');
+        header('Location:index.php?p=japonais');
+    }
+}
+
+function deleteJaponaisInFrancais($id_japonais, $id_francais)
+{
+    deleteAllKanjiForJaponais($id_japonais);
+    deleteAllForJaponais($id_japonais);
+    $delete = supprWord($id_japonais);
+    if ($delete === false) {
+        setFlash('Le mot japonais n\'a pas été supprimé', 'danger');
+        throw new Exception();
+    } else {
+        setFlash('Le mot japonais a bien été supprimé');
+        header('Location:index.php?p=word_edit&id='.$id_francais);
+    }
+}
+
+function deleteJaponaisInAnglais($id_japonais, $id_anglais)
+{
+    deleteAllKanjiForJaponais($id_japonais);
+    deleteAllForJaponais($id_japonais);
+    $delete = supprWord($id_japonais);
+    if ($delete === false) {
+        setFlash('Le mot japonais n\'a pas été supprimé', 'danger');
+        throw new Exception();
+    } else {
+        setFlash('Le mot japonais a bien été supprimé');
+        header('Location:index.php?p=anglais_edit&id='.$id_anglais);
+    }
+}
+
+/**
+ * Anglais
+ */
+
+function deleteAnglais($id)
+{
+    deleteAllForAnglais($id);
+    $delete = supprAnglais($id);
+    if ($delete === false) {
+        setFlash('Le mot anglais n\'a pas été supprimé', 'danger');
+        throw new Exception();
+    } else {
+        setFlash('Le mot anglais a bien été supprimé');
+        header('Location:index.php?p=anglais');
+    }
+}
+
+function deleteAnglaisInJaponais($id_anglais, $id_japonais)
+{
+    deleteAllForAnglais($id_anglais);
+    $delete = supprAnglais($id_anglais);
+    if ($delete === false) {
+        setFlash('Le mot japonais n\'a pas été supprimé', 'danger');
+        throw new Exception();
+    } else {
+        setFlash('Le mot japonais a bien été supprimé');
+        header('Location:index.php?p=japonais_edit&id='.$id_japonais);
+    }
+}
+
+function deleteAnglaisInFrancais($id_anglais, $id_francais)
+{
+    deleteAllForAnglais($id_anglais);
+    $delete = supprAnglais($id_anglais);
+    if ($delete === false) {
+        setFlash('Le mot japonais n\'a pas été supprimé', 'danger');
+        throw new Exception();
+    } else {
+        setFlash('Le mot japonais a bien été supprimé');
+        header('Location:index.php?p=word_edit&id='.$id_francais);
+    }
+}
+
+function addAnglaisFromOther($id, $anglais, $id_type)
+{
+    $anglais = securize($anglais);
+
+    if ($id > 0) {
+        editAnglais($anglais, $id, $id_type);
+    } else {
+        createAnglais($anglais, $id_type);
+    }
+}
+
+function addAnglais($id, $anglais, $id_type , $listFrancais, $listJaponais)
+{
+    $anglais = securize($anglais);
+
+    if ($id > 0) {
+        $addWord = editAnglais($anglais, $id, $id_type);
+    } else {
+        $addWord = createAnglais($anglais, $id_type);
+        $id = researchAnglais($anglais);
+        $id = $id['id'];
+    }
+
+    foreach ($listFrancais as $francais) {
+        $id_francais = researchWord($francais);
+        if (empty(selectAnglaisAndFrancais($id_francais['id'], $id))) {
+            createAnglaisAndFrancais($id_francais['id'], $id);
+        }
+    }
+
+    foreach ($listJaponais as $japonais) {
+        $id_japonais = researchJaponais($japonais);
+        if (empty(selectAnglaisAndJaponais($id_japonais['id'], $id))) {
+            createAnglaisAndJaponais($id_japonais['id'], $id);
+        }
+    }
+
+    $francais = listFrancaisToAnglais($id);
+    foreach ($francais as $mot) {
+        foreach ($listJaponais as $japonais) {
+            $id_japonais = researchJaponais($japonais);
+            if (empty(selectJaponaisAndFrancais($mot['id'], $id_japonais['id']))) {
+                createJaponaisAndFrancais($mot['id'], $id_japonais['id']);
+            }
+        }
+    }
+
+    if ($addWord === false) {
+        setFlash('Le mot n\'a pas été ajouté', 'danger');
+        throw new Exception();
+    } else {
+        setFlash('Le mot a bien été crée');
+        header('Location:index.php?p=anglais');
     }
 }
