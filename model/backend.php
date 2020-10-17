@@ -345,7 +345,7 @@ function listFrancaisToAnglais($id)
     inner join lexiqumjaponais.WORDS_JAPONAIS as wj
         on wj.id_word = FRANCAIS.id
     inner join lexiqumjaponais.ANGLAIS
-        on wj.id_japonais = ANGLAIS.id
+        on wj.id_anglais = ANGLAIS.id
     where ANGLAIS.id=$id");
     return $select->fetchAll();
 }

@@ -1,6 +1,6 @@
 <?php $title = 'Les mots en japonais';
 ob_start(); ?>
-    <h1 class="h1-admin-left">Les mots</h1>
+    <h1 class="h1-admin-left">Les mots japonais</h1>
 
     <p class="add"><a href="index.php?p=japonais_edit" class="btn btn-success">Ajout</a></p>
 

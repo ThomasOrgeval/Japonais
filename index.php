@@ -85,6 +85,18 @@ try {
             deleteJaponaisInFrancais($_GET['id_japonais'], $_GET['id']);
         } elseif ($p === 'anglais_delete_in_francais') {
             deleteAnglaisInFrancais($_GET['id_anglais'], $_GET['id']);
+        } elseif ($p === 'anglais') {
+            anglais();
+        } elseif ($p === 'anglais_edit') {
+            anglais_edit();
+        } elseif ($p === 'anglais_add') {
+            anglais_add();
+        } elseif ($p === 'anglais_delete') {
+            deleteAnglais($_GET['id']);
+        } elseif ($p === 'francais_delete_in_anglais') {
+            deleteFrancaisInAnglais($_GET['id_francais'], $_GET['id']);
+        } elseif ($p === 'japonais_delete_in_anglais') {
+            deleteJaponaisInAnglais($_GET['id_japonais'], $_GET['id']);
         }
     } else {
         accueil();

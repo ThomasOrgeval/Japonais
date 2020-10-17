@@ -215,7 +215,8 @@ ob_start(); ?>
 
                 <a class="small btn btn-outline-dark" id="duplicatebtn2">Ajouter en anglais</a>
             </div>
-        </div><br/>
+        </div>
+        <br/>
 
         <?= csrfInput(); ?>
         <button type="submit" class="btn btn-green" name="save">Enregistrer</button>

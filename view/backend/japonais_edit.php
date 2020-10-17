@@ -1,7 +1,7 @@
 <?php if (isset($_POST['id'])) {
     $title = $_POST['kanji'] . ' - Edition';
 } else {
-    $title = 'Mon nouveau groupe';
+    $title = 'Mon nouveau mot';
 }
 ob_start(); ?>
     <h1 class="h1-admin">Editer un mot japonais</h1>
@@ -169,7 +169,8 @@ ob_start(); ?>
 
                 <a class="small btn btn-outline-dark" id="duplicatebtn2">Ajouter en anglais</a>
             </div>
-        </div><br/>
+        </div>
+        <br/>
 
         <?= csrfInput(); ?>
         <button type="submit" class="btn btn-green" name="save">Enregistrer</button>

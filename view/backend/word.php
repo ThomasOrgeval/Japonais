@@ -1,6 +1,6 @@
 <?php $title = 'Les mots en français';
 ob_start(); ?>
-    <h1 class="h1-admin-left">Les mots</h1>
+    <h1 class="h1-admin-left">Les mots français</h1>
 
     <p class="add"><a href="index.php?p=word_edit" class="btn btn-success">Ajout</a></p>
 
