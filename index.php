@@ -24,7 +24,7 @@ try {
         } elseif ($p === 'word_add') {
             francais_add();
         } elseif ($p === 'word_delete') {
-            deleteWord($_GET['id']);
+            deleteFrancais($_GET['id']);
         } elseif ($p === 'word_groupe') {
             wordGroupe($_GET['id_groupe'], $_GET['id'], $_GET['bool']);
         } elseif ($p === 'login') {
@@ -79,8 +79,12 @@ try {
             deleteJaponais($_GET['id']);
         } elseif ($p === 'francais_delete_in_japonais') {
             deleteFrancaisInJaponais($_GET['id_francais'], $_GET['id']);
+        } elseif ($p === 'anglais_delete_in_japonais') {
+            deleteAnglaisInJaponais($_GET['id_anglais'], $_GET['id']);
         } elseif ($p === 'japonais_delete_in_francais') {
             deleteJaponaisInFrancais($_GET['id_japonais'], $_GET['id']);
+        } elseif ($p === 'anglais_delete_in_francais') {
+            deleteAnglaisInFrancais($_GET['id_anglais'], $_GET['id']);
         }
     } else {
         accueil();

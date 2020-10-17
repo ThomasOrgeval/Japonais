@@ -49,10 +49,11 @@ create table `JAPONAIS`
 
 create table `ANGLAIS`
 (
-    `id`              int auto_increment not null,
-    `anglais`         varchar(255)       not null,
-    `id_type_anglais` int,
-    primary key (`id`)
+    `id`      int auto_increment not null,
+    `anglais` varchar(255)       not null,
+    `id_type` int,
+    primary key (`id`),
+    foreign key (`id_type`) references TYPE (`id`)
 ) engine = InnoDB;
 
 create table `KANJI`
@@ -120,9 +121,9 @@ create table `JAPONAIS_KANJI`
 create table `WORDS_JAPONAIS`
 (
     `id`          int auto_increment not null,
-    `id_word`     int                not null,
-    `id_japonais` int                not null,
-    `id_anglais`  int                not null,
+    `id_word`     int,
+    `id_japonais` int,
+    `id_anglais`  int,
     primary key (`id`),
     foreign key (`id_word`) references FRANCAIS (`id`),
     foreign key (`id_japonais`) references JAPONAIS (`id`),

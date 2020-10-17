@@ -10,7 +10,8 @@ ob_start(); ?>
             <th style="font-size: 24px">Kanji</th>
             <th style="font-size: 24px">Kana</th>
             <th style="font-size: 24px">Romaji</th>
-            <th style="font-size: 24px">Traductions possibles</th>
+            <th style="font-size: 24px">Français</th>
+            <th style="font-size: 24px">Anglais</th>
             <th style="font-size: 24px">Actions</th>
         </tr>
         </thead>
@@ -27,6 +28,15 @@ ob_start(); ?>
                         }
                     } elseif (sizeof($francais) == 1) {
                         echo $francais['0']['francais'];
+                    }
+                    ?></td>
+                <td style="font-size: 24px"><?php $anglais = listAnglaisToJaponais($mot['id']);
+                    if (sizeof($anglais) > 1) {
+                        foreach ($anglais as $value) {
+                            echo $value['anglais'] . ", ";
+                        }
+                    } elseif (sizeof($anglais) == 1) {
+                        echo $anglais['0']['anglais'];
                     }
                     ?></td>
                 <td>

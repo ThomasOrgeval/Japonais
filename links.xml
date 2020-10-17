@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pages>
     <link>
-        <title>Maison</title>
-        <url>index.php?p=search&amp;t=word&amp;q=Maison</url>
+        <title>Immeuble</title>
+        <url>index.php?p=search&amp;t=word&amp;q=Immeuble</url>
     </link>
     <link>
-        <title>Habitation</title>
-        <url>index.php?p=search&amp;t=groupe&amp;q=Habitation</url>
+        <title>Maison</title>
+        <url>index.php?p=search&amp;t=word&amp;q=Maison</url>
     </link>
 </pages>
