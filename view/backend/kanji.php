@@ -2,9 +2,7 @@
 ob_start(); ?>
     <h1 class="h1-admin-left">Les kanjis</h1>
 
-    <p class="add"><a href="index.php?p=word_edit" class="btn btn-success">Ajout</a></p>
-
-    <table class="table table-striped">
+    <table class="table table-bordered table-dark">
         <thead>
         <tr>
             <th style="font-size: 24px">ID</th>
