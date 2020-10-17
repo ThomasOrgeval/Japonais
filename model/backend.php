@@ -519,3 +519,14 @@ function deleteAllJaponaisForKanji($id_kanji)
     $id = $db->quote($id_kanji);
     $db->query("delete from lexiqumjaponais.JAPONAIS_KANJI where id_kanji=$id");
 }
+
+/**
+ * Kanji
+ */
+
+function listKanji()
+{
+    $db = dbConnect();
+    $select = $db->query("select id, kanji, grade from lexiqumjaponais.KANJI order by grade asc");
+    return $select->fetchAll();
+}

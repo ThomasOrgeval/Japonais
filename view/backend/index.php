@@ -9,6 +9,7 @@ ob_start(); ?>
     <a class="btn btn-outline-dark" href="index.php?p=anglais">En anglais</a><br/>
     <a class="btn btn-outline-dark" href="index.php?p=groupe">Les groupes</a>
     <a class="btn btn-outline-dark" href="index.php?p=type">Les types</a>
+    <a class="btn btn-outline-dark" href="index.php?p=kanji">Les kanjis</a>
 </div><br/>
 <div>
     <h3>Les commandes :</h3>

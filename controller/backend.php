@@ -205,6 +205,14 @@ function anglais_add()
     addAnglais($_GET['id'], $_POST['anglais'], $_POST['id_type'], $francais, $japonais);
 }
 
+function kanji()
+{
+    if (connect_admin()) {
+        $_POST['kanji'] = listKanji();
+        require './view/backend/kanji.php';
+    }
+}
+
 function connect_admin()
 {
     if ($_SESSION['connect'] != 'OK' || $_SESSION['admin'] == 0) {
