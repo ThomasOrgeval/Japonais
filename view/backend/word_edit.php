@@ -51,13 +51,7 @@ ob_start(); ?>
                                 <a href="index.php?p=word_groupe&id=<?= $_GET['id']; ?>&id_groupe=<?= $groupe['id']; ?>&bool=1&<?= csrf(); ?>"
                                    class="dropdown-item" type="button"><?= $groupe['libelle']; ?></a>
                             <?php endforeach;
-                        else :
-                            foreach ($otherGroupes as $groupe) : ?>
-                                <a href="index.php?p=word_groupe&id=<?= $_GET['id']; ?>&id_groupe=<?= $groupe['id']; ?>&bool=1&<?= csrf(); ?>"
-                                   class="dropdown-item" type="button"><?= $groupe['libelle']; ?></a>
-                            <?php endforeach;
                         endif; ?>
-
                     </div>
                 </div>
             </div>

@@ -81,9 +81,8 @@ function createWord($fr, $id_type)
 function supprWord($id)
 {
     $db = dbConnect();
-    $select = $db->prepare('delete from lexiqumjaponais.FRANCAIS where id=?');
-    $select = $select->execute(array($id));
-    return $select;
+    $id = $db->quote($id);
+    return $db->query("delete from lexiqumjaponais.FRANCAIS where id=$id");
 }
 
 /**
@@ -409,7 +408,7 @@ function listGroupeToWord($id)
 {
     $db = dbConnect();
     $id = $db->quote($id);
-    $select = $db->query("select FRANCAIS.id, GROUPE.* from lexiqumjaponais.FRANCAIS
+    $select = $db->query("select FRANCAIS.id, GROUPE.id, GROUPE.libelle from lexiqumjaponais.FRANCAIS
     inner join lexiqumjaponais.WORDS_GROUPE as wg
         on wg.id_word = FRANCAIS.id
     inner join lexiqumjaponais.GROUPE

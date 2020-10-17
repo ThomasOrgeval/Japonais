@@ -7,7 +7,6 @@ ob_start(); ?>
     <table class="table table-striped">
         <thead>
         <tr>
-            <th style="font-size: 24px">Id</th>
             <th style="font-size: 24px">Libelle</th>
             <th style="font-size: 24px">Actions</th>
         </tr>
@@ -15,7 +14,6 @@ ob_start(); ?>
         <tbody>
         <?php foreach ($groupes as $groupe): ?>
             <tr>
-                <td style="font-size: 24px"><?= $groupe['id']; ?></td>
                 <td style="font-size: 24px"><?= $groupe['libelle']; ?></td>
                 <td>
                     <a href="index.php?p=groupe_edit&id=<?= $groupe['id']; ?>" class="btn btn-outline-dark">Edit</a>

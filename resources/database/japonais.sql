@@ -151,12 +151,39 @@ create table `WORDS_JAPONAIS`
 
 insert into `TYPE` (type)
 values ('Nom'),
-       ('Verbe');
+       ('Verbe'),
+       ('Pronom');
 
 insert into `CONFIDENTIALITY` (confidentiality)
 values ('Public'),
        ('Amis'),
        ('Privé');
+
+insert into `GROUPE` (`id`, `libelle`)
+values (1, 'Famille'),
+       (2, 'Habitation');
+
+insert into `USER` (`id`, `pseudo`, `pass`, `mail`, `date`, `droits`, nombre) values
+(1, 'raiwtsu', '$2y$10$ITwvnUx2a7mMREZP1TCe4.gCbSeLbi9ND/VvdTxvY5HU1vDaP2SQK', 'orgevalthomas@gmail.com', '2020-10-11', 1, 10),
+(3, 'jco', '$2y$10$sf5IRDT/9acktptGpeHeMuGz6Yd8gLjbNzDZDg0XaL4wntDurzpo2', 'orgeval-jean.claude@orange.fr', '2020-10-11', 1, 10),
+(4, 'Léo', '$2y$10$q.HbtdQuX/txMupwgBfVRegN1D7ERZ7coHyFmQWCJqsTheIf9XTWq', 'leoorgeval@gmail.com', '2020-10-11', 1, 10),
+(5, 'League', '$2y$10$NuGlmuHGrtCr0mjBg076nO9OdUYbcZEEurwqAbYgotmbJol262bjS', 'a@a.fr', '2020-10-12', 1, 10);
+
+insert into `JAPONAIS` (kanji, kana, romaji)
+values ('私', 'わたし', 'Watashi'),
+       ('お父さん', 'おとうさん', 'Otōsan');
+
+insert into `FRANCAIS` (francais, id_type)
+values ('Je', 3),
+       ('Père', 1);
+
+insert into `ANGLAIS` (anglais, id_type)
+values ('I', 3),
+       ('Father', 1);
+
+insert into `WORDS_JAPONAIS` (id_word, id_japonais, id_anglais)
+values (1, 1, 1),
+       (2, 2, 2);
 
 insert into `KANJI` (id, kanji, lignes, grade, on_yomi, trad_on_yomi, kun_yomi, trad_kun_yomi)
 VALUES (1, '亜', 7, 7, 'a', '"rank next, come after, Asia, sub-, -ous (in acids)"', '-', '-'),
