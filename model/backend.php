@@ -266,6 +266,25 @@ function createAnglaisAndJaponais($id_japonais, $id_anglais)
     return $db->query("insert into lexiqumjaponais.WORDS_JAPONAIS set id_japonais=$id_japonais, id_anglais=$id_anglais");
 }
 
+function selectTraductionAll($id_francais, $id_japonais, $id_anglais)
+{
+    $db = dbConnect();
+    $id_francais = $db->quote($id_francais);
+    $id_japonais = $db->quote($id_japonais);
+    $id_anglais = $db->quote($id_anglais);
+    $select = $db->query("select * from lexiqumjaponais.WORDS_JAPONAIS where id_word=$id_francais and id_japonais=$id_japonais and id_anglais=$id_anglais");
+    return $select->fetchAll();
+}
+
+function createTraductionAll($id_francais, $id_japonais, $id_anglais)
+{
+    $db = dbConnect();
+    $id_francais = $db->quote($id_francais);
+    $id_japonais = $db->quote($id_japonais);
+    $id_anglais = $db->quote($id_anglais);
+    return $db->query("insert into lexiqumjaponais.WORDS_JAPONAIS set id_word=$id_francais, id_japonais=$id_japonais, id_anglais=$id_anglais");
+}
+
 function listJaponaisToFrancais($id)
 {
     $db = dbConnect();

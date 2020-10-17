@@ -68,10 +68,10 @@ ob_start(); ?>
             <div class="col-6">
                 <h5>Japonais :</h5>
                 <div style="display: flex">
-                    <div class="form-group col-1">
+                    <div class="form-group col-2">
                         <label for="id_jap[]">ID</label>
                     </div>
-                    <div class="form-group col-3">
+                    <div class="form-group col-2">
                         <label for="kanji[]">Kanji</label>
                     </div>
                     <div class="form-group col-3">
@@ -91,11 +91,11 @@ ob_start(); ?>
                 if (!empty($mots)):
                     foreach ($mots as $mot):?>
                         <div style="display: flex">
-                            <div class="form-group col-1">
+                            <div class="form-group col-2">
                                 <input type='text' class='form-control' id='id_jap[]' name='id_jap[]'
                                        value='<?= $mot['id']; ?>' readonly>
                             </div>
-                            <div class="form-group col-3">
+                            <div class="form-group col-2">
                                 <input type='text' class='form-control' id='kanji[]' name='kanji[]'
                                        value='<?= $mot['kanji']; ?>'>
                             </div>
@@ -115,10 +115,10 @@ ob_start(); ?>
                     <?php endforeach;
                 else: ?>
                     <div style="display: flex">
-                        <div class="form-group col-1">
+                        <div class="form-group col-2">
                             <?= inputReadonly('id_jap[]'); ?>
                         </div>
-                        <div class="form-group col-3">
+                        <div class="form-group col-2">
                             <?= input('kanji[]'); ?>
                         </div>
                         <div class="form-group col-3">
@@ -130,10 +130,10 @@ ob_start(); ?>
                     </div>
                 <?php endif; ?>
                 <div class="invisible" style="display: flex" id="duplicate">
-                    <div class="form-group col-1">
+                    <div class="form-group col-2">
                         <?= inputReadonly('id_jap[]'); ?>
                     </div>
-                    <div class="form-group col-3">
+                    <div class="form-group col-2">
                         <?= input('kanji[]'); ?>
                     </div>
                     <div class="form-group col-3">

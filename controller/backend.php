@@ -331,7 +331,7 @@ function addFrancais($id, $francais, $id_type, $listJaponais, $listAnglais)
 
     foreach ($listAnglais as $anglais) {
         $id_anglais = researchAnglais($anglais);
-        if (empty(selectAnglaisAndJaponais($id, $id_anglais['id']))) {
+        if (empty(selectAnglaisAndFrancais($id, $id_anglais['id']))) {
             createAnglaisAndFrancais($id, $id_anglais['id']);
         }
     }
@@ -340,7 +340,7 @@ function addFrancais($id, $francais, $id_type, $listJaponais, $listAnglais)
     foreach ($japonais as $mot) {
         foreach ($listAnglais as $anglais) {
             $id_anglais = researchAnglais($anglais);
-            if (empty(selectAnglaisAndFrancais($mot['id'], $id_anglais['id']))) {
+            if (empty(selectAnglaisAndJaponais($mot['id'], $id_anglais['id']))) {
                 createAnglaisAndJaponais($mot['id'], $id_anglais['id']);
             }
         }
@@ -602,8 +602,8 @@ function addAnglais($id, $anglais, $id_type , $listFrancais, $listJaponais)
 
     foreach ($listJaponais as $japonais) {
         $id_japonais = researchJaponais($japonais);
-        if (empty(selectJaponaisAndFrancais($id, $id_japonais['id']))) {
-            createJaponaisAndFrancais($id, $id_japonais['id']);
+        if (empty(selectAnglaisAndJaponais($id_japonais['id'], $id))) {
+            createAnglaisAndJaponais($id_japonais['id'], $id);
         }
     }
 
