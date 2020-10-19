@@ -28,149 +28,142 @@ ob_start(); ?>
             <?= input('romaji'); ?>
         </div>
 
-        <h3>Traduction :</h3>
+        <h3>Traduction :</h3><br/>
+        <h5>Français :</h5>
         <div style="display: flex">
-            <div class="col-6">
-                <h5>Français :</h5>
-                <div style="display: flex">
-                    <div class="form-group col-2">
-                        <label for="id_francais[]">ID</label>
-                    </div>
-                    <div class="form-group col-6">
-                        <label for="francais[]">Traduction française</label>
-                    </div>
-                    <div class="form-group col-3">
-                        <label for="id_type[]">Type du mot</label>
-                    </div>
-                    <div class="form-group col-1">
-                        <label for="action">Action</label>
-                    </div>
-                </div>
-
-                <?php if (isset($_GET['id'])) :
-                    $mots = listFrancaisToJaponais($_GET['id']);
-                endif;
-                if (!empty($mots)):
-                    foreach ($mots as $mot): ?>
-                        <div style="display: flex">
-                            <div class="form-group col-2">
-                                <input type='text' class='form-control' id='id_francais[]' name='id_francais[]'
-                                       value='<?= $mot['id']; ?>' readonly>
-                            </div>
-                            <div class="form-group col-6">
-                                <input type='text' class='form-control' id='francais[]' name='francais[]'
-                                       value='<?= $mot['francais']; ?>'>
-                            </div>
-                            <div class="form-group col-3">
-                                <?= selectFormListe($mot['id_type'], 'id_type[]', $type_list); ?>
-                            </div>
-                            <div class="form-group col-1">
-                                <a class="btn_delete btn-red"
-                                   href="index.php?p=francais_delete_in_japonais&id=<?= $_GET['id']; ?>&id_francais=<?= $mot['id']; ?>">-</a>
-                            </div>
-                        </div>
-                    <?php endforeach;
-                else:
-                    $k = 1 ?>
-                    <div style="display: flex">
-                        <div class="form-group col-2">
-                            <?= inputReadonly('id_francais[]'); ?>
-                        </div>
-                        <div class="form-group col-6">
-                            <?= input('francais[]'); ?>
-                        </div>
-                        <div class="form-group col-3">
-                            <?= select('id_type[]', $type_list); ?>
-                        </div>
-                    </div>
-                <?php endif; ?>
-
-                <div class="invisible" style="display: flex" id="duplicate">
-                    <div class="form-group col-2">
-                        <?= inputReadonly('id_francais[]'); ?>
-                    </div>
-                    <div class="form-group col-6">
-                        <?= input('francais[]'); ?>
-                    </div>
-                    <div class="form-group col-3">
-                        <?= select('id_type[]', $type_list); ?>
-                    </div>
-                </div>
-
-                <a class="small btn btn-outline-dark" id="duplicatebtn">Ajouter en français</a>
+            <div class="form-group col-2">
+                <label for="id_francais[]">ID</label>
             </div>
-
-            <div class="col-6">
-                <h5>Anglais :</h5>
-                <div style="display: flex">
-                    <div class="form-group col-2">
-                        <label for="id_anglais[]">ID</label>
-                    </div>
-                    <div class="form-group col-6">
-                        <label for="anglais[]">Traduction anglaise</label>
-                    </div>
-                    <div class="form-group col-3">
-                        <label for="id_type_anglais[]">Type du mot</label>
-                    </div>
-                    <div class="form-group col-1">
-                        <label for="action">Action</label>
-                    </div>
-                </div>
-
-                <?php if (isset($_GET['id'])) :
-                    $mots = listAnglaisToJaponais($_GET['id']);
-                endif;
-                if (!empty($mots)):
-                    foreach ($mots as $mot): ?>
-                        <div style="display: flex">
-                            <div class="form-group col-2">
-                                <input type='text' class='form-control' id='id_anglais[]' name='id_anglais[]'
-                                       value='<?= $mot['id']; ?>' readonly>
-                            </div>
-                            <div class="form-group col-6">
-                                <input type='text' class='form-control' id='anglais[]' name='anglais[]'
-                                       value='<?= $mot['anglais']; ?>'>
-                            </div>
-                            <div class="form-group col-3">
-                                <?= selectFormListe($mot['id_type'], 'id_type_anglais[]', $type_list); ?>
-                            </div>
-                            <div class="form-group col-1">
-                                <a class="btn_delete btn-red"
-                                   href="index.php?p=anglais_delete_in_japonais&id=<?= $_GET['id']; ?>&id_anglais=<?= $mot['id']; ?>">-</a>
-                            </div>
-                        </div>
-                    <?php endforeach;
-                else:
-                    $k = 1 ?>
-                    <div style="display: flex">
-                        <div class="form-group col-2">
-                            <?= inputReadonly('id_anglais[]'); ?>
-                        </div>
-                        <div class="form-group col-6">
-                            <?= input('anglais[]'); ?>
-                        </div>
-                        <div class="form-group col-3">
-                            <?= select('id_type_anglais[]', $type_list); ?>
-                        </div>
-                    </div>
-                <?php endif; ?>
-
-                <div class="invisible" style="display: flex" id="duplicate2">
-                    <div class="form-group col-2">
-                        <?= inputReadonly('id_anglais[]'); ?>
-                    </div>
-                    <div class="form-group col-6">
-                        <?= input('anglais[]'); ?>
-                    </div>
-                    <div class="form-group col-3">
-                        <?= select('id_type_anglais[]', $type_list); ?>
-                    </div>
-                </div>
-
-                <a class="small btn btn-outline-dark" id="duplicatebtn2">Ajouter en anglais</a>
+            <div class="form-group col-6">
+                <label for="francais[]">Traduction française</label>
+            </div>
+            <div class="form-group col-3">
+                <label for="id_type[]">Type du mot</label>
+            </div>
+            <div class="form-group col-1">
+                <label for="action">Action</label>
             </div>
         </div>
-        <br/>
+
+        <?php if (isset($_GET['id'])) :
+            $mots = listFrancaisToJaponais($_GET['id']);
+        endif;
+        if (!empty($mots)):
+            foreach ($mots as $mot): ?>
+                <div style="display: flex">
+                    <div class="form-group col-2">
+                        <input type='text' class='form-control' id='id_francais[]' name='id_francais[]'
+                               value='<?= $mot['id']; ?>' readonly>
+                    </div>
+                    <div class="form-group col-6">
+                        <input type='text' class='form-control' id='francais[]' name='francais[]'
+                               value='<?= $mot['francais']; ?>'>
+                    </div>
+                    <div class="form-group col-3">
+                        <?= selectFormListe($mot['id_type'], 'id_type[]', $type_list); ?>
+                    </div>
+                    <div class="form-group col-1">
+                        <a class="btn_delete btn-red"
+                           href="index.php?p=francais_delete_in_japonais&id=<?= $_GET['id']; ?>&id_francais=<?= $mot['id']; ?>">-</a>
+                    </div>
+                </div>
+            <?php endforeach;
+        else:
+            $k = 1 ?>
+            <div style="display: flex">
+                <div class="form-group col-2">
+                    <?= inputReadonly('id_francais[]'); ?>
+                </div>
+                <div class="form-group col-6">
+                    <?= input('francais[]'); ?>
+                </div>
+                <div class="form-group col-3">
+                    <?= select('id_type[]', $type_list); ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <div class="invisible" style="display: flex" id="duplicate">
+            <div class="form-group col-2">
+                <?= inputReadonly('id_francais[]'); ?>
+            </div>
+            <div class="form-group col-6">
+                <?= input('francais[]'); ?>
+            </div>
+            <div class="form-group col-3">
+                <?= select('id_type[]', $type_list); ?>
+            </div>
+        </div>
+
+        <a class="small btn btn-outline-dark" id="duplicatebtn">Ajouter une traduction</a><br/><br/>
+
+        <h5>Anglais :</h5>
+        <div style="display: flex">
+            <div class="form-group col-2">
+                <label for="id_anglais[]">ID</label>
+            </div>
+            <div class="form-group col-6">
+                <label for="anglais[]">Traduction anglaise</label>
+            </div>
+            <div class="form-group col-3">
+                <label for="id_type_anglais[]">Type du mot</label>
+            </div>
+            <div class="form-group col-1">
+                <label for="action">Action</label>
+            </div>
+        </div>
+
+        <?php if (isset($_GET['id'])) :
+            $mots = listAnglaisToJaponais($_GET['id']);
+        endif;
+        if (!empty($mots)):
+            foreach ($mots as $mot): ?>
+                <div style="display: flex">
+                    <div class="form-group col-2">
+                        <input type='text' class='form-control' id='id_anglais[]' name='id_anglais[]'
+                               value='<?= $mot['id']; ?>' readonly>
+                    </div>
+                    <div class="form-group col-6">
+                        <input type='text' class='form-control' id='anglais[]' name='anglais[]'
+                               value='<?= $mot['anglais']; ?>'>
+                    </div>
+                    <div class="form-group col-3">
+                        <?= selectFormListe($mot['id_type'], 'id_type_anglais[]', $type_list); ?>
+                    </div>
+                    <div class="form-group col-1">
+                        <a class="btn_delete btn-red"
+                           href="index.php?p=anglais_delete_in_japonais&id=<?= $_GET['id']; ?>&id_anglais=<?= $mot['id']; ?>">-</a>
+                    </div>
+                </div>
+            <?php endforeach;
+        else:
+            $k = 1 ?>
+            <div style="display: flex">
+                <div class="form-group col-2">
+                    <?= inputReadonly('id_anglais[]'); ?>
+                </div>
+                <div class="form-group col-6">
+                    <?= input('anglais[]'); ?>
+                </div>
+                <div class="form-group col-3">
+                    <?= select('id_type_anglais[]', $type_list); ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <div class="invisible" style="display: flex" id="duplicate2">
+            <div class="form-group col-2">
+                <?= inputReadonly('id_anglais[]'); ?>
+            </div>
+            <div class="form-group col-6">
+                <?= input('anglais[]'); ?>
+            </div>
+            <div class="form-group col-3">
+                <?= select('id_type_anglais[]', $type_list); ?>
+            </div>
+        </div>
+
+        <a class="small btn btn-outline-dark" id="duplicatebtn2">Ajouter une traduction</a><br/><br/>
 
         <button type="submit" class="btn btn-green" name="save">Enregistrer</button>
     </form>

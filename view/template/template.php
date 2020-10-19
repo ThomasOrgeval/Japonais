@@ -87,6 +87,7 @@
         xmlhttp.send();
     }
 
+    // Datatables
     $(document).ready(function () {
         $('#db').DataTable();
         $('.dataTables_length').addClass('bs-select');
