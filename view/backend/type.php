@@ -4,7 +4,7 @@ ob_start(); ?>
 
     <p class="add"><a href="index.php?p=type_edit" class="btn btn-success">Ajout</a></p>
 
-    <table class="table table-striped">
+    <table id="db" class="table table-striped">
         <thead>
         <tr>
             <th>ID</th>
@@ -19,7 +19,7 @@ ob_start(); ?>
                 <td><?= $type['type']; ?></td>
                 <td>
                     <a href="index.php?p=type_edit&id=<?= $type['id']; ?>" class="btn btn-outline-dark">Edit</a>
-                    <a href="index.php?p=type_delete&id=<?= $type['id']; ?>&<?= csrf(); ?>"
+                    <a href="index.php?p=type_delete&id=<?= $type['id']; ?>"
                        class="btn btn-outline-danger"
                        onclick="return confirm('Voulez-vous vraiment supprimer ce mot ?')">Remove</a>
                 </td>

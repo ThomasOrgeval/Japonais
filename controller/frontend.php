@@ -3,7 +3,6 @@
 session_start();
 require_once './controller/libs/form.php';
 require './controller/libs/session.php';
-require './controller/libs/csrf.php';
 
 require './controller/backend.php';
 require './model/frontend.php';
@@ -14,6 +13,9 @@ require './model/frontend.php';
 
 function accueil()
 {
+    if (isset($_COOKIE['pseudo']) && isset($_COOKIE['pass']) && !isset($_SESSION['pseudo'])) {
+        submitLogin($_COOKIE['pseudo'], $_COOKIE['pass']);
+    }
     if (isset($_SESSION['nombreWords']) && !empty($_SESSION['nombreWords'])) {
         $_POST['words'] = listRandomWords($_SESSION['nombreWords']);
     } else {
@@ -35,6 +37,8 @@ function register()
 function logout()
 {
     session_destroy();
+    setcookie('pseudo');
+    setcookie('pass');
     header('Location:index.php?p=accueil');
 }
 
@@ -101,6 +105,8 @@ function submitLogin($pseudo, $password)
             $_SESSION['id'] = $statements['id'];
             $_SESSION['nombreWords'] = $statements['nombre'];
             $_SESSION['connect'] = 'OK';
+            setcookie('pseudo', $pseudo, time() + 365*24*3600);
+            setcookie('pass', $password, time() + 365*24*3600);
             setFlash('Connexion réussie');
             header('Location:index.php?p=accueil');
         } else {

@@ -14,7 +14,6 @@ ob_start(); ?>
             <?= input('type'); ?>
         </div>
 
-        <?= csrfInput(); ?>
         <button type="submit" class="btn btn-outline-dark" name="save">Enregistrer</button>
     </form>
 <?php $content = ob_get_clean();

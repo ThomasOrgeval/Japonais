@@ -2,7 +2,7 @@
 ob_start(); ?>
     <h1 class="h1-admin-left">Les kanjis</h1>
 
-    <table class="table table-bordered table-dark">
+    <table id="db" class="table table-bordered">
         <thead>
         <tr>
             <th style="font-size: 24px">ID</th>

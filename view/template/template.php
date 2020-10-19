@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="./resources/css/bootstrap.css">
     <!-- Material Design Bootstrap -->
     <link rel="stylesheet" href="./resources/css/mdb.css">
+    <!-- MDB Datatable -->
+    <link href="./resources/css/addons/datatables2.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="./resources/css/style.css">
 
@@ -25,6 +27,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script defer src="../../resources/js/all.js"></script>
+    <script src="./resources/js/addons/datatables2.min.js"></script>
 </head>
 
 <body>
@@ -83,17 +86,24 @@
         xmlhttp.open("GET", "index.php?p=search&search=" + str, true);
         xmlhttp.send();
     }
+
+    $(document).ready(function () {
+        $('#db').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+    });
 </script>
 <div class="container">
     <?= flash() ?>
     <p>
         <?php if ($_SERVER['HTTP_HOST'] == 'localhost') {
-            echo '<h2>Session</h2>';
+            var_dump($_COOKIE);
             var_dump($_SESSION);
             var_dump($_POST);
         } ?>
     </p><br/>
-    <?= $content ?>
+    <div class="content">
+        <?= $content ?>
+    </div>
 </div>
 <br/><br/>
 </body>

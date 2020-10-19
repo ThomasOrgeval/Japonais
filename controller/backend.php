@@ -219,6 +219,13 @@ function kanji()
     }
 }
 
+function test()
+{
+    if (connect_admin()) {
+        require './view/backend/test.php';
+    }
+}
+
 function connect_admin()
 {
     if ($_SESSION['connect'] != 'OK' || $_SESSION['admin'] == 0) {

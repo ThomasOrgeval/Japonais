@@ -4,7 +4,7 @@ ob_start(); ?>
 
     <p class="add"><a href="index.php?p=japonais_edit" class="btn btn-success">Ajout</a></p>
 
-    <table class="table table-striped">
+    <table id="db" class="table table-striped">
         <thead>
         <tr>
             <th style="font-size: 24px">Kanji</th>
@@ -41,7 +41,7 @@ ob_start(); ?>
                     ?></td>
                 <td>
                     <a href="index.php?p=japonais_edit&id=<?= $mot['id']; ?>" class="btn btn-outline-dark">Edit</a>
-                    <a href="index.php?p=japonais_delete&id=<?= $mot['id']; ?>&<?= csrf(); ?>"
+                    <a href="index.php?p=japonais_delete&id=<?= $mot['id']; ?>"
                        class="btn btn-outline-danger">Remove</a>
                 </td>
             </tr>

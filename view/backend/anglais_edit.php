@@ -179,7 +179,6 @@ ob_start(); ?>
     </div>
     <br/>
 
-    <?= csrfInput(); ?>
     <button type="submit" class="btn btn-green" name="save">Enregistrer</button>
 </form>
 

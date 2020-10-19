@@ -6,7 +6,7 @@ ob_start(); ?>
     </form>
     <br/><br/>
 <?php if (!empty($_POST['words'])): ?>
-    <h1>Sélection de mots aléatoires :</h1>
+    <h1>Sélection aléatoire de mots :</h1>
     <br/>
     <table class="table table-striped">
         <thead>

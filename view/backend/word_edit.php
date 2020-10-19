@@ -33,7 +33,7 @@ ob_start(); ?>
                     foreach ($groupes as $groupe) : ?>
                         <p>
                             <label>-</label> <?= $groupe['libelle']; ?>
-                            <a href="index.php?p=word_groupe&id=<?= $_GET['id']; ?>&id_groupe=<?= $groupe['id']; ?>&bool=0&<?= csrf(); ?>"
+                            <a href="index.php?p=word_groupe&id=<?= $_GET['id']; ?>&id_groupe=<?= $groupe['id']; ?>&bool=0"
                                class="btn btn-danger btn-sm" style="margin: 0; float: right">-</a>
                         </p>
                     <?php endforeach;
@@ -48,7 +48,7 @@ ob_start(); ?>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                         <?php if (isset($_GET['id'])) :
                             foreach ($otherGroupes as $groupe) : ?>
-                                <a href="index.php?p=word_groupe&id=<?= $_GET['id']; ?>&id_groupe=<?= $groupe['id']; ?>&bool=1&<?= csrf(); ?>"
+                                <a href="index.php?p=word_groupe&id=<?= $_GET['id']; ?>&id_groupe=<?= $groupe['id']; ?>&bool=1"
                                    class="dropdown-item" type="button"><?= $groupe['libelle']; ?></a>
                             <?php endforeach;
                         endif; ?>
@@ -212,7 +212,6 @@ ob_start(); ?>
         </div>
         <br/>
 
-        <?= csrfInput(); ?>
         <button type="submit" class="btn btn-green" name="save">Enregistrer</button>
     </form>
 
