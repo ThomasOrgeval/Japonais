@@ -17,3 +17,18 @@
     padding: .375rem .75rem;
 }
 
+#sakura-svg {
+    fill: white;
+    height: 22px;
+    width: 22px;
+}
+
+#sakura-svg-points {
+    fill: black;
+    width: 40px;
+    padding-bottom: 10px;
+}
+
+#sakura-svg:hover {
+    fill: pink;
+}

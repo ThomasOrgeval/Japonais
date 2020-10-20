@@ -82,6 +82,13 @@ function liste_edit()
     }
 }
 
+function points()
+{
+    if (connect()) {
+        require './view/frontend/points.php';
+    }
+}
+
 function connect()
 {
     if ($_SESSION['connect'] !== 'OK') {
@@ -99,11 +106,12 @@ function submitLogin($pseudo, $password)
 {
     if (!empty($pseudo) && !empty($password)) {
         $statements = loginUser($pseudo, $password);
-        if ($statements === true) {
+        if ($statements == true) {
             $_SESSION['pseudo'] = $pseudo;
             $_SESSION['admin'] = $statements['droits'];
             $_SESSION['id'] = $statements['id'];
             $_SESSION['nombreWords'] = $statements['nombre'];
+            $_SESSION['points'] = $statements['points'];
             $_SESSION['connect'] = 'OK';
             setcookie('pseudo', $pseudo, time() + 365 * 24 * 3600);
             setcookie('pass', $password, time() + 365 * 24 * 3600);

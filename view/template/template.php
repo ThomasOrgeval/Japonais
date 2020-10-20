@@ -44,10 +44,11 @@
         </ul>
         <div class="navbar-nav">
             <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
-                <label class="navbar" style="color: rgba(255,255,255,.5);">Bienvenue, &thinsp;
-                    <a class="nav-item nav-ling" href="index.php?p=account"
-                       style="color: rgba(255,255,255);"><?= $_SESSION['pseudo']; ?></a>
-                </label>
+                <a class="nav-item nav-link" href="index.php?p=points"><?= $_SESSION['points'] ?>
+                    <img id="sakura-svg" class="svg" src="./resources/svgs/sakura.svg" alt="sakura">
+                </a>
+                <a class="nav-item nav-link" href="index.php?p=account" style="color: white;">Bienvenue,
+                    &thinsp; <?= $_SESSION['pseudo'] ?></a>
                 <a class="nav-item nav-link" href="index.php?p=logout">Déconnexion</a>
             <?php else: ?>
                 <a class="nav-item nav-link" href="index.php?p=login">Connexion</a>
@@ -91,6 +92,26 @@
     $(document).ready(function () {
         $('#db').DataTable();
         $('.dataTables_length').addClass('bs-select');
+    });
+
+    // SVG changer de couleur
+    jQuery('img.svg').each(function () {
+        var $img = jQuery(this);
+        var imgID = $img.attr('id');
+        var imgClass = $img.attr('class');
+        var imgURL = $img.attr('src');
+
+        jQuery.get(imgURL, function (data) {
+            var $svg = jQuery(data).find('svg');
+            if (typeof imgID !== 'undefined') {
+                $svg = $svg.attr('id', imgID);
+            }
+            if (typeof imgClass !== 'undefined') {
+                $svg = $svg.attr('class', imgClass + ' replaced-svg');
+            }
+            $svg = $svg.removeAttr('xmlns:a');
+            $img.replaceWith($svg);
+        }, 'xml');
     });
 </script>
 <div class="container">

@@ -219,6 +219,21 @@ function kanji()
     }
 }
 
+function recompense()
+{
+    if (connect_admin()) {
+        $_POST['recompense'] = listRecompense();
+        require './view/backend/recompense.php';
+    }
+}
+
+function recompense_edit()
+{
+    if (connect_admin()) {
+        require './view/backend/recompense_edit.php';
+    }
+}
+
 function connect_admin()
 {
     if ($_SESSION['connect'] !== 'OK' || $_SESSION['admin'] === 0) {

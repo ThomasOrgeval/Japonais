@@ -15,6 +15,24 @@ create table `USER`
     primary key (`id`)
 ) engine = InnoDB;
 
+create table `RECOMPENSE`
+(
+    `id` int auto_increment not null,
+    `libelle` varchar(255) not null,
+    `cout` int not null,
+    primary key (`id`)
+) engine = InnoDB;
+
+create table `ACHAT`
+(
+    `id` int auto_increment not null,
+    `id_user` int not null,
+    `id_recompense` int not null,
+    primary key (`id`),
+    foreign key (`id_user`) references `USER` (`id`),
+    foreign key (`id_recompense`) references `RECOMPENSE` (`id`)
+) engine = InnoDB;
+
 create table `TYPE`
 (
     `id`   int auto_increment not null,

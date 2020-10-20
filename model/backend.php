@@ -529,3 +529,14 @@ function listKanji()
     $select = $db->query("select id, kanji, grade from lexiqumjaponais.KANJI order by grade asc");
     return $select->fetchAll();
 }
+
+/**
+ * Recompense
+ */
+
+function listRecompense()
+{
+    $db = dbConnect();
+    $select = $db->query("select id, libelle, cout from lexiqumjaponais.RECOMPENSE order by libelle");
+    return $select->fetchAll();
+}

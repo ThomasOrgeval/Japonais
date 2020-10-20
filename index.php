@@ -99,6 +99,12 @@ try {
             deleteJaponaisInAnglais($_GET['id_japonais'], $_GET['id']);
         } elseif ($p === 'kanji') {
             kanji();
+        } elseif ($p === 'points') {
+            points();
+        } elseif ($p === 'recompense') {
+            recompense();
+        } elseif ($p === 'recompense_edit') {
+            recompense_edit();
         }
     } else {
         accueil();

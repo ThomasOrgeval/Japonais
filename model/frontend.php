@@ -19,7 +19,7 @@ function dbConnect()
 function createUser($pseudo, $pass, $mail)
 {
     $db = dbConnect();
-    $addUser = $db->prepare('insert into lexiqumjaponais.USER(pseudo, pass, mail, date, droits, nombre) values(?, ?, ?, CURRENT_DATE, ?, 10)');
+    $addUser = $db->prepare('insert into lexiqumjaponais.USER(pseudo, pass, mail, date, droits, nombre, points) values(?, ?, ?, CURRENT_DATE, ?, 10, 0)');
     $addUser = $addUser->execute(array($pseudo, $pass, $mail, 0));
     return $addUser;
 }
@@ -27,14 +27,13 @@ function createUser($pseudo, $pass, $mail)
 function loginUser($pseudo, $pass)
 {
     $db = dbConnect();
-    $selectUser = $db->prepare('select id, pseudo, pass, mail, droits, nombre from lexiqumjaponais.USER where pseudo=?');
+    $selectUser = $db->prepare('select id, pseudo, pass, mail, droits, nombre, points from lexiqumjaponais.USER where pseudo=?');
     $selectUser->execute(array($pseudo));
     $selectUser = $selectUser->fetch();
     if (password_verify($pass, $selectUser['pass'])) {
         return $selectUser;
-    } else {
-        return false;
     }
+    return false;
 }
 
 function searchPseudo($pseudo)

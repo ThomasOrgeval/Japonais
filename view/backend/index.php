@@ -10,6 +10,7 @@ ob_start(); ?>
     <a class="btn btn-outline-dark" href="index.php?p=groupe">Les groupes</a>
     <a class="btn btn-outline-dark" href="index.php?p=type">Les types</a>
     <a class="btn btn-outline-dark" href="index.php?p=kanji">Les kanjis</a>
+    <a class="btn btn-outline-dark" href="index.php?p=recompense">Les récompenses</a>
 </div><br/>
 <div>
     <h3>Les commandes :</h3>
