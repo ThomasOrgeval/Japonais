@@ -35,7 +35,7 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <ul class="navbar-nav mr-auto">
             <li><a class="nav-item nav-link" href="index.php?p=accueil">Accueil</a></li>
-            <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] == 'OK'): ?>
+            <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
                 <li><a class="nav-item nav-link" href="index.php?p=listes">Mes listes</a></li>
                 <?php if ($_SESSION['admin'] == 1): ?>
                     <li><a class="nav-item nav-link" href="index.php?p=admin_portail">Administration</a></li>
@@ -43,7 +43,7 @@
             endif; ?>
         </ul>
         <div class="navbar-nav">
-            <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] == 'OK'): ?>
+            <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
                 <label class="navbar" style="color: rgba(255,255,255,.5);">Bienvenue, &thinsp;
                     <a class="nav-item nav-ling" href="index.php?p=account"
                        style="color: rgba(255,255,255);"><?= $_SESSION['pseudo']; ?></a>
@@ -96,7 +96,7 @@
 <div class="container">
     <?= flash() ?>
     <p>
-        <?php if ($_SERVER['HTTP_HOST'] == 'localhost') {
+        <?php if ($_SERVER['HTTP_HOST'] === 'localhost') {
             var_dump($_COOKIE);
             var_dump($_SESSION);
             var_dump($_POST);

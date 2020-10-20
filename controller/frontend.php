@@ -13,7 +13,7 @@ require './model/frontend.php';
 
 function accueil()
 {
-    if (isset($_COOKIE['pseudo']) && isset($_COOKIE['pass']) && !isset($_SESSION['pseudo'])) {
+    if (isset($_COOKIE['pseudo'], $_COOKIE['pass']) && !isset($_SESSION['pseudo'])) {
         submitLogin($_COOKIE['pseudo'], $_COOKIE['pass']);
     }
     if (isset($_SESSION['nombreWords']) && !empty($_SESSION['nombreWords'])) {
@@ -62,18 +62,18 @@ function liste_edit()
     if (connect()) {
         $confidential = listConfidentiality();
         $confidential_list = array();
-        foreach ($confidential as $value ) {
+        foreach ($confidential as $value) {
             $confidential_list[$value['id']] = $value['confidentiality'];
         }
 
         if (isset($_GET['id'])) {
             $liste = selectListe($_GET['id']);
-            if ($liste->rowCount() == 0) {
+            if ($liste->rowCount() === 0) {
                 setFlash('Vous n\'avez pas accès à cette liste', 'danger');
                 header('Location:index.php?p=listes');
             }
             $_POST = $liste->fetch();
-            if ($_POST['id_user'] != $_SESSION['id']) {
+            if ($_POST['id_user'] !== $_SESSION['id']) {
                 setFlash('Vous n\'avez pas accès à cette liste', 'danger');
                 header('Location:index.php?p=listes');
             }
@@ -84,7 +84,7 @@ function liste_edit()
 
 function connect()
 {
-    if ($_SESSION['connect'] != 'OK') {
+    if ($_SESSION['connect'] !== 'OK') {
         header('Location:index.php?p=accueil');
         return false;
     }
@@ -99,14 +99,14 @@ function submitLogin($pseudo, $password)
 {
     if (!empty($pseudo) && !empty($password)) {
         $statements = loginUser($pseudo, $password);
-        if ($statements == true) {
+        if ($statements === true) {
             $_SESSION['pseudo'] = $pseudo;
             $_SESSION['admin'] = $statements['droits'];
             $_SESSION['id'] = $statements['id'];
             $_SESSION['nombreWords'] = $statements['nombre'];
             $_SESSION['connect'] = 'OK';
-            setcookie('pseudo', $pseudo, time() + 365*24*3600);
-            setcookie('pass', $password, time() + 365*24*3600);
+            setcookie('pseudo', $pseudo, time() + 365 * 24 * 3600);
+            setcookie('pass', $password, time() + 365 * 24 * 3600);
             setFlash('Connexion réussie');
             header('Location:index.php?p=accueil');
         } else {
@@ -129,8 +129,8 @@ function submitRegister($pseudo, $password, $mail)
         $correctMail = searchMail($mail);
         $correctPseudo = searchPseudo($pseudo);
         if ($correctMail) {
-           setFlash('L\'adresse mail est déjà utilisée', 'danger');
-           header('Location:index.php?p=register');
+            setFlash('L\'adresse mail est déjà utilisée', 'danger');
+            header('Location:index.php?p=register');
         } elseif ($correctPseudo) {
             setFlash('Le pseudo est déjà utilisé', 'danger');
             header('Location:index.php?p=register');
@@ -152,10 +152,10 @@ function deleteListe($id)
     if ($deleteListe === false) {
         setFlash('La liste n\'a pas été supprimée', 'danger');
         throw new Exception();
-    } else {
-        setFlash('La liste a bien été supprimée');
-        header('Location:index.php?p=listes');
     }
+
+    setFlash('La liste a bien été supprimée');
+    header('Location:index.php?p=listes');
 }
 
 function addListe($nom, $desc, $id_confidentiality, $id)
@@ -172,10 +172,10 @@ function addListe($nom, $desc, $id_confidentiality, $id)
     if ($addListe === false) {
         setFlash('La liste n\'a pas été ajoutée', 'danger');
         throw new Exception();
-    } else {
-        setFlash('La liste a bien été crée');
-        header('Location:index.php?p=listes');
     }
+
+    setFlash('La liste a bien été crée');
+    header('Location:index.php?p=listes');
 }
 
 /**
@@ -185,38 +185,35 @@ function addListe($nom, $desc, $id_confidentiality, $id)
 function search($search)
 {
     $search = securize($search);
-    $xmlDoc=new DOMDocument();
+    $xmlDoc = new DOMDocument();
     $xmlDoc->load("links.xml");
-    $x=$xmlDoc->getElementsByTagName('link');
+    $x = $xmlDoc->getElementsByTagName('link');
 
-    if (strlen($search)>0) {
-        $hint="";
-        for($i=0; $i<($x->length); $i++) {
-            $y=$x->item($i)->getElementsByTagName('title');
-            $z=$x->item($i)->getElementsByTagName('url');
-            if ($y->item(0)->nodeType==1) {
+    if ($search !== '') {
+        $hint = "";
+        for ($i = 0; $i < ($x->length); $i++) {
+            $y = $x->item($i)->getElementsByTagName('title');
+            $z = $x->item($i)->getElementsByTagName('url');
+            if ($y->item(0)->nodeType === 1) {
                 //find a link matching the search text
-                if (stristr($y->item(0)->childNodes->item(0)->nodeValue,$search)) {
-                    if ($hint=="") {
-                        $hint="<a class='search-a' style='display: block;' href='" .
+                if (stripos($y->item(0)->childNodes->item(0)->nodeValue, $search) !== false) {
+                    if ($hint == "") {
+                        $hint = "<a class='search-a' style='display: block;' href='" .
                             $z->item(0)->childNodes->item(0)->nodeValue .
                             "'>" .
                             $y->item(0)->childNodes->item(0)->nodeValue . "</a>";
                     } else {
-                        $hint=$hint . "<br /><a class='search-a' style='display: block;' href='" .
-                            $z->item(0)->childNodes->item(0)->nodeValue .
-                            "'>" .
-                            $y->item(0)->childNodes->item(0)->nodeValue . "</a>";
+                        $hint .= "<br /><a class='search-a' style='display: block;' href='" . $z->item(0)->childNodes->item(0)->nodeValue . "'>" . $y->item(0)->childNodes->item(0)->nodeValue . "</a>";
                     }
                 }
             }
         }
     }
 
-    if ($hint=="") {
-        $response="no suggestion";
+    if ($hint === "") {
+        $response = "no suggestion";
     } else {
-        $response=$hint;
+        $response = $hint;
     }
 
     echo $response;

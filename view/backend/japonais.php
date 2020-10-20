@@ -18,10 +18,10 @@ ob_start(); ?>
         <tbody>
         <?php foreach ($_POST['japonais'] as $mot): ?>
             <tr>
-                <td style="font-size: 24px"><?= $mot['kanji']; ?></td>
-                <td style="font-size: 24px"><?= $mot['kana']; ?></td>
-                <td style="font-size: 24px"><?= $mot['romaji']; ?></td>
-                <td style="font-size: 24px"><?php $francais = listFrancaisToJaponais($mot['id']);
+                <td style="font-size: 20px"><?= $mot['kanji']; ?></td>
+                <td style="font-size: 20px"><?= $mot['kana']; ?></td>
+                <td style="font-size: 20px"><?= $mot['romaji']; ?></td>
+                <td style="font-size: 20px"><?php $francais = listFrancaisToJaponais($mot['id']);
                     if (sizeof($francais) > 1) {
                         foreach ($francais as $value) {
                             echo $value['francais'] . ", ";
