@@ -6,5 +6,7 @@ ob_start(); ?>
 
     <h2>Voici ce que vous pouvez acheter :</h2><br/><br/>
 
+    <h2>Ce que vous avez déjà acheté :</h2><br/><br/>
+
 <?php $content = ob_get_clean();
 require('./view/template/template.php'); ?>

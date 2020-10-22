@@ -1,11 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pages>
     <link>
-        <title>Immeuble</title>
-        <url>index.php?p=search&amp;t=word&amp;q=Immeuble</url>
+        <title>Bento</title>
+        <url>index.php?p=search&amp;t=word&amp;q=Bento</url>
     </link>
     <link>
-        <title>Maison</title>
-        <url>index.php?p=search&amp;t=word&amp;q=Maison</url>
+        <title>Bleu</title>
+        <url>index.php?p=search&amp;t=word&amp;q=Bleu</url>
+    </link>
+    <link>
+        <title>Chaud</title>
+        <url>index.php?p=search&amp;t=word&amp;q=Chaud</url>
+    </link>
+    <link>
+        <title>Dangereux</title>
+        <url>index.php?p=search&amp;t=word&amp;q=Dangereux</url>
+    </link>
+    <link>
+        <title>Dîner</title>
+        <url>index.php?p=search&amp;t=word&amp;q=Dîner</url>
+    </link>
+    <link>
+        <title>Doux</title>
+        <url>index.php?p=search&amp;t=word&amp;q=Doux</url>
+    </link>
+    <link>
+        <title>Je</title>
+        <url>index.php?p=search&amp;t=word&amp;q=Je</url>
+    </link>
+    <link>
+        <title>Matin</title>
+        <url>index.php?p=search&amp;t=word&amp;q=Matin</url>
+    </link>
+    <link>
+        <title>Minute</title>
+        <url>index.php?p=search&amp;t=word&amp;q=Minute</url>
+    </link>
+    <link>
+        <title>Nouveau</title>
+        <url>index.php?p=search&amp;t=word&amp;q=Nouveau</url>
+    </link>
+    <link>
+        <title>Nouvelle</title>
+        <url>index.php?p=search&amp;t=word&amp;q=Nouvelle</url>
+    </link>
+    <link>
+        <title>Nuit</title>
+        <url>index.php?p=search&amp;t=word&amp;q=Nuit</url>
+    </link>
+    <link>
+        <title>Père</title>
+        <url>index.php?p=search&amp;t=word&amp;q=Père</url>
+    </link>
+    <link>
+        <title>Petit-déjeuner</title>
+        <url>index.php?p=search&amp;t=word&amp;q=Petit-déjeuner</url>
+    </link>
+    <link>
+        <title>Pied</title>
+        <url>index.php?p=search&amp;t=word&amp;q=Pied</url>
+    </link>
+    <link>
+        <title>Rouge</title>
+        <url>index.php?p=search&amp;t=word&amp;q=Rouge</url>
+    </link>
+    <link>
+        <title>Salon de beauté</title>
+        <url>index.php?p=search&amp;t=word&amp;q=Salon de beauté</url>
+    </link>
+    <link>
+        <title>Sucré</title>
+        <url>index.php?p=search&amp;t=word&amp;q=Sucré</url>
+    </link>
+    <link>
+        <title>Famille</title>
+        <url>index.php?p=search&amp;t=groupe&amp;q=Famille</url>
+    </link>
+    <link>
+        <title>Habitation</title>
+        <url>index.php?p=search&amp;t=groupe&amp;q=Habitation</url>
+    </link>
+    <link>
+        <title>Couleur</title>
+        <url>index.php?p=search&amp;t=groupe&amp;q=Couleur</url>
+    </link>
+    <link>
+        <title>Repas</title>
+        <url>index.php?p=search&amp;t=groupe&amp;q=Repas</url>
+    </link>
+    <link>
+        <title>Temps</title>
+        <url>index.php?p=search&amp;t=groupe&amp;q=Temps</url>
     </link>
 </pages>

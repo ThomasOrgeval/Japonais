@@ -17,17 +17,19 @@ create table `USER`
 
 create table `RECOMPENSE`
 (
-    `id` int auto_increment not null,
-    `libelle` varchar(255) not null,
-    `cout` int not null,
+    `id`            int auto_increment not null,
+    `libelle`       varchar(255)       not null,
+    `cout`          int                not null,
+    `date_parution` date,
     primary key (`id`)
 ) engine = InnoDB;
 
 create table `ACHAT`
 (
-    `id` int auto_increment not null,
-    `id_user` int not null,
-    `id_recompense` int not null,
+    `id`            int auto_increment not null,
+    `id_user`       int                not null,
+    `id_recompense` int                not null,
+    `date_achat`    date,
     primary key (`id`),
     foreign key (`id_user`) references `USER` (`id`),
     foreign key (`id_recompense`) references `RECOMPENSE` (`id`)

@@ -2,7 +2,7 @@
 
 function dbConnect()
 {
-    if ($_SERVER['HTTP_HOST'] == 'localhost') {
+    if ($_SERVER['HTTP_HOST'] === 'localhost') {
         $db = new PDO('mysql:host=localhost;dbname=lexiqumjaponais;charset=utf8', 'root', '');
     } else {
         $db = new PDO('mysql:host=lexiqumjaponais.mysql.db; dbname=lexiqumjaponais; charset=utf8', 'lexiqumjaponais', 'Cvd38Q8am5X8D');
@@ -173,4 +173,18 @@ function researchListe($search)
     $db = dbConnect();
     $select = $db->query("select * from lexiqumjaponais.LISTES where nom like '$search' and id_confidentiality = 0");
     return $select->fetch();
+}
+
+/**
+ * Achat
+ */
+
+function listAchatByAccount($id_user)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    $select = $db->query("select RECOMPENSE.libelle, RECOMPENSE.date_parution, RECOMPENSE.cout, ACHAT.date_achat from lexiqumjaponais.RECOMPENSE
+        inner join lexiqumjaponais.ACHAT on RECOMPENSE.id = ACHAT.id_recompense
+        where ACHAT.id_user=$id_user");
+    return $select->fetchAll();
 }

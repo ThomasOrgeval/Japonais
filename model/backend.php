@@ -537,6 +537,30 @@ function listKanji()
 function listRecompense()
 {
     $db = dbConnect();
-    $select = $db->query("select id, libelle, cout from lexiqumjaponais.RECOMPENSE order by libelle");
+    $select = $db->query("select id, libelle, cout, date_parution from lexiqumjaponais.RECOMPENSE order by libelle");
     return $select->fetchAll();
+}
+
+function createRecompense($libelle, $cout)
+{
+    $db = dbConnect();
+    $libelle = $db->quote($libelle);
+    $cout = $db->quote($cout);
+    return $db->query("insert into lexiqumjaponais.RECOMPENSE set libelle=$libelle, cout=$cout, date_parution=curdate()");
+}
+
+function editRecompense($id, $libelle, $cout)
+{
+    $db = dbConnect();
+    $libelle = $db->quote($libelle);
+    $cout = $db->quote($cout);
+    $id = $db->quote($id);
+    return $db->query("update lexiqumjaponais.RECOMPENSE set libelle=$libelle, cout=$cout where id=$id");
+}
+
+function supprRecompense($id)
+{
+    $db = dbConnect();
+    $id = $db->quote($id);
+    return $db->quote("delete from lexiqumjaponais.RECOMPENSE where id=$id");
 }

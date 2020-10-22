@@ -738,3 +738,40 @@ function addAnglais($id, $anglais, $id_type, $listFrancais, $listJaponais)
         header('Location:index.php?p=anglais');
     }
 }
+
+/**
+ * Récompense
+ */
+
+function addRecompense()
+{
+    if (connect_admin()) {
+        if ($_GET['id'] > 0) {
+            $addRecompense = editRecompense($_GET['id'], $_POST['libelle'], $_POST['cout']);
+        } else {
+            $addRecompense = createRecompense($_POST['libelle'], $_POST['cout']);
+        }
+
+        if ($addRecompense === false) {
+            setFlash('La récompense n\'a pas été ajouté', 'danger');
+            throw new Exception();
+        }
+
+        setFlash('La récompense a bien été crée');
+        header('Location:index.php?p=recompense');
+    }
+}
+
+function deleteRecompense($id)
+{
+    if (connect_admin()) {
+        $delete = supprRecompense($id);
+        if ($delete === false) {
+            setFlash('La récompense n\'a pas été supprimée', 'danger');
+            throw new Exception();
+        }
+
+        setFlash('La récompense a bien été supprimée');
+        header('Location:index.php?p=recompense');
+    }
+}

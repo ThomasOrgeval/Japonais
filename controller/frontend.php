@@ -85,6 +85,7 @@ function liste_edit()
 function points()
 {
     if (connect()) {
+        $_POST['achat'] = listAchatByAccount($_SESSION['id']);
         require './view/frontend/points.php';
     }
 }

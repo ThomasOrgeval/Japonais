@@ -18,6 +18,12 @@ function inputReadonly($id)
     return "<input type='text' class='form-control' id='$id' name='$id' value='$value' readonly>";
 }
 
+function inputNumber($id)
+{
+    $value = isset($_POST[$id]) ? $_POST[$id] : '0';
+    return "<input type='number' class='form-control' id='$id' name='$id' value='$value'>";
+}
+
 function textarea($id)
 {
     $value = isset($_POST[$id]) ? $_POST[$id] : '';

@@ -10,6 +10,7 @@ ob_start(); ?>
             <th style="font-size: 24px">ID</th>
             <th style="font-size: 24px">Libellé</th>
             <th style="font-size: 24px">Coût</th>
+            <th style="font-size: 24px">Date de sortie</th>
             <th style="font-size: 24px">Actions</th>
         </tr>
         </thead>
@@ -19,9 +20,10 @@ ob_start(); ?>
                 <td style="font-size: 24px"><?= $value['id'] ?></td>
                 <td style="font-size: 24px"><?= $value['libelle'] ?></td>
                 <td style="font-size: 24px"><?= $value['cout'] ?></td>
+                <td style="font-size: 24px"><?= $value['date_parution'] ?></td>
                 <td>
-                    <a href="index.php?p=recompense_edit&id=<?= $value['id']; ?>" class="btn btn-outline-dark">Edit</a>
-                    <a href="index.php?p=recompense_delete&id=<?= $value['id']; ?>"
+                    <a href="index.php?p=recompense_edit&id=<?= $value['id'] ?>" class="btn btn-outline-dark">Edit</a>
+                    <a href="index.php?p=recompense_delete&id=<?= $value['id'] ?>"
                        class="btn btn-outline-danger">Remove</a>
                 </td>
             </tr>

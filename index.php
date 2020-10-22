@@ -105,6 +105,10 @@ try {
             recompense();
         } elseif ($p === 'recompense_edit') {
             recompense_edit();
+        } elseif ($p === 'recompense_add') {
+            addRecompense();
+        } elseif ($p === 'recompense_delete') {
+            deleteRecompense($_GET['id']);
         }
     } else {
         accueil();
