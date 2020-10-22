@@ -181,7 +181,7 @@ function anglais_edit()
             $anglais = testAnglais($_GET['id']);
             if ($anglais->rowCount() === 0) {
                 setFlash("Il n'y a pas de mot anglais avec cet ID", "danger");
-                header("Location:index.php?p=japonais");
+                header("Location:index.php?p=anglais");
             }
             $_POST = $anglais->fetch();
         }
@@ -230,6 +230,15 @@ function recompense()
 function recompense_edit()
 {
     if (connect_admin()) {
+        if (isset($_GET['id'])) {
+            $recompense = testRecompense($_GET['id']);
+            if ($recompense->rowCount() === 0) {
+                setFlash("Il n'y a pas de récompense avec cet ID", "danger");
+                header("Location:index.php?p=recompense");
+            }
+            $_POST = $recompense->fetch();
+            $_POST['acheteurs'] = listAchateurFromRecompense($_GET['id']);
+        }
         require './view/backend/recompense_edit.php';
     }
 }

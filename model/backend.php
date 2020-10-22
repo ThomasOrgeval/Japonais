@@ -534,6 +534,13 @@ function listKanji()
  * Recompense
  */
 
+function testRecompense($id)
+{
+    $db = dbConnect();
+    $id = $db->quote($id);
+    return $db->query("select * from lexiqumjaponais.RECOMPENSE where id=$id");
+}
+
 function listRecompense()
 {
     $db = dbConnect();
@@ -563,4 +570,18 @@ function supprRecompense($id)
     $db = dbConnect();
     $id = $db->quote($id);
     return $db->quote("delete from lexiqumjaponais.RECOMPENSE where id=$id");
+}
+
+/**
+ * Achat
+ */
+
+function listAchateurFromRecompense($id_recompense)
+{
+    $db = dbConnect();
+    $id_recompense = $db->quote($id_recompense);
+    $select = $db->query("select USER.pseudo from lexiqumjaponais.ACHAT
+        inner join lexiqumjaponais.USER on achat.id_user = user.id
+        where id_recompense=$id_recompense");
+    return $select->fetchAll();
 }

@@ -30,6 +30,9 @@ ob_start(); ?>
 
             <div class="col-sm-4">
                 <h5>Liste des acheteurs :</h5>
+                <?php foreach ($_POST['acheteurs'] as $acheteur) : ?>
+                    <span><?= $acheteur['pseudo'] ?></span>
+                <?php endforeach; ?>
             </div>
 
         </div>
