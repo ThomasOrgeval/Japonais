@@ -205,7 +205,7 @@ function listAllJaponaisAndFrancais()
 {
     $db = dbConnect();
     $select = $db->query("select FRANCAIS.id, FRANCAIS.francais, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji from lexiqumjaponais.JAPONAIS
-    inner join lexiqumjaponais.WORDS_JAPONAIS as wj
+    inner join lexiqumjaponais.TRADUCTION as wj
         on wj.id_japonais = JAPONAIS.id
     inner join lexiqumjaponais.FRANCAIS
         on wj.id_word = FRANCAIS.id
@@ -219,7 +219,7 @@ function selectJaponaisAndFrancais($id_francais, $id_japonais)
     $db = dbConnect();
     $id_francais = $db->quote($id_francais);
     $id_japonais = $db->quote($id_japonais);
-    $select = $db->query("select * from lexiqumjaponais.WORDS_JAPONAIS where id_word=$id_francais and id_japonais=$id_japonais");
+    $select = $db->query("select * from lexiqumjaponais.TRADUCTION where id_word=$id_francais and id_japonais=$id_japonais");
     return $select->fetchAll();
 }
 
@@ -228,7 +228,7 @@ function createJaponaisAndFrancais($id_francais, $id_japonais)
     $db = dbConnect();
     $id_francais = $db->quote($id_francais);
     $id_japonais = $db->quote($id_japonais);
-    return $db->query("insert into lexiqumjaponais.WORDS_JAPONAIS set id_word=$id_francais, id_japonais=$id_japonais");
+    return $db->query("insert into lexiqumjaponais.TRADUCTION set id_word=$id_francais, id_japonais=$id_japonais");
 }
 
 function selectAnglaisAndFrancais($id_francais, $id_anglais)
@@ -236,7 +236,7 @@ function selectAnglaisAndFrancais($id_francais, $id_anglais)
     $db = dbConnect();
     $id_francais = $db->quote($id_francais);
     $id_anglais = $db->quote($id_anglais);
-    $select = $db->query("select * from lexiqumjaponais.WORDS_JAPONAIS where id_word=$id_francais and id_anglais=$id_anglais");
+    $select = $db->query("select * from lexiqumjaponais.TRADUCTION where id_word=$id_francais and id_anglais=$id_anglais");
     return $select->fetchAll();
 }
 
@@ -245,7 +245,7 @@ function createAnglaisAndFrancais($id_francais, $id_anglais)
     $db = dbConnect();
     $id_francais = $db->quote($id_francais);
     $id_anglais = $db->quote($id_anglais);
-    return $db->query("insert into lexiqumjaponais.WORDS_JAPONAIS set id_word=$id_francais, id_anglais=$id_anglais");
+    return $db->query("insert into lexiqumjaponais.TRADUCTION set id_word=$id_francais, id_anglais=$id_anglais");
 }
 
 function selectAnglaisAndJaponais($id_japonais, $id_anglais)
@@ -253,7 +253,7 @@ function selectAnglaisAndJaponais($id_japonais, $id_anglais)
     $db = dbConnect();
     $id_japonais = $db->quote($id_japonais);
     $id_anglais = $db->quote($id_anglais);
-    $select = $db->query("select * from lexiqumjaponais.WORDS_JAPONAIS where id_japonais=$id_japonais and id_anglais=$id_anglais");
+    $select = $db->query("select * from lexiqumjaponais.TRADUCTION where id_japonais=$id_japonais and id_anglais=$id_anglais");
     return $select->fetchAll();
 }
 
@@ -262,7 +262,7 @@ function createAnglaisAndJaponais($id_japonais, $id_anglais)
     $db = dbConnect();
     $id_japonais = $db->quote($id_japonais);
     $id_anglais = $db->quote($id_anglais);
-    return $db->query("insert into lexiqumjaponais.WORDS_JAPONAIS set id_japonais=$id_japonais, id_anglais=$id_anglais");
+    return $db->query("insert into lexiqumjaponais.TRADUCTION set id_japonais=$id_japonais, id_anglais=$id_anglais");
 }
 
 function selectTraductionAll($id_francais, $id_japonais, $id_anglais)
@@ -271,7 +271,7 @@ function selectTraductionAll($id_francais, $id_japonais, $id_anglais)
     $id_francais = $db->quote($id_francais);
     $id_japonais = $db->quote($id_japonais);
     $id_anglais = $db->quote($id_anglais);
-    $select = $db->query("select * from lexiqumjaponais.WORDS_JAPONAIS where id_word=$id_francais and id_japonais=$id_japonais and id_anglais=$id_anglais");
+    $select = $db->query("select * from lexiqumjaponais.TRADUCTION where id_word=$id_francais and id_japonais=$id_japonais and id_anglais=$id_anglais");
     return $select->fetchAll();
 }
 
@@ -281,7 +281,7 @@ function createTraductionAll($id_francais, $id_japonais, $id_anglais)
     $id_francais = $db->quote($id_francais);
     $id_japonais = $db->quote($id_japonais);
     $id_anglais = $db->quote($id_anglais);
-    return $db->query("insert into lexiqumjaponais.WORDS_JAPONAIS set id_word=$id_francais, id_japonais=$id_japonais, id_anglais=$id_anglais");
+    return $db->query("insert into lexiqumjaponais.TRADUCTION set id_word=$id_francais, id_japonais=$id_japonais, id_anglais=$id_anglais");
 }
 
 function listJaponaisToFrancais($id)
@@ -289,7 +289,7 @@ function listJaponaisToFrancais($id)
     $db = dbConnect();
     $id = $db->quote($id);
     $select = $db->query("select JAPONAIS.id, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji from lexiqumjaponais.JAPONAIS
-    inner join lexiqumjaponais.WORDS_JAPONAIS as wj
+    inner join lexiqumjaponais.TRADUCTION as wj
         on wj.id_japonais = JAPONAIS.id
     inner join lexiqumjaponais.FRANCAIS
         on wj.id_word = FRANCAIS.id
@@ -302,7 +302,7 @@ function listAnglaisToFrancais($id)
     $db = dbConnect();
     $id = $db->quote($id);
     $select = $db->query("select ANGLAIS.id, ANGLAIS.anglais, ANGLAIS.id_type from lexiqumjaponais.ANGLAIS
-    inner join lexiqumjaponais.WORDS_JAPONAIS as wj
+    inner join lexiqumjaponais.TRADUCTION as wj
         on wj.id_anglais = ANGLAIS.id
     inner join lexiqumjaponais.FRANCAIS
         on wj.id_word = FRANCAIS.id
@@ -315,7 +315,7 @@ function listFrancaisToJaponais($id)
     $db = dbConnect();
     $id = $db->quote($id);
     $select = $db->query("select FRANCAIS.id, FRANCAIS.francais, FRANCAIS.id_type from lexiqumjaponais.FRANCAIS
-    inner join lexiqumjaponais.WORDS_JAPONAIS as wj
+    inner join lexiqumjaponais.TRADUCTION as wj
         on wj.id_word = FRANCAIS.id
     inner join lexiqumjaponais.JAPONAIS
         on wj.id_japonais = JAPONAIS.id
@@ -328,7 +328,7 @@ function listAnglaisToJaponais($id)
     $db = dbConnect();
     $id = $db->quote($id);
     $select = $db->query("select ANGLAIS.id, ANGLAIS.anglais, ANGLAIS.id_type from lexiqumjaponais.ANGLAIS
-    inner join lexiqumjaponais.WORDS_JAPONAIS as wj
+    inner join lexiqumjaponais.TRADUCTION as wj
         on wj.id_anglais = ANGLAIS.id
     inner join lexiqumjaponais.JAPONAIS
         on wj.id_japonais = JAPONAIS.id
@@ -341,7 +341,7 @@ function listFrancaisToAnglais($id)
     $db = dbConnect();
     $id = $db->quote($id);
     $select = $db->query("select FRANCAIS.id, FRANCAIS.francais, FRANCAIS.id_type from lexiqumjaponais.FRANCAIS
-    inner join lexiqumjaponais.WORDS_JAPONAIS as wj
+    inner join lexiqumjaponais.TRADUCTION as wj
         on wj.id_word = FRANCAIS.id
     inner join lexiqumjaponais.ANGLAIS
         on wj.id_anglais = ANGLAIS.id
@@ -354,7 +354,7 @@ function listJaponaisToAnglais($id)
     $db = dbConnect();
     $id = $db->quote($id);
     $select = $db->query("select JAPONAIS.id, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji from lexiqumjaponais.JAPONAIS
-    inner join lexiqumjaponais.WORDS_JAPONAIS as wj
+    inner join lexiqumjaponais.TRADUCTION as wj
         on wj.id_japonais = JAPONAIS.id
     inner join lexiqumjaponais.ANGLAIS
         on wj.id_anglais = ANGLAIS.id
@@ -371,7 +371,7 @@ function listFrancaisAndJaponaisWhereGroupe($id)
         on wg.id_groupe = GROUPE.id
     inner join lexiqumjaponais.FRANCAIS
         on wg.id_word = FRANCAIS.id
-    inner join lexiqumjaponais.WORDS_JAPONAIS as wj
+    inner join lexiqumjaponais.TRADUCTION as wj
     	on wj.id_word = FRANCAIS.id
     inner join lexiqumjaponais.JAPONAIS
     	on wj.id_japonais = JAPONAIS.id
@@ -383,21 +383,21 @@ function deleteAllForFrancais($id_francais)
 {
     $db = dbConnect();
     $id = $db->quote($id_francais);
-    $db->query("delete from lexiqumjaponais.WORDS_JAPONAIS where id_word=$id");
+    $db->exec("delete from lexiqumjaponais.TRADUCTION where id_word=$id");
 }
 
 function deleteAllForJaponais($id_japonais)
 {
     $db = dbConnect();
     $id = $db->quote($id_japonais);
-    $db->query("delete from lexiqumjaponais.WORDS_JAPONAIS where id_japonais=$id");
+    $db->exec("delete from lexiqumjaponais.TRADUCTION where id_japonais=$id");
 }
 
 function deleteAllForAnglais($id_anglais)
 {
     $db = dbConnect();
     $id = $db->quote($id_anglais);
-    $db->query("delete from lexiqumjaponais.WORDS_JAPONAIS where id_anglais=$id");
+    $db->exec("delete from lexiqumjaponais.TRADUCTION where id_anglais=$id");
 }
 
 /**

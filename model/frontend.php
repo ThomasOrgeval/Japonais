@@ -60,7 +60,7 @@ function listRandomWords($nombre)
 {
     $db = dbConnect();
     $select = $db->query("select FRANCAIS.id, FRANCAIS.francais, FRANCAIS.id_type, JAPONAIS.id, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji, TYPE.id, TYPE.type from lexiqumjaponais.JAPONAIS
-    inner join lexiqumjaponais.WORDS_JAPONAIS as wj
+    inner join lexiqumjaponais.TRADUCTION as wj
         on wj.id_japonais = JAPONAIS.id
     inner join lexiqumjaponais.FRANCAIS
         on wj.id_word = FRANCAIS.id

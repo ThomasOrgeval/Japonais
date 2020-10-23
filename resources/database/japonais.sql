@@ -158,7 +158,7 @@ create table `JAPONAIS_KANJI`
     foreign key (`id_kanji`) references KANJI (`id`)
 ) engine = InnoDB;
 
-create table `WORDS_JAPONAIS`
+create table `TRADUCTION`
 (
     `id`          int auto_increment not null,
     `id_word`     int,
@@ -2637,7 +2637,7 @@ VALUES (18, 5, 3),
        (23, 11, 5),
        (24, 19, 5);
 
-INSERT INTO `WORDS_JAPONAIS` (`id`, `id_word`, `id_japonais`, `id_anglais`)
+INSERT INTO `TRADUCTION` (`id`, `id_word`, `id_japonais`, `id_anglais`)
 VALUES (1, 1, 1, 1),
        (2, 2, 2, 2),
        (6, 4, 4, NULL),
