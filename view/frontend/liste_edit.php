@@ -23,7 +23,6 @@ ob_start(); ?>
                 <?= select('id_confidentiality', $confidential_list); ?>
             </div>
 
-            <?= csrfInput(); ?>
             <button type="submit" class="btn btn-outline-dark" name="save">Enregistrer</button>
         </div>
     </form>

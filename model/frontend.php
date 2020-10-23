@@ -188,3 +188,36 @@ function listAchatByAccount($id_user)
         where ACHAT.id_user=$id_user");
     return $select->fetchAll();
 }
+
+function achatByUser($id_user, $id_recompense)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    $id_recompense = $db->quote($id_recompense);
+    $select = $db->query("select * from lexiqumjaponais.ACHAT where id_user=$id_user and id_recompense=$id_recompense");
+    return $select->fetch();
+}
+
+function achatdb($id_user, $id_recompense)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    $id_recompense = $db->quote($id_recompense);
+    $db->exec("insert into lexiqumjaponais.ACHAT set id_user=$id_user, id_recompense=$id_recompense, date_achat=curdate()");
+}
+
+function depense($id, $points)
+{
+    $db = dbConnect();
+    $id = $db->quote($id);
+    $points = $db->quote($points);
+    $db->exec("update lexiqumjaponais.USER set points=$points where id=$id");
+}
+
+function pointsUser($id)
+{
+    $db = dbConnect();
+    $id = $db->quote($id);
+    $select = $db->query("select points from lexiqumjaponais.USER where id=$id");
+    return $select->fetch();
+}

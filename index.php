@@ -109,6 +109,8 @@ try {
             addRecompense();
         } elseif ($p === 'recompense_delete') {
             deleteRecompense($_GET['id']);
+        } elseif ($p === 'achat') {
+            achat();
         }
     } else {
         accueil();

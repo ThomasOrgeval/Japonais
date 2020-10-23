@@ -17,7 +17,7 @@ ob_start(); ?>
                 <td><?= $liste['nom']; ?></td>
                 <td>
                     <a href="index.php?p=liste_edit&id=<?= $liste['id']; ?>" class="btn btn-outline-dark">Edit</a>
-                    <a href="index.php?p=liste_delete&id=<?= $liste['id']; ?>&<?= csrf(); ?>" class="btn btn-outline-danger"
+                    <a href="index.php?p=liste_delete&id=<?= $liste['id']; ?>" class="btn btn-outline-danger"
                        onclick="return confirm('Voulez-vous vraiment supprimer ce groupe ?')">Remove</a>
                 </td>
             </tr>

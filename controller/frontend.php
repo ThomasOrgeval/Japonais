@@ -85,8 +85,34 @@ function liste_edit()
 function points()
 {
     if (connect()) {
-        $_POST['achat'] = listAchatByAccount($_SESSION['id']);
+        $_POST['recompenses'] = listRecompense();
+        $_POST['achats'] = listAchatByAccount($_SESSION['id']);
+        foreach ($_POST['recompenses'] as $recompense) {
+            foreach ($_POST['achats'] as $achat) {
+                if ($recompense['libelle'] === $achat['libelle']) {
+                    unset($_POST['recompenses'][array_search($recompense, $_POST['recompenses'], true)]);
+                }
+            }
+        }
         require './view/frontend/points.php';
+    }
+}
+
+function achat()
+{
+    if (connect()) {
+        if (achatByUser($_SESSION['id'], $_GET['id_recompense']) === false) {
+            $points = pointsUser($_SESSION['id']);
+            if ($points['points'] >= $_GET['cout']) {
+                achatdb($_SESSION['id'], $_GET['id_recompense']);
+                depense($_SESSION['id'], $points['points'] - $_GET['cout']);
+                $_SESSION['points'] = pointsUser($_SESSION['id'])['points'];
+                setFlash('Vous avez bien ajouté ce lot !');
+            } else {
+                setFlash('Vous n\'avez pas assez de points :(', 'danger');
+            }
+        }
+        header('Location:index.php?p=points');
     }
 }
 
