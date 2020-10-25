@@ -166,7 +166,32 @@ ob_start(); ?>
         <a class="small btn btn-outline-dark" id="duplicatebtn2">Ajouter une traduction</a><br/><br/>
 
         <button type="submit" class="btn btn-green" name="save">Enregistrer</button>
-    </form>
+    </form><br/><br/>
+
+<?php if (isset($_POST['kanjis'])): ?>
+    <div>
+        <h1>Kanji présent(s) :</h1>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th style="font-size: 24px">Kanji</th>
+                <th style="font-size: 24px">Lignes</th>
+                <th style="font-size: 24px">Grade</th>
+            </tr>
+            </thead>
+            <tbody>
+        <?php foreach ($_POST['kanjis'] as $kanji) : ?>
+            <tr>
+                <td style="font-size: 24px"><a href="index.php?p=kanji_edit&id=<?= $kanji['id'] ?>"><?= $kanji['kanji'] ?></a></td>
+                <td style="font-size: 24px"><?= $kanji['lignes'] ?></td>
+                <td style="font-size: 24px"><?= $kanji['grade'] ?></td>
+            </tr>
+        <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+<?php endif ?>
 
     <script>
         (function ($) {

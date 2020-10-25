@@ -134,6 +134,7 @@ function japonais_edit()
                 header("Location:index.php?p=japonais");
             }
             $_POST = $japonais->fetch();
+            $_POST['kanjis'] = listKanjiToJaponais($_GET['id']);
         }
         require './view/backend/japonais_edit.php';
     }
@@ -784,19 +785,18 @@ function saveKanji()
     }
 }
 
-function addJaponaisKanji($value, $id)
+function addJaponaisKanji($values, $id)
 {
-    for ($i = 0, $iMax = strlen($value); $i <= $iMax; $i++) {
-        $kanji = testKanjiContains(mb_substr($value, $i, $i+0));
+    $pattern = "/\P{Han}/u"; // Garde uniquement les kanjis
+    $values = preg_replace($pattern,'',$values);
+    $pattern = '/(?<!^)(?!$)/u'; // Crée un tableau contenant tous les kanjis, mit séparement
+    $values = preg_split($pattern,$values);
+
+    foreach ($values as $value) {
+        $kanji = testKanjiContains($value);
         if ($kanji->rowCount() !== 0) {
             $kanji = $kanji->fetch();
             addKanjiJaponais($id, $kanji['id']);
-        } else {
-            $kanji = testKanjiContains(mb_substr($value, $i, $i+1));
-            if ($kanji->rowCount() !== 0) {
-                $kanji = $kanji->fetch();
-                addKanjiJaponais($id, $kanji['id']);
-            }
         }
     }
 }

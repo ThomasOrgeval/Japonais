@@ -518,6 +518,16 @@ function addKanjiJaponais($id_japonais, $id_kanji)
     $db->exec("insert into lexiqumjaponais.JAPONAIS_KANJI set id_japonais=$id_japonais, id_kanji=$id_kanji");
 }
 
+function listKanjiToJaponais($id_japonais)
+{
+    $db = dbConnect();
+    $id_japonais = $db->quote($id_japonais);
+    $select = $db->query("select KANJI.* from lexiqumjaponais.KANJI
+        inner join lexiqumjaponais.JAPONAIS_KANJI jk on KANJI.id = jk.id_kanji
+        where id_japonais=$id_japonais");
+    return $select->fetchAll();
+}
+
 /**
  * Kanji
  */
