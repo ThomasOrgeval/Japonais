@@ -8,10 +8,10 @@ ob_start(); ?>
         <thead>
         <tr>
             <th>Kanji</th>
-            <th>Kana</th>
+            <th class="hidden">Kana</th>
             <th>Romaji</th>
-            <th>Français</th>
-            <th>Anglais</th>
+            <th class="hidden">Français</th>
+            <th class="hidden">Anglais</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -19,9 +19,9 @@ ob_start(); ?>
         <?php foreach ($_POST['japonais'] as $mot): ?>
             <tr>
                 <td><?= $mot['kanji']; ?></td>
-                <td><?= $mot['kana']; ?></td>
+                <td class="hidden"><?= $mot['kana']; ?></td>
                 <td><?= $mot['romaji']; ?></td>
-                <td><?php $francais = listFrancaisToJaponais($mot['id']);
+                <td class="hidden"><?php $francais = listFrancaisToJaponais($mot['id']);
                     if (sizeof($francais) > 1) {
                         foreach ($francais as $value) {
                             echo $value['francais'] . ", ";
@@ -30,7 +30,7 @@ ob_start(); ?>
                         echo $francais['0']['francais'];
                     }
                     ?></td>
-                <td><?php $anglais = listAnglaisToJaponais($mot['id']);
+                <td class="hidden"><?php $anglais = listAnglaisToJaponais($mot['id']);
                     if (sizeof($anglais) > 1) {
                         foreach ($anglais as $value) {
                             echo $value['anglais'] . ", ";
@@ -40,9 +40,9 @@ ob_start(); ?>
                     }
                     ?></td>
                 <td>
-                    <a href="index.php?p=japonais_edit&id=<?= $mot['id']; ?>" class="btn btn-outline-dark">Edit</a>
+                    <a href="index.php?p=japonais_edit&id=<?= $mot['id']; ?>" class="btn btn-outline-dark btn-small">Edit</a>
                     <a href="index.php?p=japonais_delete&id=<?= $mot['id']; ?>"
-                       class="btn btn-outline-danger">Remove</a>
+                       class="btn btn-outline-danger btn-small">Remove</a>
                 </td>
             </tr>
         <?php endforeach ?>

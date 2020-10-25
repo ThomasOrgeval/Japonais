@@ -67,4 +67,13 @@
         font-size: 24px;
     }
 
+    .display {
+        display: grid;
+    }
+
+    .btn-small {
+        padding: 0.4rem !important;
+        font-size: 0.65rem;
+    }
+
 }

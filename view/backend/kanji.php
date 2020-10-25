@@ -5,7 +5,7 @@ ob_start(); ?>
     <table id="db" class="table table-bordered table-size">
         <thead>
         <tr>
-            <th>ID</th>
+            <th class="hidden">ID</th>
             <th>Kanji</th>
             <th>Grade</th>
             <th>Actions</th>
@@ -14,11 +14,11 @@ ob_start(); ?>
         <tbody>
         <?php foreach ($_POST['kanji'] as $mot): ?>
             <tr>
-                <td><?= $mot['id'] ?></td>
+                <td class="hidden"><?= $mot['id'] ?></td>
                 <td><?= $mot['kanji'] ?></td>
                 <td><?= $mot['grade'] ?></td>
                 <td>
-                    <a href="index.php?p=kanji_edit&id=<?= $mot['id'] ?>" class="btn btn-outline-dark">Edit</a>
+                    <a href="index.php?p=kanji_edit&id=<?= $mot['id'] ?>" class="btn btn-outline-dark btn-small">Edit</a>
                 </td>
             </tr>
         <?php endforeach ?>

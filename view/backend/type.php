@@ -7,7 +7,7 @@ ob_start(); ?>
     <table id="db" class="table table-striped table-size">
         <thead>
         <tr>
-            <th>ID</th>
+            <th class="hidden">ID</th>
             <th>Type</th>
             <th>Actions</th>
         </tr>
@@ -15,12 +15,12 @@ ob_start(); ?>
         <tbody>
         <?php foreach ($types as $type): ?>
             <tr>
-                <td><?= $type['id']; ?></td>
+                <td class="hidden"><?= $type['id']; ?></td>
                 <td><?= $type['type']; ?></td>
                 <td>
-                    <a href="index.php?p=type_edit&id=<?= $type['id']; ?>" class="btn btn-outline-dark">Edit</a>
+                    <a href="index.php?p=type_edit&id=<?= $type['id']; ?>" class="btn btn-outline-dark btn-small">Edit</a>
                     <a href="index.php?p=type_delete&id=<?= $type['id']; ?>"
-                       class="btn btn-outline-danger"
+                       class="btn btn-outline-danger btn-small"
                        onclick="return confirm('Voulez-vous vraiment supprimer ce mot ?')">Remove</a>
                 </td>
             </tr>

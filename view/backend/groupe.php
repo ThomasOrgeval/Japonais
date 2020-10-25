@@ -16,9 +16,9 @@ ob_start(); ?>
             <tr>
                 <td><?= $groupe['libelle']; ?></td>
                 <td>
-                    <a href="index.php?p=groupe_edit&id=<?= $groupe['id']; ?>" class="btn btn-outline-dark">Edit</a>
+                    <a href="index.php?p=groupe_edit&id=<?= $groupe['id']; ?>" class="btn btn-outline-dark btn-small">Edit</a>
                     <a href="index.php?p=groupe_delete&id=<?= $groupe['id']; ?>"
-                       class="btn btn-outline-danger">Remove</a>
+                       class="btn btn-outline-danger btn-small">Remove</a>
                 </td>
             </tr>
         <?php endforeach ?>
