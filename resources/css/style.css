@@ -32,3 +32,23 @@
 #sakura-svg:hover {
     fill: pink;
 }
+
+@media (min-width: 768px) {
+
+    #navbar-top-small {
+        display: none;
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    #navbar-top {
+        display: none;
+    }
+
+    #navbar-top-small {
+        width: 100%;
+    }
+
+}

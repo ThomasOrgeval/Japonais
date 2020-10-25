@@ -56,6 +56,42 @@
         </div>
     </div>
 </nav>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar-top-small">
+    <div class="pos-f-t">
+        <div class="collapse" id="navbarToggleExternalContent">
+            <ul class="navbar-nav mr-auto">
+                <li><a class="nav-item nav-link" href="index.php?p=accueil">Accueil</a></li>
+                <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
+                    <li><a class="nav-item nav-link" href="index.php?p=listes">Mes listes</a></li>
+                    <?php if ($_SESSION['admin'] == 1): ?>
+                        <li><a class="nav-item nav-link" href="index.php?p=admin_portail">Administration</a></li>
+                    <?php endif;
+                endif; ?>
+            </ul>
+            <div class="navbar-nav">
+                <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
+                    <a class="nav-item nav-link" href="index.php?p=points"><?= $_SESSION['points'] ?>
+                        <img id="sakura-svg" class="svg" src="./resources/svgs/sakura.svg" alt="sakura">
+                    </a>
+                    <a class="nav-item nav-link" href="index.php?p=account" style="color: white;">Bienvenue,
+                        &thinsp; <?= $_SESSION['pseudo'] ?></a>
+                    <a class="nav-item nav-link" href="index.php?p=logout">Déconnexion</a>
+                <?php else: ?>
+                    <a class="nav-item nav-link" href="index.php?p=login">Connexion</a>
+                <?php endif; ?>
+            </div>
+        </div>
+        <nav class="navbar navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </div>
+</nav>
+
 <script>
     function showResult(str) {
         if (str.length === 0) {
