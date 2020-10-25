@@ -136,7 +136,7 @@ function researchJaponais($search)
 {
     $db = dbConnect();
     $search = $db->quote($search);
-    $select = $db->query("select id from lexiqumjaponais.JAPONAIS where romaji like $search");
+    $select = $db->query("select id, kanji from lexiqumjaponais.JAPONAIS where romaji like $search");
     return $select->fetch();
 }
 

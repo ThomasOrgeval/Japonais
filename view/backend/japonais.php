@@ -30,7 +30,7 @@ ob_start(); ?>
                         echo $francais['0']['francais'];
                     }
                     ?></td>
-                <td style="font-size: 24px"><?php $anglais = listAnglaisToJaponais($mot['id']);
+                <td style="font-size: 20px"><?php $anglais = listAnglaisToJaponais($mot['id']);
                     if (sizeof($anglais) > 1) {
                         foreach ($anglais as $value) {
                             echo $value['anglais'] . ", ";

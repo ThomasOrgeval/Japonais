@@ -74,7 +74,6 @@ function francais_add()
             if (!empty($_POST['kanji'][$i]) || !empty($_POST['kana'][$i] || !empty($_POST['romaji'][$i]))) {
                 addJaponaisFromOther($_POST['id_jap'][$i], $_POST['kanji'][$i], $_POST['kana'][$i], $_POST['romaji'][$i]);
                 $japonais[] = $_POST['romaji'][$i];
-                addJaponaisKanji($_POST['kanji'][$i], $_POST['id_jap'][$i]);
             }
         }
         for ($i = 0; $i <= sizeof($_POST['id_anglais']); $i++) {
@@ -158,7 +157,7 @@ function japonais_add()
                 $anglais[] = $_POST['anglais'][$i];
             }
         }
-        addJaponaisKanji($_POST['kanji'], $_GET['id']);
+
         addJaponais($_GET['id'], $_POST['kanji'], $_POST['kana'], $_POST['romaji'], $francais, $anglais);
     }
 }
@@ -202,7 +201,6 @@ function anglais_add()
             if (!empty($_POST['kanji'][$i]) || !empty($_POST['kana'][$i] || !empty($_POST['romaji'][$i]))) {
                 addJaponaisFromOther($_POST['id_jap'][$i], $_POST['kanji'][$i], $_POST['kana'][$i], $_POST['romaji'][$i]);
                 $japonais[] = $_POST['romaji'][$i];
-                addJaponaisKanji($_POST['kanji'][$i], $_POST['id_jap'][$i]);
             }
         }
         for ($i = 0; $i <= sizeof($_POST['id_francais']); $i++) {
@@ -391,6 +389,7 @@ function addFrancais($id, $francais, $id_type, $listJaponais, $listAnglais)
 
         foreach ($listJaponais as $japonais) {
             $id_japonais = researchJaponais($japonais);
+            addJaponaisKanji($id_japonais['kanji'], $id_japonais['id']);
             if (empty(selectJaponaisAndFrancais($id, $id_japonais['id']))) {
                 createJaponaisAndFrancais($id, $id_japonais['id']);
             }
@@ -576,6 +575,7 @@ function addJaponais($id, $kanji, $kana, $romaji, $listFrancais, $listAnglais)
             $id = researchJaponais($romaji);
             $id = $id['id'];
         }
+        addJaponaisKanji($kanji, $id);
 
         foreach ($listFrancais as $francais) {
             $id_francais = researchWord($francais);
@@ -743,6 +743,7 @@ function addAnglais($id, $anglais, $id_type, $listFrancais, $listJaponais)
 
         foreach ($listJaponais as $japonais) {
             $id_japonais = researchJaponais($japonais);
+            addJaponaisKanji($id_japonais['kanji'], $id_japonais['id']);
             if (empty(selectAnglaisAndJaponais($id_japonais['id'], $id))) {
                 createAnglaisAndJaponais($id_japonais['id'], $id);
             }
@@ -789,7 +790,7 @@ function addJaponaisKanji($values, $id)
 {
     $pattern = "/\P{Han}/u"; // Garde uniquement les kanjis
     $values = preg_replace($pattern,'',$values);
-    $pattern = '/(?<!^)(?!$)/u'; // Crée un tableau contenant tous les kanjis, mit séparement
+    $pattern = '/(?<!^)(?!$)/u'; // Crée un tableau de chaque caractère
     $values = preg_split($pattern,$values);
 
     foreach ($values as $value) {
