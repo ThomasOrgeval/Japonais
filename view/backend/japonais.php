@@ -4,24 +4,24 @@ ob_start(); ?>
 
     <p class="add"><a href="index.php?p=japonais_edit" class="btn btn-success">Ajout</a></p>
 
-    <table id="db" class="table table-striped">
+    <table id="db" class="table table-striped table-size">
         <thead>
         <tr>
-            <th style="font-size: 24px">Kanji</th>
-            <th style="font-size: 24px">Kana</th>
-            <th style="font-size: 24px">Romaji</th>
-            <th style="font-size: 24px">Français</th>
-            <th style="font-size: 24px">Anglais</th>
-            <th style="font-size: 24px">Actions</th>
+            <th>Kanji</th>
+            <th>Kana</th>
+            <th>Romaji</th>
+            <th>Français</th>
+            <th>Anglais</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <?php foreach ($_POST['japonais'] as $mot): ?>
             <tr>
-                <td style="font-size: 20px"><?= $mot['kanji']; ?></td>
-                <td style="font-size: 20px"><?= $mot['kana']; ?></td>
-                <td style="font-size: 20px"><?= $mot['romaji']; ?></td>
-                <td style="font-size: 20px"><?php $francais = listFrancaisToJaponais($mot['id']);
+                <td><?= $mot['kanji']; ?></td>
+                <td><?= $mot['kana']; ?></td>
+                <td><?= $mot['romaji']; ?></td>
+                <td><?php $francais = listFrancaisToJaponais($mot['id']);
                     if (sizeof($francais) > 1) {
                         foreach ($francais as $value) {
                             echo $value['francais'] . ", ";
@@ -30,7 +30,7 @@ ob_start(); ?>
                         echo $francais['0']['francais'];
                     }
                     ?></td>
-                <td style="font-size: 20px"><?php $anglais = listAnglaisToJaponais($mot['id']);
+                <td><?php $anglais = listAnglaisToJaponais($mot['id']);
                     if (sizeof($anglais) > 1) {
                         foreach ($anglais as $value) {
                             echo $value['anglais'] . ", ";

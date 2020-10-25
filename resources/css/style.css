@@ -43,6 +43,10 @@
         font-size: 20px
     }
 
+    .table-size th {
+        font-size: 20px
+    }
+
 }
 
 @media (max-width: 768px) {
@@ -53,6 +57,14 @@
 
     #navbar-top-small {
         width: 100%;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    h1 {
+        font-size: 24px;
     }
 
 }

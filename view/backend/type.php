@@ -4,7 +4,7 @@ ob_start(); ?>
 
     <p class="add"><a href="index.php?p=type_edit" class="btn btn-success">Ajout</a></p>
 
-    <table id="db" class="table table-striped">
+    <table id="db" class="table table-striped table-size">
         <thead>
         <tr>
             <th>ID</th>

@@ -2,21 +2,21 @@
 ob_start(); ?>
     <h1 class="h1-admin-left">Les kanjis</h1>
 
-    <table id="db" class="table table-bordered">
+    <table id="db" class="table table-bordered table-size">
         <thead>
         <tr>
-            <th style="font-size: 24px">ID</th>
-            <th style="font-size: 24px">Kanji</th>
-            <th style="font-size: 24px">Grade</th>
-            <th style="font-size: 24px">Actions</th>
+            <th>ID</th>
+            <th>Kanji</th>
+            <th>Grade</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <?php foreach ($_POST['kanji'] as $mot): ?>
             <tr>
-                <td style="font-size: 24px"><?= $mot['id'] ?></td>
-                <td style="font-size: 24px"><?= $mot['kanji'] ?></td>
-                <td style="font-size: 24px"><?= $mot['grade'] ?></td>
+                <td><?= $mot['id'] ?></td>
+                <td><?= $mot['kanji'] ?></td>
+                <td><?= $mot['grade'] ?></td>
                 <td>
                     <a href="index.php?p=kanji_edit&id=<?= $mot['id'] ?>" class="btn btn-outline-dark">Edit</a>
                 </td>

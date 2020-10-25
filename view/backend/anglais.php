@@ -4,20 +4,20 @@ ob_start(); ?>
 
     <p class="add"><a href="index.php?p=anglais_edit" class="btn btn-success">Ajout</a></p>
 
-    <table id="db" class="table table-striped">
+    <table id="db" class="table table-striped table-size">
         <thead>
         <tr>
-            <th style="font-size: 24px">Anglais</th>
-            <th style="font-size: 24px">Kanji</th>
-            <th style="font-size: 24px">Français</th>
-            <th style="font-size: 24px">Actions</th>
+            <th>Anglais</th>
+            <th>Kanji</th>
+            <th>Français</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <?php foreach ($_POST['anglais'] as $mot): ?>
             <tr>
-                <td style="font-size: 24px"><?= $mot['anglais']; ?></td>
-                <td style="font-size: 24px"><?php $japonais = listJaponaisToAnglais($mot['id']);
+                <td><?= $mot['anglais']; ?></td>
+                <td><?php $japonais = listJaponaisToAnglais($mot['id']);
                     if (sizeof($japonais) > 1) {
                         foreach ($japonais as $value) {
                             echo $value['kanji'] . ", ";
@@ -26,7 +26,7 @@ ob_start(); ?>
                         echo $japonais['0']['kanji'];
                     }
                     ?></td>
-                <td style="font-size: 24px"><?php $francais = listFrancaisToAnglais($mot['id']);
+                <td><?php $francais = listFrancaisToAnglais($mot['id']);
                     if (sizeof($francais) > 1) {
                         foreach ($francais as $value) {
                             echo $value['francais'] . ", ";

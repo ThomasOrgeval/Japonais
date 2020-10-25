@@ -13,9 +13,9 @@ ob_start(); ?>
         <tr>
             <th>Français</th>
             <th>Kanji</th>
-            <th>Kana</th>
+            <th class="hidden">Kana</th>
             <th>Romaji</th>
-            <th>Type du mot</th>
+            <th class="hidden">Type du mot</th>
         </tr>
         </thead>
         <tbody>
@@ -23,9 +23,9 @@ ob_start(); ?>
             <tr>
                 <td><?= $word['francais'] ?></td>
                 <td><?= $word['kanji'] ?></td>
-                <td><?= $word['kana'] ?></td>
+                <td class="hidden"><?= $word['kana'] ?></td>
                 <td><?= $word['romaji'] ?></td>
-                <td><?= $word['type'] ?></td>
+                <td class="hidden"><?= $word['type'] ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
