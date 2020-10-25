@@ -790,15 +790,17 @@ function saveKanji()
 function addJaponaisKanji($values, $id)
 {
     $pattern = "/\P{Han}/u"; // Garde uniquement les kanjis
-    $values = preg_replace($pattern,'',$values);
+    $values = preg_replace($pattern, '', $values);
     $pattern = '/(?<!^)(?!$)/u'; // Crée un tableau de chaque caractère
-    $values = preg_split($pattern,$values);
+    $values = preg_split($pattern, $values);
 
     foreach ($values as $value) {
         $kanji = testKanjiContains($value);
         if ($kanji->rowCount() !== 0) {
             $kanji = $kanji->fetch();
-            addKanjiJaponais($id, $kanji['id']);
+            if (!testKanjiJaponais($id, $kanji['id'])) {
+                addKanjiJaponais($id, $kanji['id']);
+            }
         }
     }
 }

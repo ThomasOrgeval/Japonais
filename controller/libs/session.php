@@ -3,20 +3,20 @@
 function flash()
 {
     if (isset($_SESSION['Flash'])) {
-        extract($_SESSION['Flash']);
-        unset($_SESSION['Flash']);
-        return "<script>
+        $flash = "<script>
                     $(document).ready(function ()) {
                         $('toast').toast('show')
                     }
                 </script>
 
-                <div class='toast alert alert-$type' id='toast' style='position: absolute; top: 80px; right: 50px;'>
+                <div class='toast alert alert-".$_SESSION['Flash']['type']."' id='toast' style='position: absolute; top: 80px; right: 50px; opacity: 0.8;'>
                     <div class='toast-header'>
-                        <strong class='mr-auto'><i class='fa fa-book'></i> $message</strong>
+                        <strong class='mr-auto'><i class='fa fa-book'></i> ".$_SESSION['Flash']['message']."</strong>
                     </div>
                     <!--div class='toast-body'></div-->
                 </div>";
+        unset($_SESSION['Flash']);
+        return $flash;
     }
 }
 
