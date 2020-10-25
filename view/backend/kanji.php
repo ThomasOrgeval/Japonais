@@ -8,14 +8,18 @@ ob_start(); ?>
             <th style="font-size: 24px">ID</th>
             <th style="font-size: 24px">Kanji</th>
             <th style="font-size: 24px">Grade</th>
+            <th style="font-size: 24px">Actions</th>
         </tr>
         </thead>
         <tbody>
         <?php foreach ($_POST['kanji'] as $mot): ?>
             <tr>
-                <td style="font-size: 24px"><?= $mot['id']; ?></td>
-                <td style="font-size: 24px"><?= $mot['kanji']; ?></td>
-                <td style="font-size: 24px"><?= $mot['grade']; ?></td>
+                <td style="font-size: 24px"><?= $mot['id'] ?></td>
+                <td style="font-size: 24px"><?= $mot['kanji'] ?></td>
+                <td style="font-size: 24px"><?= $mot['grade'] ?></td>
+                <td>
+                    <a href="index.php?p=kanji_edit&id=<?= $mot['id'] ?>" class="btn btn-outline-dark">Edit</a>
+                </td>
             </tr>
         <?php endforeach ?>
         </tbody>

@@ -219,6 +219,22 @@ function kanji()
     }
 }
 
+function kanji_edit()
+{
+    if (connect_admin()) {
+
+        if (isset($_GET['id'])) {
+            $kanji = testKanji($_GET['id']);
+            if ($kanji->rowCount() === 0) {
+                setFlash("Il n'y a pas de kanji avec cet ID", "danger");
+                header("Location:index.php?p=kanji");
+            }
+            $_POST = $kanji->fetch();
+        }
+        require './view/backend/kanji_edit.php';
+    }
+}
+
 function recompense()
 {
     if (connect_admin()) {
@@ -446,9 +462,9 @@ function wordGroupe($id_groupe, $id, $bool)
 
         if ($wordGroupe === false) {
             throw new Exception();
-        } else {
-            header('Location:index.php?p=word_edit&id=' . $id);
         }
+
+        header('Location:index.php?p=word_edit&id=' . $id);
     }
 }
 
@@ -745,6 +761,23 @@ function addAnglais($id, $anglais, $id_type, $listFrancais, $listJaponais)
 
         setFlash('Le mot a bien été crée');
         header('Location:index.php?p=anglais');
+    }
+}
+
+/**
+ * Kanji
+ */
+
+function saveKanji()
+{
+    if (connect_admin()) {
+        $addKanji = editKanji($_POST['id'], $_POST['on_yomi'], $_POST['trad_on_yomi'], $_POST['kun_yomi'], $_POST['trad_kun_yomi']);
+        if ($addKanji === false) {
+            setFlash('Le kanji n\'a pas été sauvegardé', 'danger');
+            throw new Exception();
+        }
+        setFlash('Le kanji a bien été sauvegardé');
+        header('Location:index.php?p=kanji');
     }
 }
 

@@ -497,7 +497,7 @@ function supprType($id)
 {
     $db = dbConnect();
     $id = $db->quote($id);
-    $db->query("update lexiqumjaponais.FRANCAIS set id_type=null where id_type=$id");
+    $db->exec("update lexiqumjaponais.FRANCAIS set id_type=null where id_type=$id");
     return $db->query("delete from lexiqumjaponais.TYPE where id=$id");
 }
 
@@ -509,14 +509,14 @@ function deleteAllKanjiForJaponais($id_japonais)
 {
     $db = dbConnect();
     $id = $db->quote($id_japonais);
-    $db->query("delete from lexiqumjaponais.JAPONAIS_KANJI where id_japonais=$id");
+    $db->exec("delete from lexiqumjaponais.JAPONAIS_KANJI where id_japonais=$id");
 }
 
 function deleteAllJaponaisForKanji($id_kanji)
 {
     $db = dbConnect();
     $id = $db->quote($id_kanji);
-    $db->query("delete from lexiqumjaponais.JAPONAIS_KANJI where id_kanji=$id");
+    $db->exec("delete from lexiqumjaponais.JAPONAIS_KANJI where id_kanji=$id");
 }
 
 /**
@@ -528,6 +528,24 @@ function listKanji()
     $db = dbConnect();
     $select = $db->query("select id, kanji, grade from lexiqumjaponais.KANJI order by grade asc");
     return $select->fetchAll();
+}
+
+function testKanji($id_kanji)
+{
+    $db = dbConnect();
+    $id = $db->quote($id_kanji);
+    return $db->query("select * from lexiqumjaponais.KANJI where id=$id");
+}
+
+function editKanji($id, $on, $trad_on, $kun, $trad_kun)
+{
+    $db = dbConnect();
+    $trad_kun = $db->quote($trad_kun);
+    $kun = $db->quote($kun);
+    $trad_on = $db->quote($trad_on);
+    $on = $db->quote($on);
+    $id = $db->quote($id);
+    return $db->query("update lexiqumjaponais.KANJI set on_yomi=$on, trad_on_yomi=$trad_on, kun_yomi=$kun, trad_kun_yomi=$trad_kun where id=$id");
 }
 
 /**
@@ -569,7 +587,7 @@ function supprRecompense($id)
 {
     $db = dbConnect();
     $id = $db->quote($id);
-    return $db->quote("delete from lexiqumjaponais.RECOMPENSE where id=$id");
+    return $db->query("delete from lexiqumjaponais.RECOMPENSE where id=$id");
 }
 
 /**
