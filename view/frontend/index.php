@@ -8,7 +8,7 @@ ob_start(); ?>
 <?php if (!empty($_POST['words'])): ?>
     <h1>Sélection aléatoire de mots :</h1>
     <br/>
-    <table class="table table-striped">
+    <table class="table table-striped table-size">
         <thead>
         <tr>
             <th>Français</th>
@@ -21,11 +21,11 @@ ob_start(); ?>
         <tbody>
         <?php foreach ($_POST['words'] as $word): ?>
             <tr>
-                <td style="font-size: 30px"><?= $word['francais']; ?></td>
-                <td style="font-size: 30px"><?= $word['kanji']; ?></td>
-                <td style="font-size: 30px"><?= $word['kana']; ?></td>
-                <td style="font-size: 30px"><?= $word['romaji']; ?></td>
-                <td style="font-size: 30px"><?= $word['type']; ?></td>
+                <td><?= $word['francais'] ?></td>
+                <td><?= $word['kanji'] ?></td>
+                <td><?= $word['kana'] ?></td>
+                <td><?= $word['romaji'] ?></td>
+                <td><?= $word['type'] ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

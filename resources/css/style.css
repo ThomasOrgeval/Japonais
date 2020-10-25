@@ -39,6 +39,10 @@
         display: none;
     }
 
+    .table-size td {
+        font-size: 20px
+    }
+
 }
 
 @media (max-width: 768px) {
