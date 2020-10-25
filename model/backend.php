@@ -563,15 +563,15 @@ function testKanji($id_kanji)
     return $db->query("select * from lexiqumjaponais.KANJI where id=$id");
 }
 
-function editKanji($id, $on, $trad_on, $kun, $trad_kun)
+function editKanji($id, $on, $kun, $sens, $sens_en)
 {
     $db = dbConnect();
-    $trad_kun = $db->quote($trad_kun);
+    $sens = $db->quote($sens);
     $kun = $db->quote($kun);
-    $trad_on = $db->quote($trad_on);
+    $sens_en = $db->quote($sens_en);
     $on = $db->quote($on);
     $id = $db->quote($id);
-    return $db->query("update lexiqumjaponais.KANJI set on_yomi=$on, trad_on_yomi=$trad_on, kun_yomi=$kun, trad_kun_yomi=$trad_kun where id=$id");
+    return $db->query("update lexiqumjaponais.KANJI set on_yomi=$on, sens=$sens, kun_yomi=$kun, sens_en=$sens_en where id=$id");
 }
 
 function testKanjiContains($kanji)

@@ -33,16 +33,16 @@ ob_start(); ?>
             <?= input('on_yomi') ?>
         </div>
         <div class="form-group">
-            <label for="trad_on_yomi">Traduction de la lecture phonétique</label>
-            <?= input('trad_on_yomi') ?>
-        </div>
-        <div class="form-group">
             <label for="kun_yomi">Lecture japonaise (kun)</label>
             <?= input('kun_yomi') ?>
         </div>
         <div class="form-group">
-            <label for="trad_kun_yomi">Traduction de la lecture japonais</label>
-            <?= input('trad_kun_yomi') ?>
+            <label for="sens">Sens du kanji</label>
+            <?= input('sens') ?>
+        </div>
+        <div class="form-group">
+            <label for="sens_en">Sens en anglais du kanji</label>
+            <?= input('sens_en') ?>
         </div>
 
         <button type="submit" class="btn btn-outline-dark" name="save">Enregistrer</button>

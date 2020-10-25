@@ -777,7 +777,7 @@ function addAnglais($id, $anglais, $id_type, $listFrancais, $listJaponais)
 function saveKanji()
 {
     if (connect_admin()) {
-        $addKanji = editKanji($_POST['id'], $_POST['on_yomi'], $_POST['trad_on_yomi'], $_POST['kun_yomi'], $_POST['trad_kun_yomi']);
+        $addKanji = editKanji($_POST['id'], $_POST['on_yomi'], $_POST['kun_yomi'], $_POST['sens'], $_POST['sens_en']);
         if ($addKanji === false) {
             setFlash('Le kanji n\'a pas été sauvegardé', 'danger');
             throw new Exception();

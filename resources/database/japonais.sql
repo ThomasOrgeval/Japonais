@@ -79,14 +79,14 @@ create table `ANGLAIS`
 
 create table `KANJI`
 (
-    `id`            int auto_increment not null,
-    `kanji`         varchar(1)         not null,
-    `lignes`        int,
-    `grade`         int,
-    `on_yomi`       varchar(255),
-    `trad_on_yomi`  longtext,
-    `kun_yomi`      varchar(255),
-    `trad_kun_yomi` longtext,
+    `id`       int auto_increment not null,
+    `kanji`    varchar(1)         not null,
+    `lignes`   int,
+    `grade`    int,
+    `on_yomi`  varchar(255),
+    `kun_yomi` varchar(255),
+    `sens`     longtext,
+    `sens_en`  longtext,
     primary key (`id`)
 ) engine = InnoDB,
   character set utf8;
