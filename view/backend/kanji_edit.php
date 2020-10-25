@@ -46,6 +46,31 @@ ob_start(); ?>
         </div>
 
         <button type="submit" class="btn btn-outline-dark" name="save">Enregistrer</button>
-    </form>
-<?php $content = ob_get_clean();
+    </form><br/><br/>
+
+<?php if (!empty($_POST['japonais'])): ?>
+    <div>
+        <h1>Mot japonais contenant ce kanji :</h1>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th style="font-size: 24px">Kanji</th>
+                <th style="font-size: 24px">Kana</th>
+                <th style="font-size: 24px">Romaji</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($_POST['japonais'] as $item) : ?>
+                <tr>
+                    <td style="font-size: 24px"><a href="index.php?p=japonais_edit&id=<?= $item['id'] ?>"><?= $item['kanji'] ?></a></td>
+                    <td style="font-size: 24px"><?= $item['kana'] ?></td>
+                    <td style="font-size: 24px"><?= $item['romaji'] ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+<?php endif;
+$content = ob_get_clean();
 require('./view/template/template.php'); ?>

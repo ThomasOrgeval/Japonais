@@ -528,6 +528,16 @@ function listKanjiToJaponais($id_japonais)
     return $select->fetchAll();
 }
 
+function listJaponaisToKanji($id_kanji)
+{
+    $db = dbConnect();
+    $id_kanji = $db->quote($id_kanji);
+    $select = $db->query("select JAPONAIS.* from lexiqumjaponais.JAPONAIS
+        inner join lexiqumjaponais.JAPONAIS_KANJI jk on JAPONAIS.id = jk.id_japonais
+        where id_kanji=$id_kanji");
+    return $select->fetchAll();
+}
+
 /**
  * Kanji
  */

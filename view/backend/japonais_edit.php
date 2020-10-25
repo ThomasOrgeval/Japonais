@@ -168,7 +168,7 @@ ob_start(); ?>
         <button type="submit" class="btn btn-green" name="save">Enregistrer</button>
     </form><br/><br/>
 
-<?php if (isset($_POST['kanjis'])): ?>
+<?php if (!empty($_POST['kanjis'])): ?>
     <div>
         <h1>Kanji présent(s) :</h1>
 

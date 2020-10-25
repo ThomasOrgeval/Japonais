@@ -232,6 +232,7 @@ function kanji_edit()
                 header("Location:index.php?p=kanji");
             }
             $_POST = $kanji->fetch();
+            $_POST['japonais'] = listJaponaisToKanji($_GET['id']);
         }
         require './view/backend/kanji_edit.php';
     }
