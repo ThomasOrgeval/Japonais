@@ -512,11 +512,10 @@ function deleteAllKanjiForJaponais($id_japonais)
     $db->exec("delete from lexiqumjaponais.JAPONAIS_KANJI where id_japonais=$id");
 }
 
-function deleteAllJaponaisForKanji($id_kanji)
+function addKanjiJaponais($id_japonais, $id_kanji)
 {
     $db = dbConnect();
-    $id = $db->quote($id_kanji);
-    $db->exec("delete from lexiqumjaponais.JAPONAIS_KANJI where id_kanji=$id");
+    $db->exec("insert into lexiqumjaponais.JAPONAIS_KANJI set id_japonais=$id_japonais, id_kanji=$id_kanji");
 }
 
 /**
@@ -546,6 +545,13 @@ function editKanji($id, $on, $trad_on, $kun, $trad_kun)
     $on = $db->quote($on);
     $id = $db->quote($id);
     return $db->query("update lexiqumjaponais.KANJI set on_yomi=$on, trad_on_yomi=$trad_on, kun_yomi=$kun, trad_kun_yomi=$trad_kun where id=$id");
+}
+
+function testKanjiContains($kanji)
+{
+    $db = dbConnect();
+    $kanji = $db->quote($kanji);
+    return $db->query("select id from lexiqumjaponais.KANJI where kanji like $kanji");
 }
 
 /**

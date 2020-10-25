@@ -29,7 +29,7 @@ ob_start(); ?>
             <?= inputReadonly('grade') ?>
         </div>
         <div class="form-group">
-            <label for="on_yomi">Lecture phonétique (on)</label>
+            <label for="on_yomi">Lecture phonétique/sino-japonaise (on)</label>
             <?= input('on_yomi') ?>
         </div>
         <div class="form-group">

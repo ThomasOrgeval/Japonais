@@ -74,6 +74,7 @@ function francais_add()
             if (!empty($_POST['kanji'][$i]) || !empty($_POST['kana'][$i] || !empty($_POST['romaji'][$i]))) {
                 addJaponaisFromOther($_POST['id_jap'][$i], $_POST['kanji'][$i], $_POST['kana'][$i], $_POST['romaji'][$i]);
                 $japonais[] = $_POST['romaji'][$i];
+                addJaponaisKanji($_POST['kanji'][$i], $_POST['id_jap'][$i]);
             }
         }
         for ($i = 0; $i <= sizeof($_POST['id_anglais']); $i++) {
@@ -156,6 +157,7 @@ function japonais_add()
                 $anglais[] = $_POST['anglais'][$i];
             }
         }
+        addJaponaisKanji($_POST['kanji'], $_GET['id']);
         addJaponais($_GET['id'], $_POST['kanji'], $_POST['kana'], $_POST['romaji'], $francais, $anglais);
     }
 }
@@ -199,6 +201,7 @@ function anglais_add()
             if (!empty($_POST['kanji'][$i]) || !empty($_POST['kana'][$i] || !empty($_POST['romaji'][$i]))) {
                 addJaponaisFromOther($_POST['id_jap'][$i], $_POST['kanji'][$i], $_POST['kana'][$i], $_POST['romaji'][$i]);
                 $japonais[] = $_POST['romaji'][$i];
+                addJaponaisKanji($_POST['kanji'][$i], $_POST['id_jap'][$i]);
             }
         }
         for ($i = 0; $i <= sizeof($_POST['id_francais']); $i++) {
@@ -778,6 +781,23 @@ function saveKanji()
         }
         setFlash('Le kanji a bien été sauvegardé');
         header('Location:index.php?p=kanji');
+    }
+}
+
+function addJaponaisKanji($value, $id)
+{
+    for ($i = 0, $iMax = strlen($value); $i <= $iMax; $i++) {
+        $kanji = testKanjiContains(mb_substr($value, $i, $i+0));
+        if ($kanji->rowCount() !== 0) {
+            $kanji = $kanji->fetch();
+            addKanjiJaponais($id, $kanji['id']);
+        } else {
+            $kanji = testKanjiContains(mb_substr($value, $i, $i+1));
+            if ($kanji->rowCount() !== 0) {
+                $kanji = $kanji->fetch();
+                addKanjiJaponais($id, $kanji['id']);
+            }
+        }
     }
 }
 

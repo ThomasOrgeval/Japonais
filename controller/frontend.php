@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+mb_internal_encoding("UTF-8");
 require_once './controller/libs/form.php';
 require './controller/libs/session.php';
 
