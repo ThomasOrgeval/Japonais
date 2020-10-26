@@ -34,7 +34,7 @@ try {
         } elseif ($p === 'logout') {
             logout();
         } elseif ($p === 'submitLogin') {
-            submitLogin($_POST['pseudo'], $_POST['password']);
+            submitLogin($_POST['mail'], $_POST['password']);
         } elseif ($p === 'submitRegister') {
             submitRegister($_POST['pseudo'], $_POST['password'], $_POST['mail']);
         } elseif ($p === 'listes') {
