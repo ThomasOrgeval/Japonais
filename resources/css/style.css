@@ -33,7 +33,11 @@
     fill: pink;
 }
 
-@media (min-width: 768px) {
+.flexible {
+    display: flex;
+}
+
+@media screen and (min-width: 768px) {
 
     #navbar-top-small {
         display: none;
@@ -49,7 +53,7 @@
 
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
 
     #navbar-top {
         display: none;

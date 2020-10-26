@@ -15,19 +15,25 @@
     <!-- Google Icons Material -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="./resources/css/bootstrap.css">
+    <link rel="stylesheet" href="./resources/css/bootstrap.min.css">
     <!-- Material Design Bootstrap -->
-    <link rel="stylesheet" href="./resources/css/mdb.css">
+    <link rel="stylesheet" href="./resources/css/mdb.min.css">
     <!-- MDB Datatable -->
     <link href="./resources/css/addons/datatables2.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="./resources/css/style.css">
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script defer src="../../resources/js/all.js"></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="./resources/js/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="./resources/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="./resources/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="./resources/js/mdb.min.js"></script>
+    <script src="../../resources/js/all.js"></script>
     <script src="./resources/js/addons/datatables2.min.js"></script>
+    <script src="./resources/js/main.js"></script>
 </head>
 
 <body>
@@ -51,7 +57,8 @@
                     &thinsp; <?= $_SESSION['pseudo'] ?></a>
                 <a class="nav-item nav-link" href="index.php?p=logout">Déconnexion</a>
             <?php else: ?>
-                <a class="nav-item nav-link" href="index.php?p=login">Connexion</a>
+                <a href="" class="nav-item nav-link" data-toggle="modal"
+                   data-target="#modalLoginForm">Connexion</a>
             <?php endif; ?>
         </div>
     </div>
@@ -78,7 +85,8 @@
                         &thinsp; <?= $_SESSION['pseudo'] ?></a>
                     <a class="nav-item nav-link" href="index.php?p=logout">Déconnexion</a>
                 <?php else: ?>
-                    <a class="nav-item nav-link" href="index.php?p=login">Connexion</a>
+                    <a href="" class="nav-item nav-link" data-toggle="modal"
+                       data-target="#modalLoginForm">Connexion</a>
                 <?php endif; ?>
             </div>
         </div>
@@ -92,38 +100,97 @@
     </div>
 </nav>
 
+<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="index.php?p=submitLogin" method="post">
+                <div class="modal-header text-center">
+                    <img src="./resources/svgs/sakura_login.svg" style="width: 40px">
+                    <h4 class="modal-title w-100 font-weight-bold">Connexion</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                        <i class="fas fa-envelope prefix grey-text"></i>
+                        <input type="email" id="login-mail" class="form-control validate" name="mail">
+                        <label data-error="wrong" data-success="right" for="login-mail">Votre adresse
+                            mail</label>
+                    </div>
+
+                    <div class="md-form mb-4">
+                        <i class="fas fa-lock prefix grey-text"></i>
+                        <input type="password" id="login-pass" class="form-control validate" name="password">
+                        <label data-error="wrong" data-success="right" for="login-pass">Votre mot de passe</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-purple">S'identifier</button>
+                    <div class="text-center">
+                        <a href="" class="btn btn-outline-purple" data-toggle="modal" data-target="#modalRegisterForm">Créer
+                            un compte</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="index.php?p=submitRegister" method="post">
+                <div class="modal-header text-center">
+                    <img src="./resources/svgs/sakura_login.svg" style="width: 40px">
+                    <h4 class="modal-title w-100 font-weight-bold">Créer votre compte</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                        <i class="fas fa-user prefix grey-text"></i>
+                        <input type="text" id="register-name" class="form-control validate" name="pseudo">
+                        <label data-error="wrong" data-success="right" for="register-name">Votre pseudo</label>
+                    </div>
+                    <div class="md-form mb-5">
+                        <i class="fas fa-envelope prefix grey-text"></i>
+                        <input type="email" id="register-mail" class="form-control validate" name="mail">
+                        <label data-error="wrong" data-success="right" for="register-mail">Votre adresse mail</label>
+                    </div>
+
+                    <div class="md-form mb-4">
+                        <i class="fas fa-lock prefix grey-text"></i>
+                        <input type="password" id="register-pass" class="form-control validate" name="password">
+                        <label data-error="wrong" data-success="right" for="register-pass">Votre mot de passe</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn btn-purple">Créer un compte</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <?= flash() ?>
+    <p>
+        <?php if ($_SERVER['HTTP_HOST'] === 'localhost') {
+            var_dump($_COOKIE);
+            var_dump($_SESSION);
+            var_dump($_POST);
+        } ?>
+    </p><br/>
+    <div class="content">
+        <?= $content ?>
+    </div>
+</div>
 <script>
-    function showResult(str) {
-        if (str.length === 0) {
-            document.getElementById("search").innerHTML = "";
-            document.getElementById("search").style.border = "0px";
-            return;
-        }
-        var xmlhttp;
-        if (window.XMLHttpRequest || window.ActiveXObject) {
-            if (window.ActiveXObject) {
-                try {
-                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-                } catch (e) {
-                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                }
-            } else {
-                xmlhttp = new XMLHttpRequest();
-            }
-        } else {
-            xmlhttp = new XMLHttpRequest();
-        }
-
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                document.getElementById("search").innerHTML = this.responseText;
-                document.getElementById("search").style.border = "1px solid #A5ACB2";
-            }
-        }
-        xmlhttp.open("GET", "index.php?p=search&search=" + str, true);
-        xmlhttp.send();
-    }
-
     // Datatables
     $(document).ready(function () {
         $('#db').DataTable();
@@ -150,20 +217,6 @@
         }, 'xml');
     });
 </script>
-<div class="container">
-    <?= flash() ?>
-    <p>
-        <?php if ($_SERVER['HTTP_HOST'] === 'localhost') {
-            var_dump($_COOKIE);
-            var_dump($_SESSION);
-            var_dump($_POST);
-        } ?>
-    </p><br/>
-    <div class="content">
-        <?= $content ?>
-    </div>
-</div>
-<br/><br/>
 </body>
 <footer>
 
