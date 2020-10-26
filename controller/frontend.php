@@ -134,7 +134,7 @@ function submitLogin($mail, $password)
 {
     if (!empty($mail) && !empty($password)) {
         $statements = loginUser($mail, $password);
-        if ($statements === true) {
+        if ($statements == true) {
             $_SESSION['pseudo'] = $statements['pseudo'];
             $_SESSION['admin'] = $statements['droits'];
             $_SESSION['id'] = $statements['id'];

@@ -15,18 +15,23 @@
     <!-- Google Icons Material -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="./resources/css/bootstrap.css">
+    <link rel="stylesheet" href="./resources/css/bootstrap.min.css">
     <!-- Material Design Bootstrap -->
-    <link rel="stylesheet" href="./resources/css/mdb.css">
+    <link rel="stylesheet" href="./resources/css/mdb.min.css">
     <!-- MDB Datatable -->
     <link href="./resources/css/addons/datatables2.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="./resources/css/style.css">
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script defer src="../../resources/js/all.js"></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="./resources/js/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="./resources/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="./resources/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="./resources/js/mdb.min.js"></script>
+    <script src="../../resources/js/all.js"></script>
     <script src="./resources/js/addons/datatables2.min.js"></script>
     <script src="./resources/js/main.js"></script>
 </head>
@@ -110,15 +115,15 @@
                 <div class="modal-body mx-3">
                     <div class="md-form mb-5">
                         <i class="fas fa-envelope prefix grey-text"></i>
-                        <input type="email" id="defaultForm-email" class="form-control validate" name="mail">
-                        <label data-error="wrong" data-success="right" for="defaultForm-email">Votre adresse
+                        <input type="email" id="login-mail" class="form-control validate" name="mail">
+                        <label data-error="wrong" data-success="right" for="login-mail">Votre adresse
                             mail</label>
                     </div>
 
                     <div class="md-form mb-4">
                         <i class="fas fa-lock prefix grey-text"></i>
-                        <input type="password" id="defaultForm-pass" class="form-control validate" name="password">
-                        <label data-error="wrong" data-success="right" for="defaultForm-pass">Votre mot de passe</label>
+                        <input type="password" id="login-pass" class="form-control validate" name="password">
+                        <label data-error="wrong" data-success="right" for="login-pass">Votre mot de passe</label>
                     </div>
 
                 </div>
@@ -148,19 +153,19 @@
                 <div class="modal-body mx-3">
                     <div class="md-form mb-5">
                         <i class="fas fa-user prefix grey-text"></i>
-                        <input type="text" id="orangeForm-name" class="form-control validate" name="pseudo">
-                        <label data-error="wrong" data-success="right" for="orangeForm-name">Votre pseudo</label>
+                        <input type="text" id="register-name" class="form-control validate" name="pseudo">
+                        <label data-error="wrong" data-success="right" for="register-name">Votre pseudo</label>
                     </div>
                     <div class="md-form mb-5">
                         <i class="fas fa-envelope prefix grey-text"></i>
-                        <input type="email" id="orangeForm-email" class="form-control validate" name="mail">
-                        <label data-error="wrong" data-success="right" for="orangeForm-email">Votre adresse mail</label>
+                        <input type="email" id="register-mail" class="form-control validate" name="mail">
+                        <label data-error="wrong" data-success="right" for="register-mail">Votre adresse mail</label>
                     </div>
 
                     <div class="md-form mb-4">
                         <i class="fas fa-lock prefix grey-text"></i>
-                        <input type="password" id="orangeForm-pass" class="form-control validate" name="password">
-                        <label data-error="wrong" data-success="right" for="orangeForm-pass">Votre mot de passe</label>
+                        <input type="password" id="register-pass" class="form-control validate" name="password">
+                        <label data-error="wrong" data-success="right" for="register-pass">Votre mot de passe</label>
                     </div>
 
                 </div>
