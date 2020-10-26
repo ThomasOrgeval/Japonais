@@ -28,6 +28,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script defer src="../../resources/js/all.js"></script>
     <script src="./resources/js/addons/datatables2.min.js"></script>
+    <script src="./resources/js/main.js"></script>
 </head>
 
 <body>
@@ -51,7 +52,8 @@
                     &thinsp; <?= $_SESSION['pseudo'] ?></a>
                 <a class="nav-item nav-link" href="index.php?p=logout">Déconnexion</a>
             <?php else: ?>
-                <a class="nav-item nav-link" href="index.php?p=login">Connexion</a>
+                <a href="" class="nav-item nav-link" data-toggle="modal"
+                   data-target="#modalLoginForm">Connexion</a>
             <?php endif; ?>
         </div>
     </div>
@@ -78,7 +80,8 @@
                         &thinsp; <?= $_SESSION['pseudo'] ?></a>
                     <a class="nav-item nav-link" href="index.php?p=logout">Déconnexion</a>
                 <?php else: ?>
-                    <a class="nav-item nav-link" href="index.php?p=login">Connexion</a>
+                    <a href="" class="nav-item nav-link" data-toggle="modal"
+                       data-target="#modalLoginForm">Connexion</a>
                 <?php endif; ?>
             </div>
         </div>
@@ -92,38 +95,55 @@
     </div>
 </nav>
 
+<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="index.php?p=submitLogin" method="post">
+                <div class="modal-header text-center">
+                    <img src="./resources/svgs/sakura_login.svg" style="width: 40px">
+                    <h4 class="modal-title w-100 font-weight-bold">Connexion</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                        <i class="fas fa-envelope prefix grey-text"></i>
+                        <input type="email" id="defaultForm-email" class="form-control validate" name="mail">
+                        <label data-error="wrong" data-success="right" for="defaultForm-email">Votre adresse mail</label>
+                    </div>
+
+                    <div class="md-form mb-4">
+                        <i class="fas fa-lock prefix grey-text"></i>
+                        <input type="password" id="defaultForm-pass" class="form-control validate" name="password">
+                        <label data-error="wrong" data-success="right" for="defaultForm-pass">Votre mot de passe</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-purple">S'identifier</button>
+                    <a class="btn btn-outline-purple" href="index.php?p=register">Créer un compte</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <?= flash() ?>
+    <p>
+        <?php if ($_SERVER['HTTP_HOST'] === 'localhost') {
+            var_dump($_COOKIE);
+            var_dump($_SESSION);
+            var_dump($_POST);
+        } ?>
+    </p><br/>
+    <div class="content">
+        <?= $content ?>
+    </div>
+</div>
 <script>
-    function showResult(str) {
-        if (str.length === 0) {
-            document.getElementById("search").innerHTML = "";
-            document.getElementById("search").style.border = "0px";
-            return;
-        }
-        var xmlhttp;
-        if (window.XMLHttpRequest || window.ActiveXObject) {
-            if (window.ActiveXObject) {
-                try {
-                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-                } catch (e) {
-                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                }
-            } else {
-                xmlhttp = new XMLHttpRequest();
-            }
-        } else {
-            xmlhttp = new XMLHttpRequest();
-        }
-
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                document.getElementById("search").innerHTML = this.responseText;
-                document.getElementById("search").style.border = "1px solid #A5ACB2";
-            }
-        }
-        xmlhttp.open("GET", "index.php?p=search&search=" + str, true);
-        xmlhttp.send();
-    }
-
     // Datatables
     $(document).ready(function () {
         $('#db').DataTable();
@@ -150,20 +170,6 @@
         }, 'xml');
     });
 </script>
-<div class="container">
-    <?= flash() ?>
-    <p>
-        <?php if ($_SERVER['HTTP_HOST'] === 'localhost') {
-            var_dump($_COOKIE);
-            var_dump($_SESSION);
-            var_dump($_POST);
-        } ?>
-    </p><br/>
-    <div class="content">
-        <?= $content ?>
-    </div>
-</div>
-<br/><br/>
 </body>
 <footer>
 

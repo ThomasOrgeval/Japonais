@@ -24,11 +24,11 @@ function createUser($pseudo, $pass, $mail)
     return $addUser;
 }
 
-function loginUser($pseudo, $pass)
+function loginUser($mail, $pass)
 {
     $db = dbConnect();
-    $selectUser = $db->prepare('select id, pseudo, pass, mail, droits, nombre, points from lexiqumjaponais.USER where pseudo=?');
-    $selectUser->execute(array($pseudo));
+    $selectUser = $db->prepare('select id, pseudo, pass, mail, droits, nombre, points from lexiqumjaponais.USER where mail=?');
+    $selectUser->execute(array($mail));
     $selectUser = $selectUser->fetch();
     if (password_verify($pass, $selectUser['pass'])) {
         return $selectUser;

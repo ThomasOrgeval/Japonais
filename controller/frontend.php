@@ -14,8 +14,8 @@ require './model/frontend.php';
 
 function accueil()
 {
-    if (isset($_COOKIE['pseudo'], $_COOKIE['pass']) && !isset($_SESSION['pseudo'])) {
-        submitLogin($_COOKIE['pseudo'], $_COOKIE['pass']);
+    if (isset($_COOKIE['mail'], $_COOKIE['pass']) && !isset($_SESSION['pseudo'])) {
+        submitLogin($_COOKIE['mail'], $_COOKIE['pass']);
     }
     if (isset($_SESSION['nombreWords']) && !empty($_SESSION['nombreWords'])) {
         $_POST['words'] = listRandomWords($_SESSION['nombreWords']);
@@ -38,7 +38,7 @@ function register()
 function logout()
 {
     session_destroy();
-    setcookie('pseudo');
+    setcookie('mail');
     setcookie('pass');
     header('Location:index.php?p=accueil');
 }
@@ -130,18 +130,18 @@ function connect()
  * Login
  */
 
-function submitLogin($pseudo, $password)
+function submitLogin($mail, $password)
 {
-    if (!empty($pseudo) && !empty($password)) {
-        $statements = loginUser($pseudo, $password);
+    if (!empty($mail) && !empty($password)) {
+        $statements = loginUser($mail, $password);
         if ($statements == true) {
-            $_SESSION['pseudo'] = $pseudo;
+            $_SESSION['pseudo'] = $statements['pseudo'];
             $_SESSION['admin'] = $statements['droits'];
             $_SESSION['id'] = $statements['id'];
             $_SESSION['nombreWords'] = $statements['nombre'];
             $_SESSION['points'] = $statements['points'];
             $_SESSION['connect'] = 'OK';
-            setcookie('pseudo', $pseudo, time() + 365 * 24 * 3600);
+            setcookie('mail', $mail, time() + 365 * 24 * 3600);
             setcookie('pass', $password, time() + 365 * 24 * 3600);
             setFlash('Connexion réussie');
             header('Location:index.php?p=accueil');
