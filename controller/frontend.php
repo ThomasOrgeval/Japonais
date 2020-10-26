@@ -25,16 +25,6 @@ function accueil()
     require './view/frontend/index.php';
 }
 
-function login()
-{
-    require './view/frontend/login.php';
-}
-
-function register()
-{
-    require './view/frontend/register.php';
-}
-
 function logout()
 {
     session_destroy();
