@@ -134,7 +134,7 @@ function submitLogin($mail, $password)
 {
     if (!empty($mail) && !empty($password)) {
         $statements = loginUser($mail, $password);
-        if ($statements == true) {
+        if ($statements === true) {
             $_SESSION['pseudo'] = $statements['pseudo'];
             $_SESSION['admin'] = $statements['droits'];
             $_SESSION['id'] = $statements['id'];
@@ -147,11 +147,11 @@ function submitLogin($mail, $password)
             header('Location:index.php?p=accueil');
         } else {
             setFlash('Mot de passe ou identifiant incorrect', 'danger');
-            header('Location:index.php?p=login');
+            header('Location:index.php?p=accueil');
         }
     } else {
         setFlash('Un champ est vide', 'danger');
-        header('Location:index.php?p=login');
+        header('Location:index.php?p=accueil');
     }
 }
 
@@ -166,10 +166,10 @@ function submitRegister($pseudo, $password, $mail)
         $correctPseudo = searchPseudo($pseudo);
         if ($correctMail) {
             setFlash('L\'adresse mail est déjà utilisée', 'danger');
-            header('Location:index.php?p=register');
+            header('Location:index.php?p=accueil');
         } elseif ($correctPseudo) {
             setFlash('Le pseudo est déjà utilisé', 'danger');
-            header('Location:index.php?p=register');
+            header('Location:index.php?p=accueil');
         } else {
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
             createUser($pseudo, $password_hash, $mail);
