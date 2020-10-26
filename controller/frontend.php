@@ -144,15 +144,13 @@ function submitLogin($mail, $password)
             setcookie('mail', $mail, time() + 365 * 24 * 3600);
             setcookie('pass', $password, time() + 365 * 24 * 3600);
             setFlash('Connexion réussie');
-            header('Location:index.php?p=accueil');
         } else {
             setFlash('Mot de passe ou identifiant incorrect', 'danger');
-            header('Location:index.php?p=accueil');
         }
     } else {
         setFlash('Un champ est vide', 'danger');
-        header('Location:index.php?p=accueil');
     }
+    header('Location:index.php?p=accueil');
 }
 
 function submitRegister($pseudo, $password, $mail)
