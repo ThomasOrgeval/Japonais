@@ -4,6 +4,7 @@ session_start();
 mb_internal_encoding("UTF-8");
 require_once './controller/libs/form.php';
 require './controller/libs/session.php';
+require './controller/libs/mail.php';
 
 require './controller/backend.php';
 require './model/frontend.php';
@@ -185,37 +186,7 @@ function forget_password()
         $header = 'From: Lexiquejaponais <support@lexiquejaponais.fr>' . "\r\n" .
             'Reply-To: support@lexiquejaponais.fr' . "\r\n" .
             'X-Mailer: PHP/' . PHP_VERSION;
-        $message = '
-         <html>
-         <head>
-          <title>Récupération de mot de passe - lexiquejaponais.fr</title>
-          <meta charset="utf-8" />
-         </head>
-         <body>
-          <font color="#303030";>
-            <div align="center">
-               <table width="600px">
-                <tr>
-                  <td>
-                     <div align="center">Bonjour <b>' . $pseudo . '</b>,</div>
-                     Voici votre code de récupération: <b>' . $code . '</b>
-                     A bientôt sur <a href="#">lexiquejaponais.fr</a> !
-                     
-                  </td>
-                </tr>
-                <tr>
-                  <td align="center">
-                     <font size="2">
-                      Ceci est un email automatique, merci de ne pas y répondre
-                     </font>
-                  </td>
-                </tr>
-               </table>
-            </div>
-          </font>
-         </body>
-         </html>
-         ';
+        $message = sendResetPassword();
         mail($mail, "Récupération de mot de passe - lexiquejaponais.fr", $message, $header);
     } else {
         setFlash('Adresse mail est invalide', 'danger');
