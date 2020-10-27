@@ -176,7 +176,7 @@ function forget_password()
         createCode($_SESSION['recup_mail'], searchMail($_SESSION['recup_mail'])['pseudo']);
     }
 
-    setFlash('Adresse mail est invalide', 'danger');
+    setFlash('Le code est invalide', 'danger');
     header('Location:index.php?p=accueil');
 }
 
@@ -187,10 +187,12 @@ function recup_code()
         $recup = searchRecup($_SESSION['recup_mail'], $code);
         if ($recup->rowCount() === 1) {
             $recup = $recup->fetch();
-            $_POST['code'] = $code;
-            deleteRecup($recup['id']);
+            $_SESSION['recup_code'] = $code;
+            $_SESSION['recup_id'] = $recup['id'];
             require './view/frontend/change_pass.php';
         }
+    } elseif (isset($_SESSION['recup_code']) && !empty($_SESSION['recup_code'])) {
+        require './view/frontend/change_pass.php';
     }
 
     header('Location:index.php?p=forget_password');
@@ -199,14 +201,19 @@ function recup_code()
 function change_pass()
 {
     $pass = securize($_POST['password']);
+    $passVerif = securize($_POST['password2']);
     if (!empty($pass)) {
-        changePass($_SESSION['recup_mail'], password_hash($pass, PASSWORD_DEFAULT));
-        unset($_SESSION['recup_mail']);
-        setFlash('Vous avez bien changé votre mot de passe !');
-        submitLogin($_SESSION['recup_mail'], $pass);
+        if ($pass === $passVerif) {
+            changePass($_SESSION['recup_mail'], password_hash($pass, PASSWORD_DEFAULT));
+            deleteRecup($_SESSION['recup_id']);
+            unset($_SESSION['recup_mail'], $_SESSION['recup_code'], $_SESSION['recup_id']);
+            setFlash('Vous avez bien changé votre mot de passe !');
+            submitLogin($_SESSION['recup_mail'], $pass);
+        } else {
+            recup_code();
+        }
     }
 
-    $_POST['code'] = $_POST['code'];
     header('Location:index.php?p=send_code');
 }
 

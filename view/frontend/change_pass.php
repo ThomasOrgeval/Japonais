@@ -6,8 +6,7 @@ ob_start(); ?>
             <div class="md-form mb-5">
                 <i class="fas fa-lock prefix grey-text"></i>
                 <input id="password" type="password" data-parsley-minlength="8" class="form-control eq-ui-input"
-                       name="password"
-                       required>
+                       name="password" required>
                 <label for="password" data-error="Le mot de passe doit faire 8 caractères au minimum">Mot de
                     passe</label><br/>
             </div>
@@ -15,7 +14,7 @@ ob_start(); ?>
             <div class="md-form mb-5">
                 <i class="fas fa-lock prefix grey-text"></i>
                 <input id="password-confirm" type="password" data-parsley-minlength="8" data-parsley-equalto="#password"
-                       class="form-control eq-ui-input" required>
+                       class="form-control eq-ui-input" required name="password2">
                 <label for="password-confirm" data-error="Ce ne sont pas les mêmes mot de passe">Confirmation mot de
                     passe</label>
             </div>
