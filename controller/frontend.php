@@ -215,6 +215,8 @@ function recup_code()
 function change_pass()
 {
     $pass = securize($_POST['password']);
+    var_dump($_SESSION);
+    die();
     if (!empty($pass)) {
         changePass($_SESSION['recup_mail'], password_hash($pass, PASSWORD_DEFAULT));
         unset($_SESSION['recup_mail']);
