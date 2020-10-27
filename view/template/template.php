@@ -164,7 +164,7 @@
 
                     <div class="md-form mb-4">
                         <i class="fas fa-lock prefix grey-text"></i>
-                        <input type="password" id="register-pass" class="form-control validate" name="password">
+                        <input type="password" id="register-pass" class="form-control validate" name="password" data-parsley-minlength="8">
                         <label data-error="wrong" data-success="right" for="register-pass">Votre mot de passe</label>
                     </div>
 
@@ -180,7 +180,7 @@
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="index.php?p=forgetPassword" method="post">
+            <form action="index.php?p=forget_password" method="post">
                 <div class="modal-header text-center">
                     <img src="./resources/svgs/sakura_login.svg" style="width: 40px">
                     <h4 class="modal-title w-100 font-weight-bold">Récupération de compte</h4>

@@ -1,6 +1,6 @@
 <?php
 
-function sendResetPassword()
+function sendResetPassword($pseudo, $code)
 {
     return '
          <html>

@@ -186,12 +186,44 @@ function forget_password()
         $header = 'From: Lexiquejaponais <support@lexiquejaponais.fr>' . "\r\n" .
             'Reply-To: support@lexiquejaponais.fr' . "\r\n" .
             'X-Mailer: PHP/' . PHP_VERSION;
-        $message = sendResetPassword();
+        $message = sendResetPassword($pseudo, $code);
         mail($mail, "Récupération de mot de passe - lexiquejaponais.fr", $message, $header);
+        require './view/frontend/forget_pass.php';
     } else {
         setFlash('Adresse mail est invalide', 'danger');
         header('Location:index.php?p=accueil');
     }
+}
+
+function recup_code()
+{
+    $code = securize($_POST['code']);
+    if (!empty($code)) {
+        $recup = searchRecup($_SESSION['recup_mail'], $code);
+        if ($recup->rowCount() === 1) {
+            $recup = $recup->fetch();
+            $_POST['code'] = $code;
+            deleteRecup($recup['id']);
+            require './view/frontend/change_pass.php';
+        }
+    }
+
+    $_POST['mail'] = $_SESSION['recup_mail'];
+    header('Location:index.php?p=forget_password');
+}
+
+function change_pass()
+{
+    $pass = securize($_POST['password']);
+    if (!empty($pass)) {
+        changePass($_SESSION['recup_mail'], $pass);
+        unset($_SESSION['recup_mail']);
+        setFlash('Vous avez bien changé votre mot de passe !');
+        accueil();
+    }
+
+    $_POST['code'] = $_POST['code'];
+    header('Location:index.php?p=send_code');
 }
 
 /**
