@@ -161,8 +161,71 @@ function submitRegister($pseudo, $password, $mail)
         } else {
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
             createUser($pseudo, $password_hash, $mail);
-            submitLogin($pseudo, $password);
+            submitLogin($mail, $password);
         }
+    }
+}
+
+function forget_password()
+{
+    $mail = securize($_POST['mail']);
+    if (!empty($mail) && searchMail($mail) && filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+        $pseudo = searchMail($mail)['pseudo'];
+        $code = "";
+        for ($i = 0; $i < 8; $i++) {
+            $code .= mt_rand(0, 9);
+        }
+        $_SESSION['recup_mail'] = $mail;
+        if (searchRecupMail($mail) === 1) {
+            updateRecup($mail, $code);
+        } else {
+            createRecup($mail, $code);
+        }
+
+        if ($_SERVER['HTTP_HOST'] === 'localhost') {
+            ini_set('SMTP', 'smtp.lexiquejaponais.fr');
+            ini_set('smtp_port', '25');
+        }
+
+        $header = 'From: Support <support@lexiquejaponais.fr>' . "\r\n" .
+            'Reply-To: support@lexiquejaponais.fr' . "\r\n" .
+            'X-Mailer: PHP/' . PHP_VERSION;
+        $message = '
+         <html>
+         <head>
+          <title>Récupération de mot de passe - lexiquejaponais.fr</title>
+          <meta charset="utf-8" />
+         </head>
+         <body>
+          <font color="#303030";>
+            <div align="center">
+               <table width="600px">
+                <tr>
+                  <td>
+                     <div align="center">Bonjour <b>' . $pseudo . '</b>,</div>
+                     Voici votre code de récupération: <b>' . $code . '</b>
+                     A bientôt sur <a href="#">lexiquejaponais.fr</a> !
+                     
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center">
+                     <font size="2">
+                      Ceci est un email automatique, merci de ne pas y répondre
+                     </font>
+                  </td>
+                </tr>
+               </table>
+            </div>
+          </font>
+         </body>
+         </html>
+         ';
+        $message = wordwrap($message, 70, "\r\n");
+        mail($mail, "Récupération de mot de passe - lexiquejaponais.fr", $message, $header);
+    } else {
+        setFlash('Adresse mail est invalide', 'danger');
+        header('Location:index.php?p=accueil');
     }
 }
 

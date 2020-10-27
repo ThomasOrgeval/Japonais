@@ -53,6 +53,34 @@ function searchMail($mail)
 }
 
 /**
+ * Recuperation
+ */
+
+function createRecup($mail, $code)
+{
+    $db = dbConnect();
+    $mail = $db->quote($mail);
+    $code = $db->quote($code);
+    $db->exec("insert into lexiqumjaponais.RECUPERATION set mail=$mail, code=$code");
+}
+
+function updateRecup($mail, $code)
+{
+    $db = dbConnect();
+    $mail = $db->quote($mail);
+    $code = $db->quote($code);
+    $db->exec("update lexiqumjaponais.RECUPERATION set code=$code where mail=$mail");
+}
+
+function searchRecupMail($mail)
+{
+    $db = dbConnect();
+    $selectUser = $db->prepare('select id from lexiqumjaponais.RECUPERATION where mail=?');
+    $selectUser->execute(array($mail));
+    return $selectUser->rowCount();
+}
+
+/**
  * Word
  */
 

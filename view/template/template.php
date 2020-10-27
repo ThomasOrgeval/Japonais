@@ -116,8 +116,7 @@
                     <div class="md-form mb-5">
                         <i class="fas fa-envelope prefix grey-text"></i>
                         <input type="email" id="login-mail" class="form-control validate" name="mail">
-                        <label data-error="wrong" data-success="right" for="login-mail">Votre adresse
-                            mail</label>
+                        <label data-error="wrong" data-success="right" for="login-mail">Votre adresse mail</label>
                     </div>
 
                     <div class="md-form mb-4">
@@ -125,13 +124,14 @@
                         <input type="password" id="login-pass" class="form-control validate" name="password">
                         <label data-error="wrong" data-success="right" for="login-pass">Votre mot de passe</label>
                     </div>
-
+                    <a href="" style="font-size: 13px" data-toggle="modal" data-target="#modalForgetPasswordForm"
+                       data-dismiss="modal">Mot de passe oublié ?</a>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
                     <button type="submit" class="btn btn-purple">S'identifier</button>
                     <div class="text-center">
-                        <a href="" class="btn btn-outline-purple" data-toggle="modal" data-target="#modalRegisterForm">Créer
-                            un compte</a>
+                        <a href="" class="btn btn-outline-purple" data-toggle="modal" data-target="#modalRegisterForm"
+                           data-dismiss="modal">Créer un compte</a>
                     </div>
                 </div>
             </form>
@@ -171,6 +171,32 @@
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
                     <button class="btn btn-purple">Créer un compte</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalForgetPasswordForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="index.php?p=forgetPassword" method="post">
+                <div class="modal-header text-center">
+                    <img src="./resources/svgs/sakura_login.svg" style="width: 40px">
+                    <h4 class="modal-title w-100 font-weight-bold">Récupération de compte</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                        <i class="fas fa-envelope prefix grey-text"></i>
+                        <input type="email" id="reset-mail" class="form-control validate" name="mail">
+                        <label data-error="wrong" data-success="right" for="reset-mail">Votre adresse mail</label>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-purple">Recevoir un mail</button>
                 </div>
             </form>
         </div>

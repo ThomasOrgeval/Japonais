@@ -111,6 +111,8 @@ try {
             deleteRecompense($_GET['id']);
         } elseif ($p === 'achat') {
             achat();
+        } elseif ($p === 'forgetPassword') {
+            forget_password();
         }
     } else {
         accueil();
