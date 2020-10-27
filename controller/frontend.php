@@ -4,6 +4,7 @@ session_start();
 mb_internal_encoding("UTF-8");
 require_once './controller/libs/form.php';
 require './controller/libs/session.php';
+require './controller/libs/mail.php';
 
 require './controller/backend.php';
 require './model/frontend.php';
@@ -161,9 +162,59 @@ function submitRegister($pseudo, $password, $mail)
         } else {
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
             createUser($pseudo, $password_hash, $mail);
-            submitLogin($pseudo, $password);
+            submitLogin($mail, $password);
         }
     }
+}
+
+function forget_password()
+{
+    $mail = securize($_POST['mail']);
+    if (!empty($mail) && searchMail($mail) && filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+        createCode($mail, searchMail($mail)['pseudo']);
+    } elseif (isset($_SESSION['recup_mail'])) {
+        createCode($_SESSION['recup_mail'], searchMail($_SESSION['recup_mail'])['pseudo']);
+    } else {
+        setFlash('Le code est invalide', 'danger');
+        header('Location:index.php?p=accueil');
+    }
+}
+
+function recup_code()
+{
+    $code = securize($_POST['code']);
+    if (!empty($code)) {
+        $recup = searchRecup($_SESSION['recup_mail'], $code);
+        if ($recup->rowCount() === 1) {
+            $recup = $recup->fetch();
+            $_SESSION['recup_code'] = $code;
+            $_SESSION['recup_id'] = $recup['id'];
+            require './view/frontend/change_pass.php';
+        }
+    } elseif (isset($_SESSION['recup_code']) && !empty($_SESSION['recup_code'])) {
+        require './view/frontend/change_pass.php';
+    }
+
+    header('Location:index.php?p=forget_password');
+}
+
+function change_pass()
+{
+    $pass = securize($_POST['password']);
+    $passVerif = securize($_POST['password2']);
+    if (!empty($pass)) {
+        if ($pass === $passVerif) {
+            changePass($_SESSION['recup_mail'], password_hash($pass, PASSWORD_DEFAULT));
+            deleteRecup($_SESSION['recup_id']);
+            unset($_SESSION['recup_mail'], $_SESSION['recup_code'], $_SESSION['recup_id']);
+            setFlash('Vous avez bien changé votre mot de passe !');
+            submitLogin($_SESSION['recup_mail'], $pass);
+        } else {
+            recup_code();
+        }
+    }
+
+    header('Location:index.php?p=send_code');
 }
 
 /**
@@ -268,4 +319,29 @@ function searchByTape($search)
     $_POST['listes'] = listSearchListe($search);
 
     require './view/frontend/search/byTape.php';
+}
+
+/**
+ * Récupération
+ */
+
+function createCode($mail, $pseudo)
+{
+    $code = "";
+    for ($i = 0; $i < 8; $i++) {
+        $code .= mt_rand(0, 9);
+    }
+    $_SESSION['recup_mail'] = $mail;
+    if (searchRecupMail($mail) === 1) {
+        updateRecup($mail, $code);
+    } else {
+        createRecup($mail, $code);
+    }
+
+    $header = 'From: Lexiquejaponais <support@lexiquejaponais.fr>' . "\r\n" .
+        'Reply-To: support@lexiquejaponais.fr' . "\r\n" .
+        'X-Mailer: PHP/' . PHP_VERSION;
+    $message = sendResetPassword($pseudo, $code);
+    mail($mail, "Récupération de mot de passe - lexiquejaponais.fr", $message, $header);
+    require './view/frontend/forget_pass.php';
 }

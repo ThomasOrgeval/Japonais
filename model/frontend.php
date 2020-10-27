@@ -52,6 +52,56 @@ function searchMail($mail)
     return $selectUser->fetch();
 }
 
+function changePass($mail, $pass)
+{
+    $db = dbConnect();
+    $mail = $db->quote($mail);
+    $pass = $db->quote($pass);
+    $db->exec("update lexiqumjaponais.USER set pass=$pass where mail like $mail");
+}
+
+/**
+ * Recuperation
+ */
+
+function createRecup($mail, $code)
+{
+    $db = dbConnect();
+    $mail = $db->quote($mail);
+    $code = $db->quote($code);
+    $db->exec("insert into lexiqumjaponais.RECUPERATION set mail=$mail, code=$code");
+}
+
+function updateRecup($mail, $code)
+{
+    $db = dbConnect();
+    $mail = $db->quote($mail);
+    $code = $db->quote($code);
+    $db->exec("update lexiqumjaponais.RECUPERATION set code=$code where mail=$mail");
+}
+
+function searchRecupMail($mail)
+{
+    $db = dbConnect();
+    $selectUser = $db->prepare('select id from lexiqumjaponais.RECUPERATION where mail=?');
+    $selectUser->execute(array($mail));
+    return $selectUser->rowCount();
+}
+
+function searchRecup($mail, $code)
+{
+    $db = dbConnect();
+    $mail = $db->quote($mail);
+    $code = $db->quote($code);
+    return $db->query("select * from lexiqumjaponais.RECUPERATION where code=$code and mail=$mail");
+}
+
+function deleteRecup($id)
+{
+    $db = dbConnect();
+    $db->exec("delete from lexiqumjaponais.RECUPERATION where id=$id");
+}
+
 /**
  * Word
  */
