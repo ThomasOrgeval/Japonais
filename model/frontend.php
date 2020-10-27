@@ -55,7 +55,9 @@ function searchMail($mail)
 function changePass($mail, $pass)
 {
     $db = dbConnect();
-    $db->exec("update lexiqumjaponais.USER set pass=$pass where mail=$mail");
+    $mail = $db->quote($mail);
+    $pass = $db->quote($pass);
+    $db->exec("update lexiqumjaponais.USER set pass=$pass where mail like $mail");
 }
 
 /**
