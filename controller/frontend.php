@@ -174,10 +174,10 @@ function forget_password()
         createCode($mail, searchMail($mail)['pseudo']);
     } elseif (isset($_SESSION['recup_mail'])) {
         createCode($_SESSION['recup_mail'], searchMail($_SESSION['recup_mail'])['pseudo']);
+    } else {
+        setFlash('Le code est invalide', 'danger');
+        header('Location:index.php?p=accueil');
     }
-
-    setFlash('Le code est invalide', 'danger');
-    header('Location:index.php?p=accueil');
 }
 
 function recup_code()
