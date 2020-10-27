@@ -171,28 +171,13 @@ function forget_password()
 {
     $mail = securize($_POST['mail']);
     if (!empty($mail) && searchMail($mail) && filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-        $pseudo = searchMail($mail)['pseudo'];
-        $code = "";
-        for ($i = 0; $i < 8; $i++) {
-            $code .= mt_rand(0, 9);
-        }
-        $_SESSION['recup_mail'] = $mail;
-        if (searchRecupMail($mail) === 1) {
-            updateRecup($mail, $code);
-        } else {
-            createRecup($mail, $code);
-        }
-
-        $header = 'From: Lexiquejaponais <support@lexiquejaponais.fr>' . "\r\n" .
-            'Reply-To: support@lexiquejaponais.fr' . "\r\n" .
-            'X-Mailer: PHP/' . PHP_VERSION;
-        $message = sendResetPassword($pseudo, $code);
-        mail($mail, "Récupération de mot de passe - lexiquejaponais.fr", $message, $header);
-        require './view/frontend/forget_pass.php';
-    } else {
-        setFlash('Adresse mail est invalide', 'danger');
-        header('Location:index.php?p=accueil');
+        createCode($mail, searchMail($mail)['pseudo']);
+    } elseif (isset($_SESSION['recup_mail'])) {
+        createCode($_SESSION['recup_mail'], searchMail($_SESSION['recup_mail'])['pseudo']);
     }
+
+    setFlash('Adresse mail est invalide', 'danger');
+    header('Location:index.php?p=accueil');
 }
 
 function recup_code()
@@ -208,7 +193,6 @@ function recup_code()
         }
     }
 
-    $_POST['mail'] = $_SESSION['recup_mail'];
     header('Location:index.php?p=forget_password');
 }
 
@@ -219,7 +203,7 @@ function change_pass()
         changePass($_SESSION['recup_mail'], password_hash($pass, PASSWORD_DEFAULT));
         unset($_SESSION['recup_mail']);
         setFlash('Vous avez bien changé votre mot de passe !');
-        accueil();
+        submitLogin($_SESSION['recup_mail'], $pass);
     }
 
     $_POST['code'] = $_POST['code'];
@@ -328,4 +312,29 @@ function searchByTape($search)
     $_POST['listes'] = listSearchListe($search);
 
     require './view/frontend/search/byTape.php';
+}
+
+/**
+ * Récupération
+ */
+
+function createCode($mail, $pseudo)
+{
+    $code = "";
+    for ($i = 0; $i < 8; $i++) {
+        $code .= mt_rand(0, 9);
+    }
+    $_SESSION['recup_mail'] = $mail;
+    if (searchRecupMail($mail) === 1) {
+        updateRecup($mail, $code);
+    } else {
+        createRecup($mail, $code);
+    }
+
+    $header = 'From: Lexiquejaponais <support@lexiquejaponais.fr>' . "\r\n" .
+        'Reply-To: support@lexiquejaponais.fr' . "\r\n" .
+        'X-Mailer: PHP/' . PHP_VERSION;
+    $message = sendResetPassword($pseudo, $code);
+    mail($mail, "Récupération de mot de passe - lexiquejaponais.fr", $message, $header);
+    require './view/frontend/forget_pass.php';
 }
