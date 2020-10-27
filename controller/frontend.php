@@ -216,7 +216,7 @@ function change_pass()
 {
     $pass = securize($_POST['password']);
     if (!empty($pass)) {
-        changePass($_SESSION['recup_mail'], $pass);
+        changePass($_SESSION['recup_mail'], password_hash($pass, PASSWORD_DEFAULT));
         unset($_SESSION['recup_mail']);
         setFlash('Vous avez bien changé votre mot de passe !');
         accueil();

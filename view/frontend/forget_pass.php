@@ -3,9 +3,11 @@ ob_start(); ?>
     <div>
         <p>Code de récupération pour <?= $_SESSION['recup_mail'] ?></p>
         <form action="index.php?p=send_code" method="post">
-            <i class="fas fa-code prefix grey-text"></i>
-            <input type="text" id="code" class="form-control validate" name="code" required>
-            <label data-error="wrong" data-success="right" for="code">Code de récupération</label>
+            <div class="md-form mb-5">
+                <i class="fas fa-code prefix grey-text"></i>
+                <input type="text" id="code" class="form-control validate" name="code" required>
+                <label data-error="wrong" data-success="right" for="code">Code de récupération</label>
+            </div>
             <button type="submit" class="btn btn-purple">Valider</button>
         </form>
     </div>
