@@ -286,7 +286,7 @@ function search($search)
     }
 
     if ($hint === "") {
-        $response = "no suggestion";
+        $response = "Pas de résultat";
     } else {
         $response = $hint;
     }
