@@ -101,7 +101,7 @@ function achat()
                 achatdb($_SESSION['id'], $_GET['id_recompense']);
                 depense($_SESSION['id'], $points['points'] - $cout);
                 $_SESSION['points'] = pointsUser($_SESSION['id'])['points'];
-                if (selectRecompense($_GET['id_recompense'])['id_type'] === 1) {
+                if (selectRecompense($_GET['id_recompense'])['id_type'] == 1) {
                     $_SESSION['Themes'][] = achatThemeById($_GET['id_recompense']);
                 }
                 setFlash('Vous avez bien ajouté ce lot !');
