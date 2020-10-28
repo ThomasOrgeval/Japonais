@@ -9,7 +9,7 @@ ob_start(); ?>
     <form action="index.php?p=recompense_add<?php if (isset($_GET['id'])) {
         echo '&id=' . $_GET['id'];
     } ?>" method="post">
-        <div style="display: flex;">
+        <div class="flexible">
 
             <div class="col-sm-8">
                 <?php if (isset($_GET['id'])): ?>

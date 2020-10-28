@@ -285,6 +285,7 @@ ob_start(); ?>
                 <?= input('romaji[]'); ?>
             </div>
         </div>
+
         <a class="small btn btn-outline-dark wide-screen" id="duplicatebtn3">Ajouter une traduction</a>
         <a class="small btn btn-outline-dark small-screen" id="duplicatebtn4">Ajouter une traduction</a><br/><br/>
 

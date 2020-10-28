@@ -461,20 +461,20 @@ function otherGroupeToWord()
     }
 }
 
-function wordGroupe($id_groupe, $id, $bool)
+function wordGroupe()
 {
     if (connect_admin()) {
-        if ($bool === 1) {
-            $wordGroupe = addGroupeToWord($id_groupe, $id);
+        if ($_GET['bool'] === '1') {
+            $wordGroupe = addGroupeToWord($_GET['id_groupe'], $_GET['id']);
         } else {
-            $wordGroupe = deleteGroupeToWord($id_groupe, $id);
+            $wordGroupe = deleteGroupeToWord($_GET['id_groupe'], $_GET['id']);
         }
 
         if ($wordGroupe === false) {
             throw new Exception();
         }
 
-        header('Location:index.php?p=word_edit&id=' . $id);
+        header('Location:index.php?p=word_edit&id=' . $_GET['id']);
     }
 }
 

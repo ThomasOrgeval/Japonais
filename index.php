@@ -26,7 +26,7 @@ try {
         } elseif ($p === 'word_delete') {
             deleteFrancais($_GET['id']);
         } elseif ($p === 'word_groupe') {
-            wordGroupe($_GET['id_groupe'], $_GET['id'], $_GET['bool']);
+            wordGroupe();
         } elseif ($p === 'logout') {
             logout();
         } elseif ($p === 'submitLogin') {

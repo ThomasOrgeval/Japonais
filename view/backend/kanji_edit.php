@@ -52,20 +52,20 @@ ob_start(); ?>
     <div>
         <h1>Mot japonais contenant ce kanji :</h1>
 
-        <table class="table table-striped">
+        <table class="table table-striped table-size">
             <thead>
             <tr>
-                <th style="font-size: 24px">Kanji</th>
-                <th style="font-size: 24px">Kana</th>
-                <th style="font-size: 24px">Romaji</th>
+                <th>Kanji</th>
+                <th>Kana</th>
+                <th>Romaji</th>
             </tr>
             </thead>
             <tbody>
             <?php foreach ($_POST['japonais'] as $item) : ?>
                 <tr>
-                    <td style="font-size: 24px"><a href="index.php?p=japonais_edit&id=<?= $item['id'] ?>"><?= $item['kanji'] ?></a></td>
-                    <td style="font-size: 24px"><?= $item['kana'] ?></td>
-                    <td style="font-size: 24px"><?= $item['romaji'] ?></td>
+                    <td><a href="index.php?p=japonais_edit&id=<?= $item['id'] ?>"><?= $item['kanji'] ?></a></td>
+                    <td><?= $item['kana'] ?></td>
+                    <td><?= $item['romaji'] ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

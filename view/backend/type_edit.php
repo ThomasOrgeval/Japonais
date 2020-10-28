@@ -11,7 +11,7 @@ ob_start(); ?>
     } ?>" method="post">
         <div class="form-group">
             <label for="type">Type</label>
-            <?= input('type'); ?>
+            <?= input('type') ?>
         </div>
 
         <button type="submit" class="btn btn-outline-dark" name="save">Enregistrer</button>
