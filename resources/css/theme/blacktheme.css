@@ -1,0 +1,58 @@
+html {
+    --text-color-normal: #0a244d;
+    --text-color-light: #8cabd9;
+}
+
+html[data-theme='dark'] {
+    --text-color-normal: hsl(210, 10%, 62%);
+    --text-color-light: hsl(210, 15%, 35%);
+    --text-color-richer: hsl(210, 50%, 72%);
+    --text-color-highlight: hsl(25, 70%, 45%);
+}
+
+img {
+    opacity: .75;
+    transition: opacity .5s ease-in-out;
+}
+
+img:hover {
+    opacity: 1;
+}
+
+body {
+    background-color: black;
+    color: white;
+}
+
+.navbar {
+    background-color: black !important;
+}
+
+table.table thead th, table.table tbody td {
+    color: white;
+}
+
+table.table tbody td a {
+    color: beige;
+}
+
+.search-a {
+    color: white;
+    background-color: black;
+}
+
+.btn-outline-dark {
+    color: white !important;
+}
+
+.btn-outline-dark:hover {
+    color: #cdc1c1 !important;
+}
+
+.form-control {
+    background-color: darkgray;
+}
+
+.form-control:focus {
+    background-color: darkgray;
+}

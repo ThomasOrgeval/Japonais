@@ -117,6 +117,10 @@ try {
             recup_code();
         } elseif ($p === 'change_pass') {
             change_pass();
+        } elseif ($p === 'theme') {
+            theme();
+        } elseif ($p === 'select_theme') {
+            select_theme();
         }
     } else {
         accueil();

@@ -31,6 +31,7 @@ function logout()
     session_destroy();
     setcookie('mail');
     setcookie('pass');
+    setcookie('theme');
     header('Location:index.php?p=accueil');
 }
 
@@ -95,10 +96,14 @@ function achat()
     if (connect()) {
         if (achatByUser($_SESSION['id'], $_GET['id_recompense']) === false) {
             $points = pointsUser($_SESSION['id']);
-            if ($points['points'] >= $_GET['cout']) {
+            $cout = selectRecompense($_GET['id_recompense'])['cout'];
+            if ($points['points'] >= $cout) {
                 achatdb($_SESSION['id'], $_GET['id_recompense']);
-                depense($_SESSION['id'], $points['points'] - $_GET['cout']);
+                depense($_SESSION['id'], $points['points'] - $cout);
                 $_SESSION['points'] = pointsUser($_SESSION['id'])['points'];
+                if (selectRecompense($_GET['id_recompense'])['id_type'] === 1) {
+                    $_SESSION['Themes'][] = achatThemeById($_GET['id_recompense']);
+                }
                 setFlash('Vous avez bien ajouté ce lot !');
             } else {
                 setFlash('Vous n\'avez pas assez de points :(', 'danger');
@@ -132,8 +137,10 @@ function submitLogin($mail, $password)
             $_SESSION['nombreWords'] = $statements['nombre'];
             $_SESSION['points'] = $statements['points'];
             $_SESSION['connect'] = 'OK';
+            $_SESSION['Themes'] = listAchatThemeByAccount($_SESSION['id']);
             setcookie('mail', $mail, time() + 365 * 24 * 3600);
             setcookie('pass', $password, time() + 365 * 24 * 3600);
+            setcookie('theme', 0, time() + 365 * 24 * 3600);
             setFlash('Connexion réussie');
         } else {
             setFlash('Mot de passe ou identifiant incorrect', 'danger');
@@ -344,4 +351,31 @@ function createCode($mail, $pseudo)
     $message = sendResetPassword($pseudo, $code);
     mail($mail, "Récupération de mot de passe - lexiquejaponais.fr", $message, $header);
     require './view/frontend/forget_pass.php';
+}
+
+/**
+ * Thèmes
+ */
+
+function theme()
+{
+    if (connect()) {
+        $_POST['themes'] = listThemes();
+        foreach ($_POST['themes'] as $theme) {
+            foreach ($_SESSION['Themes'] as $theme1) {
+                if ($theme['libelle'] === $theme1['libelle']) {
+                    unset($_POST['themes'][array_search($theme, $_POST['themes'], true)]);
+                }
+            }
+        }
+        require './view/frontend/theme.php';
+    }
+}
+
+function select_theme()
+{
+    if (connect()) {
+        setcookie('theme', $_GET['id'], time() + 365 * 24 * 3600);
+        header('Location:index.php?p=accueil');
+    }
 }

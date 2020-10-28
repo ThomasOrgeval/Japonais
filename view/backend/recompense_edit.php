@@ -23,8 +23,16 @@ ob_start(); ?>
                     <?= input('libelle') ?>
                 </div>
                 <div class="form-group">
+                    <label for="slug">Slug</label>
+                    <?= input('slug') ?>
+                </div>
+                <div class="form-group">
                     <label for="cout">Cout</label>
                     <?= inputNumber('cout') ?>
+                </div>
+                <div class="form-group">
+                    <label for="id_type">Type</label>
+                    <?= select('id_type', $type_list) ?>
                 </div>
             </div>
 

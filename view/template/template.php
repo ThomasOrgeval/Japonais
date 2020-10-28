@@ -3,6 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8"/>
     <title><?= $title ?></title>
+    <link rel="shortcut icon" type="image" href="./resources/svgs/sakura_login.svg">
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -34,6 +35,10 @@
     <script src="../../resources/js/all.js"></script>
     <script src="./resources/js/addons/datatables2.min.js"></script>
     <script src="./resources/js/main.js"></script>
+
+    <?php if (isset($_COOKIE['theme']) && $_COOKIE['theme'] !== 0) : ?>
+        <link rel="stylesheet" href="./resources/css/theme/<?= $_COOKIE['theme'] ?>.css">
+    <?php endif; ?>
 </head>
 
 <body>
@@ -43,7 +48,10 @@
             <li><a class="nav-item nav-link" href="index.php?p=accueil">Accueil</a></li>
             <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
                 <li><a class="nav-item nav-link" href="index.php?p=listes">Mes listes</a></li>
-                <?php if ($_SESSION['admin'] == 1): ?>
+                <?php if (isset($_SESSION['Themes']) && !empty($_SESSION['Themes'])) : ?>
+                    <li><a class="nav-item nav-link" href="index.php?p=theme">Mes thèmes</a></li>
+                <?php endif;
+                if ($_SESSION['admin'] == 1): ?>
                     <li><a class="nav-item nav-link" href="index.php?p=admin_portail">Administration</a></li>
                 <?php endif;
             endif; ?>
@@ -71,7 +79,10 @@
                 <li><a class="nav-item nav-link" href="index.php?p=accueil">Accueil</a></li>
                 <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
                     <li><a class="nav-item nav-link" href="index.php?p=listes">Mes listes</a></li>
-                    <?php if ($_SESSION['admin'] == 1): ?>
+                    <?php if (isset($_SESSION['Themes']) && !empty($_SESSION['Themes'])) : ?>
+                        <li><a class="nav-item nav-link" href="index.php?p=theme">Mes thèmes</a></li>
+                    <?php endif;
+                    if ($_SESSION['admin'] == 1): ?>
                         <li><a class="nav-item nav-link" href="index.php?p=admin_portail">Administration</a></li>
                     <?php endif;
                 endif; ?>
@@ -164,7 +175,8 @@
 
                     <div class="md-form mb-4">
                         <i class="fas fa-lock prefix grey-text"></i>
-                        <input type="password" id="register-pass" class="form-control validate" name="password" data-parsley-minlength="8">
+                        <input type="password" id="register-pass" class="form-control validate" name="password"
+                               data-parsley-minlength="8">
                         <label data-error="wrong" data-success="right" for="register-pass">Votre mot de passe</label>
                     </div>
 
@@ -209,7 +221,7 @@
         <?php if ($_SERVER['HTTP_HOST'] === 'localhost') {
             var_dump($_COOKIE);
             var_dump($_SESSION);
-            var_dump($_POST);
+            //var_dump($_POST);
         } ?>
     </p><br/>
     <div class="content">

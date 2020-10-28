@@ -599,21 +599,25 @@ function listRecompense()
     return $select->fetchAll();
 }
 
-function createRecompense($libelle, $cout)
+function createRecompense($libelle, $cout, $slug, $id_type)
 {
     $db = dbConnect();
     $libelle = $db->quote($libelle);
     $cout = $db->quote($cout);
-    return $db->query("insert into lexiqumjaponais.RECOMPENSE set libelle=$libelle, cout=$cout, date_parution=curdate()");
+    $slug = $db->quote($slug);
+    $id_type = $db->quote($id_type);
+    return $db->query("insert into lexiqumjaponais.RECOMPENSE set libelle=$libelle, cout=$cout, date_parution=curdate(), slug=$slug, id_type=$id_type");
 }
 
-function editRecompense($id, $libelle, $cout)
+function editRecompense($id, $libelle, $cout, $slug, $id_type)
 {
     $db = dbConnect();
     $libelle = $db->quote($libelle);
     $cout = $db->quote($cout);
     $id = $db->quote($id);
-    return $db->query("update lexiqumjaponais.RECOMPENSE set libelle=$libelle, cout=$cout where id=$id");
+    $slug = $db->quote($slug);
+    $id_type = $db->quote($id_type);
+    return $db->query("update lexiqumjaponais.RECOMPENSE set libelle=$libelle, cout=$cout, slug=$slug, id_type=$id_type where id=$id");
 }
 
 function supprRecompense($id)
@@ -621,6 +625,13 @@ function supprRecompense($id)
     $db = dbConnect();
     $id = $db->quote($id);
     return $db->query("delete from lexiqumjaponais.RECOMPENSE where id=$id");
+}
+
+function listTypeRecompense()
+{
+    $db = dbConnect();
+    $select = $db->query('select id, type from lexiqumjaponais.RECOMPENSE_TYPE order by type asc');
+    return $select->fetchAll();
 }
 
 /**

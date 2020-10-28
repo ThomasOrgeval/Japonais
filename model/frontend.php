@@ -233,9 +233,39 @@ function listAchatByAccount($id_user)
 {
     $db = dbConnect();
     $id_user = $db->quote($id_user);
-    $select = $db->query("select RECOMPENSE.libelle, RECOMPENSE.date_parution, RECOMPENSE.cout, ACHAT.date_achat from lexiqumjaponais.RECOMPENSE
+    $select = $db->query("select RECOMPENSE.libelle, RECOMPENSE.date_parution, RECOMPENSE.slug, RECOMPENSE.cout, ACHAT.date_achat from lexiqumjaponais.RECOMPENSE
         inner join lexiqumjaponais.ACHAT on RECOMPENSE.id = ACHAT.id_recompense
         where ACHAT.id_user=$id_user");
+    return $select->fetchAll();
+}
+
+function listAchatThemeByAccount($id_user)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    $select = $db->query("select RECOMPENSE.id, RECOMPENSE.libelle, RECOMPENSE.date_parution, RECOMPENSE.slug, RECOMPENSE.cout, ACHAT.date_achat from lexiqumjaponais.ACHAT
+        inner join lexiqumjaponais.RECOMPENSE on RECOMPENSE.id = ACHAT.id_recompense
+        inner join lexiqumjaponais.RECOMPENSE_TYPE RT on RECOMPENSE.id_type = RT.id
+        where ACHAT.id_user=$id_user and RT.type like 'Theme'");
+    return $select->fetchAll();
+}
+
+function achatThemeById($id_recompense)
+{
+    $db = dbConnect();
+    $id_recompense = $db->quote($id_recompense);
+    $select = $db->query("select RECOMPENSE.id, RECOMPENSE.libelle, RECOMPENSE.date_parution, RECOMPENSE.slug, RECOMPENSE.cout from lexiqumjaponais.RECOMPENSE
+        inner join lexiqumjaponais.RECOMPENSE_TYPE RT on RECOMPENSE.id_type = RT.id
+        where RECOMPENSE.id=$id_recompense and RT.type like 'Theme'");
+    return $select->fetch();
+}
+
+function listThemes()
+{
+    $db = dbConnect();
+    $select = $db->query("select * from lexiqumjaponais.RECOMPENSE
+        inner join lexiqumjaponais.RECOMPENSE_TYPE RT on RECOMPENSE.id_type = RT.id
+        where type like 'Theme'");
     return $select->fetchAll();
 }
 
@@ -262,6 +292,14 @@ function depense($id, $points)
     $id = $db->quote($id);
     $points = $db->quote($points);
     $db->exec("update lexiqumjaponais.USER set points=$points where id=$id");
+}
+
+function selectRecompense($id)
+{
+    $db = dbConnect();
+    $id = $db->quote($id);
+    $select = $db->query("select * from lexiqumjaponais.RECOMPENSE where id=$id");
+    return $select->fetch();
 }
 
 function pointsUser($id)

@@ -249,6 +249,12 @@ function recompense()
 function recompense_edit()
 {
     if (connect_admin()) {
+        $types = listTypeRecompense();
+        $type_list = array();
+        foreach ($types as $type) {
+            $type_list[$type['id']] = $type['type'];
+        }
+
         if (isset($_GET['id'])) {
             $recompense = testRecompense($_GET['id']);
             if ($recompense->rowCount() === 0) {
@@ -812,19 +818,23 @@ function addJaponaisKanji($values, $id)
 function addRecompense()
 {
     if (connect_admin()) {
-        if ($_GET['id'] > 0) {
-            $addRecompense = editRecompense($_GET['id'], $_POST['libelle'], $_POST['cout']);
+        if (preg_match('/^[a-z\-0-9]+$/', $_POST['slug'])) {
+            if ($_GET['id'] > 0) {
+                $addRecompense = editRecompense($_GET['id'], $_POST['libelle'], $_POST['cout'], $_POST['slug'], $_POST['id_type']);
+            } else {
+                $addRecompense = createRecompense($_POST['libelle'], $_POST['cout'], $_POST['slug'], $_POST['id_type']);
+            }
+
+            if ($addRecompense === false) {
+                setFlash('La récompense n\'a pas été ajouté', 'danger');
+                throw new Exception();
+            }
+
+            setFlash('La récompense a bien été crée');
+            header('Location:index.php?p=recompense');
         } else {
-            $addRecompense = createRecompense($_POST['libelle'], $_POST['cout']);
+            setFlash("Le slug n'est pas valide", 'danger');
         }
-
-        if ($addRecompense === false) {
-            setFlash('La récompense n\'a pas été ajouté', 'danger');
-            throw new Exception();
-        }
-
-        setFlash('La récompense a bien été crée');
-        header('Location:index.php?p=recompense');
     }
 }
 

@@ -23,13 +23,23 @@ create table `RECUPERATION`
     primary key (`id`)
 ) engine = InnoDB;
 
+create table `RECOMPENSE_TYPE`
+(
+    `id`    int auto_increment not null,
+    `type` varchar(255)       not null,
+    primary key (`id`)
+) engine = InnoDB;
+
 create table `RECOMPENSE`
 (
     `id`            int auto_increment not null,
     `libelle`       varchar(255)       not null,
+    `slug`          varchar(255)       not null,
     `cout`          int                not null,
     `date_parution` date,
-    primary key (`id`)
+    `id_type`       int,
+    primary key (`id`),
+    foreign key (`id_type`) references RECOMPENSE_TYPE (`id`)
 ) engine = InnoDB;
 
 create table `ACHAT`

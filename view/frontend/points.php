@@ -6,7 +6,7 @@ ob_start(); ?>
 
     <h2>Voici ce que vous pouvez acheter :</h2><br/>
 <?php if (!empty($_POST['recompenses'])) : ?>
-    <table class="table table-striped">
+    <table class="table table-striped table-size">
         <thead>
         <tr>
             <th>Nom de la récompense</th>
@@ -20,7 +20,7 @@ ob_start(); ?>
             <td><?= $recompense['libelle'] ?></td>
             <td><?= $recompense['date_parution'] ?></td>
             <td><?= $recompense['cout'] ?></td>
-            <td><a href="index.php?p=achat&id_recompense=<?= $recompense['id'] ?>&cout=<?= $recompense['cout'] ?>"
+            <td><a href="index.php?p=achat&id_recompense=<?= $recompense['id'] ?>"
                    class="btn-sm btn-outline-dark"
                    onclick="return confirm('Voulez-vous vraiment acheter ce lot ?')">Acheter</a></td>
         <?php endforeach; ?>
@@ -32,7 +32,7 @@ ob_start(); ?>
 
 <?php if (!empty($_POST['achats'])) : ?>
     <h2>Ce que vous avez déjà acheté :</h2><br/>
-    <table class="table table-striped">
+    <table class="table table-striped table-size">
         <thead>
         <tr>
             <th>Nom de la récompense</th>
