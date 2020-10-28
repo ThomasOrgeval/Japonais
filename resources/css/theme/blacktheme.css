@@ -10,15 +10,6 @@ html[data-theme='dark'] {
     --text-color-highlight: hsl(25, 70%, 45%);
 }
 
-img {
-    opacity: .75;
-    transition: opacity .5s ease-in-out;
-}
-
-img:hover {
-    opacity: 1;
-}
-
 body {
     background-color: black;
     color: white;
@@ -43,16 +34,22 @@ table.table tbody td a {
 
 .btn-outline-dark {
     color: white !important;
+    border-color: lightgray !important;
+}
+
+.btn-outline-danger:hover {
+    border-color: darkred !important;
 }
 
 .btn-outline-dark:hover {
     color: #cdc1c1 !important;
+    border-color: darkgray !important;
 }
 
-.form-control {
-    background-color: darkgray;
+#sakura-svg-points {
+    fill: white;
 }
 
-.form-control:focus {
-    background-color: darkgray;
+.modal-content {
+    background-color: #222222;
 }

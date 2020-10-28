@@ -63,6 +63,9 @@
                 </a>
                 <a class="nav-item nav-link" href="index.php?p=account" style="color: white;">Bienvenue,
                     &thinsp; <?= $_SESSION['pseudo'] ?></a>
+                <a href="index.php?p=account">
+                    <img class="icon" src="./resources/icons/<?= $_SESSION['icone'] ?>.png" alt="icone">
+                </a>
                 <a class="nav-item nav-link" href="index.php?p=logout">Déconnexion</a>
             <?php else: ?>
                 <a href="" class="nav-item nav-link" data-toggle="modal"

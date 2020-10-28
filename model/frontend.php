@@ -19,7 +19,7 @@ function dbConnect()
 function createUser($pseudo, $pass, $mail)
 {
     $db = dbConnect();
-    $addUser = $db->prepare('insert into lexiqumjaponais.USER(pseudo, pass, mail, date, droits, nombre, points) values(?, ?, ?, CURRENT_DATE, ?, 10, 0)');
+    $addUser = $db->prepare('insert into lexiqumjaponais.USER(pseudo, pass, mail, date, droits, nombre, points, icone) values(?, ?, ?, CURRENT_DATE, ?, 10, 0, 0)');
     $addUser = $addUser->execute(array($pseudo, $pass, $mail, 0));
     return $addUser;
 }
@@ -27,7 +27,7 @@ function createUser($pseudo, $pass, $mail)
 function loginUser($mail, $pass)
 {
     $db = dbConnect();
-    $selectUser = $db->prepare('select id, pseudo, pass, mail, droits, nombre, points from lexiqumjaponais.USER where mail=?');
+    $selectUser = $db->prepare('select id, pseudo, pass, mail, droits, nombre, points, icone from lexiqumjaponais.USER where mail=?');
     $selectUser->execute(array($mail));
     $selectUser = $selectUser->fetch();
     if (password_verify($pass, $selectUser['pass'])) {
@@ -58,6 +58,22 @@ function changePass($mail, $pass)
     $mail = $db->quote($mail);
     $pass = $db->quote($pass);
     $db->exec("update lexiqumjaponais.USER set pass=$pass where mail like $mail");
+}
+
+function saveAccount($id, $words)
+{
+    $db = dbConnect();
+    $id = $db->quote($id);
+    $words = $db->quote($words);
+    $db->exec("update lexiqumjaponais.USER set nombre=$words where id=$id");
+}
+
+function changeIcon($id_user, $id_icon)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    $id_icon = $db->quote($id_icon);
+    $db->exec("update lexiqumjaponais.USER set icone=$id_icon where id=$id_user");
 }
 
 /**
@@ -267,6 +283,38 @@ function listThemes()
         inner join lexiqumjaponais.RECOMPENSE_TYPE RT on RECOMPENSE.id_type = RT.id
         where type like 'Theme'");
     return $select->fetchAll();
+}
+
+function listAchatIconByAccount($id_user)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    $select = $db->query("select RECOMPENSE.id, RECOMPENSE.libelle, RECOMPENSE.date_parution, RECOMPENSE.slug, RECOMPENSE.cout, ACHAT.date_achat from lexiqumjaponais.ACHAT
+        inner join lexiqumjaponais.RECOMPENSE on RECOMPENSE.id = ACHAT.id_recompense
+        inner join lexiqumjaponais.RECOMPENSE_TYPE RT on RECOMPENSE.id_type = RT.id
+        where ACHAT.id_user=$id_user and RT.type like 'Icone'");
+    return $select->fetchAll();
+}
+
+function listIcons()
+{
+    $db = dbConnect();
+    $select = $db->query("select * from lexiqumjaponais.RECOMPENSE
+        inner join lexiqumjaponais.RECOMPENSE_TYPE RT on RECOMPENSE.id_type = RT.id
+        where type like 'Icone'");
+    return $select->fetchAll();
+}
+
+function haveIcon($id_user, $id_icon)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    $id_icon = $db->quote($id_icon);
+    $select = $db->query("select RECOMPENSE.id from lexiqumjaponais.ACHAT
+        inner join lexiqumjaponais.RECOMPENSE on RECOMPENSE.id = ACHAT.id_recompense
+        inner join lexiqumjaponais.RECOMPENSE_TYPE RT on RECOMPENSE.id_type = RT.id
+        where ACHAT.id_user=$id_user and RT.type like 'Icone' and ACHAT.id_recompense=$id_icon");
+    return $select->fetch();
 }
 
 function achatByUser($id_user, $id_recompense)

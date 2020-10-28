@@ -38,7 +38,48 @@ function logout()
 function account()
 {
     if (connect()) {
+        $_POST['icones_own'] = listAchatIconByAccount($_SESSION['id']);
+        $_POST['icones'] = listIcons();
+        foreach ($_POST['icones'] as $icone) {
+            foreach ($_POST['icones_own'] as $icone_own) {
+                if ($icone['libelle'] === $icone_own['libelle']) {
+                    unset($_POST['icones'][array_search($icone, $_POST['icones'], true)]);
+                }
+            }
+        }
         require './view/frontend/account.php';
+    }
+}
+
+function change_icon()
+{
+    if (connect()) {
+        if (isset($_GET['id']) && (!empty($_GET['id']) || $_GET['id'] == 0)) {
+            if (haveIcon($_SESSION['id'], $_GET['id']) || $_GET['id'] == 0) {
+                changeIcon($_SESSION['id'], $_GET['id']);
+                $_SESSION['icone'] = $_GET['id'];
+                setFlash('L\'îcone a été modifiée');
+            }
+        }
+        header('Location:index.php?p=account');
+    }
+}
+
+function save_account()
+{
+    if (connect()) {
+        $words = securize($_POST['nombrewords']);
+        if (is_numeric($words)) {
+            if ($words > 100) {
+                $words = 100;
+            }
+            saveAccount($_SESSION['id'], $words);
+            $_SESSION['nombreWords'] = $words;
+            setFlash('Modifications enregistrées !');
+        } else {
+            setFlash('Vous n\'avez pas rentré un nombre', 'danger');
+        }
+        header('Location:index.php?p=accueil');
     }
 }
 
@@ -109,7 +150,14 @@ function achat()
                 setFlash('Vous n\'avez pas assez de points :(', 'danger');
             }
         }
-        header('Location:index.php?p=points');
+
+        if ($_GET['page'] === 'account') {
+            header('Location:index.php?p=account');
+        } elseif ($_GET['page'] === 'theme') {
+            header('Location:index.php?p=theme');
+        } else {
+            header('Location:index.php?p=points');
+        }
     }
 }
 
@@ -137,6 +185,7 @@ function submitLogin($mail, $password)
             $_SESSION['nombreWords'] = $statements['nombre'];
             $_SESSION['points'] = $statements['points'];
             $_SESSION['connect'] = 'OK';
+            $_SESSION['icone'] = $statements['icone'];
             $_SESSION['Themes'] = listAchatThemeByAccount($_SESSION['id']);
             setcookie('mail', $mail, time() + 365 * 24 * 3600);
             setcookie('pass', $password, time() + 365 * 24 * 3600);

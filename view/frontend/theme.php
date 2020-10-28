@@ -19,8 +19,8 @@ ob_start(); ?>
     <table>
         <tbody>
         <?php foreach ($_POST['themes'] as $theme) : ?>
-            <td><a class="btn btn-outline-purple"
-                   href="index.php?p=achat&id_recompense=<?= $theme['id'] ?>"><?= $theme['libelle'] ?></a></td>
+            <td><a class="btn btn-outline-purple" onclick="return confirm('Voulez-vous vraiment acheter ce thème ?')"
+                   href="index.php?p=achat&id_recompense=<?= $theme['id'] ?>&page=theme"><?= $theme['libelle'] ?></a></td>
         <?php endforeach; ?>
         </tbody>
     </table>

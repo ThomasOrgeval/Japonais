@@ -121,6 +121,10 @@ try {
             theme();
         } elseif ($p === 'select_theme') {
             select_theme();
+        } elseif ($p === 'change_icon') {
+            change_icon();
+        } elseif ($p === 'save_account') {
+            save_account();
         }
     } else {
         accueil();

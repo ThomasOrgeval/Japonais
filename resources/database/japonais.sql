@@ -12,6 +12,7 @@ create table `USER`
     `droits` int          not null,
     `nombre` int          not null,
     `points` int          not null,
+    `icone`  varchar(255) not null,
     primary key (`id`)
 ) engine = InnoDB;
 
@@ -25,7 +26,7 @@ create table `RECUPERATION`
 
 create table `RECOMPENSE_TYPE`
 (
-    `id`    int auto_increment not null,
+    `id`   int auto_increment not null,
     `type` varchar(255)       not null,
     primary key (`id`)
 ) engine = InnoDB;
