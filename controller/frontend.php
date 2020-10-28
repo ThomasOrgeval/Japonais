@@ -140,7 +140,9 @@ function submitLogin($mail, $password)
             $_SESSION['Themes'] = listAchatThemeByAccount($_SESSION['id']);
             setcookie('mail', $mail, time() + 365 * 24 * 3600);
             setcookie('pass', $password, time() + 365 * 24 * 3600);
-            setcookie('theme', 0, time() + 365 * 24 * 3600);
+            if (!isset($_COOKIE['theme'])) {
+                setcookie('theme', 0, time() + 365 * 24 * 3600);
+            }
             setFlash('Connexion réussie');
         } else {
             setFlash('Mot de passe ou identifiant incorrect', 'danger');
