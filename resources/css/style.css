@@ -45,6 +45,7 @@
 
 .icon-account {
     width: 100%;
+    margin-bottom: 10px;
 }
 
 .icon-table {
@@ -79,6 +80,10 @@
         font-size: 20px
     }
 
+    .small-screen {
+        display: none !important;
+    }
+
 }
 
 @media screen and (max-width: 768px) {
@@ -106,6 +111,10 @@
     .btn-small {
         padding: 0.4rem !important;
         font-size: 0.65rem;
+    }
+
+    .wide-screen {
+        display: none !important;
     }
 
 }

@@ -9,7 +9,7 @@ function flash()
                     }
                 </script>
 
-                <div class='toast alert alert-".$_SESSION['Flash']['type']."' id='toast' style='position: absolute; top: 80px; right: 50px; opacity: 0.8;'>
+                <div class='toast alert alert-".$_SESSION['Flash']['type']." hidden' id='toast' style='position: absolute; top: 80px; right: 50px; opacity: 0.8;'>
                     <div class='toast-header'>
                         <strong class='mr-auto'><i class='fa fa-book'></i> ".$_SESSION['Flash']['message']."</strong>
                     </div>

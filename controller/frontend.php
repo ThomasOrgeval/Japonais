@@ -398,7 +398,8 @@ function createCode($mail, $pseudo)
 
     $header = 'From: Lexiquejaponais <support@lexiquejaponais.fr>' . "\r\n" .
         'Reply-To: support@lexiquejaponais.fr' . "\r\n" .
-        'X-Mailer: PHP/' . PHP_VERSION;
+        'X-Mailer: PHP/' . PHP_VERSION . "\r\n" .
+        "Content-type: text/html; charset=utf-8";
     $message = sendResetPassword($pseudo, $code);
     mail($mail, "Récupération de mot de passe - lexiquejaponais.fr", $message, $header);
     require './view/frontend/forget_pass.php';

@@ -1,7 +1,30 @@
 <?php $title = 'Mon compte';
 ob_start(); ?>
 
-    <div style="display: flex;">
+    <div class="flexible wide-screen">
+        <div class="col-sm-4">
+            <a data-toggle="modal" data-target="#modalIcon">
+                <img class="icon-account" src="./resources/icons/<?= $_SESSION['icone'] ?>.png" alt="icone">
+            </a>
+        </div>
+        <div class="col-sm-8">
+            <form action="index.php?p=save_account" method="post">
+                <div class="form-group">
+                    <label for="pseudo">Pseudo</label>
+                    <input type="text" class="form-control" id="pseudo" name="pseudo" value="<?= $_SESSION['pseudo'] ?>"
+                           readonly>
+                </div>
+                <div class="form-group">
+                    <label for="nombrewords">Nombre de mots affichés sur l'accueil</label>
+                    <input type="number" class="form-control" id="nombrewords" name="nombrewords"
+                           value="<?= $_SESSION['nombreWords'] ?>">
+                </div>
+
+                <button type="submit" class="btn btn-purple" name="save">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+    <div class="small-screen">
         <div class="col-sm-4">
             <a data-toggle="modal" data-target="#modalIcon">
                 <img class="icon-account" src="./resources/icons/<?= $_SESSION['icone'] ?>.png" alt="icone">
