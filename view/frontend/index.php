@@ -32,8 +32,31 @@ ob_start(); ?>
         <?php endforeach; ?>
         </tbody>
     </table>
-    <?php endif; ?>
+<?php endif; ?>
     <br/><br/>
+    <div class="card text-center" style="width: 18rem;">
+        <div class="card-body" id="card">
+            <h6 class="card-title">Trouves la bonne traduction !</h6>
+            <?php if (isset($_SESSION['riddle']) && $_SESSION['life'] > 0) : ?>
+                <form>
+                    <div id="riddle-div" class="flexible">
+                        <p id="riddle-value" class="card-text"><?= $_SESSION['riddle'] ?></p>
+                        <p class="life">
+                            <img id="heart" class="svg" src="./resources/svgs/solid/heart.svg" alt="heart"> :
+                            <span id="life"><?= $_SESSION['life'] ?></span>
+                        </p>
+                    </div>
+                    <div id="result"></div>
+                    <input type="text" id="value" class="form-text riddle" required><br/>
+                    <input type="submit" id="riddle-btn" class="btn btn-primary" value="Valider">
+                </form>
+            <?php elseif ($_SESSION['life'] === 0) : ?>
+                <p class="card-text">Vous n'avez plus de vies, revenez demain !</p>
+            <?php else : ?>
+                <p class="card-text">Veuillez vous reconnectez s'il vous plait, l'affichage sera ensuite fonctionnel</p>
+            <?php endif; ?>
+        </div>
+    </div>
 
 <?php $content = ob_get_clean();
 require('./view/template/template.php'); ?>

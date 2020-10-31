@@ -53,3 +53,11 @@ table.table tbody td a {
 .modal-content {
     background-color: #222222;
 }
+
+.card {
+    background-color: #222222;
+}
+
+.card-text {
+    color: lightgray !important;
+}

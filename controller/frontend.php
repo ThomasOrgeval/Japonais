@@ -136,12 +136,12 @@ function achat()
 {
     if (connect()) {
         if (achatByUser($_SESSION['id'], $_GET['id_recompense']) === false) {
-            $points = pointsUser($_SESSION['id']);
+            $points = getPoints($_SESSION['id']);
             $cout = selectRecompense($_GET['id_recompense'])['cout'];
             if ($points['points'] >= $cout) {
                 achatdb($_SESSION['id'], $_GET['id_recompense']);
-                depense($_SESSION['id'], $points['points'] - $cout);
-                $_SESSION['points'] = pointsUser($_SESSION['id'])['points'];
+                setPoints($_SESSION['id'], $points['points'] - $cout);
+                $_SESSION['points'] = getPoints($_SESSION['id'])['points'];
                 if (selectRecompense($_GET['id_recompense'])['id_type'] == 1) {
                     $_SESSION['Themes'][] = achatThemeById($_GET['id_recompense']);
                 }
@@ -187,6 +187,13 @@ function submitLogin($mail, $password)
             $_SESSION['connect'] = 'OK';
             $_SESSION['icone'] = $statements['icone'];
             $_SESSION['Themes'] = listAchatThemeByAccount($_SESSION['id']);
+            if ($statements['riddle'] !== null) {
+                $_SESSION['riddle'] = $statements['riddle'];
+            } else {
+                $_SESSION['riddle'] = selectOneRandomWord()['francais'];
+                setRiddle($_SESSION['id'], $_SESSION['riddle']);
+            }
+            $_SESSION['life'] = $statements['life'];
             setcookie('mail', $mail, time() + 365 * 24 * 3600);
             setcookie('pass', $password, time() + 365 * 24 * 3600);
             if (!isset($_COOKIE['theme'])) {
@@ -219,7 +226,7 @@ function submitRegister($pseudo, $password, $mail)
             header('Location:index.php?p=accueil');
         } else {
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
-            createUser($pseudo, $password_hash, $mail);
+            createUser($pseudo, $password_hash, $mail, selectOneRandomWord()['francais']);
             submitLogin($mail, $password);
         }
     }

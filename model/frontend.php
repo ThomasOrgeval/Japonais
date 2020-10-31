@@ -16,18 +16,18 @@ function dbConnect()
  * User
  */
 
-function createUser($pseudo, $pass, $mail)
+function createUser($pseudo, $pass, $mail, $riddle)
 {
     $db = dbConnect();
-    $addUser = $db->prepare('insert into lexiqumjaponais.USER(pseudo, pass, mail, date, droits, nombre, points, icone) values(?, ?, ?, CURRENT_DATE, ?, 10, 0, 0)');
-    $addUser = $addUser->execute(array($pseudo, $pass, $mail, 0));
+    $addUser = $db->prepare('insert into lexiqumjaponais.USER(pseudo, pass, mail, date, droits, nombre, points, icone, riddle, life) values(?, ?, ?, CURRENT_DATE, 0, 10, 0, 0, ?, 3)');
+    $addUser = $addUser->execute(array($pseudo, $pass, $mail, $riddle));
     return $addUser;
 }
 
 function loginUser($mail, $pass)
 {
     $db = dbConnect();
-    $selectUser = $db->prepare('select id, pseudo, pass, mail, droits, nombre, points, icone from lexiqumjaponais.USER where mail=?');
+    $selectUser = $db->prepare('select id, pseudo, pass, mail, droits, nombre, points, icone, riddle, life from lexiqumjaponais.USER where mail=?');
     $selectUser->execute(array($mail));
     $selectUser = $selectUser->fetch();
     if (password_verify($pass, $selectUser['pass'])) {
@@ -74,6 +74,38 @@ function changeIcon($id_user, $id_icon)
     $id_user = $db->quote($id_user);
     $id_icon = $db->quote($id_icon);
     $db->exec("update lexiqumjaponais.USER set icone=$id_icon where id=$id_user");
+}
+
+function getPoints($id_user)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    $select = $db->query("select points from lexiqumjaponais.USER where id=$id_user");
+    return $select->fetch();
+}
+
+function setPoints($id_user, $points)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    $points = $db->quote($points);
+    $db->exec("update lexiqumjaponais.USER set points=$points where id=$id_user");
+}
+
+function setRiddle($id_user, $francais)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    $francais = $db->quote($francais);
+    $db->exec("update lexiqumjaponais.USER set riddle=$francais where id=$id_user");
+}
+
+function setLife($id_user, $life)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    $life = $db->quote($life);
+    $db->exec("update lexiqumjaponais.USER set life=$life where id=$id_user");
 }
 
 /**
@@ -134,6 +166,34 @@ function listRandomWords($nombre)
         on FRANCAIS.id_type = TYPE.id
     ORDER BY RAND()
     LIMIT $nombre");
+    return $select->fetchAll();
+}
+
+function selectOneRandomWord()
+{
+    $db = dbConnect();
+    $select = $db->query("select FRANCAIS.id, FRANCAIS.francais, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji from lexiqumjaponais.FRANCAIS
+    inner join lexiqumjaponais.TRADUCTION trad on FRANCAIS.id = trad.id_word
+    inner join lexiqumjaponais.JAPONAIS on trad.id_japonais = JAPONAIS.id
+    order by rand()
+    limit 1");
+    return $select->fetch();
+}
+
+/**
+ * Traduction
+ */
+
+function listJaponaisToFrancaisWord($francais)
+{
+    $db = dbConnect();
+    $francais = $db->quote($francais);
+    $select = $db->query("select JAPONAIS.id, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji from lexiqumjaponais.JAPONAIS
+    inner join lexiqumjaponais.TRADUCTION as wj
+        on wj.id_japonais = JAPONAIS.id
+    inner join lexiqumjaponais.FRANCAIS
+        on wj.id_word = FRANCAIS.id
+    where FRANCAIS.francais like $francais");
     return $select->fetchAll();
 }
 
@@ -334,26 +394,10 @@ function achatdb($id_user, $id_recompense)
     $db->exec("insert into lexiqumjaponais.ACHAT set id_user=$id_user, id_recompense=$id_recompense, date_achat=curdate()");
 }
 
-function depense($id, $points)
-{
-    $db = dbConnect();
-    $id = $db->quote($id);
-    $points = $db->quote($points);
-    $db->exec("update lexiqumjaponais.USER set points=$points where id=$id");
-}
-
 function selectRecompense($id)
 {
     $db = dbConnect();
     $id = $db->quote($id);
     $select = $db->query("select * from lexiqumjaponais.RECOMPENSE where id=$id");
-    return $select->fetch();
-}
-
-function pointsUser($id)
-{
-    $db = dbConnect();
-    $id = $db->quote($id);
-    $select = $db->query("select points from lexiqumjaponais.USER where id=$id");
     return $select->fetch();
 }

@@ -28,3 +28,28 @@ function showResult(str) {
     xmlhttp.open("GET", "index.php?p=search&search=" + str, true);
     xmlhttp.send();
 }
+
+$(document).ready(function () {
+
+    $('#riddle-btn').click(function (e) {
+        e.preventDefault();
+        $.post(
+            'ajax/riddle.php',
+            {
+                value: $('#value').val()
+            },
+            function (data) {
+                if (data === 'Success') {
+                    $('#result').html("<p class='green-text'>Bonne réponse !</p>");
+                    let points = parseInt(document.getElementById('points').innerHTML) + 20;
+                    $('#points').html("<span>" + points + "</span>");
+                } else if (data === 'Failed') {
+                    $('#result').html("<p class='red-text'>Dommage, c'est une mauvaise réponse :(</p>");
+                }
+                //$('#riddle-div').load('#riddle-value');
+            },
+            'html'
+        );
+    });
+
+});

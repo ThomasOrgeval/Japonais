@@ -23,16 +23,27 @@
     width: 22px;
 }
 
+#sakura-svg:hover {
+    fill: pink;
+}
+
+.life {
+    margin-left: auto;
+}
+
+#heart {
+    fill: red;
+    height: 16px;
+    width: 16px;
+    text-align: right;
+}
+
 #sakura-svg-points {
     fill: black;
     width: 40px;
     height: 40px;
     padding-bottom: 5px;
     padding-left: 10px;
-}
-
-#sakura-svg:hover {
-    fill: pink;
 }
 
 .flexible {
@@ -64,6 +75,11 @@
     width: 40px;
     margin-top: 38px;
     color: black;
+}
+
+.riddle {
+    width: 100%;
+    text-align: center;
 }
 
 @media screen and (min-width: 768px) {

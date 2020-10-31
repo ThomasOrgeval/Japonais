@@ -13,6 +13,8 @@ create table `USER`
     `nombre` int          not null,
     `points` int          not null,
     `icone`  varchar(255) not null,
+    `riddle` varchar(255) not null,
+    `life`   int          not null,
     primary key (`id`)
 ) engine = InnoDB;
 
