@@ -4,15 +4,18 @@ use lexiqumjaponais;
 
 create table `USER`
 (
-    `id`     int auto_increment,
-    `pseudo` varchar(255) not null,
-    `pass`   varchar(255) not null,
-    `mail`   varchar(255) not null,
-    `date`   date         not null,
-    `droits` int          not null,
-    `nombre` int          not null,
-    `points` int          not null,
-    `icone`  varchar(255) not null,
+    `id`         int auto_increment,
+    `pseudo`     varchar(255) not null,
+    `pass`       varchar(255) not null,
+    `mail`       varchar(255) not null,
+    `date`       date         not null,
+    `droits`     int          not null,
+    `nombre`     int          not null,
+    `points`     int          not null,
+    `icone`      varchar(255) not null,
+    `riddle`     varchar(255) not null,
+    `life`       int          not null,
+    `last_login` date         not null,
     primary key (`id`)
 ) engine = InnoDB;
 

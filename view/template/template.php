@@ -34,6 +34,7 @@
     <script type="text/javascript" src="./resources/js/mdb.min.js"></script>
     <script src="../../resources/js/all.js"></script>
     <script src="./resources/js/addons/datatables2.min.js"></script>
+
     <script src="./resources/js/main.js"></script>
 
     <?php if (isset($_COOKIE['theme']) && $_COOKIE['theme'] !== 0) : ?>
@@ -58,7 +59,8 @@
         </ul>
         <div class="navbar-nav">
             <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
-                <a class="nav-item nav-link" href="index.php?p=points"><?= $_SESSION['points'] ?>
+                <a class="nav-item nav-link" href="index.php?p=points">
+                    <span id="points"><?= $_SESSION['points'] ?></span>
                     <img id="sakura-svg" class="svg" src="./resources/svgs/sakura.svg" alt="sakura">
                 </a>
                 <a class="nav-item nav-link" href="index.php?p=account" style="color: white;">Bienvenue,
@@ -231,6 +233,8 @@
         <?= $content ?>
     </div>
 </div>
+<br/><br/>
+
 <script>
     // Datatables
     $(document).ready(function () {

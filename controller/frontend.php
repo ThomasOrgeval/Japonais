@@ -18,6 +18,9 @@ function accueil()
     if (isset($_COOKIE['mail'], $_COOKIE['pass']) && !isset($_SESSION['pseudo'])) {
         submitLogin($_COOKIE['mail'], $_COOKIE['pass']);
     }
+    if (isset($_SESSION['new_life']) && $_SESSION['new_life'] === true) {
+        $_SESSION['new_life'] = false;
+    }
     if (isset($_SESSION['nombreWords']) && !empty($_SESSION['nombreWords'])) {
         $_POST['words'] = listRandomWords($_SESSION['nombreWords']);
     } else {
@@ -136,12 +139,12 @@ function achat()
 {
     if (connect()) {
         if (achatByUser($_SESSION['id'], $_GET['id_recompense']) === false) {
-            $points = pointsUser($_SESSION['id']);
+            $points = getPoints($_SESSION['id']);
             $cout = selectRecompense($_GET['id_recompense'])['cout'];
             if ($points['points'] >= $cout) {
                 achatdb($_SESSION['id'], $_GET['id_recompense']);
-                depense($_SESSION['id'], $points['points'] - $cout);
-                $_SESSION['points'] = pointsUser($_SESSION['id'])['points'];
+                setPoints($_SESSION['id'], $points['points'] - $cout);
+                $_SESSION['points'] = getPoints($_SESSION['id'])['points'];
                 if (selectRecompense($_GET['id_recompense'])['id_type'] == 1) {
                     $_SESSION['Themes'][] = achatThemeById($_GET['id_recompense']);
                 }
@@ -187,11 +190,29 @@ function submitLogin($mail, $password)
             $_SESSION['connect'] = 'OK';
             $_SESSION['icone'] = $statements['icone'];
             $_SESSION['Themes'] = listAchatThemeByAccount($_SESSION['id']);
+
+            if ($statements['riddle'] !== null) {
+                $_SESSION['riddle'] = $statements['riddle'];
+            } else {
+                $_SESSION['riddle'] = selectOneRandomWord()['francais'];
+                setRiddle($_SESSION['id'], $_SESSION['riddle']);
+            }
+
+            if ($statements['last_login'] < date("Y-m-d") || $statements['last_login'] == null) {
+                setLastLogin($_SESSION['id']);
+                if ((int)$statements['life'] < 3) {
+                    setLife($_SESSION['id'], (int)$statements['life'] + 1);
+                    $_SESSION['life'] = (int)$statements['life'] + 1;
+                    $_SESSION['new_life'] = true;
+                } else {
+                    $_SESSION['life'] = (int)$statements['life'];
+                }
+            } else {
+                $_SESSION['life'] = (int)$statements['life'];
+            }
             setcookie('mail', $mail, time() + 365 * 24 * 3600);
             setcookie('pass', $password, time() + 365 * 24 * 3600);
-            if (!isset($_COOKIE['theme'])) {
-                setcookie('theme', 0, time() + 365 * 24 * 3600);
-            }
+            setcookie('theme', 0, time() + 365 * 24 * 3600);
             setFlash('Connexion réussie');
         } else {
             setFlash('Mot de passe ou identifiant incorrect', 'danger');
@@ -219,7 +240,7 @@ function submitRegister($pseudo, $password, $mail)
             header('Location:index.php?p=accueil');
         } else {
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
-            createUser($pseudo, $password_hash, $mail);
+            createUser($pseudo, $password_hash, $mail, selectOneRandomWord()['francais']);
             submitLogin($mail, $password);
         }
     }
