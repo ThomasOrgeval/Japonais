@@ -16,7 +16,7 @@ ob_start(); ?>
             </div>
         <?php endif; ?>
         <div class="form-group">
-            <label for="anglais">Mot en kanji</label>
+            <label for="anglais">Mot en anglais</label>
             <?= input('anglais'); ?>
         </div>
         <div class="form-group">

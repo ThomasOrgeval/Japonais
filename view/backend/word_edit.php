@@ -9,7 +9,7 @@ ob_start(); ?>
     <form action="index.php?p=word_add<?php if (isset($_GET['id'])) {
         echo '&id=' . $_GET['id'];
     } ?>" method="post">
-        <div class="flexible wide-screen">
+        <div class="flexible">
             <div class="col-sm-8">
                 <?php if (isset($_GET['id'])): ?>
                     <div class="form-group">
@@ -18,7 +18,7 @@ ob_start(); ?>
                     </div>
                 <?php endif; ?>
                 <div class="form-group">
-                    <label for="fr">Mot en français</label>
+                    <label for="francais">Mot en français</label>
                     <?= input('francais'); ?>
                 </div>
                 <div class="form-group">
@@ -27,7 +27,7 @@ ob_start(); ?>
                 </div>
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-sm-4 wide-screen">
                 <p>Les groupes associés :</p>
                 <?php if (isset($_GET['id'])) :
                     foreach ($groupes as $groupe) : ?>
@@ -56,21 +56,9 @@ ob_start(); ?>
                 </div>
             </div>
         </div>
+
         <div class="small-screen">
-            <?php if (isset($_GET['id'])): ?>
-                <div class="form-group">
-                    <label for="id">ID</label>
-                    <?= inputReadonly('id'); ?>
-                </div>
-            <?php endif; ?>
-            <div class="form-group">
-                <label for="fr">Mot en français</label>
-                <?= input('francais'); ?>
-            </div>
-            <div class="form-group">
-                <label for="id_type">Catégorie</label>
-                <?= select('id_type', $type_list); ?>
-            </div>
+
             <p>Les groupes associés :</p>
             <?php if (isset($_GET['id'])) :
                 foreach ($groupes as $groupe) : ?>
