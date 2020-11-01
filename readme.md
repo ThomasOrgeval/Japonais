@@ -11,7 +11,7 @@ Toujours en développement ! Vous pouvez m'envoyer des suggestions à orgevaltho
 
 
 ## English
-Japanese Lexicon is a website where you can practice Japanese, find a translation to what you are looking for etc...
+Lexique japonais is a website where you can practice Japanese, find a translation to what you are looking for etc...
 
 This project was done during my third year of MIAGE degree at the University of Rennes 1.
 
