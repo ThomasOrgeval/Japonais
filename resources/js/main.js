@@ -46,11 +46,18 @@ $(document).ready(function () {
                         $('#result').html("<p class='green-text'>Bonne réponse !</p>");
                         let points = parseInt(document.getElementById('points').innerHTML) + 20;
                         $('#points').html(points);
+                        $('#riddle-value').html(session['riddle']);
                     } else if (data === 'Failed') {
-                        $('#result').html("<p class='red-text'>Dommage, c'est une mauvaise réponse :(</p>");
+                        if (session['life'] === 0) {
+                            $('#riddle-form').remove();
+                            $('#riddle').append("<br/><p class='card-text'>Vous n'avez plus de vie, revenez demain !</p>");
+                        } else {
+                            $('#result').html("<p class='red-text'>Dommage, ce n'est pas ça !</p>");
+                            $('#life').html(session['life']);
+                            $('#riddle-value').html(session['riddle']);
+                        }
                     }
-                    $('#riddle-value').html("<p>" + session['riddle'] + "</p>");
-                    //$('#riddle-value').load('view/frontend/index.php #riddle-value');
+                    $('#value').val("");
                 });
 
             },

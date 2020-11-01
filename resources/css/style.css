@@ -100,6 +100,10 @@
         display: none !important;
     }
 
+    .card {
+        width: 18rem;
+    }
+
 }
 
 @media screen and (max-width: 768px) {

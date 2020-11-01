@@ -34,11 +34,11 @@ ob_start(); ?>
     </table>
 <?php endif; ?>
     <br/><br/>
-    <div class="card text-center" style="width: 18rem;">
+    <div class="card text-center">
         <div class="card-body" id="card">
-            <h5 class="card-title">Trouve la bonne traduction !</h5>
+            <h5 class="card-title" id="riddle">Trouve la bonne traduction !</h5>
             <?php if (isset($_SESSION['riddle']) && $_SESSION['life'] > 0) : ?>
-                <form>
+                <form id="riddle-form">
                     <div id="riddle-div" class="flexible">
                         <p id="riddle-value" class="card-text"><?= $_SESSION['riddle'] ?></p>
                         <p class="life">
@@ -51,7 +51,7 @@ ob_start(); ?>
                     <input type="submit" id="riddle-btn" class="btn btn-primary" value="Valider">
                 </form>
             <?php elseif ($_SESSION['life'] === 0) : ?>
-                <p class="card-text">Vous n'avez plus de vies, revenez demain !</p>
+                <p class="card-text">Vous n'avez plus de vie, revenez demain !</p>
             <?php else : ?>
                 <p class="card-text">Veuillez vous reconnectez s'il vous plait, l'affichage sera ensuite fonctionnel</p>
             <?php endif; ?>
