@@ -39,16 +39,20 @@ $(document).ready(function () {
                 value: $('#value').val()
             },
             function (data) {
-                if (data === 'Success') {
-                    $('#result').html("<p class='green-text'>Bonne réponse !</p>");
-                    let points = parseInt(document.getElementById('points').innerHTML) + 20;
-                    $('#points').html("<span>" + points + "</span>");
-                } else if (data === 'Failed') {
-                    $('#result').html("<p class='red-text'>Dommage, c'est une mauvaise réponse :(</p>");
-                }
-                var value = '@Request.RequestContext.HttpContext.Session["riddle"]';
-                $('#riddle-value').html("<p>" + value + "</p>");
-                //$('#riddle-value').load('view/frontend/index.php #riddle-value');
+
+                $.get('ajax/getsession.php', function (get) {
+                    const session = $.parseJSON(get);
+                    if (data === 'Success') {
+                        $('#result').html("<p class='green-text'>Bonne réponse !</p>");
+                        let points = parseInt(document.getElementById('points').innerHTML) + 20;
+                        $('#points').html(points);
+                    } else if (data === 'Failed') {
+                        $('#result').html("<p class='red-text'>Dommage, c'est une mauvaise réponse :(</p>");
+                    }
+                    $('#riddle-value').html("<p>" + session['riddle'] + "</p>");
+                    //$('#riddle-value').load('view/frontend/index.php #riddle-value');
+                });
+
             },
             'html'
         );
