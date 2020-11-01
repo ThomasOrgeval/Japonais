@@ -316,8 +316,9 @@ function listAchatByAccount($id_user)
 {
     $db = dbConnect();
     $id_user = $db->quote($id_user);
-    $select = $db->query("select RECOMPENSE.libelle, RECOMPENSE.date_parution, RECOMPENSE.slug, RECOMPENSE.cout, ACHAT.date_achat from lexiqumjaponais.RECOMPENSE
+    $select = $db->query("select RECOMPENSE.libelle, RECOMPENSE.date_parution, RECOMPENSE.slug, RECOMPENSE.cout, ACHAT.date_achat, type from lexiqumjaponais.RECOMPENSE
         inner join lexiqumjaponais.ACHAT on RECOMPENSE.id = ACHAT.id_recompense
+        inner join lexiqumjaponais.RECOMPENSE_TYPE on RECOMPENSE.id_type = RECOMPENSE_TYPE.id
         where ACHAT.id_user=$id_user");
     return $select->fetchAll();
 }

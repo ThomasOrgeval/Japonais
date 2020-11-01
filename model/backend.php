@@ -595,7 +595,9 @@ function testRecompense($id)
 function listRecompense()
 {
     $db = dbConnect();
-    $select = $db->query("select id, libelle, cout, date_parution from lexiqumjaponais.RECOMPENSE order by libelle");
+    $select = $db->query("select RECOMPENSE.id, libelle, cout, date_parution, type from lexiqumjaponais.RECOMPENSE 
+    inner join lexiqumjaponais.RECOMPENSE_TYPE rt on RECOMPENSE.id_type = rt.id
+    order by libelle");
     return $select->fetchAll();
 }
 

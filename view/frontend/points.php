@@ -12,6 +12,7 @@ ob_start(); ?>
             <th>Nom de la récompense</th>
             <th>Date de parution</th>
             <th>Coût</th>
+            <th>Type</th>
             <th>Acheter</th>
         </tr>
         </thead>
@@ -21,6 +22,7 @@ ob_start(); ?>
                 <td><?= $recompense['libelle'] ?></td>
                 <td><?= $recompense['date_parution'] ?></td>
                 <td><?= $recompense['cout'] ?></td>
+                <td><?= $recompense['type'] ?></td>
                 <td><a href="index.php?p=achat&id_recompense=<?= $recompense['id'] ?>"
                        class="btn-sm btn-outline-dark"
                        onclick="return confirm('Voulez-vous vraiment acheter ce lot ?')">Acheter</a></td>
@@ -40,6 +42,7 @@ ob_start(); ?>
             <th>Nom de la récompense</th>
             <th>Date d'achat</th>
             <th>Coût</th>
+            <th>Type</th>
             <th>Date de parution</th>
         </tr>
         </thead>
@@ -49,6 +52,7 @@ ob_start(); ?>
                 <td><?= $achat['libelle'] ?></td>
                 <td><?= $achat['date_achat'] ?></td>
                 <td><?= $achat['cout'] ?></td>
+                <td><?= $achat['type'] ?></td>
                 <td><?= $achat['date_parution'] ?></td>
             </tr>
         <?php endforeach; ?>
