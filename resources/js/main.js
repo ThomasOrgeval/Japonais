@@ -29,6 +29,12 @@ function showResult(str) {
     xmlhttp.send();
 }
 
+function toast() {
+    const x = document.getElementById("snackbar");
+    x.className = "show";
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+
 $(document).ready(function () {
 
     $('#riddle-btn').click(function (e) {
@@ -47,6 +53,8 @@ $(document).ready(function () {
                         let points = parseInt(document.getElementById('points').innerHTML) + 20;
                         $('#points').html(points);
                         $('#riddle-value').html(session['riddle']);
+
+                        toast();
                     } else if (data === 'Failed') {
                         if (session['life'] === 0) {
                             $('#riddle-form').remove();

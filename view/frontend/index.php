@@ -58,5 +58,7 @@ ob_start(); ?>
         </div>
     </div>
 
+    <div id="snackbar">+ 20</div>
+
 <?php $content = ob_get_clean();
 require('./view/template/template.php'); ?>

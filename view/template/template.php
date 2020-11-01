@@ -34,6 +34,7 @@
     <script type="text/javascript" src="./resources/js/mdb.min.js"></script>
     <script src="../../resources/js/all.js"></script>
     <script src="./resources/js/addons/datatables2.min.js"></script>
+
     <script src="./resources/js/main.js"></script>
 
     <?php if (isset($_COOKIE['theme']) && $_COOKIE['theme'] !== 0) : ?>
