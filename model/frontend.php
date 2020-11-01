@@ -19,7 +19,7 @@ function dbConnect()
 function createUser($pseudo, $pass, $mail, $riddle)
 {
     $db = dbConnect();
-    $addUser = $db->prepare('insert into lexiqumjaponais.USER(pseudo, pass, mail, date, droits, nombre, points, icone, riddle, life) values(?, ?, ?, CURRENT_DATE, 0, 10, 0, 0, ?, 3)');
+    $addUser = $db->prepare('insert into lexiqumjaponais.USER(pseudo, pass, mail, date, droits, nombre, points, icone, riddle, life, last_login) values(?, ?, ?, CURRENT_DATE, 0, 10, 0, 0, ?, 3, curdate())');
     $addUser = $addUser->execute(array($pseudo, $pass, $mail, $riddle));
     return $addUser;
 }
@@ -27,7 +27,7 @@ function createUser($pseudo, $pass, $mail, $riddle)
 function loginUser($mail, $pass)
 {
     $db = dbConnect();
-    $selectUser = $db->prepare('select id, pseudo, pass, mail, droits, nombre, points, icone, riddle, life from lexiqumjaponais.USER where mail=?');
+    $selectUser = $db->prepare('select id, pseudo, pass, mail, droits, nombre, points, icone, riddle, life, last_login from lexiqumjaponais.USER where mail=?');
     $selectUser->execute(array($mail));
     $selectUser = $selectUser->fetch();
     if (password_verify($pass, $selectUser['pass'])) {
@@ -106,6 +106,13 @@ function setLife($id_user, $life)
     $id_user = $db->quote($id_user);
     $life = $db->quote($life);
     $db->exec("update lexiqumjaponais.USER set life=$life where id=$id_user");
+}
+
+function setLastLogin($id_user)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    $db->exec("update lexiqumjaponais.USER set last_login=curdate() where id=$id_user");
 }
 
 /**

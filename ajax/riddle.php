@@ -6,8 +6,9 @@ require_once '../model/backend.php';
 
 $bool = false;
 $traducts = listJaponaisToFrancaisWord($_SESSION['riddle']);
+$value = strtolower($_POST['value']);
 foreach ($traducts as $traduct) {
-    if (in_array($_POST['value'], $traduct, true)) {
+    if ($value === strtolower($traduct['romaji']) || $value === strtolower($traduct['kanji']) || $value === strtolower($traduct['kana'])) {
         $bool = true;
     }
 }

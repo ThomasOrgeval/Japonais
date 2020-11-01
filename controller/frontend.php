@@ -18,6 +18,9 @@ function accueil()
     if (isset($_COOKIE['mail'], $_COOKIE['pass']) && !isset($_SESSION['pseudo'])) {
         submitLogin($_COOKIE['mail'], $_COOKIE['pass']);
     }
+    if (isset($_SESSION['new_life']) && $_SESSION['new_life'] === true) {
+        $_SESSION['new_life'] = false;
+    }
     if (isset($_SESSION['nombreWords']) && !empty($_SESSION['nombreWords'])) {
         $_POST['words'] = listRandomWords($_SESSION['nombreWords']);
     } else {
@@ -187,18 +190,29 @@ function submitLogin($mail, $password)
             $_SESSION['connect'] = 'OK';
             $_SESSION['icone'] = $statements['icone'];
             $_SESSION['Themes'] = listAchatThemeByAccount($_SESSION['id']);
+
             if ($statements['riddle'] !== null) {
                 $_SESSION['riddle'] = $statements['riddle'];
             } else {
                 $_SESSION['riddle'] = selectOneRandomWord()['francais'];
                 setRiddle($_SESSION['id'], $_SESSION['riddle']);
             }
-            $_SESSION['life'] = $statements['life'];
+
+            if ($statements['last_login'] < date("Y-m-d") || $statements['last_login'] == null) {
+                setLastLogin($_SESSION['id']);
+                if ((int)$statements['life'] < 3) {
+                    setLife($_SESSION['id'], (int)$statements['life'] + 1);
+                    $_SESSION['life'] = (int)$statements['life'] + 1;
+                    $_SESSION['new_life'] = true;
+                } else {
+                    $_SESSION['life'] = (int)$statements['life'];
+                }
+            } else {
+                $_SESSION['life'] = (int)$statements['life'];
+            }
             setcookie('mail', $mail, time() + 365 * 24 * 3600);
             setcookie('pass', $password, time() + 365 * 24 * 3600);
-            if (!isset($_COOKIE['theme'])) {
-                setcookie('theme', 0, time() + 365 * 24 * 3600);
-            }
+            setcookie('theme', 0, time() + 365 * 24 * 3600);
             setFlash('Connexion réussie');
         } else {
             setFlash('Mot de passe ou identifiant incorrect', 'danger');

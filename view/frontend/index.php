@@ -36,7 +36,7 @@ ob_start(); ?>
     <br/><br/>
     <div class="card text-center" style="width: 18rem;">
         <div class="card-body" id="card">
-            <h6 class="card-title">Trouves la bonne traduction !</h6>
+            <h5 class="card-title">Trouve la bonne traduction !</h5>
             <?php if (isset($_SESSION['riddle']) && $_SESSION['life'] > 0) : ?>
                 <form>
                     <div id="riddle-div" class="flexible">
@@ -47,7 +47,7 @@ ob_start(); ?>
                         </p>
                     </div>
                     <div id="result"></div>
-                    <input type="text" id="value" class="form-text riddle" required><br/>
+                    <input type="text" id="value" class="form-text riddle" autocomplete="off" required><br/>
                     <input type="submit" id="riddle-btn" class="btn btn-primary" value="Valider">
                 </form>
             <?php elseif ($_SESSION['life'] === 0) : ?>

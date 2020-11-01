@@ -46,7 +46,9 @@ $(document).ready(function () {
                 } else if (data === 'Failed') {
                     $('#result').html("<p class='red-text'>Dommage, c'est une mauvaise réponse :(</p>");
                 }
-                //$('#riddle-div').load('#riddle-value');
+                var value = '@Request.RequestContext.HttpContext.Session["riddle"]';
+                $('#riddle-value').html("<p>" + value + "</p>");
+                //$('#riddle-value').load('view/frontend/index.php #riddle-value');
             },
             'html'
         );
