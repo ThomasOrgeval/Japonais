@@ -355,7 +355,7 @@ function achatThemeById($id_recompense)
 function listThemes()
 {
     $db = dbConnect();
-    $select = $db->query("select * from lexiqumjaponais.RECOMPENSE
+    $select = $db->query("select RECOMPENSE.* from lexiqumjaponais.RECOMPENSE
         inner join lexiqumjaponais.RECOMPENSE_TYPE RT on RECOMPENSE.id_type = RT.id
         where type like 'Theme'");
     return $select->fetchAll();

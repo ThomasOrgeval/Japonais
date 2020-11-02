@@ -138,16 +138,13 @@ function points()
 function achat()
 {
     if (connect()) {
-        if (achatByUser($_SESSION['id'], $_GET['id_recompense']) === false) {
+        if (achatByUser($_SESSION['id'], $_GET['id_recompense']) == false) {
             $points = getPoints($_SESSION['id']);
             $cout = selectRecompense($_GET['id_recompense'])['cout'];
             if ($points['points'] >= $cout) {
                 achatdb($_SESSION['id'], $_GET['id_recompense']);
                 setPoints($_SESSION['id'], $points['points'] - $cout);
                 $_SESSION['points'] = getPoints($_SESSION['id'])['points'];
-                if (selectRecompense($_GET['id_recompense'])['id_type'] == 1) {
-                    $_SESSION['Themes'][] = achatThemeById($_GET['id_recompense']);
-                }
                 setFlash('Vous avez bien ajouté ce lot !');
             } else {
                 setFlash('Vous n\'avez pas assez de points :(', 'danger');
@@ -448,7 +445,7 @@ function theme()
 function select_theme()
 {
     if (connect()) {
-        setTheme($_GET['id'], $_SESSION['id']);
+        setTheme($_SESSION['id'], $_GET['id']);
         $_SESSION['theme'] = $_GET['id'];
         header('Location:index.php?p=accueil');
     }
