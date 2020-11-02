@@ -58,7 +58,7 @@ $(document).ready(function () {
                     } else if (data === 'Failed') {
                         if (session['life'] === 0) {
                             $('#riddle-form').remove();
-                            $('#riddle').append("<br/><p class='card-text'>Vous n'avez plus de vie, revenez demain !</p>");
+                            $('#riddle').append("<br/><br/><p class='card-text'>Vous n'avez plus de vie, revenez demain !</p>");
                         } else {
                             $('#result').html("<p class='red-text'>Dommage, ce n'est pas ça !</p>");
                             $('#life').html(session['life']);

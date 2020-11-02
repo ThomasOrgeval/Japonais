@@ -16,6 +16,7 @@ create table `USER`
     `riddle`     varchar(255) not null,
     `life`       int          not null,
     `last_login` date         not null,
+    `theme`      varchar(255) not null,
     primary key (`id`)
 ) engine = InnoDB;
 

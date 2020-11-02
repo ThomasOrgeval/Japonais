@@ -6,7 +6,7 @@ ob_start(); ?>
 <table>
     <tbody>
     <td><a class="btn btn-purple" href="index.php?p=select_theme&id=0">Défaut</a></td>
-    <?php foreach ($_SESSION['Themes'] as $theme) : ?>
+    <?php foreach ($_POST['themes_own'] as $theme) : ?>
         <td><a class="btn btn-purple"
                href="index.php?p=select_theme&id=<?= $theme['slug'] ?>"><?= $theme['libelle'] ?></a></td>
     <?php endforeach; ?>

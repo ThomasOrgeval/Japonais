@@ -189,7 +189,7 @@ function submitLogin($mail, $password)
             $_SESSION['points'] = $statements['points'];
             $_SESSION['connect'] = 'OK';
             $_SESSION['icone'] = $statements['icone'];
-            $_SESSION['Themes'] = listAchatThemeByAccount($_SESSION['id']);
+            $_SESSION['theme'] = $statements['theme'];
 
             if ($statements['riddle'] !== null) {
                 $_SESSION['riddle'] = $statements['riddle'];
@@ -212,7 +212,6 @@ function submitLogin($mail, $password)
             }
             setcookie('mail', $mail, time() + 365 * 24 * 3600);
             setcookie('pass', $password, time() + 365 * 24 * 3600);
-            setcookie('theme', 0, time() + 365 * 24 * 3600);
             setFlash('Connexion réussie');
         } else {
             setFlash('Mot de passe ou identifiant incorrect', 'danger');
@@ -434,8 +433,9 @@ function theme()
 {
     if (connect()) {
         $_POST['themes'] = listThemes();
+        $_POST['themes_own'] = listAchatThemeByAccount($_SESSION['id']);
         foreach ($_POST['themes'] as $theme) {
-            foreach ($_SESSION['Themes'] as $theme1) {
+            foreach ($_POST['themes_own'] as $theme1) {
                 if ($theme['libelle'] === $theme1['libelle']) {
                     unset($_POST['themes'][array_search($theme, $_POST['themes'], true)]);
                 }
@@ -448,7 +448,8 @@ function theme()
 function select_theme()
 {
     if (connect()) {
-        setcookie('theme', $_GET['id'], time() + 365 * 24 * 3600);
+        setTheme($_GET['id'], $_SESSION['id']);
+        $_SESSION['theme'] = $_GET['id'];
         header('Location:index.php?p=accueil');
     }
 }

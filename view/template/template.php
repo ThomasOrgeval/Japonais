@@ -37,8 +37,8 @@
 
     <script src="./resources/js/main.js"></script>
 
-    <?php if (isset($_COOKIE['theme']) && $_COOKIE['theme'] !== 0) : ?>
-        <link rel="stylesheet" href="./resources/css/theme/<?= $_COOKIE['theme'] ?>.css">
+    <?php if (isset($_SESSION['theme']) && $_SESSION['theme'] !== 0) : ?>
+        <link rel="stylesheet" href="./resources/css/theme/<?= $_SESSION['theme'] ?>.css">
     <?php endif; ?>
 </head>
 
@@ -49,10 +49,8 @@
             <li><a class="nav-item nav-link" href="index.php?p=accueil">Accueil</a></li>
             <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
                 <li><a class="nav-item nav-link" href="index.php?p=listes">Mes listes</a></li>
-                <?php if (isset($_SESSION['Themes']) && !empty($_SESSION['Themes'])) : ?>
-                    <li><a class="nav-item nav-link" href="index.php?p=theme">Mes thèmes</a></li>
-                <?php endif;
-                if ($_SESSION['admin'] == 1): ?>
+                <li><a class="nav-item nav-link" href="index.php?p=theme">Mes thèmes</a></li>
+                <?php if ($_SESSION['admin'] == 1): ?>
                     <li><a class="nav-item nav-link" href="index.php?p=admin_portail">Administration</a></li>
                 <?php endif;
             endif; ?>
@@ -84,10 +82,8 @@
                 <li><a class="nav-item nav-link" href="index.php?p=accueil">Accueil</a></li>
                 <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
                     <li><a class="nav-item nav-link" href="index.php?p=listes">Mes listes</a></li>
-                    <?php if (isset($_SESSION['Themes']) && !empty($_SESSION['Themes'])) : ?>
-                        <li><a class="nav-item nav-link" href="index.php?p=theme">Mes thèmes</a></li>
-                    <?php endif;
-                    if ($_SESSION['admin'] == 1): ?>
+                    <li><a class="nav-item nav-link" href="index.php?p=theme">Mes thèmes</a></li>
+                    <?php if ($_SESSION['admin'] == 1): ?>
                         <li><a class="nav-item nav-link" href="index.php?p=admin_portail">Administration</a></li>
                     <?php endif;
                 endif; ?>
