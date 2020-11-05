@@ -32,12 +32,12 @@
     <script type="text/javascript" src="./resources/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="./resources/js/mdb.min.js"></script>
-    <script src="../../resources/js/all.js"></script>
+    <script src="./resources/js/all.js"></script>
     <script src="./resources/js/addons/datatables2.min.js"></script>
 
     <script src="./resources/js/main.js"></script>
 
-    <?php if (isset($_SESSION['theme']) && $_SESSION['theme'] !== 0) : ?>
+    <?php if (isset($_SESSION['theme']) && $_SESSION['theme'] != '0') : ?>
         <link rel="stylesheet" href="./resources/css/theme/<?= $_SESSION['theme'] ?>.css">
     <?php endif; ?>
 </head>
@@ -256,18 +256,6 @@
             $svg = $svg.removeAttr('xmlns:a');
             $img.replaceWith($svg);
         }, 'xml');
-    });
-
-    $('#autocomplete').keyup(function () {
-        $.ajax({
-            type: "POST",
-            url: "ajax/getautocomplete.php",
-            data: 'keyword=' + $(this).val(),
-            success: function (data) {
-                $('#search').show().html(data);
-                $('#autocomplete').css("background", "#FFF");
-            }
-        });
     });
 </script>
 </body>

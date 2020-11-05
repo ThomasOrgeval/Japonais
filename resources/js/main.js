@@ -44,4 +44,16 @@ $(document).ready(function () {
         );
     });
 
+    $('#autocomplete').keyup(function () {
+        $.ajax({
+            type: "POST",
+            url: "ajax/getautocomplete.php",
+            data: 'keyword=' + $(this).val(),
+            success: function (data) {
+                $('#search').show().html(data);
+                $('#autocomplete').css("background", "#FFF");
+            }
+        });
+    });
+
 });
