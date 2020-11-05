@@ -1,8 +1,9 @@
 <?php $title = 'Points';
 ob_start(); ?>
 
-    <h3>Vous avez : <?= $_SESSION['points'] ?><img id="sakura-svg-points" class="svg" src="./resources/svgs/sakura.svg"
-                                                   alt="sakura"></h3>
+    <h3>Vous avez : <?= $_SESSION['points'] ?>
+        <img id="sakura-svg-points" class="svg" src="./resources/svgs/sakura.svg" alt="sakura">
+    </h3>
 
     <h4>Voici ce que vous pouvez acheter :</h4><br/>
 <?php if (!empty($_POST['recompenses'])) : ?>

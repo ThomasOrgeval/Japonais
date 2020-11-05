@@ -285,45 +285,6 @@ function securize($var)
     return $var;
 }
 
-function exportxml()
-{
-    if (connect_admin()) {
-        $xml = '<?xml version="1.0" encoding="UTF-8"?>
-<pages>
-';
-
-        $words = listWords();
-        foreach ($words as $word) {
-            $xml .= '    <link>
-';
-            $xml .= '        <title>' . $word['francais'] . '</title>
-';
-            $xml .= '        <url>index.php?p=search&amp;t=word&amp;q=' . $word['francais'] . '</url>
-';
-            $xml .= '    </link>
-';
-        }
-        $groupes = listGroupe();
-        foreach ($groupes as $groupe) {
-            $xml .= '    <link>
-';
-            $xml .= '        <title>' . $groupe['libelle'] . '</title>
-';
-            $xml .= '        <url>index.php?p=search&amp;t=groupe&amp;q=' . $groupe['libelle'] . '</url>
-';
-            $xml .= '    </link>
-';
-        }
-
-        $xml .= '</pages>';
-        $fp = fopen("links.xml", 'w+');
-        fputs($fp, $xml);
-        fclose($fp);
-        setFlash('Export xml réussi');
-        header('Location:index.php?p=accueil');
-    }
-}
-
 /**
  * Groupe
  */

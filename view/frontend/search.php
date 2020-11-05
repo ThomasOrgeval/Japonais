@@ -1,7 +1,7 @@
 <?php $title = $_POST['word']['francais'];
 ob_start(); ?>
     <form action="index.php?p=search" method="post">
-        <input type="text" name="search" style="width: 100%" onkeyup="showResult(this.value)">
+        <input type="text" style="width: 100%" id="autocomplete" name="mot" placeholder="Recherche" autocomplete="off">
         <div id="search" class="search" style="width: 100%"></div>
     </form>
     <br/><br/>
@@ -14,9 +14,9 @@ ob_start(); ?>
     <h4><?= $_POST['word']['francais'] ?> en romaji : <?= $japonais['romaji'] ?></h4>
 <?php endforeach;
 
-if (!empty($_POST['groupes'])):
-    foreach ($_POST['groupes'] as $groupe): ?>
-        <a class="btn" href="index.php?p=search&t=groupe&q=<?= $groupe['libelle']; ?>"><?= $groupe['libelle']; ?></a>
+if (!empty($_POST['groupes'])) :
+    foreach ($_POST['groupes'] as $groupe) : ?>
+        <a class="btn" href="index.php?p=groupe_search&id=<?= $groupe['id']; ?>"><?= $groupe['libelle']; ?></a>
     <?php endforeach;
 else: ?>
     <p><?= $_POST['word']['francais']; ?> ne fait parti d'aucun groupe</p>

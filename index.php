@@ -45,16 +45,6 @@ try {
             }
         } elseif ($p === 'account') {
             account();
-        } elseif ($p === 'search') {
-            if (isset($_POST['search'])) {
-                searchByTape($_POST['search']);
-            } elseif (isset($_GET['t']) && isset($_GET['q'])) {
-                searchByItem($_GET['t'], $_GET['q']);
-            } else {
-                search($_GET['search']);
-            }
-        } elseif ($p === 'exportxml') {
-            exportxml();
         } elseif ($p === 'admin_portail') {
             admin_portail();
         } elseif ($p === 'type') {
@@ -125,6 +115,10 @@ try {
             change_icon();
         } elseif ($p === 'save_account') {
             save_account();
+        } elseif ($p === 'search') {
+            search();
+        } elseif ($p === 'groupe_search') {
+            groupe_page();
         }
     } else {
         accueil();

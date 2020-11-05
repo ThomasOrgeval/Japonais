@@ -11,10 +11,6 @@ ob_start(); ?>
     <a class="btn btn-outline-dark" href="index.php?p=type">Les types</a>
     <a class="btn btn-outline-dark" href="index.php?p=kanji">Les kanjis</a>
     <a class="btn btn-outline-dark" href="index.php?p=recompense">Les récompenses</a>
-</div><br/>
-<div class="row-cols-1 display">
-    <h3>Les commandes :</h3>
-    <a class="btn btn-grey" href="index.php?p=exportxml">Export XML</a>
 </div>
 <?php $content = ob_get_clean();
 require('./view/template/template.php'); ?>

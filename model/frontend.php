@@ -5,7 +5,8 @@ function dbConnect()
     if ($_SERVER['HTTP_HOST'] === 'localhost') {
         $db = new PDO('mysql:host=localhost;dbname=lexiqumjaponais;charset=utf8', 'root', '');
     } else {
-        $db = new PDO('mysql:host=lexiqumjaponais.mysql.db; dbname=lexiqumjaponais; charset=utf8', 'lexiqumjaponais', 'Cvd38Q8am5X8D');
+        require './model/db.php';
+        $db = new PDO('mysql:host='.$host.'; dbname='.$dbname.'; charset=utf8', $user, $pass);
     }
     $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING); // Affiche toutes les alertes
@@ -271,29 +272,8 @@ function listConfidentiality()
 }
 
 /**
- * Formulaire de recherche
+ * Recherche
  */
-
-function listSearchWord($search)
-{
-    $db = dbConnect();
-    $select = $db->query("select * from lexiqumjaponais.FRANCAIS where francais like '%$search%'");
-    return $select->fetchAll();
-}
-
-function listSearchGroupe($search)
-{
-    $db = dbConnect();
-    $select = $db->query("select * from lexiqumjaponais.GROUPE where libelle like '%$search%'");
-    return $select->fetchAll();
-}
-
-function listSearchListe($search)
-{
-    $db = dbConnect();
-    $select = $db->query("select * from lexiqumjaponais.LISTES where nom like '%$search%' and id_confidentiality=1");
-    return $select->fetchAll();
-}
 
 function researchWord($search)
 {
@@ -306,6 +286,13 @@ function researchGroupe($search)
 {
     $db = dbConnect();
     $select = $db->query("select * from lexiqumjaponais.GROUPE where libelle like '$search'");
+    return $select->fetch();
+}
+
+function researchGroupeId($search)
+{
+    $db = dbConnect();
+    $select = $db->query("select * from lexiqumjaponais.GROUPE where id=$search");
     return $select->fetch();
 }
 
@@ -416,4 +403,15 @@ function selectRecompense($id)
     $id = $db->quote($id);
     $select = $db->query("select * from lexiqumjaponais.RECOMPENSE where id=$id");
     return $select->fetch();
+}
+
+/**
+ * Autocomplete
+ */
+
+function autocompleteMots($key)
+{
+    $db = dbConnect();
+    $select = $db->query("select id, francais from lexiqumjaponais.FRANCAIS where francais like '$key%' order by francais limit 0,10");
+    return $select->fetchAll();
 }

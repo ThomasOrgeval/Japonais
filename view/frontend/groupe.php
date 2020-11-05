@@ -1,7 +1,7 @@
 <?php $title = $_POST['groupe']['libelle'];
 ob_start(); ?>
     <form action="index.php?p=search" method="post">
-        <input type="text" name="search" style="width: 100%" onkeyup="showResult(this.value)">
+        <input type="text" style="width: 100%" id="autocomplete" name="mot" placeholder="Recherche" autocomplete="off">
         <div id="search" class="search" style="width: 100%"></div>
     </form>
     <br/><br/>
@@ -21,13 +21,13 @@ ob_start(); ?>
         </thead>
         <tbody>
         <?php foreach ($_POST['words'] as $word): ?>
-        <tr>
-            <td><?= $word['francais'] ?></td>
-            <td><?= $word['kanji'] ?></td>
-            <td class="hidden"><?= $word['kana'] ?></td>
-            <td><?= $word['romaji'] ?></td>
-            <td class="hidden"><?= $word['id_type'] ?></td>
-        </tr>
+            <tr>
+                <td><a href="index.php?p=search&mot=<?= $word['francais'] ?>"><?= $word['francais'] ?></a></td>
+                <td><?= $word['kanji'] ?></td>
+                <td class="hidden"><?= $word['kana'] ?></td>
+                <td><?= $word['romaji'] ?></td>
+                <td class="hidden"><?= $word['id_type'] ?></td>
+            </tr>
         <?php endforeach; ?>
         </tbody>
     </table>

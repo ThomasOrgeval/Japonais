@@ -329,74 +329,6 @@ function addListe($nom, $desc, $id_confidentiality, $id)
 }
 
 /**
- * Formulaire de recherche
- */
-
-function search($search)
-{
-    $search = securize($search);
-    $xmlDoc = new DOMDocument();
-    $xmlDoc->load("links.xml");
-    $x = $xmlDoc->getElementsByTagName('link');
-
-    if ($search !== '') {
-        $hint = "";
-        for ($i = 0; $i < ($x->length); $i++) {
-            $y = $x->item($i)->getElementsByTagName('title');
-            $z = $x->item($i)->getElementsByTagName('url');
-            if ($y->item(0)->nodeType === 1) {
-                //find a link matching the search text
-                if (stripos($y->item(0)->childNodes->item(0)->nodeValue, $search) !== false) {
-                    if ($hint == "") {
-                        $hint = "<a class='search-a' style='display: block;' href='" .
-                            $z->item(0)->childNodes->item(0)->nodeValue .
-                            "'>" .
-                            $y->item(0)->childNodes->item(0)->nodeValue . "</a>";
-                    } else {
-                        $hint .= "<br /><a class='search-a' style='display: block;' href='" . $z->item(0)->childNodes->item(0)->nodeValue . "'>" . $y->item(0)->childNodes->item(0)->nodeValue . "</a>";
-                    }
-                }
-            }
-        }
-    }
-
-    if ($hint === "") {
-        $response = "Pas de résultat";
-    } else {
-        $response = $hint;
-    }
-
-    echo $response;
-}
-
-function searchByItem($type, $search)
-{
-    $type = securize($type);
-    $search = securize($search);
-
-    if ($type === 'word') {
-        $_POST['word'] = researchWord($search);
-        $_POST['groupes'] = listGroupeToWord($_POST['word']['id']);
-        $_POST['japonais'] = listJaponaisToFrancais($_POST['word']['id']);
-        require './view/frontend/search/byItemWord.php';
-    } elseif ($type === 'groupe') {
-        $_POST['groupe'] = researchGroupe($search);
-        $_POST['words'] = listFrancaisAndJaponaisWhereGroupe($_POST['groupe']['id']);
-        require './view/frontend/search/byItemGroupe.php';
-    }
-}
-
-function searchByTape($search)
-{
-    $search = securize($search);
-    $_POST['words'] = listSearchWord($search);
-    $_POST['groupes'] = listSearchGroupe($search);
-    $_POST['listes'] = listSearchListe($search);
-
-    require './view/frontend/search/byTape.php';
-}
-
-/**
  * Récupération
  */
 
@@ -447,6 +379,34 @@ function select_theme()
     if (connect()) {
         setTheme($_SESSION['id'], $_GET['id']);
         $_SESSION['theme'] = $_GET['id'];
+        header('Location:index.php?p=accueil');
+    }
+}
+
+function search()
+{
+    if (isset($_GET['mot'])) $_POST['word'] = researchWord($_GET['mot']);
+    else $_POST['word'] = researchWord($_POST['mot']);
+
+    if (!empty($_POST['word'])) {
+        $_POST['japonais'] = listJaponaisToFrancais($_POST['word']['id']);
+        $_POST['groupes'] = listGroupeToWord($_POST['word']['id']);
+        require './view/frontend/search.php';
+    } else {
+        setFlash('Ce mot n\'existe pas', 'danger');
+        header('Location:index.php?p=accueil');
+    }
+}
+
+function groupe_page()
+{
+    $id = securize($_GET['id']);
+    $_POST['groupe'] = researchGroupeId($id);
+    if (!empty($_POST['groupe'])) {
+        $_POST['words'] = listFrancaisAndJaponaisWhereGroupe($_POST['groupe']['id']);
+        require './view/frontend/groupe.php';
+    } else {
+        setFlash('Ce groupe n\'existe pas', 'danger');
         header('Location:index.php?p=accueil');
     }
 }

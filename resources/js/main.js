@@ -1,38 +1,9 @@
-function showResult(str) {
-    if (str.length === 0) {
-        document.getElementById("search").innerHTML = "";
-        document.getElementById("search").style.border = "0px";
-        return;
-    }
-    var xmlhttp;
-    if (window.XMLHttpRequest || window.ActiveXObject) {
-        if (window.ActiveXObject) {
-            try {
-                xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-            } catch (e) {
-                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-        } else {
-            xmlhttp = new XMLHttpRequest();
-        }
-    } else {
-        xmlhttp = new XMLHttpRequest();
-    }
-
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            document.getElementById("search").innerHTML = this.responseText;
-            document.getElementById("search").style.border = "1px solid #A5ACB2";
-        }
-    }
-    xmlhttp.open("GET", "index.php?p=search&search=" + str, true);
-    xmlhttp.send();
-}
-
 function toast() {
     const x = document.getElementById("snackbar");
     x.className = "show";
-    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    setTimeout(function () {
+        x.className = x.className.replace("show", "");
+    }, 3000);
 }
 
 $(document).ready(function () {
@@ -71,6 +42,18 @@ $(document).ready(function () {
             },
             'html'
         );
+    });
+
+    $('#autocomplete').keyup(function () {
+        $.ajax({
+            type: "POST",
+            url: "ajax/getautocomplete.php",
+            data: 'keyword=' + $(this).val(),
+            success: function (data) {
+                $('#search').show().html(data);
+                $('#autocomplete').css("background", "#FFF");
+            }
+        });
     });
 
 });
