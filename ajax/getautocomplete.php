@@ -9,9 +9,9 @@ if (!empty($_POST['keyword'])) :
     $mots = autocompleteMots($key);
 
     if (!empty($mots)) : ?>
-        <ul id="research">
+        <ul class="list-group list-group-flush" id="research">
             <?php foreach ($mots as $mot) : ?>
-                <li onClick="researchMot('<?= $mot['francais'] ?>')"><?= $mot['francais'] ?></li>
+                <li class="list-group-item border li-theme" style="cursor: pointer;" onClick="researchMot('<?= $mot['francais'] ?>')"><?= $mot['francais'] ?></li>
             <?php endforeach; ?>
         </ul>
         <script>

@@ -51,7 +51,7 @@ $(document).ready(function () {
             data: 'keyword=' + $(this).val(),
             success: function (data) {
                 $('#search').show().html(data);
-                $('#autocomplete').css("background", "#FFF");
+                $('#autocomplete').css("background");
             }
         });
     });
