@@ -626,6 +626,7 @@ function supprRecompense($id)
 {
     $db = dbConnect();
     $id = $db->quote($id);
+    $db->query("delete from lexiqumjaponais.ACHAT where id_recompense=$id");
     return $db->query("delete from lexiqumjaponais.RECOMPENSE where id=$id");
 }
 
