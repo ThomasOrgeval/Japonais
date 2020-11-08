@@ -41,12 +41,18 @@ function logout()
 function account()
 {
     if (connect()) {
-        $_POST['icones_own'] = listAchatIconByAccount($_SESSION['id']);
-        $_POST['icones'] = listIcons();
-        foreach ($_POST['icones'] as $icone) {
-            foreach ($_POST['icones_own'] as $icone_own) {
-                if ($icone['libelle'] === $icone_own['libelle']) {
-                    unset($_POST['icones'][array_search($icone, $_POST['icones'], true)]);
+        if (isset($_POST['user'])) {
+            $_POST['user'] = searchUser($_POST['user']);
+            $_POST['listes'] = searchListeUser($_POST['user']['id']);
+        } else {
+            $_POST['icones_own'] = listAchatIconByAccount($_SESSION['id']);
+            $_POST['icones'] = listIcons();
+            $_POST['listes'] = searchListe($_SESSION['id']);
+            foreach ($_POST['icones'] as $icone) {
+                foreach ($_POST['icones_own'] as $icone_own) {
+                    if ($icone['libelle'] === $icone_own['libelle']) {
+                        unset($_POST['icones'][array_search($icone, $_POST['icones'], true)]);
+                    }
                 }
             }
         }
@@ -90,7 +96,7 @@ function listes()
 {
     if (connect()) {
         $listes = listListes($_SESSION['id']);
-        require './view/frontend/liste.php';
+        require './view/frontend/listes.php';
     }
 }
 
@@ -351,6 +357,7 @@ function createCode($mail, $pseudo)
         "Content-type: text/html; charset=utf-8";
     $message = sendResetPassword($pseudo, $code);
     mail($mail, "Récupération de mot de passe - lexiquejaponais.fr", $message, $header);
+    setFlash("Un code vous a été envoyé à " . $mail);
     require './view/frontend/forget_pass.php';
 }
 

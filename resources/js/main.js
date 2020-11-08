@@ -56,4 +56,16 @@ $(document).ready(function () {
         });
     });
 
+    $('#autocompleteusers').keyup(function () {
+        $.ajax({
+            type: "POST",
+            url: "ajax/getusers.php",
+            data: 'keyword=' + $(this).val(),
+            success: function (data) {
+                $('#search').show().html(data);
+                $('#autocompleteusers').css("background");
+            }
+        });
+    });
+
 });

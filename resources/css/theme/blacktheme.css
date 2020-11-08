@@ -58,3 +58,16 @@ table.table tbody td a {
     background-color: #121212;
     color: white;
 }
+
+#autocompleteusers {
+    background-color: #121212;
+    color: white;
+}
+
+hr {
+    background-color: white;
+}
+
+.color {
+    color: white;
+}

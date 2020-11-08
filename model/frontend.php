@@ -9,7 +9,7 @@ function dbConnect()
         $dbname = 'lexiqumjaponais';
         $user = 'lexiqumjaponais';
         $pass = 'Cvd38Q8am5X8D';
-        $db = new PDO('mysql:host='.$host.'; dbname='.$dbname.'; charset=utf8', $user, $pass);
+        $db = new PDO('mysql:host=' . $host . '; dbname=' . $dbname . '; charset=utf8', $user, $pass);
     }
     $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING); // Affiche toutes les alertes
@@ -44,6 +44,14 @@ function searchPseudo($pseudo)
 {
     $db = dbConnect();
     $selectUser = $db->prepare('select pseudo from lexiqumjaponais.USER where pseudo=?');
+    $selectUser->execute(array($pseudo));
+    return $selectUser->fetch();
+}
+
+function searchUser($pseudo)
+{
+    $db = dbConnect();
+    $selectUser = $db->prepare('select id, last_login, icone, points, pseudo from lexiqumjaponais.USER where pseudo=?');
     $selectUser->execute(array($pseudo));
     return $selectUser->fetch();
 }
@@ -263,6 +271,23 @@ function createListe($nom, $desc, $id_confidentiality, $id_user)
     return $db->query("insert into lexiqumjaponais.LISTES set nom=$nom, description=$desc, id_confidentiality=$id_confidentiality, id_user=$id_user");
 }
 
+function searchListe($pseudo)
+{
+    $db = dbConnect();
+    $select = $db->prepare('select id, nom, description from lexiqumjaponais.LISTES where id_user=?');
+    $select->execute(array($pseudo));
+    return $select->fetchAll();
+}
+
+function searchListeUser($pseudo)
+{
+    $db = dbConnect();
+    $select = $db->prepare('select id, nom, description from lexiqumjaponais.LISTES 
+                                    where id_user=? and id_confidentiality=1');
+    $select->execute(array($pseudo));
+    return $select->fetchAll();
+}
+
 /**
  * Confidentiality
  */
@@ -285,24 +310,10 @@ function researchWord($search)
     return $select->fetch();
 }
 
-function researchGroupe($search)
-{
-    $db = dbConnect();
-    $select = $db->query("select * from lexiqumjaponais.GROUPE where libelle like '$search'");
-    return $select->fetch();
-}
-
 function researchGroupeId($search)
 {
     $db = dbConnect();
     $select = $db->query("select * from lexiqumjaponais.GROUPE where id=$search");
-    return $select->fetch();
-}
-
-function researchListe($search)
-{
-    $db = dbConnect();
-    $select = $db->query("select * from lexiqumjaponais.LISTES where nom like '$search' and id_confidentiality = 0");
     return $select->fetch();
 }
 
@@ -415,6 +426,14 @@ function selectRecompense($id)
 function autocompleteMots($key)
 {
     $db = dbConnect();
-    $select = $db->query("select id, francais from lexiqumjaponais.FRANCAIS where francais like '$key%' order by francais limit 0,10");
+    $select = $db->query("select francais from lexiqumjaponais.FRANCAIS where francais like '$key%' order by francais limit 0,10");
+    return $select->fetchAll();
+}
+
+function autocompleteUser($key, $id_user)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    $select = $db->query("select pseudo, icone from lexiqumjaponais.USER where pseudo like '$key%' and id!=$id_user order by pseudo limit 0,5");
     return $select->fetchAll();
 }

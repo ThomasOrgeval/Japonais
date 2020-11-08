@@ -19,7 +19,7 @@ if (!empty($_POST['groupes'])) :
         <a class="btn" href="index.php?p=groupe_search&id=<?= $groupe['id']; ?>"><?= $groupe['libelle']; ?></a>
     <?php endforeach;
 else: ?>
-    <p><?= $_POST['word']['francais']; ?> ne fait parti d'aucun groupe</p>
+    <p><?= $_POST['word']['francais']; ?> n'appartient à aucun groupe</p>
 <?php endif;
 $content = ob_get_clean();
 require('./view/template/template.php'); ?>
