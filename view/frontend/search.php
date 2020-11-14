@@ -47,9 +47,9 @@ else : ?>
                     <ul id="searchListe" class="list-group list-group-flush" style="width: 100%">
                         <?php foreach ($_POST['listes'] as $liste) : ?>
                             <a onclick="addToList('<?= $liste['id'] ?>', '<?= $_POST['word']['id'] ?>')">
-                                <li id="li-liste" class="list-group-item border li-theme">
+                                <li id="li-<?= $liste['id'] ?>" class="list-group-item border li-theme">
                                     <div class="flexible">
-                                        <?= $liste['nom'] ?>
+                                        <span><?= $liste['nom'] ?></span>
                                         <img id="uncheck" class="svg" src="./resources/svgs/uncheck.svg"
                                              alt="<?= $liste['nom'] ?>">
                                     </div>
@@ -58,10 +58,9 @@ else : ?>
                         <?php endforeach; ?>
                         <?php foreach ($_POST['other_listes'] as $liste) : ?>
                             <a onclick="addToList('<?= $liste['id'] ?>', '<?= $_POST['word']['id'] ?>')">
-                                <li id="li-liste" class="list-group-item border li-theme"
-                                    onclick="addToList('<?= $liste['id'] ?>', '<?= $_POST['word']['id'] ?>')">
+                                <li id="li-<?= $liste['id'] ?>" class="list-group-item border li-theme">
                                     <div class="flexible">
-                                        <?= $liste['nom'] ?>
+                                        <span><?= $liste['nom'] ?></span>
                                         <img id="check" class="svg" src="./resources/svgs/check.svg"
                                              alt="<?= $liste['nom'] ?>">
                                     </div>

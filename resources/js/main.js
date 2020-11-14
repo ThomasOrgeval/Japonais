@@ -15,9 +15,9 @@ function addToList(id_liste, id_mot) {
         },
         function (data) {
             if (data === 'ADD') {
-                $('#uncheck').attr('id', 'check').attr('src', './resources/svgs/check.svg');
-            } else if(data === 'REMOVE') {
-                $('#check').attr('id', 'uncheck').attr('src', './resources/svgs/uncheck.svg');
+                $('#li-' + id_liste + ' > div > svg').attr('id', 'check').attr('src', './resources/svgs/check.svg');
+            } else if (data === 'REMOVE') {
+                $('#li-' + id_liste + ' > div > svg').attr('id', 'uncheck').attr('src', './resources/svgs/uncheck.svg');
             }
         },
         'html'
