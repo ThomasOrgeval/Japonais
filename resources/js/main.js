@@ -89,14 +89,14 @@ $(document).ready(function () {
     $('#autocompleteListe').keyup(function () {
         const research = $.trim($(this).val());
         if (!research) {
-            $('#searchListe > li').show();
+            $('#searchListe > a >li').show();
         } else {
             $.expr[":"].contains = $.expr.createPseudo(function (text) {
                 return function (elem) {
                     return $(elem).text().toLowerCase().indexOf(text.toLowerCase()) >= 0;
                 };
             });
-            $('#searchListe > li').show().not(':contains(' + research + ')').hide();
+            $('#searchListe > a > li').show().not(':contains(' + research + ')').hide();
         }
     });
 

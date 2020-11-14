@@ -40,6 +40,7 @@ else : ?>
                     </button>
                 </div>
                 <div class="modal-body">
+                    <label for="autocompleteListe"></label>
                     <input type="text" style="width: 100%" id="autocompleteListe" class="autocomplete-bar" name="mot"
                            placeholder="Rechercher une liste" autocomplete="off">
                     <hr>
@@ -49,7 +50,8 @@ else : ?>
                                 <li id="li-liste" class="list-group-item border li-theme">
                                     <div class="flexible">
                                         <?= $liste['nom'] ?>
-                                        <img id="uncheck" class="svg" src="./resources/svgs/uncheck.svg" alt="<?= $liste['nom'] ?>">
+                                        <img id="uncheck" class="svg" src="./resources/svgs/uncheck.svg"
+                                             alt="<?= $liste['nom'] ?>">
                                     </div>
                                 </li>
                             </a>
@@ -60,7 +62,8 @@ else : ?>
                                     onclick="addToList('<?= $liste['id'] ?>', '<?= $_POST['word']['id'] ?>')">
                                     <div class="flexible">
                                         <?= $liste['nom'] ?>
-                                        <img id="check" class="svg" src="./resources/svgs/check.svg" alt="<?= $liste['nom'] ?>">
+                                        <img id="check" class="svg" src="./resources/svgs/check.svg"
+                                             alt="<?= $liste['nom'] ?>">
                                     </div>
                                 </li>
                             </a>
