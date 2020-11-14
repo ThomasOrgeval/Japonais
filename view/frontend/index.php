@@ -1,7 +1,7 @@
 <?php $title = 'Accueil';
 ob_start(); ?>
     <form action="index.php?p=search" method="post">
-        <input type="text" style="width: 100%" id="autocomplete" name="mot" placeholder="Recherche" autocomplete="off">
+        <input type="text" style="width: 100%" id="autocomplete" class="autocomplete-bar" name="mot" placeholder="Recherche" autocomplete="off">
         <div id="search" class="search" style="width: 100%"></div>
     </form>
     <br/><br/>
@@ -51,7 +51,7 @@ ob_start(); ?>
             <?php elseif ($_SESSION['life'] === 0) : ?>
                 <p class="card-text">Vous n'avez plus de vie, revenez demain !</p>
             <?php else : ?>
-                <p class="card-text">Veuillez vous reconnectez s'il vous plait, l'affichage sera ensuite fonctionnel</p>
+                <p class="card-text">Veuillez vous reconnecter s'il vous plait, l'affichage sera ensuite fonctionnel</p>
             <?php endif; ?>
         </div>
     </div>

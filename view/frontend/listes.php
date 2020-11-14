@@ -12,7 +12,7 @@ ob_start(); ?>
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($listes as $liste): ?>
+        <?php foreach ($_POST['listes'] as $liste): ?>
             <tr>
                 <td><?= $liste['nom']; ?></td>
                 <td>

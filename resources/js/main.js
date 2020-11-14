@@ -6,6 +6,24 @@ function toast() {
     }, 3000);
 }
 
+function addToList(id_liste, id_mot) {
+    $.post(
+        'ajax/addList.php',
+        {
+            id_liste: id_liste,
+            id_mot: id_mot
+        },
+        function (data) {
+            if (data === 'ADD') {
+                $('#uncheck').attr('id', 'check').attr('src', './resources/svgs/check.svg');
+            } else if(data === 'REMOVE') {
+                $('#check').attr('id', 'uncheck').attr('src', './resources/svgs/uncheck.svg');
+            }
+        },
+        'html'
+    );
+}
+
 $(document).ready(function () {
 
     $('#riddle-btn').click(function (e) {
@@ -17,7 +35,7 @@ $(document).ready(function () {
             },
             function (data) {
 
-                $.get('ajax/getsession.php', function (get) {
+                $.get('ajax/getSession.php', function (get) {
                     const session = $.parseJSON(get);
                     if (data === 'Success') {
                         $('#result').html("<p class='green-text'>Bonne réponse !</p>");
@@ -47,7 +65,7 @@ $(document).ready(function () {
     $('#autocomplete').keyup(function () {
         $.ajax({
             type: "POST",
-            url: "ajax/getautocomplete.php",
+            url: "ajax/getAutocomplete.php",
             data: 'keyword=' + $(this).val(),
             success: function (data) {
                 $('#search').show().html(data);
@@ -59,13 +77,27 @@ $(document).ready(function () {
     $('#autocompleteusers').keyup(function () {
         $.ajax({
             type: "POST",
-            url: "ajax/getusers.php",
+            url: "ajax/getUsers.php",
             data: 'keyword=' + $(this).val(),
             success: function (data) {
                 $('#search').show().html(data);
                 $('#autocompleteusers').css("background");
             }
         });
+    });
+
+    $('#autocompleteListe').keyup(function () {
+        const research = $.trim($(this).val());
+        if (!research) {
+            $('#searchListe > li').show();
+        } else {
+            $.expr[":"].contains = $.expr.createPseudo(function (text) {
+                return function (elem) {
+                    return $(elem).text().toLowerCase().indexOf(text.toLowerCase()) >= 0;
+                };
+            });
+            $('#searchListe > li').show().not(':contains(' + research + ')').hide();
+        }
     });
 
 });
