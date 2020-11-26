@@ -34,7 +34,7 @@ ob_start(); ?>
     <br/><br/>
     <div class="card text-center">
         <div class="card-body" id="card">
-            <h5 class="card-title" id="riddle">Trouve la bonne traduction !</h5>
+            <h6 class="card-title" id="riddle">Trouve la bonne traduction !</h6>
             <?php if (isset($_SESSION['riddle']) && $_SESSION['life'] > 0) : ?>
                 <form id="riddle-form">
                     <div id="riddle-div" class="flexible">

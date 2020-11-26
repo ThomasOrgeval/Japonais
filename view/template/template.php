@@ -51,7 +51,7 @@
                 <a class="nav-item nav-link" href="index.php?p=listes">Mes listes</a>
                 <a class="nav-item nav-link" href="index.php?p=theme">Mes thèmes</a>
                 <?php if ($_SESSION['admin'] == 1): ?>
-                    <a class="nav-item nav-link" href="index.php?p=admin_portail">Administration</a><
+                    <a class="nav-item nav-link" href="index.php?p=admin_portail">Administration</a>
                 <?php endif;
             endif; ?>
         </ul>

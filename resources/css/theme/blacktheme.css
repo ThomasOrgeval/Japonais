@@ -66,3 +66,11 @@ hr {
 .color {
     color: white;
 }
+
+li {
+    background-color: #222222 !important;
+}
+
+.speaker {
+    fill: white;
+}
