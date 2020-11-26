@@ -4,7 +4,7 @@ $icone = isset($_POST['user']) ? $_POST['user']['icone'] : $_SESSION['icone'];
 ob_start(); ?>
 
     <input type="text" style="width: 100%" id="autocompleteusers" class="autocomplete-bar" name="user"
-           placeholder="Utilisateur" autocomplete="off">
+           placeholder="Chercher un utilisateur" autocomplete="off">
     <div id="search" class="search" style="width: 100%"></div>
     <br/><br/>
 
@@ -14,7 +14,12 @@ ob_start(); ?>
                 <img class="icon-account" src="./resources/icons/<?= $icone ?>.png" alt="icone">
             <?php else: ?>
                 <a data-toggle="modal" data-target="#modalIcon">
-                    <img class="icon-account" src="./resources/icons/<?= $icone ?>.png" alt="icone">
+                    <div class="container-img">
+                        <img class="icon-account" src="./resources/icons/<?= $icone ?>.png" alt="icone">
+                        <div class="hover-img">
+                            <div class="hover-img-text">Changer l'avatar</div>
+                        </div>
+                    </div>
                 </a>
             <?php endif; ?>
         </div>
