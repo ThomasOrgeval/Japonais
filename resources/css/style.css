@@ -1,3 +1,7 @@
+* {
+    overflow-x: hidden;
+}
+
 .search {
     margin: 0;
     display: block;
@@ -91,6 +95,30 @@
     text-align: center;
 }
 
+#plus-circle {
+    fill: green;
+    width: 48px;
+    height: 48px;
+}
+
+#plus-circle:hover {
+    fill: #70b00d;
+}
+
+#uncheck {
+    fill: red;
+    width: 24px;
+    height: 24px;
+    margin-left: auto;
+}
+
+#check {
+    fill: green;
+    width: 24px;
+    height: 24px;
+    margin-left: auto;
+}
+
 @media screen and (min-width: 768px) {
 
     #navbar-top-small {
@@ -148,6 +176,12 @@
 
     .li-theme {
         padding: 5px 5px 5px 20px;
+    }
+
+    #plus-circle {
+        width: 32px;
+        height: 32px;
+        margin-right: 5px;
     }
 
 }

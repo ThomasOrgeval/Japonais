@@ -12,13 +12,13 @@ ob_start(); ?>
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($listes as $liste): ?>
+        <?php foreach ($_POST['listes'] as $liste): ?>
             <tr>
                 <td><?= $liste['nom']; ?></td>
                 <td>
-                    <a href="index.php?p=liste_edit&id=<?= $liste['id']; ?>" class="btn btn-outline-dark">Edit</a>
+                    <a href="index.php?p=liste_edit&id=<?= $liste['id']; ?>" class="btn btn-outline-dark">Editer</a>
                     <a href="index.php?p=liste_delete&id=<?= $liste['id']; ?>" class="btn btn-outline-danger"
-                       onclick="return confirm('Voulez-vous vraiment supprimer ce groupe ?')">Remove</a>
+                       onclick="return confirm('Voulez-vous vraiment supprimer ce groupe ?')">Supprimer</a>
                 </td>
             </tr>
         <?php endforeach ?>

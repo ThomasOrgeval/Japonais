@@ -4,6 +4,7 @@
     $title = 'Ma nouvelle liste';
 }
 ob_start(); ?>
+
     <h1 class="h1-admin">Editer une liste</h1>
 
     <form action="index.php?p=liste_add<?php if (isset($_GET['id'])) {
@@ -26,5 +27,6 @@ ob_start(); ?>
             <button type="submit" class="btn btn-outline-dark" name="save">Enregistrer</button>
         </div>
     </form>
+
 <?php $content = ob_get_clean();
 require('./view/template/template.php'); ?>
