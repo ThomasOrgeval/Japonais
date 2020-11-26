@@ -122,8 +122,6 @@ ob_start(); ?>
                     </h5>
                     <hr>
                     <p class="card-text"><?= nl2br($liste['description']) ?></p>
-                    <!--hr>
-                    <h6>Contenu de la liste :</h6-->
                 </div>
             </div>
         <?php endforeach; ?>

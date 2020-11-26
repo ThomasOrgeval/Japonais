@@ -153,6 +153,10 @@
     font-weight: bold;
 }
 
+.card {
+    border: 1px solid rgba(0,0,0,.125);
+}
+
 @media screen and (min-width: 768px) {
 
     #navbar-top-small {

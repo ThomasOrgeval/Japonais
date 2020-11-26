@@ -321,8 +321,7 @@ function searchListe($pseudo)
 function searchListeUser($pseudo)
 {
     $db = dbConnect();
-    $select = $db->prepare('select id, nom, description from lexiqumjaponais.LISTES 
-                                    where id_user=? and id_confidentiality=1');
+    $select = $db->prepare('select id, nom, description from lexiqumjaponais.LISTES where id_user=? and id_confidentiality=1');
     $select->execute(array($pseudo));
     return $select->fetchAll();
 }
