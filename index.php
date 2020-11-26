@@ -119,6 +119,8 @@ try {
             search();
         } elseif ($p === 'groupe_search') {
             groupe_page();
+        } elseif ($p === 'liste') {
+            liste();
         }
     } else {
         accueil();

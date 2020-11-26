@@ -54,12 +54,7 @@ table.table tbody td a {
     background-color: #121212;
 }
 
-#autocomplete {
-    background-color: #121212;
-    color: white;
-}
-
-#autocompleteusers {
+.autocomplete-bar {
     background-color: #121212;
     color: white;
 }

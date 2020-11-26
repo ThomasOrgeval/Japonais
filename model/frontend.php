@@ -240,7 +240,35 @@ function selectListe($id)
 {
     $db = dbConnect();
     $id = $db->quote($id);
-    return $db->query("select id, nom, description, id_confidentiality, id_user from lexiqumjaponais.LISTES where id=$id");;
+    $select = $db->query("select id, nom, description, id_confidentiality, id_user from lexiqumjaponais.LISTES where id=$id");
+    return $select->fetch();
+}
+
+function haveListes($id_user, $id_francais)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    $id_francais = $db->quote($id_francais);
+    $select = $db->query("select LISTES.id, nom, description, id_confidentiality, id_user from lexiqumjaponais.LISTES 
+    inner join lexiqumjaponais.WORDS_LISTES wl 
+        on LISTES.id = wl.id_liste
+    inner join lexiqumjaponais.FRANCAIS fr
+        on wl.id_word = fr.id
+    where id_user=$id_user and fr.id=$id_francais");
+    return $select->fetchAll();
+}
+
+function selectFrancaisFromListe($id)
+{
+    $db = dbConnect();
+    $id = $db->quote($id);
+    $select = $db->query("select FRANCAIS.* from lexiqumjaponais.FRANCAIS 
+    inner join lexiqumjaponais.WORDS_LISTES wl 
+        on FRANCAIS.id = wl.id_word
+    inner join lexiqumjaponais.LISTES l
+        on wl.id_liste = l.id
+    where l.id=$id");
+    return $select->fetchAll();
 }
 
 function supprListe($id)
@@ -436,4 +464,32 @@ function autocompleteUser($key, $id_user)
     $id_user = $db->quote($id_user);
     $select = $db->query("select pseudo, icone from lexiqumjaponais.USER where pseudo like '$key%' and id!=$id_user order by pseudo limit 0,5");
     return $select->fetchAll();
+}
+
+/**
+ * WORDS_LISTES
+ */
+
+function selectWordInListe($id_liste, $id_word)
+{
+    $db = dbConnect();
+    $id_liste = $db->quote($id_liste);
+    $id_word = $db->quote($id_word);
+    return $db->query("select * from lexiqumjaponais.WORDS_LISTES where id_liste=$id_liste and id_word=$id_word");
+}
+
+function addWordInListe($id_liste, $id_word)
+{
+    $db = dbConnect();
+    $id_liste = $db->quote($id_liste);
+    $id_word = $db->quote($id_word);
+    $select = $db->query("insert into lexiqumjaponais.WORDS_LISTES set id_liste=$id_liste, id_word=$id_word");
+}
+
+function removeWordInListe($id_liste, $id_word)
+{
+    $db = dbConnect();
+    $id_liste = $db->quote($id_liste);
+    $id_word = $db->quote($id_word);
+    $select = $db->query("delete from lexiqumjaponais.WORDS_LISTES where id_liste=$id_liste and id_word=$id_word");
 }

@@ -4,7 +4,7 @@ $icone = isset($_POST['user']) ? $_POST['user']['icone'] : $_SESSION['icone'];
 ob_start(); ?>
 
     <form action="index.php?p=account" method="post">
-        <input type="text" style="width: 100%" id="autocompleteusers" name="user" placeholder="Utilisateur"
+        <input type="text" style="width: 100%" id="autocompleteusers" class="autocomplete-bar" name="user" placeholder="Utilisateur"
                autocomplete="off">
         <div id="search" class="search" style="width: 100%"></div>
     </form>
@@ -69,7 +69,7 @@ ob_start(); ?>
                     <?php if (isset($_POST['user']) && !empty($_POST['user'])) : ?>
                         <input type="text" class="form-control" id="pseudo" name="pseudo"
                                value="<?= $_POST['user']['pseudo'] ?>"
-                               readonly>>
+                               readonly>
                     <?php else : ?>
                         <input type="text" class="form-control" id="pseudo" name="pseudo"
                                value="<?= $_SESSION['pseudo'] ?>"

@@ -109,7 +109,7 @@ ob_start(); ?>
         </div>
 
         <?php if (isset($_GET['id'])) :
-            $mots = listJaponaisToAnglais($_GET['id']);
+            $mots = listJaponaisToFrancais($_GET['id']);
         endif;
         if (!empty($mots)):
             foreach ($mots as $mot):?>
@@ -250,7 +250,7 @@ ob_start(); ?>
         </div>
 
         <?php if (isset($_GET['id'])) :
-            $mots = listAnglaisToJaponais($_GET['id']);
+            $mots = listAnglaisToFrancais($_GET['id']);
         endif;
         if (!empty($mots)):
             foreach ($mots as $mot): ?>

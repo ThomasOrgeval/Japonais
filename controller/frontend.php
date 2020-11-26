@@ -92,10 +92,22 @@ function save_account()
     }
 }
 
+function liste()
+{
+    $_POST['liste'] = selectListe($_GET['id']);
+    if (!empty($_POST['liste']) && ($_POST['liste']['id_user'] == $_SESSION['id'] || $_POST['liste']['id_confidentiality'] == 1)) {
+        $_POST['mots'] = selectFrancaisFromListe($_GET['id']);
+        require './view/frontend/liste.php';
+    } else {
+        setFlash('Cette liste n\'est pas accessible');
+        header('Location:index.php?p=accueil');
+    }
+}
+
 function listes()
 {
     if (connect()) {
-        $listes = listListes($_SESSION['id']);
+        $_POST['listes'] = listListes($_SESSION['id']);
         require './view/frontend/listes.php';
     }
 }
@@ -110,14 +122,10 @@ function liste_edit()
         }
 
         if (isset($_GET['id'])) {
-            $liste = selectListe($_GET['id']);
-            if ($liste->rowCount() === 0) {
-                setFlash('Vous n\'avez pas accès à cette liste', 'danger');
-                header('Location:index.php?p=listes');
-            }
-            $_POST = $liste->fetch();
-            if ($_POST['id_user'] !== $_SESSION['id']) {
-                setFlash('Vous n\'avez pas accès à cette liste', 'danger');
+            $_POST = selectListe($_GET['id']);
+            if (empty($_POST) || $_POST['id_user'] != $_SESSION['id']) {
+                unset($_POST);
+                setFlash('Vous n\'avez pas accès à cette liste');
                 header('Location:index.php?p=listes');
             }
         }
@@ -398,6 +406,15 @@ function search()
     if (!empty($_POST['word'])) {
         $_POST['japonais'] = listJaponaisToFrancais($_POST['word']['id']);
         $_POST['groupes'] = listGroupeToWord($_POST['word']['id']);
+        $_POST['listes'] = listListes($_SESSION['id']);
+        $_POST['other_listes'] = haveListes($_SESSION['id'], $_POST['word']['id']);
+        foreach ($_POST['other_listes'] as $other_liste) {
+            foreach ($_POST['listes'] as $liste) {
+                if ($liste['nom'] === $other_liste['nom']) {
+                    unset($_POST['listes'][array_search($liste, $_POST['listes'], true)]);
+                }
+            }
+        }
         require './view/frontend/search.php';
     } else {
         setFlash('Ce mot n\'existe pas', 'danger');
