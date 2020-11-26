@@ -95,7 +95,7 @@ function save_account()
 function liste()
 {
     $_POST['liste'] = selectListe($_GET['id']);
-    if (!empty($_POST['liste']) && ($_POST['liste']['id'] == $_SESSION['id'] || $_POST['liste']['id_confidentiality'] == 1)) {
+    if (!empty($_POST['liste']) && ($_POST['liste']['id_user'] == $_SESSION['id'] || $_POST['liste']['id_confidentiality'] == 1)) {
         $_POST['mots'] = selectFrancaisFromListe($_GET['id']);
         require './view/frontend/liste.php';
     } else {

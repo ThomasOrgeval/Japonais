@@ -55,8 +55,8 @@ else : ?>
                                     </div>
                                 </li>
                             </a>
-                        <?php endforeach; ?>
-                        <?php foreach ($_POST['other_listes'] as $liste) : ?>
+                        <?php endforeach;
+                        foreach ($_POST['other_listes'] as $liste) : ?>
                             <a onclick="addToList('<?= $liste['id'] ?>', '<?= $_POST['word']['id'] ?>')">
                                 <li id="li-<?= $liste['id'] ?>" class="list-group-item border li-theme">
                                     <div class="flexible">
