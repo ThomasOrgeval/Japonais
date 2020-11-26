@@ -12,20 +12,15 @@ if (!empty($_POST['keyword'])) :
     if (!empty($users)) : ?>
         <ul class="list-group list-group-flush" id="research">
             <?php foreach ($users as $user) : ?>
-                <li class="list-group-item border li-theme" style="cursor: pointer;"
-                    onClick="researchMot('<?= $user['pseudo'] ?>')">
+            <a href="index.php?p=account&user=<?= $user['pseudo'] ?>">
+                <li class="list-group-item border li-theme" style="cursor: pointer;">
                     <div class="flexible">
                         <img class="icon-research" src="./resources/icons/<?= $user['icone'] ?>.png" alt="icone">
                         <span style="margin-left: 7px"><?= $user['pseudo'] ?></span>
                     </div>
                 </li>
+            </a>
             <?php endforeach; ?>
         </ul>
-        <script>
-            function researchMot(val) {
-                $("#autocompleteusers").select().val(val);
-                $("#search").hide();
-            }
-        </script>
     <?php endif;
 endif; ?>

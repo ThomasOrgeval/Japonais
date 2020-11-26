@@ -3,18 +3,20 @@ $title = isset($_POST['user']) ? $_POST['user']['pseudo'] : 'Mon compte';
 $icone = isset($_POST['user']) ? $_POST['user']['icone'] : $_SESSION['icone'];
 ob_start(); ?>
 
-    <form action="index.php?p=account" method="post">
-        <input type="text" style="width: 100%" id="autocompleteusers" class="autocomplete-bar" name="user" placeholder="Utilisateur"
-               autocomplete="off">
-        <div id="search" class="search" style="width: 100%"></div>
-    </form>
+    <input type="text" style="width: 100%" id="autocompleteusers" class="autocomplete-bar" name="user"
+           placeholder="Utilisateur" autocomplete="off">
+    <div id="search" class="search" style="width: 100%"></div>
     <br/><br/>
 
     <div class="flexible wide-screen">
         <div class="col-sm-4">
-            <a data-toggle="modal" data-target="#modalIcon">
+            <?php if (isset($_POST['user'])) : ?>
                 <img class="icon-account" src="./resources/icons/<?= $icone ?>.png" alt="icone">
-            </a>
+            <?php else: ?>
+                <a data-toggle="modal" data-target="#modalIcon">
+                    <img class="icon-account" src="./resources/icons/<?= $icone ?>.png" alt="icone">
+                </a>
+            <?php endif; ?>
         </div>
         <div class="col-sm-8">
             <?php if (!isset($_POST['user'])) : ?>
@@ -56,9 +58,13 @@ ob_start(); ?>
 
     <div class="small-screen">
         <div class="col-sm-4">
-            <a data-toggle="modal" data-target="#modalIcon">
+            <?php if (isset($_POST['user'])) : ?>
                 <img class="icon-account" src="./resources/icons/<?= $icone ?>.png" alt="icone">
-            </a>
+            <?php else: ?>
+                <a data-toggle="modal" data-target="#modalIcon">
+                    <img class="icon-account" src="./resources/icons/<?= $icone ?>.png" alt="icone">
+                </a>
+            <?php endif; ?>
         </div>
         <div class="col-sm-8">
             <?php if (!isset($_POST['user'])) : ?>
@@ -106,7 +112,7 @@ ob_start(); ?>
                 <div class="card-body" id="card">
                     <h5 class="card-title">
                         <a href="index.php?p=liste&id=<?= $liste['id'] ?>">
-                        <span class="color"><?= $liste['nom'] ?></span>
+                            <span class="color"><?= $liste['nom'] ?></span>
                         </a>
                     </h5>
                     <hr>

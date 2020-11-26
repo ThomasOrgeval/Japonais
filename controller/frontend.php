@@ -41,9 +41,14 @@ function logout()
 function account()
 {
     if (connect()) {
-        if (isset($_POST['user'])) {
-            $_POST['user'] = searchUser($_POST['user']);
-            $_POST['listes'] = searchListeUser($_POST['user']['id']);
+        if (isset($_GET['user'])) {
+            $_POST['user'] = searchUser($_GET['user']);
+            if (empty($_POST['user'])) {
+                setFlash('Cet utilisateur n\'existe pas', 'danger');
+                accueil();
+            } else {
+                $_POST['listes'] = searchListeUser($_POST['user']['id']);
+            }
         } else {
             $_POST['icones_own'] = listAchatIconByAccount($_SESSION['id']);
             $_POST['icones'] = listIcons();
@@ -96,6 +101,7 @@ function liste()
 {
     $_POST['liste'] = selectListe($_GET['id']);
     if (!empty($_POST['liste']) && ($_POST['liste']['id_user'] == $_SESSION['id'] || $_POST['liste']['id_confidentiality'] == 1)) {
+        $_POST['user']  = selectUserFromListe($_GET['id']);
         $_POST['mots'] = selectFrancaisFromListe($_GET['id']);
         require './view/frontend/liste.php';
     } else {

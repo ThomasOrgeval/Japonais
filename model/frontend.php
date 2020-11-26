@@ -244,6 +244,17 @@ function selectListe($id)
     return $select->fetch();
 }
 
+function selectUserFromListe($id_liste)
+{
+    $db = dbConnect();
+    $id_liste = $db->quote($id_liste);
+    $select = $db->query("select USER.icone, USER.pseudo from lexiqumjaponais.USER 
+    inner join lexiqumjaponais.LISTES 
+        on USER.id = LISTES.id_user
+    where LISTES.id=$id_liste");
+    return $select->fetch();
+}
+
 function haveListes($id_user, $id_francais)
 {
     $db = dbConnect();
