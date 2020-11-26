@@ -26,6 +26,17 @@ function addToList(id_liste, id_mot) {
     );
 }
 
+function textToAudio(msg) {
+    let speech = new SpeechSynthesisUtterance();
+    speech.lang = "ja";
+    speech.text = msg;
+    speech.volume = 1;
+    speech.rate = 1;
+    speech.pitch = 1;
+
+    window.speechSynthesis.speak(speech);
+}
+
 $(document).ready(function () {
 
     $('#riddle-btn').click(function (e) {

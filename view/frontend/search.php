@@ -17,10 +17,17 @@ ob_start(); ?>
             </div>
         </div>
         <?php foreach ($_POST['japonais'] as $japonais) : ?>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Kanji : <?= $japonais['kanji'] ?></li>
-                <li class="list-group-item">Kana : <?= $japonais['kana'] ?></li>
-                <li class="list-group-item">Romaji : <?= $japonais['romaji'] ?></li>
+            <ul class="list-group list-group-flush" onclick="textToAudio('<?= $japonais['romaji'] ?>')">
+                <li class="list-group-item flexible">
+                    <span>Kanji : <?= $japonais['kanji'] ?></span>
+                    <img src="./resources/svgs/speaker.svg" alt="speaker" class="svg speaker">
+                </li>
+                <li class="list-group-item">
+                    <span>Kana : <?= $japonais['kana'] ?></span>
+                </li>
+                <li class="list-group-item">
+                    <span>Romaji : <?= $japonais['romaji'] ?></span>
+                </li>
             </ul>
         <?php endforeach; ?>
         <div class="card-body">
@@ -31,7 +38,10 @@ ob_start(); ?>
                     </a>
                 <?php endforeach;
             else : ?>
-                <span><?= $_POST['word']['francais']; ?> n'appartient à aucun groupe</span>
+                <span>
+                    <span style="font-weight: bold;"><?= $_POST['word']['francais']; ?></span>
+                     n'appartient à aucun groupe
+                </span>
             <?php endif; ?>
         </div>
     </div>
