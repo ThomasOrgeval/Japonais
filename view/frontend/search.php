@@ -7,27 +7,34 @@ ob_start(); ?>
         <div id="search" class="search" style="width: 100%"></div>
     </form><br/><br/>
 
-    <div class="flexible">
-        <h1 id="value" style="margin-right: auto"><?= $_POST['word']['francais'] ?></h1>
-        <a href="" style="text-align: center" data-toggle="modal" data-target="#modalListe">
-            <img id="plus-circle" class="svg" src="./resources/svgs/plus-circle.svg" alt="plus">
-        </a>
-    </div><br/><br/>
-
-    <h3>Traductions possibles :</h3>
-<?php foreach ($_POST['japonais'] as $japonais) : ?>
-    <h4><?= $_POST['word']['francais'] ?> en kanji : <?= $japonais['kanji'] ?></h4>
-    <h4><?= $_POST['word']['francais'] ?> en kana : <?= $japonais['kana'] ?></h4>
-    <h4><?= $_POST['word']['francais'] ?> en romaji : <?= $japonais['romaji'] ?></h4>
-<?php endforeach;
-
-if (!empty($_POST['groupes'])) :
-    foreach ($_POST['groupes'] as $groupe) : ?>
-        <a class="btn" href="index.php?p=groupe_search&id=<?= $groupe['id'] ?>"><?= $groupe['libelle'] ?></a>
-    <?php endforeach;
-else : ?>
-    <p><?= $_POST['word']['francais']; ?> n'appartient à aucun groupe</p>
-<?php endif; ?>
+    <div class="card" style="margin: 0 auto;width: 24rem;">
+        <div class="card-header">
+            <div class="flexible">
+                <h4 class="card-title" style="margin-top: 20px; text-align: center"><?= $_POST['word']['francais'] ?></h4>
+                <a data-toggle="modal" data-target="#modalListe" style="margin-left: auto; margin-top: 20px">
+                    <img id="plus-circle" class="svg" src="./resources/svgs/plus-circle.svg" alt="plus">
+                </a>
+            </div>
+        </div>
+        <?php foreach ($_POST['japonais'] as $japonais) : ?>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Kanji : <?= $japonais['kanji'] ?></li>
+                <li class="list-group-item">Kana : <?= $japonais['kana'] ?></li>
+                <li class="list-group-item">Romaji : <?= $japonais['romaji'] ?></li>
+            </ul>
+        <?php endforeach; ?>
+        <div class="card-body">
+            <?php if (!empty($_POST['groupes'])) :
+                foreach ($_POST['groupes'] as $groupe) : ?>
+                    <a class="card-link" href="index.php?p=groupe_search&id=<?= $groupe['id'] ?>">
+                        <?= $groupe['libelle'] ?>
+                    </a>
+                <?php endforeach;
+            else : ?>
+                <span><?= $_POST['word']['francais']; ?> n'appartient à aucun groupe</span>
+            <?php endif; ?>
+        </div>
+    </div>
 
     <div class="modal fade" id="modalListe" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
