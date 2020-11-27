@@ -150,8 +150,8 @@ ob_start(); ?>
                         <?php foreach ($_POST['icones_own'] as $icone) : ?>
                             <td>
                                 <a href="index.php?p=change_icon&id=<?= $icone['id'] ?>">
-                                    <img class="icon-table" src="./resources/icons/<?= $icone['id'] ?>.png"
-                                         alt="icon<?= $icone['id'] ?>">
+                                    <img class="icon-table" src="./resources/icons/<?= $icone['slug'] ?>.png"
+                                         alt="icon<?= $icone['slug'] ?>">
                                 </a>
                             </td>
                         <?php endforeach; ?>
@@ -167,8 +167,8 @@ ob_start(); ?>
                                    onclick="return confirm('Voulez-vous vraiment acheter cette îcone ?')">
                                     <div class="position-relative" style="width: 80px; height: 80px;">
                                         <img class="icon-table icon-table-other"
-                                             src="./resources/icons/<?= $icone['id'] ?>.png"
-                                             alt="icon<?= $icone['id'] ?>">
+                                             src="./resources/icons/<?= $icone['slug'] ?>.png"
+                                             alt="icon<?= $icone['slug'] ?>">
                                         <img class="icon-secure" src="./resources/svgs/lock.svg" alt="lock">
                                     </div>
                                 </a>

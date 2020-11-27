@@ -70,8 +70,9 @@ function change_icon()
     if (connect()) {
         if (isset($_GET['id']) && (!empty($_GET['id']) || $_GET['id'] == 0)) {
             if (haveIcon($_SESSION['id'], $_GET['id']) || $_GET['id'] == 0) {
-                changeIcon($_SESSION['id'], $_GET['id']);
-                $_SESSION['icone'] = $_GET['id'];
+                $icone = changeIcon($_GET['id']);
+                setIcon($_SESSION['id'], $icone['slug']);
+                $_SESSION['icone'] = $icone['slug'];
                 setFlash('L\'îcone a été modifiée');
             }
         }

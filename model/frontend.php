@@ -80,12 +80,20 @@ function saveAccount($id, $words)
     $db->exec("update lexiqumjaponais.USER set nombre=$words where id=$id");
 }
 
-function changeIcon($id_user, $id_icon)
+function changeIcon($id_icon)
+{
+    $db = dbConnect();
+    $id_icon = $db->quote($id_icon);
+    $select = $db->query("select * from lexiqumjaponais.RECOMPENSE where id=$id_icon");
+    return $select->fetch();
+}
+
+function setIcon($id_user, $slug)
 {
     $db = dbConnect();
     $id_user = $db->quote($id_user);
-    $id_icon = $db->quote($id_icon);
-    $db->exec("update lexiqumjaponais.USER set icone=$id_icon where id=$id_user");
+    $slug = $db->quote($slug);
+    $db->exec("update lexiqumjaponais.USER set icone=$slug where id=$id_user");
 }
 
 function getPoints($id_user)
@@ -415,7 +423,7 @@ function listAchatIconByAccount($id_user)
 function listIcons()
 {
     $db = dbConnect();
-    $select = $db->query("select * from lexiqumjaponais.RECOMPENSE
+    $select = $db->query("select RECOMPENSE.* from lexiqumjaponais.RECOMPENSE
         inner join lexiqumjaponais.RECOMPENSE_TYPE RT on RECOMPENSE.id_type = RT.id
         where type like 'Icone'");
     return $select->fetchAll();
