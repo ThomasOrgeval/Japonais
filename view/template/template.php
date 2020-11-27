@@ -58,7 +58,7 @@
         <div class="navbar-nav">
             <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
                 <a class="nav-item nav-link" href="index.php?p=points" style="padding-bottom: 0;">
-                    <span style="vertical-align:middle;"><?= $_SESSION['points'] ?></span>
+                    <span id="points" style="vertical-align:middle;"><?= $_SESSION['points'] ?></span>
                     <img id="sakura-svg" class="svg" src="./resources/svgs/sakura.svg" alt="sakura">
                 </a>
                 <a class="nav-item nav-link" href="index.php?p=account" style="color: white;">Bienvenue,
