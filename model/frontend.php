@@ -286,6 +286,7 @@ function supprListe($id)
 {
     $db = dbConnect();
     $id = $db->quote($id);
+    $db->query("delete from lexiqumjaponais.WORDS_LISTES where id_liste=$id");
     return $db->query("delete from lexiqumjaponais.LISTES where id=$id");
 }
 
