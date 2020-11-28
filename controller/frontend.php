@@ -461,5 +461,6 @@ function statistiques()
     $_POST['stats'] = countUser();
     $_POST['stats'] += countJaponais();
     $_POST['stats'] += sumSakura();
+    $_POST['stats']['leaders'] = bestUser();
     require './view/frontend/statistiques.php';
 }

@@ -537,3 +537,10 @@ function sumSakura()
     $select = $db->query("select sum(points) as sakuras from lexiqumjaponais.USER");
     return $select->fetch();
 }
+
+function bestUser()
+{
+    $db = dbConnect();
+    $select = $db->query("select pseudo, points from lexiqumjaponais.USER order by points desc limit 5");
+    return $select->fetchAll();
+}

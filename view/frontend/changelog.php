@@ -18,10 +18,12 @@ ob_start(); ?>
                 mises à jour du site, bienvenue sur la page en question ! 📝
             </li>
             <li><span class="font-weight-bold">Ajout d'une page de statistiques</span> (afin de voir qui a gagné le plus
-                de points !💥) 📊
+                de sakuras !💥) 📊
                 <ul class="list-unstyled changelog-list">
                     <li>- Affichage du nombre de compte sur le site</li>
                     <li>- Affichage du nombre de mots sur le site</li>
+                    <li>- Affichage du nombre de sakuras cumulé de chaque utilisateur</li>
+                    <li>- Affichage d'un scoreboard des meilleurs utilisateurs</li>
                 </ul>
             </li>
             <li><span class="font-weight-bold">Nombre de vies à 5</span> désormais en tant que limite maximale et pour
@@ -30,7 +32,7 @@ ob_start(); ?>
         </ul>
         <hr class="black">
 
-        <h5 class="text-uppercase font-weight-bold orange-text">Corrections de bugs</h5>
+        <h5 class="text-uppercase font-weight-bold orange-text">Correction de bugs</h5>
         <ul class="list-unstyled" style="margin-left: 10px">
             <li></li>
         </ul>
