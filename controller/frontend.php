@@ -453,6 +453,9 @@ function changelog()
 
 function statistiques()
 {
+    $_POST['stats'] = countUser();
+    $_POST['stats'] += countJaponais();
+    $_POST['stats'] += sumSakura();
     require './view/frontend/statistiques.php';
 }
 

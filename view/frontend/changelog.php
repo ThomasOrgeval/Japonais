@@ -12,13 +12,17 @@ ob_start(); ?>
         <hr class="black">
 
         <h5 class="text-uppercase font-weight-bold green-text">Nouvelles fonctionnalités</h5>
-        <ul class="list-unstyled changelog-list" style="margin-left: 10px">
+        <ul class="list-unstyled changelog-list">
             <li><span class="font-weight-bold">Ajout d'un footer</span> (et oui enfin !) 📖</li>
             <li><span class="font-weight-bold">Ajout d'un changelog</span> afin de pouvoir se maintenir au courant des
                 mises à jour du site, bienvenue sur la page en question ! 📝
             </li>
             <li><span class="font-weight-bold">Ajout d'une page de statistiques</span> (afin de voir qui a gagné le plus
                 de points !💥) 📊
+                <ul class="list-unstyled changelog-list">
+                    <li>- Affichage du nombre de compte sur le site</li>
+                    <li>- Affichage du nombre de mots sur le site</li>
+                </ul>
             </li>
         </ul>
         <hr class="black">

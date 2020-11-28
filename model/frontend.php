@@ -502,7 +502,7 @@ function addWordInListe($id_liste, $id_word)
     $db = dbConnect();
     $id_liste = $db->quote($id_liste);
     $id_word = $db->quote($id_word);
-    $select = $db->query("insert into lexiqumjaponais.WORDS_LISTES set id_liste=$id_liste, id_word=$id_word");
+    $db->query("insert into lexiqumjaponais.WORDS_LISTES set id_liste=$id_liste, id_word=$id_word");
 }
 
 function removeWordInListe($id_liste, $id_word)
@@ -510,5 +510,30 @@ function removeWordInListe($id_liste, $id_word)
     $db = dbConnect();
     $id_liste = $db->quote($id_liste);
     $id_word = $db->quote($id_word);
-    $select = $db->query("delete from lexiqumjaponais.WORDS_LISTES where id_liste=$id_liste and id_word=$id_word");
+    $db->query("delete from lexiqumjaponais.WORDS_LISTES where id_liste=$id_liste and id_word=$id_word");
+}
+
+/**
+ * Statistiques
+ */
+
+function countUser()
+{
+    $db = dbConnect();
+    $select = $db->query("select count(*) as users from lexiqumjaponais.USER");
+    return $select->fetch();
+}
+
+function countJaponais()
+{
+    $db = dbConnect();
+    $select = $db->query("select count(*) as japonais from lexiqumjaponais.JAPONAIS");
+    return $select->fetch();
+}
+
+function sumSakura()
+{
+    $db = dbConnect();
+    $select = $db->query("select sum(points) as sakuras from lexiqumjaponais.USER");
+    return $select->fetch();
 }
