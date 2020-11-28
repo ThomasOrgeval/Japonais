@@ -218,7 +218,7 @@ function submitLogin($mail, $password)
 
             if ($statements['last_login'] < date("Y-m-d") || $statements['last_login'] == null) {
                 setLastLogin($_SESSION['id']);
-                if ((int)$statements['life'] < 3) {
+                if ((int)$statements['life'] < 5) {
                     setLife($_SESSION['id'], (int)$statements['life'] + 1);
                     $_SESSION['life'] = (int)$statements['life'] + 1;
                     $_SESSION['new_life'] = true;
@@ -451,6 +451,11 @@ function changelog()
     require './view/frontend/changelog.php';
 }
 
+
+/**
+ * Statistiques
+ */
+
 function statistiques()
 {
     $_POST['stats'] = countUser();
@@ -458,7 +463,3 @@ function statistiques()
     $_POST['stats'] += sumSakura();
     require './view/frontend/statistiques.php';
 }
-
-/**
- * Statistiques
- */

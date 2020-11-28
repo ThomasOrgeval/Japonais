@@ -24,6 +24,9 @@ ob_start(); ?>
                     <li>- Affichage du nombre de mots sur le site</li>
                 </ul>
             </li>
+            <li><span class="font-weight-bold">Nombre de vies à 5</span> désormais en tant que limite maximale et pour
+                tous les nouveaux comptes !❤️
+            </li>
         </ul>
         <hr class="black">
 

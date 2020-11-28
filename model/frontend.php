@@ -23,7 +23,7 @@ function dbConnect()
 function createUser($pseudo, $pass, $mail, $riddle)
 {
     $db = dbConnect();
-    $addUser = $db->prepare('insert into lexiqumjaponais.USER(pseudo, pass, mail, date, droits, nombre, points, icone, riddle, life, last_login, theme) values(?, ?, ?, CURRENT_DATE, 0, 10, 0, 0, ?, 3, curdate(), 0)');
+    $addUser = $db->prepare('insert into lexiqumjaponais.USER(pseudo, pass, mail, date, droits, nombre, points, icone, riddle, life, last_login, theme) values(?, ?, ?, CURRENT_DATE, 0, 10, 0, 0, ?, 5, curdate(), 0)');
     $addUser = $addUser->execute(array($pseudo, $pass, $mail, $riddle));
     return $addUser;
 }
