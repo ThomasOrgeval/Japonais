@@ -163,6 +163,23 @@
     border: 1px solid rgba(0,0,0,.125);
 }
 
+.changelog-version {
+    margin-left: 20px;
+    margin-right: 20px;
+    border: 2px black solid;
+    border-radius: 30px;
+    padding: 20px 20px 20px 20px;
+}
+
+.changelog-date {
+    font-size: 0.6em;
+    vertical-align: middle;
+}
+
+.changelog-list li{
+    margin-top: 4px;
+}
+
 @media screen and (min-width: 768px) {
 
     #navbar-top-small {
