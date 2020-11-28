@@ -261,7 +261,39 @@
     });
 </script>
 </body>
-<footer>
+<footer class="page-footer font-small bg-dark pt-4">
+    <div class="container-fluid text-center text-md-left">
+        <div class="row">
+            <div class="col-md-6 mt-md-0 mt-3">
+                <h5 class="text-uppercase">Description</h5>
+                <p>Lexique japonais est un site qui permet de retrouver des mots traduits du français ou de l'anglais
+                    vers le japonais. Ce site est également un projet universitaire de L3 MIAGE. Toujours en
+                    développement !</p>
+            </div>
+            <hr class="clearfix w-100 d-md-none pb-3">
+            <div class="col-md-3 mb-md-0 mb-3">
+                <h5 class="text-uppercase">Statistiques :</h5>
 
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="index.php?p=statistiques">Statistiques</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-md-0 mb-3">
+                <h5 class="text-uppercase">Pages annexes :</h5>
+
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="index.php?p=changelog">Changelog</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+        <a href="https://lexiquejaponais.fr"> lexiquejaponais.fr.</a>
+        All Rights Reserved.
+    </div>
 </footer>
 </html>

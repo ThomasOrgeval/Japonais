@@ -121,6 +121,10 @@ try {
             groupe_page();
         } elseif ($p === 'liste') {
             liste();
+        } elseif ($p === 'changelog') {
+            changelog();
+        } elseif ($p === 'statistiques') {
+            statistiques();
         }
     } else {
         accueil();

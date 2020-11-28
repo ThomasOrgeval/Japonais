@@ -441,3 +441,21 @@ function groupe_page()
         header('Location:index.php?p=accueil');
     }
 }
+
+/**
+ * Changelog
+ */
+
+function changelog()
+{
+    require './view/frontend/changelog.php';
+}
+
+function statistiques()
+{
+    require './view/frontend/statistiques.php';
+}
+
+/**
+ * Statistiques
+ */
