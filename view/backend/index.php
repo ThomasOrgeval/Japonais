@@ -9,7 +9,7 @@ ob_start(); ?>
     <a class="btn btn-outline-dark" href="index.php?p=anglais">En anglais</a><br/>
     <a class="btn btn-outline-dark" href="index.php?p=groupe">Les groupes</a>
     <a class="btn btn-outline-dark" href="index.php?p=type">Les types</a>
-    <a class="btn btn-outline-dark" href="index.php?p=kanji">Les kanjis</a>
+    <a class="btn btn-outline-dark" href="index.php?p=kanjis">Les kanjis</a>
     <a class="btn btn-outline-dark" href="index.php?p=recompense">Les récompenses</a>
 </div>
 <?php $content = ob_get_clean();

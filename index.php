@@ -83,8 +83,8 @@ try {
             deleteFrancaisInAnglais($_GET['id_francais'], $_GET['id']);
         } elseif ($p === 'japonais_delete_in_anglais') {
             deleteJaponaisInAnglais($_GET['id_japonais'], $_GET['id']);
-        } elseif ($p === 'kanji') {
-            kanji();
+        } elseif ($p === 'kanjis') {
+            kanjis();
         } elseif ($p === 'kanji_edit') {
             kanji_edit();
         } elseif ($p === 'kanji_save') {

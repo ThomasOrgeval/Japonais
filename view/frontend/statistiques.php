@@ -95,7 +95,7 @@ ob_start(); ?>
 
         kanjiCanvas.onclick = function(e) {
             const slice = kanjiBar.getElementAtEvent(e);
-            if (!slice.length) return; // return if not clicked on slice
+            if (!slice.length) return;
             const label = slice[0]._model.label;
             switch (label) {
                 <?php foreach ($_POST['stats']['kanjis'] as $kanji): ?>

@@ -213,11 +213,11 @@ function anglais_add()
     }
 }
 
-function kanji()
+function kanjis()
 {
     if (connect_admin()) {
         $_POST['kanji'] = listKanji();
-        require './view/backend/kanji.php';
+        require './view/backend/kanjis.php';
     }
 }
 
