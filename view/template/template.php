@@ -264,7 +264,7 @@
 <footer class="page-footer font-small bg-dark pt-4">
     <div class="container-fluid text-center text-md-left">
         <div class="row">
-            <div class="col-md-6 mt-md-0 mt-3">
+            <div class="col-md-6 mt-md-0 mt-3" style="padding-right: 20px">
                 <h5 class="text-uppercase">Description</h5>
                 <p>Lexique japonais est un site qui permet de retrouver des mots traduits du français ou de l'anglais
                     vers le japonais. Ce site est également un projet universitaire de L3 MIAGE. Toujours en

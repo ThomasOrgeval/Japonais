@@ -18,15 +18,23 @@ ob_start(); ?>
                 <img id="sakura-stats" class="svg" src="./resources/svgs/sakura.svg" alt="sakura">
             </h4>
         </div>
-    </div><br/><hr class="black"><br/>
+    </div><br/>
+    <hr class="black"><br/>
 
     <div class="row">
         <div class="col-sm-6">
+            <h6 class="text-center">Classement des 5 meilleurs joueurs</h6>
             <canvas id="leaderboard"></canvas>
         </div>
         <div class="col-sm-6">
-
+            <h6 class="text-center">Kanjis les plus utilisés</h6>
+            <canvas id="kanjisboard"></canvas>
         </div>
+    </div><br/>
+    <hr class="black"><br/>
+
+    <div class="row">
+
     </div>
 
     <script>
@@ -41,11 +49,11 @@ ob_start(); ?>
                         <?= $leader['points'] ?>,
                         <?php endforeach; ?>],
                     fill: false,
-                    backgroundColor: ["rgba(255,99,132,0.2)", "rgba(255,159,64,0.2)",
-                        "rgba(255,205,86,0.2)", "rgba(75,192,192,0.2)", "rgba(54,162,235,0.2)"
+                    backgroundColor: ["rgba(255,34,79,0.2)", "rgba(255,143,32,0.2)",
+                        "rgba(255,191,40,0.2)", "rgba(30,190,190,0.2)", "rgba(21,149,236,0.2)"
                     ],
-                    borderColor: ["rgb(255,99,132)", "rgb(255,159,64)", "rgb(255,205,86)",
-                        "rgb(75,192,192)", "rgb(54,162,235)"
+                    borderColor: ["rgb(255,0,54)", "rgb(255,127,0)", "rgb(255,180,0)",
+                        "rgb(33,191,191)", "rgb(21,150,238)"
                     ],
                     borderWidth: 1
                 }]
@@ -61,13 +69,42 @@ ob_start(); ?>
                 responsive: true,
                 legend: {
                     display: false
-                },
-                title: {
-                    display: true,
-                    text: "Classement des 5 meilleurs joueurs"
                 }
             }
         });
+
+        const kanjiCanvas = document.getElementById('kanjisboard');
+        var kanjiBar = new Chart(kanjiCanvas.getContext('2d'), {
+                type: 'doughnut',
+                data: {
+                    labels: [<?php foreach ($_POST['stats']['kanjis'] as $kanji): ?>
+                        '<?= $kanji['kanji'] ?> <?= $kanji['kun_yomi'] ?>',
+                        <?php endforeach; ?>],
+                    datasets: [{
+                        data: [<?php foreach ($_POST['stats']['kanjis'] as $kanji): ?>
+                            <?= $kanji['count'] ?>,
+                            <?php endforeach; ?>],
+                        backgroundColor: ["#003f5c", "#2f4b7c", "#665191", "#a05195", "#d45087",
+                            "#f95d6a", "#ff7c43", "#ffa600", "#ffd200", "#fff500"]
+                    }]
+                },
+                options: {
+                    responsive: true
+                }
+        });
+
+        kanjiCanvas.onclick = function(e) {
+            const slice = kanjiBar.getElementAtEvent(e);
+            if (!slice.length) return; // return if not clicked on slice
+            const label = slice[0]._model.label;
+            switch (label) {
+                <?php foreach ($_POST['stats']['kanjis'] as $kanji): ?>
+                    case '<?= $kanji['kanji'] ?> <?= $kanji['kun_yomi'] ?>':
+                        window.open('https://lexiquejaponais.fr/index.php?p=kanji&id=<?= $kanji['id'] ?>');
+                        break;
+                <?php endforeach; ?>
+            }
+        }
     </script>
 
 <?php $content = ob_get_clean();

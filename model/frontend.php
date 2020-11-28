@@ -544,3 +544,12 @@ function bestUser()
     $select = $db->query("select pseudo, points from lexiqumjaponais.USER order by points desc limit 5");
     return $select->fetchAll();
 }
+
+function bestKanjis()
+{
+    $db = dbConnect();
+    $select = $db->query("select KANJI.id, kanji, count(id_kanji) count, kun_yomi from lexiqumjaponais.KANJI
+        inner join lexiqumjaponais.JAPONAIS_KANJI jk on KANJI.id = jk.id_kanji
+        group by jk.id_kanji order by count(id_kanji) desc limit 10");
+    return $select->fetchAll();
+}

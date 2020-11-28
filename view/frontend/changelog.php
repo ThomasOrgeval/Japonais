@@ -24,11 +24,13 @@ ob_start(); ?>
                     <li>- Affichage du nombre de mots sur le site</li>
                     <li>- Affichage du nombre de sakuras cumulé de chaque utilisateur</li>
                     <li>- Affichage d'un scoreboard des meilleurs utilisateurs</li>
+                    <li>- Affichage d'un scoreboard des kanjis les plus utilisés</li>
                 </ul>
             </li>
             <li><span class="font-weight-bold">Nombre de vies à 5</span> désormais en tant que limite maximale et pour
                 tous les nouveaux comptes !❤️
             </li>
+            <li><span class="font-weight-bold">Possibilité d'afficher des kanjis</span>, avec leur fiche personnelle. 🈸</li>
         </ul>
         <hr class="black">
 
