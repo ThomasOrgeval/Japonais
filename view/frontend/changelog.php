@@ -43,7 +43,12 @@ ob_start(); ?>
             </li>
             <li>
                 <span class="font-weight-bold">Changement important pour les url de recherche de mots</span>
-                ainsi il sera plus facile de développer autour de ça !
+                ainsi il sera plus facile de développer autour de ça ! Et les recherches autour de l'url seront
+                également facilité
+            </li>
+            <li>
+                <span class="font-weight-bold">Résolution de nombreux bugs</span> côté administration dans l'édition et
+                la traduction des mots
             </li>
         </ul>
     </div>
