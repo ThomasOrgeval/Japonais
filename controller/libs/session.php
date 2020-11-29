@@ -4,14 +4,14 @@ function flash()
 {
     if (isset($_SESSION['Flash'])) {
         $flash = "<script>
-                    $(document).ready(function ()) {
-                        $('toast').toast('show')
-                    }
+                    $(document).ready(function () {
+                        $('toast').toast('show');      
+                    })
                 </script>
 
-                <div class='toast alert alert-".$_SESSION['Flash']['type']." hidden' id='toast' style='position: absolute; top: 80px; right: 50px; opacity: 0.8;'>
+                <div class='toast alert alert-" . $_SESSION['Flash']['type'] . " hidden' id='toast' style='position: absolute; top: 80px; right: 50px; opacity: 0.8;'>
                     <div class='toast-header'>
-                        <strong class='mr-auto'><i class='fa fa-book'></i> ".$_SESSION['Flash']['message']."</strong>
+                        <strong class='mr-auto'><i class='fa fa-book'></i> " . $_SESSION['Flash']['message'] . "</strong>
                     </div>
                     <!--div class='toast-body'></div-->
                 </div>";

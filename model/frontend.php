@@ -215,6 +215,18 @@ function selectOneRandomWord()
     return $select->fetch();
 }
 
+function selectOneRandomWordJaponais()
+{
+    $db = dbConnect();
+    $select = $db->query("select FRANCAIS.id, FRANCAIS.francais, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji from lexiqumjaponais.FRANCAIS
+    inner join lexiqumjaponais.TRADUCTION trad on FRANCAIS.id = trad.id_word
+    inner join lexiqumjaponais.JAPONAIS on trad.id_japonais = JAPONAIS.id
+    order by rand()
+    limit 1");
+    return $select->fetch();
+}
+
+
 /**
  * Traduction
  */
@@ -229,6 +241,19 @@ function listJaponaisToFrancaisWord($francais)
     inner join lexiqumjaponais.FRANCAIS
         on wj.id_word = FRANCAIS.id
     where FRANCAIS.francais like $francais");
+    return $select->fetchAll();
+}
+
+function listFrancaisToJaponaisWord($japonais)
+{
+    $db = dbConnect();
+    $japonais = $db->quote($japonais);
+    $select = $db->query("select FRANCAIS.id, FRANCAIS.francais from lexiqumjaponais.JAPONAIS
+    inner join lexiqumjaponais.TRADUCTION as wj
+        on wj.id_japonais = JAPONAIS.id
+    inner join lexiqumjaponais.FRANCAIS
+        on wj.id_word = FRANCAIS.id
+    where JAPONAIS.kanji like $japonais or JAPONAIS.kana like $japonais or JAPONAIS.romaji like $japonais");
     return $select->fetchAll();
 }
 

@@ -5,15 +5,38 @@ require_once '../model/frontend.php';
 require_once '../model/backend.php';
 
 $bool = false;
+$french = true;
 $traducts = listJaponaisToFrancaisWord($_SESSION['riddle']);
+if ($traducts == null) {
+    $traducts = listFrancaisToJaponaisWord($_SESSION['riddle']);
+    $french = false;
+}
 $value = strtolower($_POST['value']);
+
 foreach ($traducts as $traduct) {
-    if ($value === strtolower($traduct['romaji']) || $value === strtolower($traduct['kanji']) || $value === strtolower($traduct['kana'])) {
-        $bool = true;
+    if ($french) {
+        if ($value === strtolower($traduct['romaji']) || $value === strtolower($traduct['kanji']) || $value === strtolower($traduct['kana'])) {
+            $bool = true;
+        }
+    } else {
+        if ($value === strtolower($traduct['francais'])) {
+            $bool = true;
+        }
     }
 }
 
-$_SESSION['riddle'] = selectOneRandomWord()['francais'];
+if (rand(0, 1) === 1) { // Sélection mot japonais
+    $japonais = rand(0, 2);
+    if ($japonais === 0) {
+        $_SESSION['riddle'] = selectOneRandomWord()['kanji'];
+    } elseif ($japonais === 1) {
+        $_SESSION['riddle'] = selectOneRandomWord()['kana'];
+    } else {
+        $_SESSION['riddle'] = selectOneRandomWord()['romaji'];
+    }
+} else { // Sélection mot francais
+    $_SESSION['riddle'] = selectOneRandomWord()['francais'];
+}
 setRiddle($_SESSION['id'], $_SESSION['riddle']);
 
 if ($bool) {

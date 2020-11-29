@@ -66,6 +66,8 @@ $(document).ready(function () {
                             $('#life').html(session['life']);
                             $('#riddle-value').html(session['riddle']);
                         }
+                    } else {
+                        console.log(data);
                     }
                     $('#value').val("");
                 });

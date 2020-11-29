@@ -30,7 +30,13 @@ ob_start(); ?>
             <li><span class="font-weight-bold">Nombre de vies à 5</span> désormais en tant que limite maximale et pour
                 tous les nouveaux comptes !❤️
             </li>
-            <li><span class="font-weight-bold">Possibilité d'afficher des kanjis</span>, avec leur fiche personnelle. 🈸
+            <li>
+                <span class="font-weight-bold">Possibilité d'afficher des kanjis</span>, avec leur fiche personnelle. 🈸
+            </li>
+            <li>
+                Il est désormais possible d'avoir des <span
+                        class="font-weight-bold">mots japonais dans les énigmes</span>, sur l'écran d'accueil pour
+                pouvoir vous tester davantage !🧠
             </li>
         </ul>
         <hr class="black">

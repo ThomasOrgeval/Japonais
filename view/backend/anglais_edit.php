@@ -195,5 +195,6 @@ ob_start(); ?>
             })
         })(jQuery);
     </script>
+
 <?php $content = ob_get_clean();
 require('./view/template/template.php'); ?>
