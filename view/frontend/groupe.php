@@ -1,10 +1,9 @@
 <?php $title = $_POST['groupe']['libelle'];
 ob_start(); ?>
-    <form action="index.php?p=search" method="post">
-        <input type="text" style="width: 100%" id="autocomplete" name="mot" placeholder="Recherche" autocomplete="off">
-        <div id="search" class="search" style="width: 100%"></div>
-    </form>
-    <br/><br/>
+
+    <input type="text" style="width: 100%" id="autocomplete" name="mot" placeholder="Recherche" autocomplete="off">
+    <div id="search" class="search" style="width: 100%"></div><br/><br/>
+
     <h1><?= $_POST['groupe']['libelle'] ?> :</h1>
     <br/>
 <?php if (!empty($_POST['words'])): ?>

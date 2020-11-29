@@ -486,7 +486,7 @@ function autocompleteUser($key, $id_user)
 }
 
 /**
- * WORDS_LISTES
+ * words_liste
  */
 
 function selectWordInListe($id_liste, $id_word)
@@ -552,4 +552,21 @@ function bestKanjis()
         inner join lexiqumjaponais.JAPONAIS_KANJI jk on KANJI.id = jk.id_kanji
         group by jk.id_kanji order by count(id_kanji) desc limit 10");
     return $select->fetchAll();
+}
+
+/**
+ * Kanji
+ */
+
+function listFrancaisToJaponaisLimit1($id_japonais)
+{
+    $db = dbConnect();
+    $id_japonais = $db->quote($id_japonais);
+    $select = $db->query("select FRANCAIS.francais from lexiqumjaponais.FRANCAIS
+    inner join lexiqumjaponais.TRADUCTION as wj
+        on wj.id_word = FRANCAIS.id
+    inner join lexiqumjaponais.JAPONAIS
+        on wj.id_japonais = JAPONAIS.id
+    where JAPONAIS.id=$id_japonais limit 1");
+    return $select->fetch();
 }

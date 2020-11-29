@@ -30,13 +30,21 @@ ob_start(); ?>
             <li><span class="font-weight-bold">Nombre de vies à 5</span> désormais en tant que limite maximale et pour
                 tous les nouveaux comptes !❤️
             </li>
-            <li><span class="font-weight-bold">Possibilité d'afficher des kanjis</span>, avec leur fiche personnelle. 🈸</li>
+            <li><span class="font-weight-bold">Possibilité d'afficher des kanjis</span>, avec leur fiche personnelle. 🈸
+            </li>
         </ul>
         <hr class="black">
 
-        <h5 class="text-uppercase font-weight-bold orange-text">Correction de bugs</h5>
+        <h5 class="text-uppercase font-weight-bold orange-text">Correction de bugs & Mises à jour</h5>
         <ul class="list-unstyled" style="margin-left: 10px">
-            <li></li>
+            <li>
+                <span class="font-weight-bold">Changement de lien relatif aux kanjis dans la partie administrative</span>
+                afin que ça soit plus simple d'utilisation pour tout le monde !
+            </li>
+            <li>
+                <span class="font-weight-bold">Changement important pour les url de recherche de mots</span>
+                ainsi il sera plus facile de développer autour de ça !
+            </li>
         </ul>
     </div>
 

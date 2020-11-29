@@ -443,6 +443,30 @@ function groupe_page()
 }
 
 /**
+ * Kanjis
+ */
+
+function kanji()
+{
+    if (isset($_GET['id'])) {
+        $kanji = testKanji($_GET['id']);
+        if ($kanji->rowCount() === 0) {
+            setFlash("Aucun kanji avec cet id", "danger");
+            header("Location:index.php?p=accueil");
+        }
+        $_POST = $kanji->fetch();
+        $_POST['japonais'] = listJaponaisToKanji($_GET['id']);
+        foreach ($_POST['japonais'] as $key => $japonais) {
+            $_POST['japonais'][$key] += listFrancaisToJaponaisLimit1($japonais['id']);
+        }
+        require './view/frontend/kanji.php';
+    } else {
+        setFlash('Aucun kanji avec cet id', 'danger');
+        header('Location:index.php?p=accueil');
+    }
+}
+
+/**
  * Changelog
  */
 

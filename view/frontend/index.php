@@ -1,10 +1,10 @@
 <?php $title = 'Accueil';
 ob_start(); ?>
-    <form action="index.php?p=search" method="post">
-        <input type="text" style="width: 100%" id="autocomplete" class="autocomplete-bar" name="mot" placeholder="Recherche" autocomplete="off">
-        <div id="search" class="search" style="width: 100%"></div>
-    </form>
-    <br/><br/>
+
+    <input type="text" style="width: 100%" id="autocomplete" class="autocomplete-bar" name="mot" placeholder="Recherche"
+           autocomplete="off">
+    <div id="search" class="search" style="width: 100%"></div><br/><br/>
+
 <?php if (!empty($_POST['words'])): ?>
     <h3>Sélection aléatoire de mots :</h3>
     <br/>

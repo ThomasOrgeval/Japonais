@@ -11,14 +11,10 @@ if (!empty($_POST['keyword'])) :
     if (!empty($mots)) : ?>
         <ul class="list-group list-group-flush" id="research">
             <?php foreach ($mots as $mot) : ?>
-                <li class="list-group-item border li-theme" style="cursor: pointer;" onClick="researchMot('<?= $mot['francais'] ?>')"><?= $mot['francais'] ?></li>
+            <a href="index.php?p=search&mot=<?= $mot['francais'] ?>">
+                <li class="list-group-item border li-theme" style="cursor: pointer;"><?= $mot['francais'] ?></li>
+            </a>
             <?php endforeach; ?>
         </ul>
-        <script>
-            function researchMot(val) {
-                $("#autocomplete").select().val(val);
-                $("#search").hide();
-            }
-        </script>
     <?php endif;
 endif; ?>

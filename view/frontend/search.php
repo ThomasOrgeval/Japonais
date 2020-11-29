@@ -1,16 +1,14 @@
 <?php $title = $_POST['word']['francais'];
 ob_start(); ?>
 
-    <form action="index.php?p=search" method="post">
-        <input type="text" style="width: 100%" id="autocomplete" class="autocomplete-bar" name="mot"
-               placeholder="Recherche" autocomplete="off">
-        <div id="search" class="search" style="width: 100%"></div>
-    </form><br/><br/>
+    <input type="text" style="width: 100%" id="autocomplete" class="autocomplete-bar" name="mot"
+           placeholder="Recherche" autocomplete="off">
+    <div id="search" class="search" style="width: 100%"></div<br/><br/>
 
     <div class="card" style="margin: 0 auto;width: 24rem;">
         <div class="card-header">
             <div class="flexible">
-                <h4 class="card-title" style="margin-top: 20px; text-align: center"><?= $_POST['word']['francais'] ?></h4>
+                <h4 class="card-title text-center" style="margin-top: 20px"><?= $_POST['word']['francais'] ?></h4>
                 <a data-toggle="modal" data-target="#modalListe" style="margin-left: auto; margin-top: 20px">
                     <img id="plus-circle" class="svg" src="./resources/svgs/plus-circle.svg" alt="plus">
                 </a>
@@ -88,6 +86,7 @@ ob_start(); ?>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
 <?php $content = ob_get_clean();

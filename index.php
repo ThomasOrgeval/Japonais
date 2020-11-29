@@ -125,6 +125,8 @@ try {
             changelog();
         } elseif ($p === 'statistiques') {
             statistiques();
+        } elseif ($p === 'kanji') {
+            kanji();
         }
     } else {
         accueil();
