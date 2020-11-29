@@ -1,5 +1,6 @@
 <?php $title = isset($_POST['id']) ? $_POST ['francais'] . ' - Edition' : 'Mon nouveau mot';
 ob_start(); ?>
+
     <h1 class="h1-admin">Editer un mot</h1>
 
     <form action="index.php?p=word_add<?php if (isset($_GET['id'])) {
@@ -60,9 +61,9 @@ ob_start(); ?>
             <div class="form-group col-1">Action</div>
         </div>
 
-        <?php if (isset($_GET['id'])) :
+        <?php if (isset($_GET['id'])) {
             $mots = listJaponaisToFrancais($_GET['id']);
-        endif;
+        }
         if (!empty($mots)):
             foreach ($mots as $mot):?>
                 <div class="row">
@@ -87,7 +88,7 @@ ob_start(); ?>
                                value='<?= $mot['romaji']; ?>'>
                     </div>
                     <div class="form-group col-md-1">
-                        <a class="btn_delete btn-red"
+                        <a class="btn btn-red btn-sm"
                            href="index.php?p=japonais_delete_in_francais&id=<?= $_GET['id']; ?>&id_japonais=<?= $mot['id']; ?>">-</a>
                     </div>
                 </div>
@@ -143,9 +144,9 @@ ob_start(); ?>
             <div class="form-group col-1">Action</div>
         </div>
 
-        <?php if (isset($_GET['id'])) :
+        <?php if (isset($_GET['id'])) {
             $mots = listAnglaisToFrancais($_GET['id']);
-        endif;
+        }
         if (!empty($mots)):
             foreach ($mots as $mot): ?>
                 <div class="row">
@@ -161,16 +162,15 @@ ob_start(); ?>
                     </div>
                     <div class="form-group col-md-3">
                         <label class="small-screen" for="id_type_anglais<?= $mot['id'] ?>">Type</label>
-                        <?= selectFormListe($mot['id_type'], 'id_type_anglais'.$mot['id'], $type_list); ?>
+                        <?= selectFormListe($mot['id_type'], 'id_type_anglais' . $mot['id'], $type_list); ?>
                     </div>
                     <div class="form-group col-md-1">
-                        <a class="btn_delete btn-red"
-                           href="index.php?p=anglais_delete_in_japonais&id=<?= $_GET['id']; ?>&id_anglais=<?= $mot['id']; ?>">-</a>
+                        <a class="btn btn-red btn-sm"
+                           href="index.php?p=anglais_delete_in_francais&id=<?= $_GET['id']; ?>&id_anglais=<?= $mot['id']; ?>">-</a>
                     </div>
                 </div>
             <?php endforeach;
-        else:
-            $k = 1 ?>
+        else: ?>
             <div class="row">
                 <div class="form-group col-md-2">
                     <label class="small-screen">ID</label>
@@ -223,5 +223,6 @@ ob_start(); ?>
             })
         })(jQuery);
     </script>
+
 <?php $content = ob_get_clean();
 require('./view/template/template.php'); ?>

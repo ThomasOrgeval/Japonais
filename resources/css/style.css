@@ -16,11 +16,6 @@
     color: red;
 }
 
-.btn_delete {
-    border-radius: 50%;
-    padding: .375rem .75rem;
-}
-
 #sakura-svg {
     fill: white;
     height: 22px;
@@ -232,11 +227,6 @@
 
     .display {
         display: grid;
-    }
-
-    .btn-small {
-        padding: 0.4rem !important;
-        font-size: 0.65rem;
     }
 
     .wide-screen {
