@@ -23,7 +23,7 @@ function dbConnect()
 function createUser($pseudo, $pass, $mail, $riddle)
 {
     $db = dbConnect();
-    $addUser = $db->prepare('insert into lexiqumjaponais.USER(pseudo, pass, mail, date, droits, nombre, points, icone, riddle, life, last_login, theme) values(?, ?, ?, CURRENT_DATE, 0, 10, 0, 0, ?, 5, curdate(), 0)');
+    $addUser = $db->prepare('insert into lexiqumjaponais.USER(pseudo, pass, mail, date, droits, nombre, icone, riddle, life, last_login, theme) values(?, ?, ?, CURRENT_DATE, 0, 10, 0, ?, 5, curdate(), 0)');
     $addUser = $addUser->execute(array($pseudo, $pass, $mail, $riddle));
     return $addUser;
 }
@@ -31,7 +31,7 @@ function createUser($pseudo, $pass, $mail, $riddle)
 function loginUser($mail, $pass)
 {
     $db = dbConnect();
-    $selectUser = $db->prepare('select id, pseudo, pass, mail, droits, nombre, points, icone, riddle, life, last_login, theme from lexiqumjaponais.USER where mail=?');
+    $selectUser = $db->prepare('select id, pseudo, pass, mail, droits, nombre, icone, riddle, life, last_login, theme from lexiqumjaponais.USER where mail=?');
     $selectUser->execute(array($mail));
     $selectUser = $selectUser->fetch();
     if (password_verify($pass, $selectUser['pass'])) {
@@ -51,7 +51,7 @@ function searchPseudo($pseudo)
 function searchUser($pseudo)
 {
     $db = dbConnect();
-    $selectUser = $db->prepare('select id, last_login, icone, points, pseudo from lexiqumjaponais.USER where pseudo=?');
+    $selectUser = $db->prepare('select id, last_login, icone, pseudo from lexiqumjaponais.USER where pseudo=?');
     $selectUser->execute(array($pseudo));
     return $selectUser->fetch();
 }
@@ -96,22 +96,6 @@ function setIcon($id_user, $slug)
     $db->exec("update lexiqumjaponais.USER set icone=$slug where id=$id_user");
 }
 
-function getPoints($id_user)
-{
-    $db = dbConnect();
-    $id_user = $db->quote($id_user);
-    $select = $db->query("select points from lexiqumjaponais.USER where id=$id_user");
-    return $select->fetch();
-}
-
-function setPoints($id_user, $points)
-{
-    $db = dbConnect();
-    $id_user = $db->quote($id_user);
-    $points = $db->quote($points);
-    $db->exec("update lexiqumjaponais.USER set points=$points where id=$id_user");
-}
-
 function setRiddle($id_user, $francais)
 {
     $db = dbConnect();
@@ -141,6 +125,40 @@ function setTheme($id_user, $slug)
     $id_user = $db->quote($id_user);
     $slug = $db->quote($slug);
     $db->exec("update lexiqumjaponais.USER set theme=$slug where id=$id_user");
+}
+
+/**
+ * Sakura
+ */
+
+function createSakuraUser($id_user)
+{
+    $db = dbConnect();
+    $db->query("insert into lexiqumjaponais.SAKURA(id_user, sakura, sakura_total) values ($id_user, 0, 0)");
+}
+
+function getSakura($id_user)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    $select = $db->query("select sakura, sakura_total from lexiqumjaponais.SAKURA where id_user=$id_user");
+    return $select->fetch();
+}
+
+function setSakura($id_user, $sakura)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    $sakura = $db->quote($sakura);
+    $db->exec("update lexiqumjaponais.SAKURA set sakura=$sakura, sakura_total = sakura_total + $sakura where id_user=$id_user");
+}
+
+function buySakura($id_user, $sakura)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    $sakura = $db->quote($sakura);
+    $db->exec("update lexiqumjaponais.SAKURA set sakura=$sakura where id_user=$id_user");
 }
 
 /**
@@ -559,14 +577,25 @@ function countJaponais()
 function sumSakura()
 {
     $db = dbConnect();
-    $select = $db->query("select sum(points) as sakuras from lexiqumjaponais.USER");
+    $select = $db->query("select sum(sakura) as sakura, sum(sakura_total) as sakura_total from lexiqumjaponais.SAKURA");
     return $select->fetch();
 }
 
 function bestUser()
 {
     $db = dbConnect();
-    $select = $db->query("select pseudo, points from lexiqumjaponais.USER order by points desc limit 5");
+    $select = $db->query("select sakura, pseudo from lexiqumjaponais.SAKURA 
+        inner join lexiqumjaponais.USER on SAKURA.id_user = USER.id
+        order by sakura desc limit 5");
+    return $select->fetchAll();
+}
+
+function bestUser2()
+{
+    $db = dbConnect();
+    $select = $db->query("select sakura_total, pseudo from lexiqumjaponais.SAKURA 
+        inner join lexiqumjaponais.USER on SAKURA.id_user = USER.id
+        order by sakura_total desc limit 5");
     return $select->fetchAll();
 }
 

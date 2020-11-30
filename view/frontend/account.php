@@ -44,9 +44,14 @@ ob_start(); ?>
                         <label for="last_login">Dernière connexion</label>
                         <input type="text" class="form-control" id="last_login" name="last_login"
                                value="<?= $_POST['user']['last_login'] ?>" readonly><br/>
-                        <label for="points">Nombre de points</label>
-                        <input type="text" class="form-control" id="points" name="points"
-                               value="<?= $_POST['user']['points'] ?>" readonly>
+                        <div class="row">
+                            <label for="points">Nombre de Sakura</label>
+                            <input type="text" class="form-control" id="points" name="points"
+                                   value="<?= $_POST['sakura']['sakura'] ?>" readonly>
+                            <label for="points">Nombre de Sakura au total</label>
+                            <input type="text" class="form-control" id="points" name="points"
+                                   value="<?= $_POST['sakura']['sakura_total'] ?>" readonly>
+                        </div>
                     </div>
                 <?php else : ?>
                 <div class="form-group">
@@ -92,9 +97,12 @@ ob_start(); ?>
                         <label for="last_login">Dernière connexion</label>
                         <input type="text" class="form-control" id="last_login" name="last_login"
                                value="<?= $_POST['user']['last_login'] ?>" readonly><br/>
-                        <label for="points">Nombre de points</label>
+                        <label for="points">Nombre de Sakura</label>
                         <input type="text" class="form-control" id="points" name="points"
-                               value="<?= $_POST['user']['points'] ?>" readonly>
+                               value="<?= $_POST['sakura']['sakura'] ?>" readonly><br/>
+                        <label for="points">Nombre de Sakura au total</label>
+                        <input type="text" class="form-control" id="points" name="points"
+                               value="<?= $_POST['sakura']['sakura_total'] ?>" readonly>
                     </div>
                 <?php else : ?>
                 <div class="form-group">

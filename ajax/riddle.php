@@ -41,7 +41,7 @@ setRiddle($_SESSION['id'], $_SESSION['riddle']);
 
 if ($bool) {
     $_SESSION['points'] += 20;
-    setPoints($_SESSION['id'], $_SESSION['points']);
+    setSakura($_SESSION['id'], $_SESSION['points']);
     echo "Success";
 } else {
     --$_SESSION['life'];

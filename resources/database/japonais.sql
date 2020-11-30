@@ -192,3 +192,32 @@ create table `TRADUCTION`
     foreign key (`id_japonais`) references JAPONAIS (`id`),
     foreign key (`id_anglais`) references ANGLAIS (`id`)
 ) engine = InnoDB;
+
+create table `SAKURA`
+(
+    `id_user`      int auto_increment not null,
+    `sakura`       int                not null,
+    `sakura_total` int                not null,
+    primary key (`id_user`),
+    foreign key (`id_user`) references USER (`id`)
+) engine = InnoDB;
+
+create table `HISTORIQUE_SAKURA`
+(
+    `id`      int auto_increment not null,
+    `sakura`  int                not null,
+    `date`    date               not null,
+    `id_user` int                not null,
+    primary key (`id`),
+    foreign key (`id_user`) references USER (`id`)
+) engine = InnoDB;
+
+delimiter |
+create trigger after_update_sakura
+    after update
+    on SAKURA
+    for each row
+begin
+
+end |
+delimiter ;

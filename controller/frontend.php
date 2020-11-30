@@ -47,12 +47,14 @@ function account()
                 setFlash('Cet utilisateur n\'existe pas', 'danger');
                 accueil();
             } else {
+                $_POST['sakura'] = getSakura($_POST['user']['id']);
                 $_POST['listes'] = searchListeUser($_POST['user']['id']);
             }
         } else {
             $_POST['icones_own'] = listAchatIconByAccount($_SESSION['id']);
             $_POST['icones'] = listIcons();
             $_POST['listes'] = searchListe($_SESSION['id']);
+            $_POST['sakura'] = getSakura($_SESSION['id']);
             foreach ($_POST['icones'] as $icone) {
                 foreach ($_POST['icones_own'] as $icone_own) {
                     if ($icone['libelle'] === $icone_own['libelle']) {
@@ -160,12 +162,12 @@ function achat()
 {
     if (connect()) {
         if (achatByUser($_SESSION['id'], $_GET['id_recompense']) == false) {
-            $points = getPoints($_SESSION['id']);
+            $points = getSakura($_SESSION['id']);
             $cout = selectRecompense($_GET['id_recompense'])['cout'];
-            if ($points['points'] >= $cout) {
+            if ($points['sakura'] >= $cout) {
                 achatdb($_SESSION['id'], $_GET['id_recompense']);
-                setPoints($_SESSION['id'], $points['points'] - $cout);
-                $_SESSION['points'] = getPoints($_SESSION['id'])['points'];
+                buySakura($_SESSION['id'], $points['sakura'] - $cout);
+                $_SESSION['points'] = getSakura($_SESSION['id'])['sakura'];
                 setFlash('Vous avez bien ajouté ce lot !');
             } else {
                 setFlash('Vous n\'avez pas assez de points :(', 'danger');
@@ -204,7 +206,7 @@ function submitLogin($mail, $password)
             $_SESSION['admin'] = $statements['droits'];
             $_SESSION['id'] = $statements['id'];
             $_SESSION['nombreWords'] = $statements['nombre'];
-            $_SESSION['points'] = $statements['points'];
+            $_SESSION['points'] = getSakura($_SESSION['id'])['sakura'];
             $_SESSION['connect'] = 'OK';
             $_SESSION['icone'] = $statements['icone'];
             $_SESSION['theme'] = $statements['theme'];
@@ -258,6 +260,7 @@ function submitRegister($pseudo, $password, $mail)
         } else {
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
             createUser($pseudo, $password_hash, $mail, selectOneRandomWord()['francais']);
+            createSakuraUser(loginUser($mail, $password)['id']);
             submitLogin($mail, $password);
         }
     }
@@ -486,6 +489,7 @@ function statistiques()
     $_POST['stats'] += countJaponais();
     $_POST['stats'] += sumSakura();
     $_POST['stats']['leaders'] = bestUser();
+    $_POST['stats']['leaders2'] = bestUser2();
     $_POST['stats']['kanjis'] = bestKanjis();
     require './view/frontend/statistiques.php';
 }

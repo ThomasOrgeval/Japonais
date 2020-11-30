@@ -24,6 +24,7 @@ ob_start(); ?>
                     <li>- Affichage du nombre de mots sur le site</li>
                     <li>- Affichage du nombre de sakuras cumulé de chaque utilisateur</li>
                     <li>- Affichage d'un scoreboard des meilleurs utilisateurs</li>
+                    <li>- Affichage d'un scoreboard des meilleurs utilisateurs en comptant les dépenses</li>
                     <li>- Affichage d'un scoreboard des kanjis les plus utilisés</li>
                 </ul>
             </li>
@@ -55,6 +56,10 @@ ob_start(); ?>
             <li>
                 <span class="font-weight-bold">Résolution de nombreux bugs</span> côté administration dans l'édition et
                 la traduction des mots
+            </li>
+            <li>
+                <span class="font-weight-bold">Changements importants pour la base de données</span> et notamment la
+                gestion des sakuras qui désormais permettront d'avoir un historique
             </li>
         </ul>
     </div>
