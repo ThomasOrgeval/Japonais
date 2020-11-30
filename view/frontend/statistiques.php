@@ -40,6 +40,22 @@ ob_start(); ?>
     <hr class="black"><br/>
 
     <div class="row">
+        <div class="col-sm-4">
+            <h6 class="text-center">Classement sur le denier jour</h6>
+            <canvas id="leaderboardDay"></canvas>
+        </div>
+        <div class="col-sm-4">
+            <h6 class="text-center">Classement sur la dernière semaine</h6>
+            <canvas id="leaderboardWeek"></canvas>
+        </div>
+        <div class="col-sm-4">
+            <h6 class="text-center">Classement sur le dernier mois</h6>
+            <canvas id="leaderboardMonth"></canvas>
+        </div>
+    </div><br/>
+    <hr class="black"><br/>
+
+    <div class="row">
         <div class="col-sm-12">
             <h6 class="text-center">Kanjis les plus utilisés</h6>
             <canvas id="kanjisboard"></canvas>
@@ -50,12 +66,12 @@ ob_start(); ?>
         new Chart(document.getElementById("leaderboard"), {
             type: 'horizontalBar',
             data: {
-                labels: [<?php foreach ($_POST['stats']['leaders'] as $leader): ?>
-                    "<?= $leader['pseudo'] ?>",
+                labels: [<?php foreach ($_POST['stats']['leaders'] as $user): ?>
+                    "<?= $user['pseudo'] ?>",
                     <?php endforeach; ?>],
                 datasets: [{
-                    data: [<?php foreach ($_POST['stats']['leaders'] as $leader): ?>
-                        <?= $leader['sakura'] ?>,
+                    data: [<?php foreach ($_POST['stats']['leaders'] as $user): ?>
+                        <?= $user['sakura'] ?>,
                         <?php endforeach; ?>],
                     fill: false,
                     backgroundColor: ["rgba(255,34,79,0.2)", "rgba(255,143,32,0.2)",
@@ -85,12 +101,117 @@ ob_start(); ?>
         new Chart(document.getElementById("leaderboard2"), {
             type: 'horizontalBar',
             data: {
-                labels: [<?php foreach ($_POST['stats']['leaders2'] as $leader): ?>
-                    "<?= $leader['pseudo'] ?>",
+                labels: [<?php foreach ($_POST['stats']['leaders2'] as $user): ?>
+                    "<?= $user['pseudo'] ?>",
                     <?php endforeach; ?>],
                 datasets: [{
-                    data: [<?php foreach ($_POST['stats']['leaders2'] as $leader): ?>
-                        <?= $leader['sakura_total'] ?>,
+                    data: [<?php foreach ($_POST['stats']['leaders2'] as $user): ?>
+                        <?= $user['sakura_total'] ?>,
+                        <?php endforeach; ?>],
+                    fill: false,
+                    backgroundColor: ["rgba(255,34,79,0.2)", "rgba(255,143,32,0.2)",
+                        "rgba(255,191,40,0.2)", "rgba(30,190,190,0.2)", "rgba(21,149,236,0.2)"
+                    ],
+                    borderColor: ["rgb(255,0,54)", "rgb(255,127,0)", "rgb(255,180,0)",
+                        "rgb(33,191,191)", "rgb(21,150,238)"
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+                responsive: true,
+                legend: {
+                    display: false
+                }
+            }
+        });
+
+        new Chart(document.getElementById("leaderboardDay"), {
+            type: 'horizontalBar',
+            data: {
+                labels: [<?php foreach ($_POST['stats']['day'] as $user): ?>
+                    "<?= $user['pseudo'] ?>",
+                    <?php endforeach; ?>],
+                datasets: [{
+                    data: [<?php foreach ($_POST['stats']['day'] as $user): ?>
+                        <?= $user['sakura'] ?>,
+                        <?php endforeach; ?>],
+                    fill: false,
+                    backgroundColor: ["rgba(255,34,79,0.2)", "rgba(255,143,32,0.2)",
+                        "rgba(255,191,40,0.2)", "rgba(30,190,190,0.2)", "rgba(21,149,236,0.2)"
+                    ],
+                    borderColor: ["rgb(255,0,54)", "rgb(255,127,0)", "rgb(255,180,0)",
+                        "rgb(33,191,191)", "rgb(21,150,238)"
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+                responsive: true,
+                legend: {
+                    display: false
+                }
+            }
+        });
+
+        new Chart(document.getElementById("leaderboardWeek"), {
+            type: 'horizontalBar',
+            data: {
+                labels: [<?php foreach ($_POST['stats']['week'] as $user): ?>
+                    "<?= $user['pseudo'] ?>",
+                    <?php endforeach; ?>],
+                datasets: [{
+                    data: [<?php foreach ($_POST['stats']['week'] as $user): ?>
+                        <?= $user['sakura'] ?>,
+                        <?php endforeach; ?>],
+                    fill: false,
+                    backgroundColor: ["rgba(255,34,79,0.2)", "rgba(255,143,32,0.2)",
+                        "rgba(255,191,40,0.2)", "rgba(30,190,190,0.2)", "rgba(21,149,236,0.2)"
+                    ],
+                    borderColor: ["rgb(255,0,54)", "rgb(255,127,0)", "rgb(255,180,0)",
+                        "rgb(33,191,191)", "rgb(21,150,238)"
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+                responsive: true,
+                legend: {
+                    display: false
+                }
+            }
+        });
+
+        new Chart(document.getElementById("leaderboardMonth"), {
+            type: 'horizontalBar',
+            data: {
+                labels: [<?php foreach ($_POST['stats']['month'] as $user): ?>
+                    "<?= $user['pseudo'] ?>",
+                    <?php endforeach; ?>],
+                datasets: [{
+                    data: [<?php foreach ($_POST['stats']['month'] as $user): ?>
+                        <?= $user['sakura'] ?>,
                         <?php endforeach; ?>],
                     fill: false,
                     backgroundColor: ["rgba(255,34,79,0.2)", "rgba(255,143,32,0.2)",

@@ -490,5 +490,8 @@ function statistiques()
     $_POST['stats']['leaders'] = bestUser();
     $_POST['stats']['leaders2'] = bestUser2();
     $_POST['stats']['kanjis'] = bestKanjis();
+    $_POST['stats']['day'] = lastDayHistory();
+    $_POST['stats']['week'] = lastWeekHistory();
+    $_POST['stats']['month'] = lastMonthHistory();
     require './view/frontend/statistiques.php';
 }

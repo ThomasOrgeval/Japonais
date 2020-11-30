@@ -224,7 +224,7 @@ begin
     declare last_date date;
     set id_user_sakura = old.id_user;
     set nb_sakura = new.sakura_total - old.sakura_total;
-    set last_date = (select `date` from HISTORIQUE_SAKURA where id_user = id_user_sakura order by `date` desc);
+    set last_date = (select `date` from HISTORIQUE_SAKURA where id_user = id_user_sakura order by `date` desc limit 1);
     call insert_sakura_history(id_user_sakura, nb_sakura, last_date);
 end |
 
@@ -246,3 +246,33 @@ begin
 end |
 
 delimiter ;
+
+create view select_day as
+select sum(sakura) sakura, u.pseudo
+from HISTORIQUE_SAKURA hs
+         inner join USER u on hs.id_user = u.id
+where hs.date <= curdate()
+  and hs.date > date_sub(curdate(), interval 1 day)
+group by id_user
+order by sakura desc
+limit 5;
+
+create view select_week as
+select sum(sakura) sakura, u.pseudo
+from HISTORIQUE_SAKURA hs
+         inner join USER u on hs.id_user = u.id
+where hs.date <= curdate()
+  and hs.date > date_sub(curdate(), interval 1 week)
+group by id_user
+order by sakura desc
+limit 5;
+
+create view select_month as
+select sum(sakura) sakura, u.pseudo
+from HISTORIQUE_SAKURA hs
+         inner join USER u on hs.id_user = u.id
+where hs.date <= curdate()
+  and hs.date > date_sub(curdate(), interval 1 month)
+group by id_user
+order by sakura desc
+limit 5;

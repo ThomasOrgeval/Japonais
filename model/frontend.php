@@ -601,6 +601,24 @@ function bestKanjis()
     return $select->fetchAll();
 }
 
+function lastDayHistory()
+{
+    $db = dbConnect();
+    return $db->query("select * from lexiqumjaponais.select_day")->fetchAll();
+}
+
+function lastWeekHistory()
+{
+    $db = dbConnect();
+    return $db->query("select * from lexiqumjaponais.select_week")->fetchAll();
+}
+
+function lastMonthHistory()
+{
+    $db = dbConnect();
+    return $db->query("select * from lexiqumjaponais.select_month")->fetchAll();
+}
+
 /**
  * Kanji
  */

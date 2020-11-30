@@ -26,6 +26,7 @@ ob_start(); ?>
                     <li>- Affichage d'un scoreboard des meilleurs utilisateurs</li>
                     <li>- Affichage d'un scoreboard des meilleurs utilisateurs en comptant les dépenses</li>
                     <li>- Affichage d'un scoreboard des kanjis les plus utilisés</li>
+                    <li>- Affichage d'un scoreboard des meilleurs utilisateurs sur une durée déterminée</li>
                 </ul>
             </li>
             <li><span class="font-weight-bold">Nombre de vies à 5</span> désormais en tant que limite maximale et pour
