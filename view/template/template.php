@@ -259,6 +259,9 @@
                     <li>
                         <a href="index.php?p=changelog">Changelog</a>
                     </li>
+                    <li>
+                        <a href="index.php?p=contact">Contact</a>
+                    </li>
                 </ul>
             </div>
         </div>

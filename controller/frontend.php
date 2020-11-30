@@ -497,3 +497,12 @@ function statistiques()
     $_POST['stats']['month'] = lastMonthHistory();
     require './view/frontend/statistiques.php';
 }
+
+/**
+ * Développeur
+ */
+
+function contact()
+{
+    require './view/frontend/contact.php';
+}

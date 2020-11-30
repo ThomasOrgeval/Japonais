@@ -127,6 +127,8 @@ try {
             statistiques();
         } elseif ($p === 'kanji') {
             kanji();
+        } elseif ($p === 'contact') {
+            contact();
         }
     } else {
         accueil();

@@ -70,6 +70,8 @@ ob_start(); ?>
         <?php endif; ?>
         </div>
     </div>
+    <hr class="small-screen black">
+
     <div class="row">
         <canvas id="sakura"></canvas>
     </div>

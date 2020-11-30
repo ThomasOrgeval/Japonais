@@ -44,6 +44,10 @@ ob_start(); ?>
                         class="font-weight-bold">mots japonais dans les énigmes</span>, sur l'écran d'accueil pour
                 pouvoir vous tester davantage !🧠
             </li>
+            <li>
+                <span class="font-weight-bold">Ajout d'une page de contact</span> afin d'obtenir plus d'informations ou
+                donner votre avis 😉 ça sera avec plaisir !
+            </li>
         </ul>
         <hr class="black">
 

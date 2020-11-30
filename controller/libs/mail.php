@@ -16,7 +16,7 @@ function sendResetPassword($pseudo, $code)
                   <td>
                      <div align="center">Bonjour <b>' . $pseudo . '</b>,</div>
                      Voici votre code de récupération: <b>' . $code . '</b>
-                     A bientôt sur <a href="#">lexiquejaponais.fr</a> !
+                     A bientôt sur <a href="https://lexiquejaponais.fr">lexiquejaponais.fr</a> !
                      
                   </td>
                 </tr>
