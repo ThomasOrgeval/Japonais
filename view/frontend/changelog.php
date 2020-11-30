@@ -29,6 +29,10 @@ ob_start(); ?>
                     <li>- Affichage d'un scoreboard des meilleurs utilisateurs sur une durée déterminée</li>
                 </ul>
             </li>
+            <li>
+                <span class="font-weight-bold">Ajout d'une statistique sur le profil</span> pour voir la progression de
+                chacun 😋
+            </li>
             <li><span class="font-weight-bold">Nombre de vies à 5</span> désormais en tant que limite maximale et pour
                 tous les nouveaux comptes !❤️
             </li>
@@ -44,7 +48,7 @@ ob_start(); ?>
         <hr class="black">
 
         <h5 class="text-uppercase font-weight-bold orange-text">Correction de bugs & Mises à jour</h5>
-        <ul class="list-unstyled" style="margin-left: 10px">
+        <ul class="list-unstyled changelog-list">
             <li>
                 <span class="font-weight-bold">Changement de lien relatif aux kanjis dans la partie administrative</span>
                 afin que ça soit plus simple d'utilisation pour tout le monde !
@@ -61,6 +65,9 @@ ob_start(); ?>
             <li>
                 <span class="font-weight-bold">Changements importants pour la base de données</span> et notamment la
                 gestion des sakuras qui désormais permettront d'avoir un historique
+            </li>
+            <li>
+                <span class="font-weight-bold">Refonte des profils</span> pour une meilleure interface
             </li>
         </ul>
     </div>

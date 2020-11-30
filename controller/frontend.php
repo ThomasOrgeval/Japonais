@@ -49,12 +49,14 @@ function account()
             } else {
                 $_POST['sakura'] = getSakura($_POST['user']['id']);
                 $_POST['listes'] = searchListeUser($_POST['user']['id']);
+                $_POST['chart'] = getSakuraLastMonth($_POST['user']['id']);
             }
         } else {
             $_POST['icones_own'] = listAchatIconByAccount($_SESSION['id']);
             $_POST['icones'] = listIcons();
             $_POST['listes'] = searchListe($_SESSION['id']);
             $_POST['sakura'] = getSakura($_SESSION['id']);
+            $_POST['chart'] = getSakuraLastMonth($_SESSION['id']);
             foreach ($_POST['icones'] as $icone) {
                 foreach ($_POST['icones_own'] as $icone_own) {
                     if ($icone['libelle'] === $icone_own['libelle']) {

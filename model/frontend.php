@@ -154,6 +154,15 @@ function buySakura($id_user, $sakura)
     $db->exec("update lexiqumjaponais.SAKURA set sakura=$sakura where id_user=$id_user");
 }
 
+function getSakuraLastMonth($id_user)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    return $db->query("select sakura, date from lexiqumjaponais.HISTORIQUE_SAKURA
+        where date <= curdate() and date > date_sub(curdate(), interval 1 month)
+    and id_user = $id_user")->fetchAll();
+}
+
 /**
  * Recuperation
  */

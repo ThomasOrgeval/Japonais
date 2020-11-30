@@ -8,8 +8,8 @@ ob_start(); ?>
     <div id="search" class="search" style="width: 100%"></div>
     <br/><br/>
 
-    <div class="flexible wide-screen">
-        <div class="col-sm-4">
+    <div class="row">
+        <div class="col-md-4">
             <?php if (isset($_POST['user'])) : ?>
                 <img class="icon-account" src="./resources/icons/<?= $icone ?>.png" alt="icone">
             <?php else: ?>
@@ -22,8 +22,9 @@ ob_start(); ?>
                     </div>
                 </a>
             <?php endif; ?>
+            <hr class="small-screen black">
         </div>
-        <div class="col-sm-8">
+        <div class="col-md-8">
             <?php if (!isset($_POST['user'])) : ?>
             <form action="index.php?p=save_account" method="post">
                 <?php endif; ?>
@@ -39,71 +40,24 @@ ob_start(); ?>
                                readonly>
                     <?php endif; ?>
                 </div>
-                <?php if (isset($_POST['user'])) : ?>
-                    <div class="form-group">
-                        <label for="last_login">Dernière connexion</label>
-                        <input type="text" class="form-control" id="last_login" name="last_login"
-                               value="<?= $_POST['user']['last_login'] ?>" readonly><br/>
-                        <div class="row">
-                            <label for="points">Nombre de Sakura</label>
-                            <input type="text" class="form-control" id="points" name="points"
-                                   value="<?= $_POST['sakura']['sakura'] ?>" readonly>
-                            <label for="points">Nombre de Sakura au total</label>
-                            <input type="text" class="form-control" id="points" name="points"
-                                   value="<?= $_POST['sakura']['sakura_total'] ?>" readonly>
-                        </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="points">Nombre de Sakuras</label>
+                        <input type="text" class="form-control" id="points"
+                               value="<?= $_POST['sakura']['sakura'] ?>" readonly>
                     </div>
-                <?php else : ?>
-                <div class="form-group">
-                    <label for="nombrewords">Nombre de mots affichés sur l'accueil</label>
-                    <input type="number" class="form-control" id="nombrewords" name="nombrewords"
-                           value="<?= $_SESSION['nombreWords'] ?>">
-                </div>
-
-                <button type="submit" class="btn btn-purple" name="save">Enregistrer</button>
-            </form>
-        <?php endif; ?>
-        </div>
-    </div><br/><br/>
-
-    <div class="small-screen">
-        <div class="col-sm-4">
-            <?php if (isset($_POST['user'])) : ?>
-                <img class="icon-account" src="./resources/icons/<?= $icone ?>.png" alt="icone">
-            <?php else: ?>
-                <a data-toggle="modal" data-target="#modalIcon">
-                    <img class="icon-account" src="./resources/icons/<?= $icone ?>.png" alt="icone">
-                </a>
-            <?php endif; ?>
-        </div>
-        <div class="col-sm-8">
-            <?php if (!isset($_POST['user'])) : ?>
-            <form action="index.php?p=save_account" method="post">
-                <?php endif; ?>
-                <div class="form-group">
-                    <label for="pseudo">Pseudo</label>
-                    <?php if (isset($_POST['user']) && !empty($_POST['user'])) : ?>
-                        <input type="text" class="form-control" id="pseudo" name="pseudo"
-                               value="<?= $_POST['user']['pseudo'] ?>"
-                               readonly>
-                    <?php else : ?>
-                        <input type="text" class="form-control" id="pseudo" name="pseudo"
-                               value="<?= $_SESSION['pseudo'] ?>"
-                               readonly>
-                    <?php endif; ?>
-                </div>
-                <?php if (isset($_POST['user'])) : ?>
-                    <div class="form-group">
-                        <label for="last_login">Dernière connexion</label>
-                        <input type="text" class="form-control" id="last_login" name="last_login"
-                               value="<?= $_POST['user']['last_login'] ?>" readonly><br/>
-                        <label for="points">Nombre de Sakura</label>
-                        <input type="text" class="form-control" id="points" name="points"
-                               value="<?= $_POST['sakura']['sakura'] ?>" readonly><br/>
-                        <label for="points">Nombre de Sakura au total</label>
-                        <input type="text" class="form-control" id="points" name="points"
+                    <div class="form-group col-md-6">
+                        <label for="pointstotal">Nombre de Sakuras au total</label>
+                        <input type="text" class="form-control" id="pointstotal"
                                value="<?= $_POST['sakura']['sakura_total'] ?>" readonly>
                     </div>
+                </div>
+                <?php if (isset($_POST['user'])) : ?>
+                    <div class="form-group">
+                        <label for="last_login">Dernière connexion</label>
+                        <input type="text" class="form-control" id="last_login" name="last_login"
+                               value="<?= $_POST['user']['last_login'] ?>" readonly><br/>
+                    </div>
                 <?php else : ?>
                 <div class="form-group">
                     <label for="nombrewords">Nombre de mots affichés sur l'accueil</label>
@@ -115,7 +69,10 @@ ob_start(); ?>
             </form>
         <?php endif; ?>
         </div>
-    </div><br/><br/>
+    </div>
+    <div class="row">
+        <canvas id="sakura"></canvas>
+    </div>
 
 <?php if (isset($_POST['listes']) && !empty($_POST['listes'])) : ?>
     <h4>Toutes les listes de l'utilisateur : </h4>
@@ -189,6 +146,34 @@ ob_start(); ?>
         </div>
     </div>
 <?php endif; ?>
+
+    <script>
+        new Chart(document.getElementById("sakura"), {
+            type: 'line',
+            data: {
+                labels: [<?php foreach ($_POST['chart'] as $value): ?>
+                    "<?= $value['date'] ?>",
+                    <?php endforeach; ?>],
+                datasets: [{
+                    label: [<?php if (isset($_POST['user'])) : ?>
+                        "Courbe de <?= $_POST['user']['pseudo'] ?>"
+                        <?php else : ?>
+                        "Ma courbe des sakuras"
+                        <?php endif; ?>],
+                    data: [<?php foreach ($_POST['chart'] as $value): ?>
+                        <?= $value['sakura'] ?>,
+                        <?php endforeach; ?> ],
+                    fill: false,
+                    backgroundColor: ["rgba(255,34,79,0.2)"],
+                    borderColor: ["rgb(255,0,54)"],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    </script>
 
 <?php $content = ob_get_clean();
 require('./view/template/template.php'); ?>
