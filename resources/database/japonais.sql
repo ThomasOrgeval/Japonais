@@ -219,7 +219,13 @@ create trigger after_update_sakura
     on SAKURA
     for each row
 begin
-
+    declare id_user_sakura int;
+    declare nb_sakura int;
+    declare last_date date;
+    set id_user_sakura = old.id_user;
+    set nb_sakura = new.sakura_total - old.sakura_total;
+    set last_date = (select `date` from HISTORIQUE_SAKURA where id_user = id_user_sakura order by `date` desc);
+    call insert_sakura_history(id_user_sakura, nb_sakura, last_date);
 end |
 
 create trigger after_insert_user
@@ -228,6 +234,15 @@ create trigger after_insert_user
     for each row
 begin
     insert into SAKURA(id_user, sakura, sakura_total) value (new.id, 0, 0);
+end |
+
+create procedure insert_sakura_history(in id_user_sakura int, in nb_sakura int, in last_date date)
+begin
+    if (last_date = curdate()) then
+        update HISTORIQUE_SAKURA set sakura = sakura + nb_sakura where date = curdate() and id_user = id_user_sakura;
+    else
+        insert into HISTORIQUE_SAKURA(sakura, date, id_user) value (nb_sakura, curdate(), id_user_sakura);
+    end if;
 end |
 
 delimiter ;

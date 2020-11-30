@@ -143,7 +143,6 @@ function setSakura($id_user, $sakura)
 {
     $db = dbConnect();
     $id_user = $db->quote($id_user);
-    $sakura = $db->quote($sakura);
     $db->exec("update lexiqumjaponais.SAKURA set sakura = sakura + $sakura, sakura_total = sakura_total + $sakura where id_user=$id_user");
 }
 

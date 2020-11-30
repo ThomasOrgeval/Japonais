@@ -29,11 +29,11 @@ ob_start(); ?>
 
     <div class="row">
         <div class="col-sm-6">
-            <h6 class="text-center">Classement des 5 meilleurs joueurs</h6>
+            <h6 class="text-center">Classement des 5 meilleurs joueurs actuels</h6>
             <canvas id="leaderboard"></canvas>
         </div>
         <div class="col-sm-6">
-            <h6 class="text-center">Classement des 5 meilleurs joueurs sur toute la durée</h6>
+            <h6 class="text-center">Classement des 5 meilleurs joueurs depuis le début</h6>
             <canvas id="leaderboard2"></canvas>
         </div>
     </div><br/>
