@@ -260,7 +260,6 @@ function submitRegister($pseudo, $password, $mail)
         } else {
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
             createUser($pseudo, $password_hash, $mail, selectOneRandomWord()['francais']);
-            createSakuraUser(loginUser($mail, $password)['id']);
             submitLogin($mail, $password);
         }
     }

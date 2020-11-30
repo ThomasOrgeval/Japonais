@@ -131,12 +131,6 @@ function setTheme($id_user, $slug)
  * Sakura
  */
 
-function createSakuraUser($id_user)
-{
-    $db = dbConnect();
-    $db->query("insert into lexiqumjaponais.SAKURA(id_user, sakura, sakura_total) values ($id_user, 0, 0)");
-}
-
 function getSakura($id_user)
 {
     $db = dbConnect();

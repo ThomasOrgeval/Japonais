@@ -213,6 +213,7 @@ create table `HISTORIQUE_SAKURA`
 ) engine = InnoDB;
 
 delimiter |
+
 create trigger after_update_sakura
     after update
     on SAKURA
@@ -220,4 +221,13 @@ create trigger after_update_sakura
 begin
 
 end |
+
+create trigger after_insert_user
+    after insert
+    on USER
+    for each row
+begin
+    insert into SAKURA(id_user, sakura, sakura_total) value (new.id, 0, 0);
+end |
+
 delimiter ;
