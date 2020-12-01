@@ -60,8 +60,9 @@ create table `ACHAT`
 
 create table `TYPE`
 (
-    `id`   int auto_increment not null,
-    `type` varchar(255)       not null,
+    `id`      int auto_increment not null,
+    `type`    varchar(255)       not null,
+    `type_jp` varchar(255),
     primary key (`id`)
 ) engine = InnoDB;
 

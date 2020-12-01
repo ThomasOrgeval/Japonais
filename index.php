@@ -52,7 +52,7 @@ try {
         } elseif ($p === 'type_edit') {
             type_edit();
         } elseif ($p === 'type_add') {
-            addType($_GET['id'], $_POST['type']);
+            addType();
         } elseif ($p === 'type_delete') {
             deleteType($_GET['id']);
         } elseif ($p === 'japonais') {

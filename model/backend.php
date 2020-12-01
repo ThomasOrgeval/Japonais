@@ -467,7 +467,7 @@ function deleteAllGroupeForGroupe($id_groupe)
 function listType()
 {
     $db = dbConnect();
-    $select = $db->query('select id, type from lexiqumjaponais.TYPE order by type asc');
+    $select = $db->query('select id, type, type_jp from lexiqumjaponais.TYPE order by type');
     return $select->fetchAll();
 }
 
@@ -475,22 +475,24 @@ function testType($id)
 {
     $db = dbConnect();
     $id = $db->quote($id);
-    return $db->query("select * from lexiqumjaponais.TYPE where id=$id");
+    return $db->query("select id, type, type_jp from lexiqumjaponais.TYPE where id=$id");
 }
 
-function createType($type)
+function createType($type, $type_jp)
 {
     $db = dbConnect();
     $type = $db->quote($type);
-    return $db->query("insert into lexiqumjaponais.TYPE set type=$type");
+    $type_jp = $db->quote($type_jp);
+    return $db->query("insert into lexiqumjaponais.TYPE set type=$type, type_jp=$type_jp");
 }
 
-function editType($id, $type)
+function editType($id, $type, $type_jp)
 {
     $db = dbConnect();
     $type = $db->quote($type);
+    $type_jp = $db->quote($type_jp);
     $id = $db->quote($id);
-    return $db->query("update lexiqumjaponais.TYPE set type=$type where id=$id");
+    return $db->query("update lexiqumjaponais.TYPE set type=$type, type_jp=$type_jp where id=$id");
 }
 
 function supprType($id)

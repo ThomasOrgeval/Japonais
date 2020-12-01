@@ -7,7 +7,7 @@ ob_start(); ?>
            placeholder="Recherche" autocomplete="off">
     <div id="search" class="search" style="width: 100%"></div><br/><br/>
 
-    <div class="card" style="margin: 0 auto;width: 24rem;">
+    <div class="card" style="margin: 0 auto;">
         <div class="card-header">
             <h4 class="card-title text-center" style="margin-top: 20px"><?= $_POST['kanji'] ?></h4>
         </div>

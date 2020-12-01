@@ -9,14 +9,16 @@ ob_start(); ?>
         <tr>
             <th class="hidden">ID</th>
             <th>Type</th>
+            <th>En japonais</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($types as $type): ?>
+        <?php foreach ($_POST['type'] as $type): ?>
             <tr>
                 <td class="hidden"><?= $type['id']; ?></td>
                 <td><?= $type['type']; ?></td>
+                <td><?= $type['type_jp']; ?></td>
                 <td>
                     <a href="index.php?p=type_edit&id=<?= $type['id']; ?>" class="btn btn-outline-dark btn-small">Edit</a>
                     <a href="index.php?p=type_delete&id=<?= $type['id']; ?>"

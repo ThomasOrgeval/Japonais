@@ -38,7 +38,7 @@ ob_start(); ?>
             <?php if (isset($_SESSION['riddle']) && $_SESSION['life'] > 0) : ?>
                 <form id="riddle-form">
                     <div id="riddle-div" class="flexible">
-                        <p id="riddle-value" class="card-text"><?= $_SESSION['riddle'] ?></p>
+                        <p id="riddle-value" class="card-text" style="font-size: 100%"><?= $_SESSION['riddle'] ?></p>
                         <p class="life">
                             <img id="heart" class="svg" src="./resources/svgs/heart.svg" alt="heart"> :
                             <span id="life"><?= $_SESSION['life'] ?></span>

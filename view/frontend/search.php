@@ -5,7 +5,7 @@ ob_start(); ?>
            placeholder="Recherche" autocomplete="off">
     <div id="search" class="search" style="width: 100%"></div<br/><br/>
 
-    <div class="card" style="margin: 0 auto;width: 24rem;">
+    <div class="card" style="margin: 0 auto;">
         <div class="card-header">
             <div class="flexible">
                 <h4 class="card-title text-center" style="margin-top: 20px"><?= $_POST['word']['francais'] ?></h4>
@@ -37,7 +37,7 @@ ob_start(); ?>
                 <?php endforeach;
             else : ?>
                 <span>
-                    <span style="font-weight: bold;"><?= $_POST['word']['francais']; ?></span>
+                    <span class="font-weight-bold"><?= $_POST['word']['francais']; ?></span>
                      n'appartient à aucun groupe
                 </span>
             <?php endif; ?>

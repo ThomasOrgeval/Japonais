@@ -6,7 +6,7 @@ function admin_portail()
 {
     if (connect_admin()) {
         require './view/backend/index.php';
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function groupe()
@@ -14,7 +14,7 @@ function groupe()
     if (connect_admin()) {
         $groupes = listGroupe();
         require './view/backend/groupe.php';
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function groupe_edit()
@@ -29,7 +29,7 @@ function groupe_edit()
             $_POST = $groupe->fetch();
         }
         require 'view/backend/groupe_edit.php';
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function word()
@@ -37,7 +37,7 @@ function word()
     if (connect_admin()) {
         $_POST['words'] = listWords();
         require './view/backend/word.php';
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function word_edit()
@@ -61,7 +61,7 @@ function word_edit()
             $_POST = $word->fetch();
         }
         require './view/backend/word_edit.php';
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function francais_add()
@@ -83,15 +83,15 @@ function francais_add()
             }
         }
         addFrancais($_GET['id'], $_POST['francais'], $_POST['id_type'], $japonais, $anglais);
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function type()
 {
     if (connect_admin()) {
-        $types = listType();
+        $_POST['type'] = listType();
         require './view/backend/type.php';
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function type_edit()
@@ -106,7 +106,7 @@ function type_edit()
             $_POST = $type->fetch();
         }
         require './view/backend/type_edit.php';
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function japonais()
@@ -114,7 +114,7 @@ function japonais()
     if (connect_admin()) {
         $_POST['japonais'] = listJaponais();
         require './view/backend/japonais.php';
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function japonais_edit()
@@ -136,7 +136,7 @@ function japonais_edit()
             $_POST['kanjis'] = listKanjiToJaponais($_GET['id']);
         }
         require './view/backend/japonais_edit.php';
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function japonais_add()
@@ -159,7 +159,7 @@ function japonais_add()
         }
 
         addJaponais($_GET['id'], $_POST['kanji'], $_POST['kana'], $_POST['romaji'], $francais, $anglais);
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function anglais()
@@ -167,7 +167,7 @@ function anglais()
     if (connect_admin()) {
         $_POST['anglais'] = listAnglais();
         require './view/backend/anglais.php';
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function anglais_edit()
@@ -188,7 +188,7 @@ function anglais_edit()
             $_POST = $anglais->fetch();
         }
         require './view/backend/anglais_edit.php';
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function anglais_add()
@@ -210,7 +210,7 @@ function anglais_add()
             }
         }
         addAnglais($_GET['id'], $_POST['anglais'], $_POST['id_type'], $francais, $japonais);
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function kanjis()
@@ -218,7 +218,7 @@ function kanjis()
     if (connect_admin()) {
         $_POST['kanji'] = listKanji();
         require './view/backend/kanjis.php';
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function kanji_edit()
@@ -235,7 +235,7 @@ function kanji_edit()
             $_POST['japonais'] = listJaponaisToKanji($_GET['id']);
         }
         require './view/backend/kanji_edit.php';
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function recompense()
@@ -243,7 +243,7 @@ function recompense()
     if (connect_admin()) {
         $_POST['recompense'] = listRecompense();
         require './view/backend/recompense.php';
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function recompense_edit()
@@ -265,7 +265,7 @@ function recompense_edit()
             $_POST['acheteurs'] = listAchateurFromRecompense($_GET['id']);
         }
         require './view/backend/recompense_edit.php';
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function connect_admin()
@@ -307,7 +307,7 @@ function addGroupe($libelle, $id)
 
         setFlash('Le groupe a bien été ajouté');
         header('Location:index.php?p=groupe');
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function deleteGroupe($id)
@@ -322,7 +322,7 @@ function deleteGroupe($id)
 
         setFlash('Le groupe a bien été supprimé');
         header('Location:index.php?p=groupe');
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 /**
@@ -339,7 +339,7 @@ function addFrancaisFromOther($id, $francais, $id_type)
         } else {
             createWord($francais, $id_type);
         }
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function addFrancais($id, $francais, $id_type, $listJaponais, $listAnglais)
@@ -386,7 +386,7 @@ function addFrancais($id, $francais, $id_type, $listJaponais, $listAnglais)
             setFlash('Le mot a bien été crée');
             header('Location:index.php?p=word');
         }
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function deleteFrancais($id)
@@ -402,7 +402,7 @@ function deleteFrancais($id)
 
         setFlash('Le mot a bien été supprimé');
         header('Location:index.php?p=word');
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function otherGroupeToWord()
@@ -419,7 +419,7 @@ function otherGroupeToWord()
             }
         }
         return $listOther;
-    }
+    } else return null;
 }
 
 function wordGroupe()
@@ -436,7 +436,7 @@ function wordGroupe()
         }
 
         header('Location:index.php?p=word_edit&id=' . $_GET['id']);
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function deleteFrancaisInJaponais($id_francais, $id_japonais)
@@ -475,15 +475,16 @@ function deleteFrancaisInAnglais($id_francais, $id_anglais)
  * Type
  */
 
-function addType($id, $type)
+function addType()
 {
     if (connect_admin()) {
-        $type = securize($type);
+        $type = securize($_POST['type']);
+        $type_jp = securize($_POST['type_jp']);
 
-        if ($id > 0) {
-            $addType = editType($id, $type);
+        if ($_GET['id'] > 0) {
+            $addType = editType($_GET['id'], $type, $type_jp);
         } else {
-            $addType = createType($type);
+            $addType = createType($type, $type_jp);
         }
 
         if ($addType === false) {
@@ -493,7 +494,7 @@ function addType($id, $type)
 
         setFlash('Le type a bien été crée');
         header('Location:index.php?p=type');
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function deleteType($id)
@@ -507,7 +508,7 @@ function deleteType($id)
 
         setFlash('Le type a bien été supprimé');
         header('Location:index.php?p=type');
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 /**
@@ -526,7 +527,7 @@ function addJaponaisFromOther($id, $kanji, $kana, $romaji)
         } else {
             createJaponais($kana, $kanji, $romaji);
         }
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function addJaponais($id, $kanji, $kana, $romaji, $listFrancais, $listAnglais)
@@ -576,7 +577,7 @@ function addJaponais($id, $kanji, $kana, $romaji, $listFrancais, $listAnglais)
 
         setFlash('Le mot a bien été crée');
         header('Location:index.php?p=japonais');
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function deleteJaponais($id)
@@ -592,7 +593,7 @@ function deleteJaponais($id)
 
         setFlash('Le mot japonais a bien été supprimé');
         header('Location:index.php?p=japonais');
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function deleteJaponaisInFrancais($id_japonais, $id_francais)
@@ -608,7 +609,7 @@ function deleteJaponaisInFrancais($id_japonais, $id_francais)
 
         setFlash('Le mot japonais a bien été supprimé');
         header('Location:index.php?p=word_edit&id=' . $id_francais);
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function deleteJaponaisInAnglais($id_japonais, $id_anglais)
@@ -624,7 +625,7 @@ function deleteJaponaisInAnglais($id_japonais, $id_anglais)
 
         setFlash('Le mot japonais a bien été supprimé');
         header('Location:index.php?p=anglais_edit&id=' . $id_anglais);
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 /**
@@ -643,7 +644,7 @@ function deleteAnglais($id)
 
         setFlash('Le mot anglais a bien été supprimé');
         header('Location:index.php?p=anglais');
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function deleteAnglaisInJaponais($id_anglais, $id_japonais)
@@ -658,7 +659,7 @@ function deleteAnglaisInJaponais($id_anglais, $id_japonais)
 
         setFlash('Le mot japonais a bien été supprimé');
         header('Location:index.php?p=japonais_edit&id=' . $id_japonais);
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function deleteAnglaisInFrancais($id_anglais, $id_francais)
@@ -673,7 +674,7 @@ function deleteAnglaisInFrancais($id_anglais, $id_francais)
 
         setFlash('Le mot japonais a bien été supprimé');
         header('Location:index.php?p=word_edit&id=' . $id_francais);
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function addAnglaisFromOther($id, $anglais, $id_type)
@@ -686,7 +687,7 @@ function addAnglaisFromOther($id, $anglais, $id_type)
         } else {
             createAnglais($anglais, $id_type);
         }
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function addAnglais($id, $anglais, $id_type, $listFrancais, $listJaponais)
@@ -734,7 +735,7 @@ function addAnglais($id, $anglais, $id_type, $listFrancais, $listJaponais)
 
         setFlash('Le mot a bien été crée');
         header('Location:index.php?p=anglais');
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 /**
@@ -751,7 +752,7 @@ function saveKanji()
         }
         setFlash('Le kanji a bien été sauvegardé');
         header('Location:index.php?p=kanji');
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function addJaponaisKanji($values, $id)
@@ -796,7 +797,7 @@ function addRecompense()
         } else {
             setFlash("Le slug n'est pas valide", 'danger');
         }
-    }
+    } else header('Location:index.php?p=accueil');
 }
 
 function deleteRecompense($id)
@@ -810,5 +811,5 @@ function deleteRecompense($id)
 
         setFlash('La récompense a bien été supprimée');
         header('Location:index.php?p=recompense');
-    }
+    } else header('Location:index.php?p=accueil');
 }

@@ -6,7 +6,7 @@ ob_start(); ?>
     <div id="v1.1" class="changelog-version">
         <div class="flexible">
             <h4 class="text-uppercase font-weight-bolder">Version 1.1
-                <span class="font-weight-lighter changelog-date">- 28 Novembre 2020<span>
+                <span class="font-weight-lighter changelog-date">- 1 Décembre 2020<span>
             </h4>
         </div>
         <hr class="black">
@@ -72,6 +72,9 @@ ob_start(); ?>
             </li>
             <li>
                 <span class="font-weight-bold">Refonte des profils</span> pour une meilleure interface
+            </li>
+            <li>
+                <span class="font-weight-bold">Ajout d'une traduction en japonais pour les types des mots</span>
             </li>
         </ul>
     </div>
