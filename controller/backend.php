@@ -78,7 +78,7 @@ function francais_add()
         }
         for ($i = 0; $i <= sizeof($_POST['id_anglais']); $i++) {
             if (!empty($_POST['anglais'][$i])) {
-                addAnglaisFromOther($_POST['id_anglais'][$i], $_POST['anglais'][$i], $_POST['id_type_anglais'][$i]);
+                addAnglaisFromOther($_POST['id_anglais'][$i], $_POST['anglais'][$i]);
                 $anglais[] = $_POST['anglais'][$i];
             }
         }
@@ -148,12 +148,12 @@ function japonais_add()
         for ($i = 0; $i <= sizeof($_POST['id_francais']); $i++) {
             if (!empty($_POST['francais'][$i])) {
                 addFrancaisFromOther($_POST['id_francais'][$i], $_POST['francais'][$i], $_POST['id_type'][$i]);
-                $francais[] = $_POST['francais'][$i];
+                $francais[] = [$_POST['francais'][$i], $_POST['id_type'][$i]];
             }
         }
         for ($i = 0; $i <= sizeof($_POST['id_anglais']); $i++) {
             if (!empty($_POST['anglais'][$i])) {
-                addAnglaisFromOther($_POST['id_anglais'][$i], $_POST['anglais'][$i], $_POST['id_type_anglais'][$i]);
+                addAnglaisFromOther($_POST['id_anglais'][$i], $_POST['anglais'][$i]);
                 $anglais[] = $_POST['anglais'][$i];
             }
         }
@@ -206,10 +206,10 @@ function anglais_add()
         for ($i = 0; $i <= sizeof($_POST['id_francais']); $i++) {
             if (!empty($_POST['francais'][$i])) {
                 addFrancaisFromOther($_POST['id_francais'][$i], $_POST['francais'][$i], $_POST['id_type_francais'][$i]);
-                $francais[] = $_POST['francais'][$i];
+                $francais[] = [$_POST['francais'][$i], $_POST['id_type'][$i]];
             }
         }
-        addAnglais($_GET['id'], $_POST['anglais'], $_POST['id_type'], $francais, $japonais);
+        addAnglais($_GET['id'], $_POST['anglais'], $francais, $japonais);
     } else header('Location:index.php?p=accueil');
 }
 
@@ -337,7 +337,7 @@ function addFrancaisFromOther($id, $francais, $id_type)
         if ($id > 0) {
             editWord($francais, $id, $id_type);
         } else {
-            createWord($francais, $id_type);
+            if (empty(researchWord($francais, $id_type))) createWord($francais, $id_type);
         }
     } else header('Location:index.php?p=accueil');
 }
@@ -547,7 +547,7 @@ function addJaponais($id, $kanji, $kana, $romaji, $listFrancais, $listAnglais)
         addJaponaisKanji($kanji, $id);
 
         foreach ($listFrancais as $francais) {
-            $id_francais = researchWord($francais);
+            $id_francais = researchWord($francais[0], $francais[1]);
             if (empty(selectJaponaisAndFrancais($id_francais['id'], $id))) {
                 createJaponaisAndFrancais($id_francais['id'], $id);
             }
@@ -677,34 +677,34 @@ function deleteAnglaisInFrancais($id_anglais, $id_francais)
     } else header('Location:index.php?p=accueil');
 }
 
-function addAnglaisFromOther($id, $anglais, $id_type)
+function addAnglaisFromOther($id, $anglais)
 {
     if (connect_admin()) {
         $anglais = securize($anglais);
 
         if ($id > 0) {
-            editAnglais($anglais, $id, $id_type);
+            editAnglais($anglais, $id);
         } else {
-            createAnglais($anglais, $id_type);
+            if (empty(researchAnglais($anglais))) createAnglais($anglais);
         }
     } else header('Location:index.php?p=accueil');
 }
 
-function addAnglais($id, $anglais, $id_type, $listFrancais, $listJaponais)
+function addAnglais($id, $anglais, $listFrancais, $listJaponais)
 {
     if (connect_admin()) {
         $anglais = securize($anglais);
 
         if ($id > 0) {
-            $addWord = editAnglais($anglais, $id, $id_type);
+            $addWord = editAnglais($anglais, $id);
         } else {
-            $addWord = createAnglais($anglais, $id_type);
+            $addWord = createAnglais($anglais);
             $id = researchAnglais($anglais);
             $id = $id['id'];
         }
 
         foreach ($listFrancais as $francais) {
-            $id_francais = researchWord($francais);
+            $id_francais = researchWord($francais[0], $francais[1]);
             if (empty(selectAnglaisAndFrancais($id_francais['id'], $id))) {
                 createAnglaisAndFrancais($id_francais['id'], $id);
             }

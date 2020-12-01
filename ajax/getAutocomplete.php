@@ -12,7 +12,7 @@ if (!empty($_POST['keyword'])) :
         <ul class="list-group list-group-flush" id="research">
             <?php foreach ($mots as $mot) : ?>
             <a href="index.php?p=search&mot=<?= $mot['francais'] ?>">
-                <li class="list-group-item border li-theme" style="cursor: pointer;"><?= $mot['francais'] ?></li>
+                <li class="list-group-item border li-theme" style="cursor: pointer;"><?= $mot['francais'] ?> (<?= $mot['type'] ?>)</li>
             </a>
             <?php endforeach; ?>
         </ul>

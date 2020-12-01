@@ -139,8 +139,7 @@ ob_start(); ?>
         <hr>
         <div class="flexible wide-screen">
             <div class="form-group col-2">ID</div>
-            <div class="form-group col-6">Traduction anglaise</div>
-            <div class="form-group col-3">Type du mot</div>
+            <div class="form-group col-9">Traduction anglaise</div>
             <div class="form-group col-1">Action</div>
         </div>
 
@@ -155,14 +154,10 @@ ob_start(); ?>
                         <input type='text' class='form-control' id='id_anglais<?= $mot['id'] ?>' name='id_anglais[]'
                                value='<?= $mot['id']; ?>' readonly>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-9">
                         <label class="small-screen" for="anglais<?= $mot['id'] ?>">Anglais</label>
                         <input type='text' class='form-control' id='anglais<?= $mot['id'] ?>' name='anglais[]'
                                value='<?= $mot['anglais']; ?>'>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="small-screen" for="id_type_anglais<?= $mot['id'] ?>">Type</label>
-                        <?= selectFormListe($mot['id_type'], 'id_type_anglais' . $mot['id'], $type_list); ?>
                     </div>
                     <div class="form-group col-md-1">
                         <a class="btn btn-red btn-sm"
@@ -176,13 +171,9 @@ ob_start(); ?>
                     <label class="small-screen">ID</label>
                     <?= inputReadonly('id_anglais[]'); ?>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-9">
                     <label class="small-screen">Anglais</label>
                     <?= input('anglais[]'); ?>
-                </div>
-                <div class="form-group col-md-3">
-                    <label class="small-screen">Type</label>
-                    <?= select('id_type_anglais[]', $type_list); ?>
                 </div>
             </div>
         <?php endif; ?>
@@ -192,13 +183,9 @@ ob_start(); ?>
                 <label class="small-screen">ID</label>
                 <?= inputReadonly('id_anglais[]'); ?>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-9">
                 <label class="small-screen">Anglais</label>
                 <?= input('anglais[]'); ?>
-            </div>
-            <div class="form-group col-md-3">
-                <label class="small-screen">Type</label>
-                <?= select('id_type_anglais[]', $type_list); ?>
             </div>
         </div>
 

@@ -395,10 +395,11 @@ function listConfidentiality()
  * Recherche
  */
 
-function researchWord($search)
+function researchWord($search, $type)
 {
     $db = dbConnect();
-    $select = $db->query("select * from lexiqumjaponais.FRANCAIS where francais like '$search'");
+    $type = $db->quote($type);
+    $select = $db->query("select * from lexiqumjaponais.FRANCAIS where francais like '$search' and id_type=$type");
     return $select->fetch();
 }
 
@@ -518,7 +519,9 @@ function selectRecompense($id)
 function autocompleteMots($key)
 {
     $db = dbConnect();
-    $select = $db->query("select francais from lexiqumjaponais.FRANCAIS where francais like '$key%' order by francais limit 0,10");
+    $select = $db->query("select francais, type from lexiqumjaponais.FRANCAIS 
+        inner join lexiqumjaponais.TYPE t on FRANCAIS.id_type = t.id
+        where francais like '$key%' order by francais limit 0,10");
     return $select->fetchAll();
 }
 

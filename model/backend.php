@@ -161,25 +161,23 @@ function testAnglais($id)
 function listAnglais()
 {
     $db = dbConnect();
-    $select = $db->query("select * from lexiqumjaponais.ANGLAIS order by anglais asc");
+    $select = $db->query("select * from lexiqumjaponais.ANGLAIS order by anglais");
     return $select->fetchAll();
 }
 
-function editAnglais($anglais, $id, $id_type)
+function editAnglais($anglais, $id)
 {
     $db = dbConnect();
     $anglais = $db->quote($anglais);
     $id = $db->quote($id);
-    $id_type = $db->quote($id_type);
-    return $db->query("update lexiqumjaponais.ANGLAIS set anglais=$anglais, id_type=$id_type where id=$id");
+    return $db->query("update lexiqumjaponais.ANGLAIS set anglais=$anglais where id=$id");
 }
 
-function createAnglais($anglais, $id_type)
+function createAnglais($anglais)
 {
     $db = dbConnect();
     $anglais = $db->quote($anglais);
-    $id_type = $db->quote($id_type);
-    return $db->query("insert into lexiqumjaponais.ANGLAIS set anglais=$anglais, id_type=$id_type");
+    return $db->query("insert into lexiqumjaponais.ANGLAIS set anglais=$anglais");
 }
 
 function supprAnglais($id)
@@ -301,7 +299,7 @@ function listAnglaisToFrancais($id_francais)
 {
     $db = dbConnect();
     $id_francais = $db->quote($id_francais);
-    $select = $db->query("select ANGLAIS.id, ANGLAIS.anglais, ANGLAIS.id_type from lexiqumjaponais.ANGLAIS
+    $select = $db->query("select ANGLAIS.id, ANGLAIS.anglais from lexiqumjaponais.ANGLAIS
     inner join lexiqumjaponais.TRADUCTION as wj
         on wj.id_anglais = ANGLAIS.id
     inner join lexiqumjaponais.FRANCAIS
@@ -327,7 +325,7 @@ function listAnglaisToJaponais($id_japonais)
 {
     $db = dbConnect();
     $id_japonais = $db->quote($id_japonais);
-    $select = $db->query("select ANGLAIS.id, ANGLAIS.anglais, ANGLAIS.id_type from lexiqumjaponais.ANGLAIS
+    $select = $db->query("select ANGLAIS.id, ANGLAIS.anglais from lexiqumjaponais.ANGLAIS
     inner join lexiqumjaponais.TRADUCTION as wj
         on wj.id_anglais = ANGLAIS.id
     inner join lexiqumjaponais.JAPONAIS

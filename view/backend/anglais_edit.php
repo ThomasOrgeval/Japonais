@@ -16,10 +16,6 @@ ob_start(); ?>
             <label for="anglais">Mot en anglais</label>
             <?= input('anglais'); ?>
         </div>
-        <div class="form-group">
-            <label for="id_type">Catégorie</label>
-            <?= select('id_type', $type_list); ?>
-        </div>
 
         <h3 class="font-weight-bold">Traduction :</h3><br/>
         <h5 class="font-weight-bold">Français :</h5>
