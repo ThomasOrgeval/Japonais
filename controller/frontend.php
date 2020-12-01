@@ -411,8 +411,8 @@ function select_theme()
 
 function search()
 {
-    if (isset($_GET['mot'])) $_POST['word'] = researchWord($_GET['mot']);
-    else $_POST['word'] = researchWord($_POST['mot']);
+    if (isset($_GET['mot'])) $_POST['word'] = researchWord($_GET['mot'], $_GET['type']);
+    else $_POST['word'] = researchWord($_POST['mot'], $_GET['type']);
 
     if (!empty($_POST['word'])) {
         $_POST['japonais'] = listJaponaisToFrancais($_POST['word']['id']);
