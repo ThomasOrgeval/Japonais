@@ -639,7 +639,7 @@ function listFrancaisToJaponaisLimit1($id_japonais)
 {
     $db = dbConnect();
     $id_japonais = $db->quote($id_japonais);
-    $select = $db->query("select FRANCAIS.francais from lexiqumjaponais.FRANCAIS
+    $select = $db->query("select FRANCAIS.francais, FRANCAIS.id_type from lexiqumjaponais.FRANCAIS
     inner join lexiqumjaponais.TRADUCTION as wj
         on wj.id_word = FRANCAIS.id
     inner join lexiqumjaponais.JAPONAIS
