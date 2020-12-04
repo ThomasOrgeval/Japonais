@@ -1,8 +1,6 @@
 <?php $title = $_POST['kanji'];;
 ob_start(); ?>
 
-<?php var_dump($_POST) ?>
-
     <input type="text" style="width: 100%" id="autocomplete" class="autocomplete-bar" name="mot"
            placeholder="Recherche" autocomplete="off">
     <div id="search" class="search" style="width: 100%"></div><br/><br/>

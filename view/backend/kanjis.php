@@ -1,5 +1,6 @@
 <?php $title = 'Les kanjis';
 ob_start(); ?>
+
     <h1 class="h1-admin-left">Les kanjis</h1>
 
     <table id="db" class="table table-bordered table-size">
@@ -24,5 +25,6 @@ ob_start(); ?>
         <?php endforeach ?>
         </tbody>
     </table>
+
 <?php $content = ob_get_clean();
 require('./view/template/template.php'); ?>
