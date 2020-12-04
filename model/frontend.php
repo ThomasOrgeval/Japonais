@@ -212,7 +212,7 @@ function deleteRecup($id)
 function listRandomWords($nombre)
 {
     $db = dbConnect();
-    $select = $db->query("select FRANCAIS.id, FRANCAIS.francais, FRANCAIS.id_type, JAPONAIS.id, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji, TYPE.id, TYPE.type from lexiqumjaponais.JAPONAIS
+    $select = $db->query("select FRANCAIS.francais, FRANCAIS.id_type, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji, TYPE.type from lexiqumjaponais.JAPONAIS
     inner join lexiqumjaponais.TRADUCTION as wj
         on wj.id_japonais = JAPONAIS.id
     inner join lexiqumjaponais.FRANCAIS
@@ -399,14 +399,14 @@ function researchWord($search, $type)
 {
     $db = dbConnect();
     $type = $db->quote($type);
-    $select = $db->query("select * from lexiqumjaponais.FRANCAIS where francais like '$search' and id_type=$type");
+    $select = $db->query("select id, francais, id_type from lexiqumjaponais.FRANCAIS where francais like '$search' and id_type=$type");
     return $select->fetch();
 }
 
 function researchGroupeId($search)
 {
     $db = dbConnect();
-    $select = $db->query("select * from lexiqumjaponais.GROUPE where id=$search");
+    $select = $db->query("select id, libelle, id_parent from lexiqumjaponais.GROUPE where id=$search");
     return $select->fetch();
 }
 

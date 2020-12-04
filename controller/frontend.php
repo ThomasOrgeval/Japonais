@@ -5,6 +5,7 @@ mb_internal_encoding("UTF-8");
 require_once './controller/libs/form.php';
 require './controller/libs/session.php';
 require './controller/libs/mail.php';
+require './controller/libs/type.php';
 
 require './controller/backend.php';
 require './model/frontend.php';
@@ -417,6 +418,9 @@ function search()
     if (!empty($_POST['word'])) {
         $_POST['japonais'] = listJaponaisToFrancais($_POST['word']['id']);
         $_POST['groupes'] = listGroupeToWord($_POST['word']['id']);
+        foreach ($_POST['japonais'] as $japonais) {
+            $_POST['type'][] = add_selection_type($_POST['word']['id_type'], $japonais);
+        }
         $_POST['listes'] = listListes($_SESSION['id']);
         $_POST['other_listes'] = haveListes($_SESSION['id'], $_POST['word']['id']);
         foreach ($_POST['other_listes'] as $other_liste) {

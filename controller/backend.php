@@ -351,8 +351,7 @@ function addFrancais($id, $francais, $id_type, $listJaponais, $listAnglais)
             $addWord = editWord($francais, $id, $id_type);
         } else {
             $addWord = createWord($francais, $id_type);
-            $id = researchWord($francais);
-            $id = $id['id'];
+            $id = researchWord($francais, $id_type)['id'];
         }
 
         foreach ($listJaponais as $japonais) {

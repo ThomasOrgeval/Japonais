@@ -1,21 +1,31 @@
 <?php $title = $_POST['word']['francais'];
 ob_start(); ?>
 
-    <input type="text" style="width: 100%" id="autocomplete" class="autocomplete-bar" name="mot"
-           placeholder="Recherche" autocomplete="off">
+    <label for="autocomplete"></label>
+    <input type="text" style="width: 100%" id="autocomplete" class="autocomplete-bar" name="mot" placeholder="Recherche"
+           autocomplete="off">
     <div id="search" class="search" style="width: 100%"></div<br/><br/>
 
-    <div class="card" style="margin: 0 auto;">
+    <div class="form-group card mx-auto">
         <div class="card-header">
             <div class="flexible">
-                <h4 class="card-title text-center" style="margin-top: 20px"><?= $_POST['word']['francais'] ?></h4>
+                <h4 class="card-title text-center"
+                    style="margin-top: 20px"><?= $_POST['word']['francais'] ?></h4>
                 <a data-toggle="modal" data-target="#modalListe" style="margin-left: auto; margin-top: 20px">
                     <img id="plus-circle" class="svg" src="./resources/svgs/plus-circle.svg" alt="plus">
                 </a>
             </div>
         </div>
         <?php foreach ($_POST['japonais'] as $japonais) : ?>
-            <ul class="list-group list-group-flush" onclick="textToAudio('<?= $japonais['romaji'] ?>')">
+            <?php if (isset($_POST['type']) && $_POST['type'][0] != null) : ?>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-center">
+                        <?= key($_POST['type'][0]) ?>
+                    </li>
+                </ul>
+            <?php endif; ?>
+            <ul class="list-group list-group-flush" onclick="textToAudio('<?= $japonais['romaji'] ?>')"
+                style="cursor: pointer">
                 <li class="list-group-item flexible">
                     <span>Kanji : <?= $japonais['kanji'] ?></span>
                     <img src="./resources/svgs/speaker.svg" alt="speaker" class="svg speaker">
@@ -43,6 +53,67 @@ ob_start(); ?>
             <?php endif; ?>
         </div>
     </div>
+
+<?php if (isset($_POST['type']) && $_POST['type'][0] != null) :
+    foreach ($_POST['type'] as $list) :
+        foreach ($list as $value) : //if (testType($_POST['word']['id_type'])->fetch()['type'] == "Verbe") :
+            $i = 1;
+            foreach ($value as $key => $item) :
+                $j = 0;
+                if (($i + 2) % 3 == 0) : ?>
+                    <div class="row">
+                <?php endif; ?>
+                <div class="col-md-4">
+                    <div class="form-group card mx-auto" style="width: 100%">
+                        <div class="card-header">
+                            <span class="font-weight-bold"><?= $key ?></span>
+                        </div>
+                        <div class="accordion md-accordion" id="card<?= $i ?>" role="tablist"
+                             aria-multiselectable="true">
+                            <?php foreach ($item as $lecture => $verbe) :
+                                $j = $j + 1; ?>
+
+                                <!-- Accordion card -->
+                                <div class="card" style="width: 100%">
+                                    <!-- Card header -->
+                                    <div class="card-header" role="tab" id="heading<?= $lecture ?><?= $i ?>">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#card<?= $i ?>"
+                                           href="#collapse<?= $lecture ?><?= $i ?>" aria-expanded="false"
+                                           aria-controls="collapse<?= $lecture ?><?= $i ?>">
+                                            <div class="flexible">
+                                                <?= $lecture ?>
+                                                <i class="fas fa-angle-down rotate-icon"
+                                                   style="margin-left: auto"></i>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <!-- Card body -->
+                                    <div id="collapse<?= $lecture ?><?= $i ?>" class="collapse" role="tabpanel"
+                                         aria-labelledby="heading<?= $lecture ?><?= $i ?>"
+                                         data-parent="#card<?= $i ?>">
+                                        <div class="card-body">
+                                            <?php foreach ($verbe as $sens => $ecriture) : ?>
+                                                <p class="flexible" style="cursor: pointer"
+                                                   onclick="textToAudio('<?= $item['Romaji'][$sens] ?>')">
+                                                    <span><?= $sens ?> :</span>
+                                                    <span style="margin-left: auto"><?= $ecriture ?></span>
+                                                </p>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+                <?php if ($i % 3 == 0 || $item == array_slice($value, -1)) : ?>
+                </div>
+            <?php endif;
+                $i = $i + 1;
+            endforeach;
+        endforeach;
+    endforeach;
+endif; ?>
 
     <div class="modal fade" id="modalListe" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -88,6 +159,7 @@ ob_start(); ?>
         </div>
     </div>
     </div>
+    </div>
 
 <?php $content = ob_get_clean();
-require('./view/template/template.php'); ?>
+require('./view/template/template.php');
