@@ -3,7 +3,7 @@ ob_start(); ?>
 
     <input type="text" style="width: 100%" id="autocomplete" class="autocomplete-bar" name="mot"
            placeholder="Recherche" autocomplete="off">
-    <div id="search" class="search" style="width: 100%"></div<br/><br/>
+    <div id="search" class="search" style="width: 100%"></div><br/><br/>
 
     <div class="card" style="margin: 0 auto;">
         <div class="card-header">
@@ -34,21 +34,30 @@ ob_start(); ?>
                     </li>
                 </ul>
             <?php endif;
-        endforeach; ?>
-        <div class="card-body">
-            <?php if (!empty($_POST['groupes'])) :
-                foreach ($_POST['groupes'] as $groupe) : ?>
+            $kanji = listKanjiToJaponais($japonais['id']);
+            if (!empty($kanji)) : ?>
+                <div class="card-body">
+                    <?php foreach ($kanji as $aKanji) : ?>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item flexible">
+                                <a class="card-link black-text" href="index.php?p=kanji&id=<?= $aKanji['id'] ?>">
+                                    <?= $aKanji['kanji'] ?> - <?= $aKanji['sens'] ?>
+                                </a>
+                            </li>
+                        </ul>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif;
+        endforeach;
+        if (!empty($_POST['groupes'])) : ?>
+            <div class="card-body">
+                <?php foreach ($_POST['groupes'] as $groupe) : ?>
                     <a class="card-link" href="index.php?p=groupe_search&id=<?= $groupe['id'] ?>">
                         <?= $groupe['libelle'] ?>
                     </a>
-                <?php endforeach;
-            else : ?>
-                <span>
-                    <span class="font-weight-bold"><?= $_POST['word']['francais']; ?></span>
-                     n'appartient à aucun groupe
-                </span>
-            <?php endif; ?>
-        </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
     </div>
 
     <div class="modal fade" id="modalListe" tabindex="-1" role="dialog" aria-hidden="true">
@@ -93,7 +102,6 @@ ob_start(); ?>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
 <?php $content = ob_get_clean();

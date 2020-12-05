@@ -3,10 +3,39 @@ ob_start(); ?>
 
     <h2 class="text-uppercase font-weight-bold">Nouveautés :</h2><br/>
 
+    <div id="v1.2" class="changelog-version">
+        <div class="flexible">
+            <h4 class="text-uppercase font-weight-bolder">Version 1.2
+                <span class="font-weight-lighter changelog-date">- 5 Décembre 2020<span>
+            </h4>
+        </div>
+        <hr class="black">
+
+        <h5 class="text-uppercase font-weight-bold green-text">Nouvelles fonctionnalités</h5>
+        <ul class="list-unstyled changelog-list">
+            <li>
+                <span class="font-weight-bold">Ajout d'une description</span> aux mots japonais 📃
+            </li>
+            <li>
+                <span class="font-weight-bold">Ajout des kanjis utilisés par le mot japonais</span> sur les fiches des
+                mots 🉐
+            </li>
+        </ul>
+        <hr class="black">
+
+        <h5 class="text-uppercase font-weight-bold orange-text">Correction de bugs & Mises à jour</h5>
+        <ul class="list-unstyled changelog-list">
+            <li>
+                <span class="font-weight-bold">Correction de nombreux bugs</span> côté administratif notamment dans
+                l'ajout des mots
+            </li>
+        </ul>
+    </div><br/>
+
     <div id="v1.1" class="changelog-version">
         <div class="flexible">
             <h4 class="text-uppercase font-weight-bolder">Version 1.1
-                <span class="font-weight-lighter changelog-date">- 1 Décembre 2020<span>
+                <span class="font-weight-lighter changelog-date">- 3 Décembre 2020<span>
             </h4>
         </div>
         <hr class="black">
