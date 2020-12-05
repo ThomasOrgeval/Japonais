@@ -581,22 +581,6 @@ function addJaponais($id, $kanji, $kana, $romaji, $description, $listFrancais, $
     } else header('Location:index.php?p=accueil');
 }
 
-function deleteJaponais($id)
-{
-    if (connect_admin()) {
-        deleteAllKanjiForJaponais($id);
-        deleteAllForJaponais($id);
-        $deleteJaponais = supprJaponais($id);
-        if ($deleteJaponais === false) {
-            setFlash('Le mot japonais n\'a pas été supprimé', 'danger');
-            throw new Exception();
-        }
-
-        setFlash('Le mot japonais a bien été supprimé');
-        header('Location:index.php?p=japonais');
-    } else header('Location:index.php?p=accueil');
-}
-
 function deleteJaponaisInFrancais($id_japonais, $id_francais)
 {
     if (connect_admin()) {
