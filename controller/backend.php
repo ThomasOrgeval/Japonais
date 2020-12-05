@@ -205,7 +205,7 @@ function anglais_add()
         }
         for ($i = 0; $i <= sizeof($_POST['id_francais']); $i++) {
             if (!empty($_POST['francais'][$i])) {
-                addFrancaisFromOther($_POST['id_francais'][$i], $_POST['francais'][$i], $_POST['id_type_francais'][$i]);
+                addFrancaisFromOther($_POST['id_francais'][$i], $_POST['francais'][$i], $_POST['id_type'][$i]);
                 $francais[] = [$_POST['francais'][$i], $_POST['id_type'][$i]];
             }
         }
@@ -351,7 +351,7 @@ function addFrancais($id, $francais, $id_type, $listJaponais, $listAnglais)
             $addWord = editWord($francais, $id, $id_type);
         } else {
             $addWord = createWord($francais, $id_type);
-            $id = researchWord($francais);
+            $id = researchWord($francais, $id_type);
             $id = $id['id'];
         }
 

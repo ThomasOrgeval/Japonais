@@ -46,7 +46,7 @@ ob_start(); ?>
                     </div>
                     <div class="form-group col-md-3">
                         <label class="small-screen" for="id_francais<?= $mot['id'] ?>">ID</label>
-                        <?= selectFormListe($mot['id_type'], 'id_type' . $mot['id'], $type_list); ?>
+                        <?= selectFormListe($mot['id_type'], 'id_type[]' . $mot['id'], $type_list); ?>
                     </div>
                     <div class="form-group col-md-1">
                         <a class="btn btn-red btn-sm"
