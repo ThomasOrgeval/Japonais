@@ -751,7 +751,7 @@ function saveKanji()
             throw new Exception();
         }
         setFlash('Le kanji a bien été sauvegardé');
-        header('Location:index.php?p=kanji');
+        header('Location:index.php?p=kanjis');
     } else header('Location:index.php?p=accueil');
 }
 
