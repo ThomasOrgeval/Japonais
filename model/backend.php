@@ -92,18 +92,8 @@ function supprWord($id)
 function listJaponais()
 {
     $db = dbConnect();
-    $select = $db->query("select * from lexiqumjaponais.JAPONAIS");
+    $select = $db->query("select * from lexiqumjaponais.JAPONAIS order by romaji");
     return $select->fetchAll();
-}
-
-function testJaponais($kanji, $kana, $romaji)
-{
-    $db = dbConnect();
-    $kanji = $db->quote($kanji);
-    $kana = $db->quote($kana);
-    $romaji = $db->quote($romaji);
-    $select = $db->query("select * from lexiqumjaponais.JAPONAIS where kanji like $kanji and kana like $kana and romaji like $romaji");
-    return $select->fetch();
 }
 
 function testJaponaisID($id)
@@ -113,23 +103,25 @@ function testJaponaisID($id)
     return $db->query("select * from lexiqumjaponais.JAPONAIS where id=$id");
 }
 
-function editJaponais($kana, $kanji, $romaji, $id)
+function editJaponais($kana, $kanji, $romaji, $description, $id)
 {
     $db = dbConnect();
     $kana = $db->quote($kana);
     $kanji = $db->quote($kanji);
     $romaji = $db->quote($romaji);
+    $description = $db->quote($description);
     $id = $db->quote($id);
-    return $db->query("update lexiqumjaponais.JAPONAIS set kanji=$kanji, kana=$kana, romaji=$romaji where id=$id");
+    return $db->query("update lexiqumjaponais.JAPONAIS set kanji=$kanji, kana=$kana, romaji=$romaji, description=$description where id=$id");
 }
 
-function createJaponais($kana, $kanji, $romaji)
+function createJaponais($kana, $kanji, $romaji, $description)
 {
     $db = dbConnect();
     $kana = $db->quote($kana);
     $kanji = $db->quote($kanji);
     $romaji = $db->quote($romaji);
-    return $db->query("insert into lexiqumjaponais.JAPONAIS set kanji=$kanji, kana=$kana, romaji=$romaji");
+    $description = $db->quote($description);
+    return $db->query("insert into lexiqumjaponais.JAPONAIS set kanji=$kanji, kana=$kana, romaji=$romaji, description=$description");
 }
 
 function researchJaponais($search)
@@ -199,19 +191,6 @@ function researchAnglais($search)
  * Francais - Japonais - Anglais
  */
 
-function listAllJaponaisAndFrancais()
-{
-    $db = dbConnect();
-    $select = $db->query("select FRANCAIS.id, FRANCAIS.francais, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji from lexiqumjaponais.JAPONAIS
-    inner join lexiqumjaponais.TRADUCTION as wj
-        on wj.id_japonais = JAPONAIS.id
-    inner join lexiqumjaponais.FRANCAIS
-        on wj.id_word = FRANCAIS.id
-    inner join lexiqumjaponais.ANGLAIS
-        on wj.id_anglais = ANGLAIS.id");
-    return $select->fetchAll();
-}
-
 function selectJaponaisAndFrancais($id_francais, $id_japonais)
 {
     $db = dbConnect();
@@ -263,30 +242,11 @@ function createAnglaisAndJaponais($id_japonais, $id_anglais)
     return $db->query("insert into lexiqumjaponais.TRADUCTION set id_japonais=$id_japonais, id_anglais=$id_anglais");
 }
 
-function selectTraductionAll($id_francais, $id_japonais, $id_anglais)
-{
-    $db = dbConnect();
-    $id_francais = $db->quote($id_francais);
-    $id_japonais = $db->quote($id_japonais);
-    $id_anglais = $db->quote($id_anglais);
-    $select = $db->query("select * from lexiqumjaponais.TRADUCTION where id_word=$id_francais and id_japonais=$id_japonais and id_anglais=$id_anglais");
-    return $select->fetchAll();
-}
-
-function createTraductionAll($id_francais, $id_japonais, $id_anglais)
-{
-    $db = dbConnect();
-    $id_francais = $db->quote($id_francais);
-    $id_japonais = $db->quote($id_japonais);
-    $id_anglais = $db->quote($id_anglais);
-    return $db->query("insert into lexiqumjaponais.TRADUCTION set id_word=$id_francais, id_japonais=$id_japonais, id_anglais=$id_anglais");
-}
-
 function listJaponaisToFrancais($id_francais)
 {
     $db = dbConnect();
     $id_francais = $db->quote($id_francais);
-    $select = $db->query("select JAPONAIS.id, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji from lexiqumjaponais.JAPONAIS
+    $select = $db->query("select JAPONAIS.id, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji, JAPONAIS.description from lexiqumjaponais.JAPONAIS
     inner join lexiqumjaponais.TRADUCTION as wj
         on wj.id_japonais = JAPONAIS.id
     inner join lexiqumjaponais.FRANCAIS
@@ -351,7 +311,7 @@ function listJaponaisToAnglais($id_anglais)
 {
     $db = dbConnect();
     $id_anglais = $db->quote($id_anglais);
-    $select = $db->query("select JAPONAIS.id, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji from lexiqumjaponais.JAPONAIS
+    $select = $db->query("select JAPONAIS.id, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji, JAPONAIS.description from lexiqumjaponais.JAPONAIS
     inner join lexiqumjaponais.TRADUCTION as wj
         on wj.id_japonais = JAPONAIS.id
     inner join lexiqumjaponais.ANGLAIS
@@ -364,7 +324,7 @@ function listFrancaisAndJaponaisWhereGroupe($id)
 {
     $db = dbConnect();
     $id = $db->quote($id);
-    $select = $db->query("select FRANCAIS.id, FRANCAIS.francais, FRANCAIS.id_type, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji from lexiqumjaponais.GROUPE
+    $select = $db->query("select FRANCAIS.id, FRANCAIS.francais, FRANCAIS.id_type, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji, JAPONAIS.description  from lexiqumjaponais.GROUPE
     inner join lexiqumjaponais.WORDS_GROUPE as wg
         on wg.id_groupe = GROUPE.id
     inner join lexiqumjaponais.FRANCAIS
@@ -412,19 +372,6 @@ function listGroupeToWord($id)
     inner join lexiqumjaponais.GROUPE
         on wg.id_groupe = GROUPE.id
     where FRANCAIS.id=$id");
-    return $select->fetchAll();
-}
-
-function listWordToGroupe($id)
-{
-    $db = dbConnect();
-    $id = $db->quote($id);
-    $select = $db->query("select FRANCAIS.*, GROUPE.id from lexiqumjaponais.FRANCAIS
-    inner join lexiqumjaponais.WORDS_GROUPE as wg
-        on wg.id_word = FRANCAIS.id
-    inner join lexiqumjaponais.GROUPE
-        on wg.id_groupe = GROUPE.id
-    where GROUPE.id=$id");
     return $select->fetchAll();
 }
 
@@ -552,7 +499,7 @@ function listJaponaisToKanji($id_kanji)
 function listKanji()
 {
     $db = dbConnect();
-    $select = $db->query("select id, kanji, grade from lexiqumjaponais.KANJI order by grade asc");
+    $select = $db->query("select id, kanji, grade from lexiqumjaponais.KANJI");
     return $select->fetchAll();
 }
 

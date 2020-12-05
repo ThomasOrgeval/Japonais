@@ -27,7 +27,14 @@ ob_start(); ?>
                     <span>Romaji : <?= $japonais['romaji'] ?></span>
                 </li>
             </ul>
-        <?php endforeach; ?>
+            <?php if (!empty($japonais['description'])) : ?>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item flexible">
+                        <span><?= nl2br($japonais['description']) ?></span>
+                    </li>
+                </ul>
+            <?php endif;
+        endforeach; ?>
         <div class="card-body">
             <?php if (!empty($_POST['groupes'])) :
                 foreach ($_POST['groupes'] as $groupe) : ?>

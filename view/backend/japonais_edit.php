@@ -24,6 +24,10 @@ ob_start(); ?>
             <label for="romaji">Mot en romaji</label>
             <?= input('romaji'); ?>
         </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <?= textarea('description'); ?>
+        </div>
 
         <h3 class="font-weight-bold">Traduction :</h3><br/>
         <h5 class="font-weight-bold">Français :</h5>

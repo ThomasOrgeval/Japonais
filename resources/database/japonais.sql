@@ -84,10 +84,11 @@ create table `FRANCAIS`
 
 create table `JAPONAIS`
 (
-    `id`     int auto_increment not null,
-    `kanji`  varchar(255)       not null,
-    `kana`   varchar(255)       not null,
-    `romaji` varchar(255)       not null,
+    `id`          int auto_increment not null,
+    `kanji`       varchar(255)       not null,
+    `kana`        varchar(255)       not null,
+    `romaji`      varchar(255)       not null,
+    `description` longtext,
     primary key (`id`)
 ) engine = InnoDB,
   character set utf8;

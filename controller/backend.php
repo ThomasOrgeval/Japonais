@@ -158,7 +158,7 @@ function japonais_add()
             }
         }
 
-        addJaponais($_GET['id'], $_POST['kanji'], $_POST['kana'], $_POST['romaji'], $francais, $anglais);
+        addJaponais($_GET['id'], $_POST['kanji'], $_POST['kana'], $_POST['romaji'], $_POST['description'], $francais, $anglais);
     } else header('Location:index.php?p=accueil');
 }
 
@@ -515,34 +515,35 @@ function deleteType($id)
  * Japonais
  */
 
-function addJaponaisFromOther($id, $kanji, $kana, $romaji)
+function addJaponaisFromOther($id, $kanji, $kana, $romaji, $description)
 {
     if (connect_admin()) {
         $kanji = securize($kanji);
         $kana = securize($kana);
         $romaji = securize($romaji);
+        $description = securize($description);
 
         if ($id > 0) {
-            editJaponais($kana, $kanji, $romaji, $id);
+            editJaponais($kana, $kanji, $romaji, $description, $id);
         } else {
-            createJaponais($kana, $kanji, $romaji);
+            createJaponais($kana, $kanji, $romaji, $description);
         }
     } else header('Location:index.php?p=accueil');
 }
 
-function addJaponais($id, $kanji, $kana, $romaji, $listFrancais, $listAnglais)
+function addJaponais($id, $kanji, $kana, $romaji, $description, $listFrancais, $listAnglais)
 {
     if (connect_admin()) {
         $kanji = securize($kanji);
         $kana = securize($kana);
         $romaji = securize($romaji);
+        $description = securize($description);
 
         if ($id > 0) {
-            $addWord = editJaponais($kana, $kanji, $romaji, $id);
+            $addWord = editJaponais($kana, $kanji, $romaji, $description, $id);
         } else {
-            $addWord = createJaponais($kana, $kanji, $romaji);
-            $id = researchJaponais($romaji);
-            $id = $id['id'];
+            $addWord = createJaponais($kana, $kanji, $romaji, $description);
+            $id = researchJaponais($romaji)['id'];
         }
         addJaponaisKanji($kanji, $id);
 

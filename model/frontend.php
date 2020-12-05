@@ -235,18 +235,6 @@ function selectOneRandomWord()
     return $select->fetch();
 }
 
-function selectOneRandomWordJaponais()
-{
-    $db = dbConnect();
-    $select = $db->query("select FRANCAIS.id, FRANCAIS.francais, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji from lexiqumjaponais.FRANCAIS
-    inner join lexiqumjaponais.TRADUCTION trad on FRANCAIS.id = trad.id_word
-    inner join lexiqumjaponais.JAPONAIS on trad.id_japonais = JAPONAIS.id
-    order by rand()
-    limit 1");
-    return $select->fetch();
-}
-
-
 /**
  * Traduction
  */
@@ -255,7 +243,7 @@ function listJaponaisToFrancaisWord($francais)
 {
     $db = dbConnect();
     $francais = $db->quote($francais);
-    $select = $db->query("select JAPONAIS.id, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji from lexiqumjaponais.JAPONAIS
+    $select = $db->query("select JAPONAIS.id, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji, JAPONAIS.description from lexiqumjaponais.JAPONAIS
     inner join lexiqumjaponais.TRADUCTION as wj
         on wj.id_japonais = JAPONAIS.id
     inner join lexiqumjaponais.FRANCAIS
@@ -434,16 +422,6 @@ function listAchatThemeByAccount($id_user)
         inner join lexiqumjaponais.RECOMPENSE_TYPE RT on RECOMPENSE.id_type = RT.id
         where ACHAT.id_user=$id_user and RT.type like 'Theme'");
     return $select->fetchAll();
-}
-
-function achatThemeById($id_recompense)
-{
-    $db = dbConnect();
-    $id_recompense = $db->quote($id_recompense);
-    $select = $db->query("select RECOMPENSE.id, RECOMPENSE.libelle, RECOMPENSE.date_parution, RECOMPENSE.slug, RECOMPENSE.cout from lexiqumjaponais.RECOMPENSE
-        inner join lexiqumjaponais.RECOMPENSE_TYPE RT on RECOMPENSE.id_type = RT.id
-        where RECOMPENSE.id=$id_recompense and RT.type like 'Theme'");
-    return $select->fetch();
 }
 
 function listThemes()
