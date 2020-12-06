@@ -46,5 +46,9 @@ if ($bool) {
 } else {
     --$_SESSION['life'];
     setLife($_SESSION['id'], $_SESSION['life']);
-    echo "Failed";
+    if ($french) {
+        echo "Failed - " . $traducts[0]['romaji'];
+    } else {
+        echo "Failed - " . $traducts[0]['francais'];
+    }
 }

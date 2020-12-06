@@ -1,5 +1,6 @@
-function toast() {
+function toast(value) {
     const x = document.getElementById("snackbar");
+    $('#snackbar').text(value);
     x.className = "show";
     setTimeout(function () {
         x.className = x.className.replace("show", "");
@@ -56,8 +57,8 @@ $(document).ready(function () {
                         $('#points').html(points);
                         $('#riddle-value').html(session['riddle']);
 
-                        toast();
-                    } else if (data === 'Failed') {
+                        toast('+ 20');
+                    } else if (data.startsWith('Failed') === true) {
                         if (session['life'] === 0) {
                             $('#riddle-form').remove();
                             $('#riddle').append("<br/><br/><p class='card-text'>Vous n'avez plus de vie, revenez demain !</p>");
@@ -66,6 +67,8 @@ $(document).ready(function () {
                             $('#life').html(session['life']);
                             $('#riddle-value').html(session['riddle']);
                         }
+
+                        toast('Traduction : ' + data.split(' - ')[1]);
                     } else {
                         console.log(data);
                     }
