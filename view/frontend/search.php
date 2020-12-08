@@ -1,4 +1,4 @@
-<?php $title = $_POST['word']['francais'];
+<?php $title = $_POST['francais']['francais'];
 ob_start(); ?>
 
     <input type="text" style="width: 100%" id="autocomplete" class="autocomplete-bar" name="mot"
@@ -8,7 +8,7 @@ ob_start(); ?>
     <div class="card" style="margin: 0 auto;">
         <div class="card-header">
             <div class="flexible">
-                <h4 class="card-title text-center" style="margin-top: 20px"><?= $_POST['word']['francais'] ?></h4>
+                <h4 class="card-title text-center" style="margin-top: 20px"><?= $_POST['francais']['francais'] ?></h4>
                 <a data-toggle="modal" data-target="#modalListe" style="margin-left: auto; margin-top: 20px">
                     <img id="plus-circle" class="svg" src="./resources/svgs/plus-circle.svg" alt="plus">
                 </a>

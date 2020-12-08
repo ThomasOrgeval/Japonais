@@ -408,14 +408,12 @@ function select_theme()
 
 function search()
 {
-    if (isset($_GET['mot'])) $_POST['word'] = researchWord($_GET['mot'], $_GET['type']);
-    else $_POST['word'] = researchWord($_POST['mot'], $_GET['type']);
-
-    if (!empty($_POST['word'])) {
-        $_POST['japonais'] = listJaponaisToFrancais($_POST['word']['id']);
-        $_POST['groupes'] = listGroupeToWord($_POST['word']['id']);
+    if (isset($_GET['mot'])) {
+        $_POST['francais'] = researchWord($_GET['mot'], $_GET['type']);
+        $_POST['japonais'] = listJaponaisToFrancais($_POST['francais']['id'], $_POST['francais']['id_type']);
+        $_POST['groupes'] = listGroupeToWord($_POST['francais']['id']);
         $_POST['listes'] = listListes($_SESSION['id']);
-        $_POST['other_listes'] = haveListes($_SESSION['id'], $_POST['word']['id']);
+        $_POST['other_listes'] = haveListes($_SESSION['id'], $_POST['francais']['id']);
         foreach ($_POST['other_listes'] as $other_liste) {
             foreach ($_POST['listes'] as $liste) {
                 if ($liste['nom'] === $other_liste['nom']) {
