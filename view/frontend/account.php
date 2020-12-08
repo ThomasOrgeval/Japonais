@@ -59,17 +59,24 @@ ob_start(); ?>
                                value="<?= $_POST['user']['last_login'] ?>" readonly><br/>
                     </div>
                 <?php else : ?>
-                <div class="form-group">
-                    <label for="nombrewords">Nombre de mots affichés sur l'accueil</label>
-                    <input type="number" class="form-control" id="nombrewords" name="nombrewords"
-                           value="<?= $_SESSION['nombreWords'] ?>">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="nombrewords">Nombre de mots affichés sur l'accueil</label>
+                        <input type="number" class="form-control" id="nombrewords" name="nombrewords"
+                               value="<?= $_SESSION['nombreWords'] ?>">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="checkbox" class="form-check-input" style="margin-left: 5px" id="kanji" name="kanji"
+                               value="kanji" <?php if ($_SESSION['kanji'] == 1) echo 'checked'; ?>>
+                        <label class="form-check-label" style="margin-left: 20px" for="kanji">Kanji dans les énigmes ?</label>
+                    </div>
                 </div>
 
                 <button type="submit" class="btn btn-purple" name="save">Enregistrer</button>
             </form>
         <?php endif; ?>
         </div>
-    </div>
+    </div><br/>
     <hr class="small-screen black">
 
     <div class="row">
@@ -77,6 +84,8 @@ ob_start(); ?>
     </div>
 
 <?php if (isset($_POST['listes']) && !empty($_POST['listes'])) : ?>
+    <br/>
+    <hr class="small-screen black">
     <h4>Toutes les listes de l'utilisateur : </h4>
     <div class="card-deck">
         <?php foreach ($_POST['listes'] as $liste) : ?>

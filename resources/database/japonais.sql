@@ -2,6 +2,8 @@ drop database if exists lexiqumjaponais;
 create database lexiqumjaponais character set UTF8;
 use lexiqumjaponais;
 
+set global event_scheduler="ON";
+
 create table `USER`
 (
     `id`         int auto_increment not null,
@@ -15,6 +17,7 @@ create table `USER`
     `life`       int                not null,
     `last_login` date               not null,
     `theme`      varchar(255)       not null,
+    `kanji`      boolean            not null,
     primary key (`id`)
 ) engine = InnoDB;
 
@@ -216,7 +219,6 @@ create table `RIDDLE`
 (
     `id_user`       int          not null,
     `riddle`        varchar(255) not null,
-    `kanji`         boolean      not null,
     `last_response` boolean      not null,
     primary key (`id_user`),
     foreign key (`id_user`) references USER (`id`)
@@ -265,7 +267,7 @@ begin
     declare random varchar(255);
     set random = (select francais from FRANCAIS order by rand() limit 1);
     insert into SAKURA(id_user, sakura, sakura_total) value (new.id, 0, 0);
-    insert into RIDDLE(id_user, last_response, riddle, kanji) value (new.id, true, random, true);
+    insert into RIDDLE(id_user, last_response, riddle) value (new.id, true, random);
 end |
 
 create trigger before_delete_user
@@ -322,8 +324,7 @@ group by id_user
 order by sakura desc
 limit 5;
 
-create event delete_history_riddle
-    on schedule at current_timestamp + interval 1 day
+create event delete_history_riddle on schedule every 1 day starts '2020-12-01' on completion not preserve enable
     do
     delete
     from HISTORIQUE_RIDDLE

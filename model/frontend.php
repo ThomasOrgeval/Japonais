@@ -26,14 +26,14 @@ function createUser($pseudo, $pass, $mail)
     $pseudo = $db->quote($pseudo);
     $pass = $db->quote($pass);
     $mail = $db->quote($mail);
-    $db->query("insert into lexiqumjaponais.USER(pseudo, pass, mail, date, droits, nombre, icone, life, last_login, theme) 
-                        values ($pseudo, $pass, $mail, curdate(), 0, 10, 0, 5, curdate(), 0) ");
+    $db->query("insert into lexiqumjaponais.USER(pseudo, pass, mail, date, droits, nombre, icone, life, last_login, theme, kanji) 
+                        values ($pseudo, $pass, $mail, curdate(), 0, 10, 0, 5, curdate(), 0, 1) ");
 }
 
 function loginUser($mail, $pass)
 {
     $db = dbConnect();
-    $selectUser = $db->prepare('select id, pseudo, pass, mail, droits, nombre, icone, life, last_login, theme from lexiqumjaponais.USER where mail=?');
+    $selectUser = $db->prepare('select id, pseudo, pass, mail, droits, nombre, icone, life, last_login, theme, kanji from lexiqumjaponais.USER where mail=?');
     $selectUser->execute(array($mail));
     $selectUser = $selectUser->fetch();
     if (password_verify($pass, $selectUser['pass'])) {
@@ -74,12 +74,13 @@ function changePass($mail, $pass)
     $db->exec("update lexiqumjaponais.USER set pass=$pass where mail like $mail");
 }
 
-function saveAccount($id, $words)
+function saveAccount($id, $words, $kanji)
 {
     $db = dbConnect();
     $id = $db->quote($id);
     $words = $db->quote($words);
-    $db->exec("update lexiqumjaponais.USER set nombre=$words where id=$id");
+    $kanji = $db->quote($kanji);
+    $db->exec("update lexiqumjaponais.USER set nombre=$words, kanji=$kanji where id=$id");
 }
 
 function changeIcon($id_icon)

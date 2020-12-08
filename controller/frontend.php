@@ -88,12 +88,14 @@ function save_account()
 {
     if (connect()) {
         $words = securize($_POST['nombrewords']);
+        $kanji = isset($_POST['kanji']) ? 1 : 0;
         if (is_numeric($words)) {
             if ($words > 100) {
                 $words = 100;
             }
-            saveAccount($_SESSION['id'], $words);
+            saveAccount($_SESSION['id'], $words, $kanji);
             $_SESSION['nombreWords'] = $words;
+            $_SESSION['kanji'] = $kanji;
             setFlash('Modifications enregistrées !');
         } else {
             setFlash('Vous n\'avez pas rentré un nombre', 'danger');
@@ -212,6 +214,7 @@ function submitLogin($mail, $password)
             $_SESSION['connect'] = 'OK';
             $_SESSION['icone'] = $statements['icone'];
             $_SESSION['theme'] = $statements['theme'];
+            $_SESSION['kanji'] = $statements['kanji'];
             $_SESSION['riddle'] = getRiddle($_SESSION['id']);
 
             if ($statements['last_login'] < date("Y-m-d") || $statements['last_login'] == null) {
