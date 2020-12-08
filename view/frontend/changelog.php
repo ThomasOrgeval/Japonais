@@ -24,6 +24,19 @@ ob_start(); ?>
                 <span class="font-weight-bold">Ajout des historique de devinette</span> pour pouvoir avoir la trace de
                 vos échecs précédents 😉
             </li>
+            <li>
+                <span class="font-weight-bold">Valeur dans les devinettes !</span> Désormais, quand vous devez trouver
+                le mot japonais d'un mot français, vous pouvez répondre en romaji, kana ou kanji mais selon la réponse
+                les points obtenus diffèrent !
+                <ul class="list-unstyled">
+                    <li>Pour une traduction en romaji : + 15 sakuras</li>
+                    <li>Pour une traduction en kana : + 30 sakuras</li>
+                    <li>Pour une traduction en kanji : + 45 sakuras</li>
+                </ul>
+                Si vous souhaitez mettre le clavier japonais en azerty, voici une solution :
+                <a href="https://guidedujaponais.fr/ma-selection/utilitaires/utilitaires-pc-pour-le-japonais/mettre-clavier-japonais-en-azerty/"
+                   target="_blank">Lien</a>
+            </li>
         </ul>
         <hr class="black">
 
