@@ -1,5 +1,6 @@
 <?php $title = 'Les groupes';
 ob_start(); ?>
+
     <h1 class="h1-admin-left">Les groupes</h1>
 
     <p class="add"><a href="index.php?p=groupe_edit" class="btn btn-success">Ajout</a></p>
@@ -12,7 +13,7 @@ ob_start(); ?>
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($groupes as $groupe): ?>
+        <?php foreach ($_POST['groupes'] as $groupe): ?>
             <tr>
                 <td><?= $groupe['libelle']; ?></td>
                 <td>
@@ -24,5 +25,6 @@ ob_start(); ?>
         <?php endforeach ?>
         </tbody>
     </table>
+
 <?php $content = ob_get_clean();
 require('./view/template/template.php'); ?>
