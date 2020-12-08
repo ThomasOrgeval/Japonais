@@ -362,16 +362,29 @@ function deleteAllForAnglais($id_anglais)
  * Francais - Groupe
  */
 
-function listGroupeToWord($id)
+function listGroupeToWord($id_francais)
 {
     $db = dbConnect();
-    $id = $db->quote($id);
+    $id_francais = $db->quote($id_francais);
     $select = $db->query("select FRANCAIS.id, GROUPE.id, GROUPE.libelle from lexiqumjaponais.FRANCAIS
     inner join lexiqumjaponais.WORDS_GROUPE as wg
         on wg.id_word = FRANCAIS.id
     inner join lexiqumjaponais.GROUPE
         on wg.id_groupe = GROUPE.id
-    where FRANCAIS.id=$id");
+    where FRANCAIS.id=$id_francais");
+    return $select->fetchAll();
+}
+
+function listWordToGroupe($id_groupe)
+{
+    $db = dbConnect();
+    $id_groupe = $db->quote($id_groupe);
+    $select = $db->query("select francais from lexiqumjaponais.FRANCAIS
+    inner join lexiqumjaponais.WORDS_GROUPE as wg
+        on wg.id_word = FRANCAIS.id
+    inner join lexiqumjaponais.GROUPE
+        on wg.id_groupe = GROUPE.id
+    where GROUPE.id=$id_groupe");
     return $select->fetchAll();
 }
 

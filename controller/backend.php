@@ -27,11 +27,15 @@ function groupe_edit()
                 header('Location: index.php?p=groupe');
             }
             $_POST = $groupe->fetch();
+            $_POST['mots'] = listWordToGroupe($_GET['id']);
         }
         require 'view/backend/groupe_edit.php';
     } else header('Location:index.php?p=accueil');
 }
 
+/**
+ * Déprécié
+ */
 function word()
 {
     if (connect_admin()) {
@@ -40,6 +44,9 @@ function word()
     } else header('Location:index.php?p=accueil');
 }
 
+/**
+ * Déprécié
+ */
 function word_edit()
 {
     if (connect_admin()) {
@@ -64,6 +71,9 @@ function word_edit()
     } else header('Location:index.php?p=accueil');
 }
 
+/**
+ * Déprécié
+ */
 function francais_add()
 {
     if (connect_admin()) {
@@ -162,6 +172,9 @@ function japonais_add()
     } else header('Location:index.php?p=accueil');
 }
 
+/**
+ * Déprécié
+ */
 function anglais()
 {
     if (connect_admin()) {
@@ -170,6 +183,9 @@ function anglais()
     } else header('Location:index.php?p=accueil');
 }
 
+/**
+ * Déprécié
+ */
 function anglais_edit()
 {
     if (connect_admin()) {
@@ -191,6 +207,9 @@ function anglais_edit()
     } else header('Location:index.php?p=accueil');
 }
 
+/**
+ * Déprécié
+ */
 function anglais_add()
 {
     if (connect_admin()) {
@@ -515,6 +534,9 @@ function deleteType($id)
  * Japonais
  */
 
+/**
+ * Déprécié
+ */
 function addJaponaisFromOther($id, $kanji, $kana, $romaji, $description)
 {
     if (connect_admin()) {
