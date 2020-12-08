@@ -35,19 +35,20 @@ ob_start(); ?>
                 </ul>
             <?php endif;
             $kanji = listKanjiToJaponais($japonais['id']);
-            if (!empty($kanji)) : ?>
-                <div class="card-body">
-                    <?php foreach ($kanji as $aKanji) : ?>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item flexible">
-                                <a class="card-link black-text" href="index.php?p=kanji&id=<?= $aKanji['id'] ?>">
-                                    <?= $aKanji['kanji'] ?> - <?= $aKanji['sens'] ?>
-                                </a>
-                            </li>
-                        </ul>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif;
+            if (!empty($kanji)) :
+                foreach ($kanji as $aKanji) : ?>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item flexible">
+                            <a class="black-text" href="index.php?p=kanji&id=<?= $aKanji['id'] ?>">
+                                <?= $aKanji['kanji'] ?> - <?= $aKanji['sens'] ?>
+                            </a>
+                        </li>
+                    </ul>
+                <?php endforeach;
+            endif;
+            if ($japonais != array_slice($_POST['japonais'], -1)[0]) : ?>
+                <br/><br/>
+        <?php endif;
         endforeach;
         if (!empty($_POST['groupes'])) : ?>
             <div class="card-body">
