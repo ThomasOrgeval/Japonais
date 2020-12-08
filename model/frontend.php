@@ -228,13 +228,13 @@ function deleteRecup($id)
 function listRandomWords($nombre)
 {
     $db = dbConnect();
-    $select = $db->query("select FRANCAIS.id, FRANCAIS.francais, FRANCAIS.id_type, JAPONAIS.id, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji, TYPE.id, TYPE.type from lexiqumjaponais.JAPONAIS
+    $select = $db->query("select FRANCAIS.id, FRANCAIS.francais, JAPONAIS.id_type, JAPONAIS.id, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji, TYPE.id, TYPE.type from lexiqumjaponais.JAPONAIS
     inner join lexiqumjaponais.TRADUCTION as wj
         on wj.id_japonais = JAPONAIS.id
     inner join lexiqumjaponais.FRANCAIS
         on wj.id_word = FRANCAIS.id
     inner join lexiqumjaponais.TYPE
-        on FRANCAIS.id_type = TYPE.id
+        on JAPONAIS.id_type = TYPE.id
     ORDER BY RAND()
     LIMIT $nombre");
     return $select->fetchAll();
@@ -391,7 +391,7 @@ function searchListeUser($pseudo)
 function listConfidentiality()
 {
     $db = dbConnect();
-    $select = $db->query('select id, confidentiality from lexiqumjaponais.CONFIDENTIALITY order by confidentiality asc');
+    $select = $db->query('select id, confidentiality from lexiqumjaponais.CONFIDENTIALITY order by confidentiality');
     return $select->fetchAll();
 }
 
@@ -403,7 +403,10 @@ function researchWord($search, $type)
 {
     $db = dbConnect();
     $type = $db->quote($type);
-    $select = $db->query("select * from lexiqumjaponais.FRANCAIS where francais like '$search' and id_type=$type");
+    $select = $db->query("select * from lexiqumjaponais.FRANCAIS
+        inner join lexiqumjaponais.TRADUCTION t on FRANCAIS.id = t.id_word
+        inner join lexiqumjaponais.JAPONAIS j on t.id_japonais = j.id
+        where francais like '$search' and id_type=$type");
     return $select->fetch();
 }
 
@@ -513,8 +516,10 @@ function selectRecompense($id)
 function autocompleteMots($key)
 {
     $db = dbConnect();
-    $select = $db->query("select francais, id_type, type from lexiqumjaponais.FRANCAIS 
-        inner join lexiqumjaponais.TYPE t on FRANCAIS.id_type = t.id
+    $select = $db->query("select francais, j.id_type, type from lexiqumjaponais.FRANCAIS 
+        inner join lexiqumjaponais.TRADUCTION t on FRANCAIS.id = t.id_word
+        inner join lexiqumjaponais.JAPONAIS j on t.id_japonais = j.id
+        inner join lexiqumjaponais.TYPE ty on j.id_type = ty.id
         where francais like '$key%' order by francais limit 0,10");
     return $select->fetchAll();
 }
@@ -633,7 +638,7 @@ function listFrancaisToJaponaisLimit1($id_japonais)
 {
     $db = dbConnect();
     $id_japonais = $db->quote($id_japonais);
-    $select = $db->query("select FRANCAIS.francais, FRANCAIS.id_type from lexiqumjaponais.FRANCAIS
+    $select = $db->query("select FRANCAIS.francais, JAPONAIS.id_type from lexiqumjaponais.FRANCAIS
     inner join lexiqumjaponais.TRADUCTION as wj
         on wj.id_word = FRANCAIS.id
     inner join lexiqumjaponais.JAPONAIS

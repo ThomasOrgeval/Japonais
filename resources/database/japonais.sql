@@ -2,7 +2,7 @@ drop database if exists lexiqumjaponais;
 create database lexiqumjaponais character set UTF8;
 use lexiqumjaponais;
 
-set global event_scheduler="ON";
+set global event_scheduler = "ON";
 
 create table `USER`
 (
@@ -78,9 +78,7 @@ create table `FRANCAIS`
 (
     `id`       int auto_increment not null,
     `francais` varchar(255)       not null,
-    `id_type`  int,
-    primary key (`id`),
-    foreign key (`id_type`) references TYPE (`id`)
+    primary key (`id`)
 ) engine = InnoDB;
 
 create table `JAPONAIS`
@@ -90,7 +88,9 @@ create table `JAPONAIS`
     `kana`        varchar(255)       not null,
     `romaji`      varchar(255)       not null,
     `description` longtext,
-    primary key (`id`)
+    `id_type`     int,
+    primary key (`id`),
+    foreign key (`id_type`) references TYPE (`id`)
 ) engine = InnoDB,
   character set utf8;
 
@@ -98,9 +98,7 @@ create table `ANGLAIS`
 (
     `id`      int auto_increment not null,
     `anglais` varchar(255)       not null,
-    `id_type` int,
-    primary key (`id`),
-    foreign key (`id_type`) references TYPE (`id`)
+    primary key (`id`)
 ) engine = InnoDB;
 
 create table `KANJI`
