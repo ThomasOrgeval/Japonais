@@ -37,15 +37,16 @@ if (rand(0, 1) === 1) { // Sélection mot japonais
 } else { // Sélection mot francais
     $_SESSION['riddle'] = selectOneRandomWord()['francais'];
 }
-setRiddle($_SESSION['id'], $_SESSION['riddle']);
 
 if ($bool) {
     $_SESSION['points'] += 20;
     setSakura($_SESSION['id'], 20);
+    setRiddle($_SESSION['id'], $_SESSION['riddle'], 1);
     echo "Success";
 } else {
     --$_SESSION['life'];
     setLife($_SESSION['id'], $_SESSION['life']);
+    setRiddle($_SESSION['id'], $_SESSION['riddle'], 0);
     if ($french) {
         echo "Failed - " . $traducts[0]['romaji'];
     } else {

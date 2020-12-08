@@ -212,13 +212,7 @@ function submitLogin($mail, $password)
             $_SESSION['connect'] = 'OK';
             $_SESSION['icone'] = $statements['icone'];
             $_SESSION['theme'] = $statements['theme'];
-
-            if ($statements['riddle'] !== null) {
-                $_SESSION['riddle'] = $statements['riddle'];
-            } else {
-                $_SESSION['riddle'] = selectOneRandomWord()['francais'];
-                setRiddle($_SESSION['id'], $_SESSION['riddle']);
-            }
+            $_SESSION['riddle'] = getRiddle($_SESSION['id']);
 
             if ($statements['last_login'] < date("Y-m-d") || $statements['last_login'] == null) {
                 setLastLogin($_SESSION['id']);
@@ -261,7 +255,7 @@ function submitRegister($pseudo, $password, $mail)
             header('Location:index.php?p=accueil');
         } else {
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
-            createUser($pseudo, $password_hash, $mail, selectOneRandomWord()['francais']);
+            createUser($pseudo, $password_hash, $mail);
             submitLogin($mail, $password);
         }
     }

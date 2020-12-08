@@ -1,22 +1,20 @@
 drop database if exists lexiqumjaponais;
-create database lexiqumjaponais;
+create database lexiqumjaponais character set UTF8;
 use lexiqumjaponais;
 
 create table `USER`
 (
-    `id`         int auto_increment,
-    `pseudo`     varchar(255) not null,
-    `pass`       varchar(255) not null,
-    `mail`       varchar(255) not null,
-    `date`       date         not null,
-    `droits`     int          not null,
-    `nombre`     int          not null,
-    `points`     int          not null,
-    `icone`      varchar(255) not null,
-    `riddle`     varchar(255) not null,
-    `life`       int          not null,
-    `last_login` date         not null,
-    `theme`      varchar(255) not null,
+    `id`         int auto_increment not null,
+    `pseudo`     varchar(255)       not null,
+    `pass`       varchar(255)       not null,
+    `mail`       varchar(255)       not null,
+    `date`       date               not null,
+    `droits`     int                not null,
+    `nombre`     int                not null,
+    `icone`      varchar(255)       not null,
+    `life`       int                not null,
+    `last_login` date               not null,
+    `theme`      varchar(255)       not null,
     primary key (`id`)
 ) engine = InnoDB;
 
@@ -197,9 +195,9 @@ create table `TRADUCTION`
 
 create table `SAKURA`
 (
-    `id_user`      int auto_increment not null,
-    `sakura`       int                not null,
-    `sakura_total` int                not null,
+    `id_user`      int not null,
+    `sakura`       int not null,
+    `sakura_total` int not null,
     primary key (`id_user`),
     foreign key (`id_user`) references USER (`id`)
 ) engine = InnoDB;
@@ -210,6 +208,27 @@ create table `HISTORIQUE_SAKURA`
     `sakura`  int                not null,
     `date`    date               not null,
     `id_user` int                not null,
+    primary key (`id`),
+    foreign key (`id_user`) references USER (`id`)
+) engine = InnoDB;
+
+create table `RIDDLE`
+(
+    `id_user`       int          not null,
+    `riddle`        varchar(255) not null,
+    `kanji`         boolean      not null,
+    `last_response` boolean      not null,
+    primary key (`id_user`),
+    foreign key (`id_user`) references USER (`id`)
+) engine = InnoDB;
+
+create table `HISTORIQUE_RIDDLE`
+(
+    `id`       int auto_increment not null,
+    `id_user`  int                not null,
+    `riddle`   varchar(255)       not null,
+    `response` boolean            not null,
+    `life`     date               not null,
     primary key (`id`),
     foreign key (`id_user`) references USER (`id`)
 ) engine = InnoDB;
@@ -230,12 +249,36 @@ begin
     call insert_sakura_history(id_user_sakura, nb_sakura, last_date);
 end |
 
+create trigger after_update_riddle
+    after update
+    on RIDDLE
+    for each row
+begin
+    insert into HISTORIQUE_RIDDLE(riddle, response, life, id_user) value (old.riddle, new.last_response, curdate(), old.id_user);
+end |
+
 create trigger after_insert_user
     after insert
     on USER
     for each row
 begin
+    declare random varchar(255);
+    set random = (select francais from FRANCAIS order by rand() limit 1);
     insert into SAKURA(id_user, sakura, sakura_total) value (new.id, 0, 0);
+    insert into RIDDLE(id_user, last_response, riddle, kanji) value (new.id, true, random, true);
+end |
+
+create trigger before_delete_user
+    before delete
+    on USER
+    for each row
+begin
+    delete from SAKURA where id_user = old.id;
+    delete from RIDDLE where id_user = old.id;
+    delete from HISTORIQUE_SAKURA where id_user = old.id;
+    delete from HISTORIQUE_RIDDLE where id_user = old.id;
+    delete from ACHAT where id_user = old.id;
+    delete from LISTES where id_user = old.id;
 end |
 
 create procedure insert_sakura_history(in id_user_sakura int, in nb_sakura int, in last_date date)
@@ -278,3 +321,10 @@ where hs.date <= curdate()
 group by id_user
 order by sakura desc
 limit 5;
+
+create event delete_history_riddle
+    on schedule at current_timestamp + interval 1 day
+    do
+    delete
+    from HISTORIQUE_RIDDLE
+    where life < curdate() - interval 14 day;

@@ -20,18 +20,20 @@ function dbConnect()
  * User
  */
 
-function createUser($pseudo, $pass, $mail, $riddle)
+function createUser($pseudo, $pass, $mail)
 {
     $db = dbConnect();
-    $addUser = $db->prepare('insert into lexiqumjaponais.USER(pseudo, pass, mail, date, droits, nombre, icone, riddle, life, last_login, theme) values(?, ?, ?, CURRENT_DATE, 0, 10, 0, ?, 5, curdate(), 0)');
-    $addUser = $addUser->execute(array($pseudo, $pass, $mail, $riddle));
-    return $addUser;
+    $pseudo = $db->quote($pseudo);
+    $pass = $db->quote($pass);
+    $mail = $db->quote($mail);
+    $db->query("insert into lexiqumjaponais.USER(pseudo, pass, mail, date, droits, nombre, icone, life, last_login, theme) 
+                        values ($pseudo, $pass, $mail, curdate(), 0, 10, 0, 5, curdate(), 0) ");
 }
 
 function loginUser($mail, $pass)
 {
     $db = dbConnect();
-    $selectUser = $db->prepare('select id, pseudo, pass, mail, droits, nombre, icone, riddle, life, last_login, theme from lexiqumjaponais.USER where mail=?');
+    $selectUser = $db->prepare('select id, pseudo, pass, mail, droits, nombre, icone, life, last_login, theme from lexiqumjaponais.USER where mail=?');
     $selectUser->execute(array($mail));
     $selectUser = $selectUser->fetch();
     if (password_verify($pass, $selectUser['pass'])) {
@@ -96,14 +98,6 @@ function setIcon($id_user, $slug)
     $db->exec("update lexiqumjaponais.USER set icone=$slug where id=$id_user");
 }
 
-function setRiddle($id_user, $francais)
-{
-    $db = dbConnect();
-    $id_user = $db->quote($id_user);
-    $francais = $db->quote($francais);
-    $db->exec("update lexiqumjaponais.USER set riddle=$francais where id=$id_user");
-}
-
 function setLife($id_user, $life)
 {
     $db = dbConnect();
@@ -161,6 +155,27 @@ function getSakuraLastMonth($id_user)
     return $db->query("select sakura, date from lexiqumjaponais.HISTORIQUE_SAKURA
         where date <= curdate() and date > date_sub(curdate(), interval 1 month)
     and id_user = $id_user")->fetchAll();
+}
+
+/**
+ * Riddle
+ */
+
+function getRiddle($id_user)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    $select = $db->query("select riddle from lexiqumjaponais.RIDDLE where id_user=$id_user");
+    return $select->fetch()['riddle'];
+}
+
+function setRiddle($id_user, $riddle, $old_response)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    $riddle = $db->quote($riddle);
+    $old_response = $db->quote($old_response);
+    $db->exec("update lexiqumjaponais.RIDDLE set riddle=$riddle, last_response = $old_response where id_user=$id_user");
 }
 
 /**
