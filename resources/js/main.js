@@ -51,14 +51,14 @@ $(document).ready(function () {
 
                 $.get('ajax/getSession.php', function (get) {
                     const session = $.parseJSON(get);
-                    if (data === 'Success') {
+                    if (data.startsWith('Success')) {
                         $('#result').html("<p class='green-text'>Bonne réponse !</p>");
-                        let points = parseInt(document.getElementById('points').innerHTML) + 20;
-                        $('#points').html(points);
+                        let sakura = parseInt(document.getElementById('points').innerHTML) + parseInt(data.split(' - ')[1]);
+                        $('#points').html(sakura);
                         $('#riddle-value').html(session['riddle']);
 
-                        toast('+ 20');
-                    } else if (data.startsWith('Failed') === true) {
+                        toast('+' + data.split(' - ')[1]);
+                    } else if (data.startsWith('Failed')) {
                         if (session['life'] === 0) {
                             $('#riddle-form').remove();
                             $('#riddle').append("<br/><br/><p class='card-text'>Vous n'avez plus de vie, revenez demain !</p>");
