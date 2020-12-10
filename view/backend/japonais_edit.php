@@ -33,6 +33,37 @@ ob_start(); ?>
             <?= select('id_type', $_POST['type']); ?>
         </div>
 
+        <?php if (isset($_GET['id'])): ?>
+            <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" id="groupe" data-toggle="dropdown" aria-haspopup="true"
+                   aria-expanded="false">Les groupes</a>
+                <div class="dropdown-menu" aria-labelledby="groupe">
+                    <?php foreach ($_POST['groupes'] as $group) : ?>
+                        <div id="grp-<?= $group['id'] ?>" class="dropdown-item"
+                             onclick="addGroup('<?= $group['id'] ?>')">
+                            <div class="flexible">
+                                <?= $group['libelle'] ?>
+                                <img id="check" class="svg" src="./resources/svgs/check.svg"
+                                     alt="<?= $group['libelle'] ?>">
+                            </div>
+                        </div>
+                    <?php endforeach;
+                    foreach ($_POST['otherGroupes'] as $group) : ?>
+                        <div id="grp-<?= $group['id'] ?>" class="dropdown-item"
+                             onclick="addGroup('<?= $group['id'] ?>')">
+                            <div class="flexible">
+                                <?= $group['libelle'] ?>
+                                <img id="uncheck" class="svg" src="./resources/svgs/uncheck.svg"
+                                     alt="<?= $group['libelle'] ?>">
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php endif; ?>
+        <br/>
+        <hr class="black">
+
         <h3 class="font-weight-bold">Traduction :</h3><br/>
         <h5 class="font-weight-bold">Français :</h5>
         <hr>
@@ -190,6 +221,26 @@ ob_start(); ?>
                 $('#duplicate2').before($clone);
             })
         })(jQuery);
+
+        function addGroup(id_group) {
+            $.post(
+                'ajax/addGroup.php',
+                {
+                    id_group: id_group,
+                    id_japonais: <?= $_GET['id'] ?>
+                },
+                function (data) {
+                    if (data === 'ADD') {
+                        $('#grp-' + id_group + ' > div > svg').attr('id', 'check');
+                        $('#grp-' + id_group + ' > div > svg > path').attr('d', 'M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z');
+                    } else if (data === 'REMOVE') {
+                        $('#grp-' + id_group + ' > div > svg').attr('id', 'uncheck');
+                        $('#grp-' + id_group + ' > div > svg > path').attr('d', 'M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z');
+                    }
+                },
+                'html'
+            );
+        }
     </script>
 
 <?php $content = ob_get_clean();

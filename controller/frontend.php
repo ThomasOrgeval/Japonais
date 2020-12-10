@@ -411,7 +411,7 @@ function search()
     if (isset($_GET['mot'])) {
         $_POST['francais'] = researchWord($_GET['mot'], $_GET['type']);
         $_POST['japonais'] = listJaponaisToFrancais($_POST['francais']['id'], $_POST['francais']['id_type']);
-        $_POST['groupes'] = listGroupeToWord($_POST['francais']['id']);
+        $_POST['groupes'] = listGroupeToJaponais($_POST['francais']['id']);
         $_POST['listes'] = listListes($_SESSION['id']);
         $_POST['other_listes'] = haveListes($_SESSION['id'], $_POST['francais']['id']);
         foreach ($_POST['other_listes'] as $other_liste) {

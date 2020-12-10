@@ -152,13 +152,13 @@ create table `LISTES`
     foreign key (`id_confidentiality`) references `CONFIDENTIALITY` (`id`)
 ) engine = InnoDB;
 
-create table `WORDS_GROUPE`
+create table `JAPONAIS_GROUPE`
 (
     `id`        int auto_increment not null,
-    `id_word`   int                not null,
+    `id_japonais`   int                not null,
     `id_groupe` int                not null,
     primary key (`id`),
-    foreign key (`id_word`) references FRANCAIS (`id`),
+    foreign key (`id_japonais`) references JAPONAIS (`id`),
     foreign key (`id_groupe`) references GROUPE (`id`)
 ) engine = InnoDB;
 

@@ -80,6 +80,8 @@ function japonais_edit()
                 header("Location:index.php?p=japonais");
             }
             $_POST = $japonais->fetch();
+            $_POST['groupes'] = listGroupeToJaponais($_GET['id']);
+            $_POST['otherGroupes'] = otherGroupe();
             $_POST['kanjis'] = listKanjiToJaponais($_GET['id']);
         }
         $_POST['type'] = $type_list;
@@ -210,7 +212,7 @@ function addGroupe($libelle, $id)
 function deleteGroupe($id)
 {
     if (connect_admin()) {
-        deleteAllGroupeForGroupe($id);
+        deleteAllGroupe($id);
         $deleteGroupe = supprGroupe($id);
         if ($deleteGroupe === false) {
             setFlash('Le groupe n\'a pas été supprimé', 'danger');
@@ -243,9 +245,9 @@ function wordGroupe()
 {
     if (connect_admin()) {
         if ($_GET['bool'] === '1') {
-            $wordGroupe = addGroupeToWord($_GET['id_groupe'], $_GET['id']);
+            $wordGroupe = addGroupeToJaponais($_GET['id_groupe'], $_GET['id']);
         } else {
-            $wordGroupe = deleteGroupeToWord($_GET['id_groupe'], $_GET['id']);
+            $wordGroupe = deleteGroupeToJaponais($_GET['id_groupe'], $_GET['id']);
         }
 
         if ($wordGroupe === false) {
@@ -259,7 +261,6 @@ function wordGroupe()
 function deleteFrancaisInJaponais($id_francais, $id_japonais)
 {
     if (connect_admin()) {
-        deleteAllGroupeForWord($id_francais);
         deleteAllForFrancais($id_francais);
         $delete = supprWord($id_francais);
         if ($delete === false) {
@@ -463,4 +464,21 @@ function deleteRecompense($id)
         setFlash('La récompense a bien été supprimée');
         header('Location:index.php?p=recompense');
     } else header('Location:index.php?p=accueil');
+}
+
+function otherGroupe()
+{
+    if (connect_admin()) {
+        $listPresent = listGroupeToJaponais($_GET['id']);
+        $listAll = listGroupe();
+        $listOther = $listAll;
+        foreach ($listPresent as $present) {
+            foreach ($listAll as $item) {
+                if ($present['libelle'] === $item['libelle']) {
+                    unset($listOther[array_search($present, $listOther, true)]);
+                }
+            }
+        }
+        return $listOther;
+    } else return null;
 }

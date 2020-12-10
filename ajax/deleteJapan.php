@@ -4,6 +4,7 @@ require_once '../model/frontend.php';
 require_once '../model/backend.php';
 
 deleteAllKanjiForJaponais($_POST['id']);
+deleteAllGroupeForJaponais($_POST['id']);
 $anglais = listAnglaisToJaponais($_POST['id']);
 foreach ($anglais as $word) {
     deleteAllForAnglais($word['id']);
