@@ -37,6 +37,9 @@ ob_start(); ?>
                 <a href="https://guidedujaponais.fr/ma-selection/utilitaires/utilitaires-pc-pour-le-japonais/mettre-clavier-japonais-en-azerty/"
                    target="_blank">Lien</a>
             </li>
+            <li>
+                <span class="font-weight-bold">Vous pouvez choisir de mettre les kanjis ou non</span> dans l'énigme ! 😁
+            </li>
         </ul>
         <hr class="black">
 
@@ -45,6 +48,10 @@ ob_start(); ?>
             <li>
                 <span class="font-weight-bold">Correction de nombreux bugs</span> côté administratif notamment dans
                 l'ajout des mots
+            </li>
+            <li>
+                <span class="font-weight-bold">Refonte de la base de données</span>, notamment dans la conception de
+                celle-ci dans le lien entre chaque langue
             </li>
         </ul>
     </div><br/>

@@ -3,6 +3,9 @@
 session_start();
 require_once '../model/frontend.php';
 require_once '../model/backend.php';
+require_once '../controller/libs/accent.php';
+
+$value = accents(mb_strtolower($_POST['value']));
 
 $bool = false;
 $french = true;
@@ -13,7 +16,6 @@ if ($traducts == null) {
     $traducts = listFrancaisToJaponaisWord($_SESSION['riddle']);
     $french = false;
 }
-$value = strtolower($_POST['value']);
 
 foreach ($traducts as $traduct) {
     if ($french) {
@@ -24,7 +26,7 @@ foreach ($traducts as $traduct) {
             elseif ($value === strtolower($traduct['kanji'])) $sakura = 45;
         }
     } else {
-        if ($value === strtolower($traduct['francais'])) {
+        if ($value === accents(mb_strtolower($traduct['francais']))) {
             $bool = true;
             $sakura = 20;
         }
