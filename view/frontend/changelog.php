@@ -40,6 +40,10 @@ ob_start(); ?>
             <li>
                 <span class="font-weight-bold">Vous pouvez choisir de mettre les kanjis ou non</span> dans l'énigme ! 😁
             </li>
+            <li>
+                <span class="font-weight-bold">Il est désormais possible de ne plus mettre les accents</span> dans les
+                énigmes !
+            </li>
         </ul>
         <hr class="black">
 
@@ -52,6 +56,9 @@ ob_start(); ?>
             <li>
                 <span class="font-weight-bold">Refonte de la base de données</span>, notamment dans la conception de
                 celle-ci dans le lien entre chaque langue
+            </li>
+            <li>
+                <span class="font-weight-bold">Correction d'un bug sur les énigmes lorsque la première lettre contient un accent</span>
             </li>
         </ul>
     </div><br/>

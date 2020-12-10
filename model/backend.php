@@ -256,32 +256,6 @@ function listAnglaisToJaponais($id_japonais)
     return $select->fetchAll();
 }
 
-function listFrancaisToAnglais($id_anglais)
-{
-    $db = dbConnect();
-    $id_anglais = $db->quote($id_anglais);
-    $select = $db->query("select FRANCAIS.id, FRANCAIS.francais from lexiqumjaponais.FRANCAIS
-    inner join lexiqumjaponais.TRADUCTION as wj
-        on wj.id_word = FRANCAIS.id
-    inner join lexiqumjaponais.ANGLAIS
-        on wj.id_anglais = ANGLAIS.id
-    where ANGLAIS.id=$id_anglais");
-    return $select->fetchAll();
-}
-
-function listJaponaisToAnglais($id_anglais)
-{
-    $db = dbConnect();
-    $id_anglais = $db->quote($id_anglais);
-    $select = $db->query("select JAPONAIS.id, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji, JAPONAIS.description from lexiqumjaponais.JAPONAIS
-    inner join lexiqumjaponais.TRADUCTION as wj
-        on wj.id_japonais = JAPONAIS.id
-    inner join lexiqumjaponais.ANGLAIS
-        on wj.id_anglais = ANGLAIS.id
-    where ANGLAIS.id=$id_anglais");
-    return $select->fetchAll();
-}
-
 function listFrancaisAndJaponaisWhereGroupe($id)
 {
     $db = dbConnect();
