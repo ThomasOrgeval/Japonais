@@ -32,10 +32,12 @@ foreach ($traducts as $traduct) {
 }
 
 if (rand(0, 1) === 1) { // Sélection mot japonais
-    $japonais = rand(0, 2);
-    if ($japonais === 0) $_SESSION['riddle'] = selectOneRandomWord()['kanji'];
+    if ($_SESSION['kanji'] == 1) $japonais = rand(0, 2);
+    else $japonais = rand(0, 1);
+
+    if ($japonais === 0) $_SESSION['riddle'] = selectOneRandomWord()['romaji'];
     elseif ($japonais === 1) $_SESSION['riddle'] = selectOneRandomWord()['kana'];
-    else $_SESSION['riddle'] = selectOneRandomWord()['romaji'];
+    else $_SESSION['riddle'] = selectOneRandomWord()['kanji'];
 } else { // Sélection mot francais
     $_SESSION['riddle'] = selectOneRandomWord()['francais'];
 }
