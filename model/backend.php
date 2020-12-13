@@ -208,7 +208,7 @@ function listJaponaisToFrancais($id_francais, $id_type)
 {
     $db = dbConnect();
     $id_francais = $db->quote($id_francais);
-    $select = $db->query("select JAPONAIS.id, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji, JAPONAIS.description from lexiqumjaponais.JAPONAIS
+    $select = $db->query("select JAPONAIS.* from lexiqumjaponais.JAPONAIS
     inner join lexiqumjaponais.TRADUCTION t
         on t.id_japonais = JAPONAIS.id
     inner join lexiqumjaponais.FRANCAIS

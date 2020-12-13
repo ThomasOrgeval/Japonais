@@ -403,9 +403,10 @@ function researchWord($search, $type)
 {
     $db = dbConnect();
     $type = $db->quote($type);
-    $select = $db->query("select f.francais, f.id, j.id_type from lexiqumjaponais.FRANCAIS f
+    $select = $db->query("select f.francais, f.id, j.id_type, ty.type, ty.type_jp from lexiqumjaponais.FRANCAIS f
         inner join lexiqumjaponais.TRADUCTION t on f.id = t.id_word
         inner join lexiqumjaponais.JAPONAIS j on t.id_japonais = j.id
+        inner join lexiqumjaponais.TYPE ty on j.id_type = ty.id
         where francais like '$search' and j.id_type=$type");
     return $select->fetch();
 }
