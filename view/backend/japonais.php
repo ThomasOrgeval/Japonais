@@ -12,7 +12,6 @@ ob_start(); ?>
             <th class="hidden">Kana</th>
             <th>Romaji</th>
             <th class="hidden">Français</th>
-            <th class="hidden">Anglais</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -31,18 +30,9 @@ ob_start(); ?>
                         echo $francais['0']['francais'];
                     }
                     ?></td>
-                <td class="hidden"><?php $anglais = listAnglaisToJaponais($mot['id']);
-                    if (sizeof($anglais) > 1) {
-                        foreach ($anglais as $value) {
-                            echo $value['anglais'] . ", ";
-                        }
-                    } elseif (sizeof($anglais) == 1) {
-                        echo $anglais['0']['anglais'];
-                    }
-                    ?></td>
                 <td>
-                    <a href="index.php?p=japonais_edit&id=<?= $mot['id']; ?>" class="btn btn-outline-dark btn-small">Edit</a>
-                    <a onclick="deleteJaponais('<?= $mot['id'] ?>')" class="btn btn-outline-danger btn-small">Remove</a>
+                    <a href="index.php?p=japonais_edit&id=<?= $mot['id']; ?>" class="btn btn-outline-dark btn-sm">Edit</a>
+                    <a onclick="deleteJaponais('<?= $mot['id'] ?>')" class="btn btn-outline-danger btn-sm">Remove</a>
                 </td>
             </tr>
         <?php endforeach ?>

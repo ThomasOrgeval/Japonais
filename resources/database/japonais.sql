@@ -322,7 +322,8 @@ group by id_user
 order by sakura desc
 limit 5;
 
-create event delete_history_riddle on schedule every 1 day starts '2020-12-01' on completion not preserve enable
+drop event delete_history_riddle;
+create event delete_history_riddle on schedule every 1 day starts '2020-12-01 00:00:00' on completion not preserve enable
     do
     delete
     from HISTORIQUE_RIDDLE
