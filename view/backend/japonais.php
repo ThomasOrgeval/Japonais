@@ -5,7 +5,7 @@ ob_start(); ?>
 
     <p class="add"><a href="index.php?p=japonais_edit" class="btn btn-success">Ajout</a></p>
 
-    <table id="db" class="table table-striped table-size">
+    <table id="db" class="table table-size">
         <thead>
         <tr>
             <th>Kanji</th>

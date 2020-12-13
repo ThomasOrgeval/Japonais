@@ -34,6 +34,7 @@
     <script type="text/javascript" src="./resources/js/mdb.min.js"></script>
     <script src="./resources/js/all.js"></script>
     <script src="./resources/js/addons/datatables2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.4.0/perfect-scrollbar.min.js"></script>
 
     <script src="./resources/js/main.js"></script>
 
@@ -275,7 +276,20 @@
 <script>
     // Datatables
     $(document).ready(function () {
-        $('#db').DataTable();
+        $('#db').dataTable({
+            "paging": false,
+            "fnInitComplete": function () {
+                const myCustomScrollbar = document.querySelector('#dt-vertical-scroll_wrapper .dataTables_scrollBody');
+                const ps = new PerfectScrollbar(myCustomScrollbar);
+            },
+            "scrollY": 600,
+
+            "aaSorting": [],
+            columnDefs: [{
+                orderable: false,
+                targets: [0, 1, 4]
+            }]
+        });
         $('.dataTables_length').addClass('bs-select');
     });
 
