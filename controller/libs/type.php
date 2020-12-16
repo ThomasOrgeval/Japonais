@@ -70,17 +70,17 @@ function add_selection_type($type, $base)
 
                     "Causatif (Factitif)" => [
                         "Kanji" => ["Affirmatif neutre" => "させる", "Négatif neutre" => "させない", "Affirmatif polie" => "させます", "Négatif polie" => "させません"],
-                        "Romaji" => ["Affirmatif neutre" => "saseru", "Négatif neutre" => "sasenai", "Affirmatif polie" => "sasemasu", "Négatif polie" => "sasemasen"]
+                        "Romaji" => ["Affirmatif neutre" => "Saseru", "Négatif neutre" => "Sasenai", "Affirmatif polie" => "Sasemasu", "Négatif polie" => "Sasemasen"]
                     ], // Causatif
 
                     "Passif (Subir)" => [
                         "Kanji" => ["Affirmatif neutre" => "られる", "Négatif neutre" => "られない", "Affirmatif polie" => "られます", "Négatif polie" => "られません"],
-                        "Romaji" => ["Affirmatif neutre" => "rareru", "Négatif neutre" => "rarenai", "Affirmatif polie" => "raremasu", "Négatif polie" => "raremasen"]
+                        "Romaji" => ["Affirmatif neutre" => "Rareru", "Négatif neutre" => "Rarenai", "Affirmatif polie" => "Raremasu", "Négatif polie" => "Raremasen"]
                     ], // Causatif passif
 
                     "Causatif passif (Contrainte)" => [
                         "Kanji" => ["Affirmatif neutre" => "させられる", "Négatif neutre" => "させられない", "Affirmatif polie" => "させられます", "Négatif polie" => "させられません"],
-                        "Romaji" => ["Affirmatif neutre" => "saserareru", "Négatif neutre" => "saserarenai", "Affirmatif polie" => "saseraremasu", "Négatif polie" => "saseraremasen"]
+                        "Romaji" => ["Affirmatif neutre" => "Saserareru", "Négatif neutre" => "Saserarenai", "Affirmatif polie" => "Saseraremasu", "Négatif polie" => "Saseraremasen"]
                     ], // Causatif passif
 
                     "Vouloir présent" => [
@@ -143,6 +143,12 @@ function add_selection_type($type, $base)
                         "Kana" => ["Affirmatif" => "くれば", "Négatif" => "くなければ"],
                         "Romaji" => ["Affirmatif" => "Kureba", "Négatif" => "Kunakereba"]
                     ], // Conditionnel -EBA
+
+                    "Conditionnel -TARA" => [
+                        "Kanji" => ["Affirmatif neutre" => $kanji . "たら", "Négatif neutre" => $kanji . "なかったら", "Affirmatif polie" => $kanji . "ましたら", "Négatif polie" => $kanji . "ませんでしたら"],
+                        "Kana" => ["Affirmatif neutre" => $kana . "たら", "Négatif neutre" => $kana . "なかったら", "Affirmatif polie" => $kana . "ましたら", "Négatif polie" => $kana . "ませんでしたら"],
+                        "Romaji" => ["Affirmatif neutre" => $romaji . "tara", "Négatif neutre" => $romaji . "nakattara", "Affirmatif polie" => $romaji . "mashitara", "Négatif polie" => $romaji . "masen deshitara"]
+                    ], // Conditionnel -TARA
 
                     "Causatif (Factitif)" => [
                         "Kanji" => ["Affirmatif neutre" => $kanji . "させる", "Négatif neutre" => $kanji . "させない", "Affirmatif polie" =>$kanji . "させます", "Négatif polie" => $kanji . "させません"],
