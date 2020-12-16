@@ -86,10 +86,7 @@ ob_start(); ?>
                                  aria-multiselectable="true">
                                 <?php foreach ($item as $lecture => $verbe) :
                                     $j = $j + 1; ?>
-
-                                    <!-- Accordion card -->
                                     <div class="card" style="width: 100%">
-                                        <!-- Card header -->
                                         <div class="card-header" role="tab" id="heading<?= $lecture . $i ?>">
                                             <a class="collapsed" data-toggle="collapse" data-parent="#card<?= $i ?>"
                                                href="#collapse<?= $lecture . $i ?>" aria-expanded="false"
@@ -101,7 +98,6 @@ ob_start(); ?>
                                                 </div>
                                             </a>
                                         </div>
-                                        <!-- Card body -->
                                         <div id="collapse<?= $lecture . $i ?>" class="collapse" role="tabpanel"
                                              aria-labelledby="heading<?= $lecture . $i ?>"
                                              data-parent="#card<?= $i ?>">
