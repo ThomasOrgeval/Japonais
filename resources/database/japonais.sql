@@ -154,9 +154,9 @@ create table `LISTES`
 
 create table `JAPONAIS_GROUPE`
 (
-    `id`        int auto_increment not null,
-    `id_japonais`   int                not null,
-    `id_groupe` int                not null,
+    `id`          int auto_increment not null,
+    `id_japonais` int                not null,
+    `id_groupe`   int                not null,
     primary key (`id`),
     foreign key (`id_japonais`) references JAPONAIS (`id`),
     foreign key (`id_groupe`) references GROUPE (`id`)
@@ -231,6 +231,15 @@ create table `HISTORIQUE_RIDDLE`
     `life`     date               not null,
     primary key (`id`),
     foreign key (`id_user`) references USER (`id`)
+) engine = InnoDB;
+
+create table `FURIGANA`
+(
+    `id`       int auto_increment not null,
+    `hiragana` varchar(255)       not null,
+    `katakana` varchar(255)       not null,
+    `romaji`   varchar(255)       not null,
+    primary key (`id`)
 ) engine = InnoDB;
 
 delimiter |
@@ -322,7 +331,6 @@ group by id_user
 order by sakura desc
 limit 5;
 
-drop event delete_history_riddle;
 create event delete_history_riddle on schedule every 1 day starts '2020-12-01 00:00:00' on completion not preserve enable
     do
     delete

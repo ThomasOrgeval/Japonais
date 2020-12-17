@@ -12,7 +12,7 @@ function add_selection_type($type, $base)
     $kanji = substr($base['kanji'], 0, -3);
 
     $exceptFirstGroupe = [
-        "kaeru", "miru"
+        "Kaeru", "Miru"
     ];
 
     switch ($type) {
@@ -55,7 +55,7 @@ function add_selection_type($type, $base)
 
                     "Conditionnel -EBA" => [
                         "Kanji" => ["Affirmatif" => "すれば", "Négatif" => "すなければ"],
-                        "Romaji" => ["Affirmatif" => "sureba", "Négatif" => "sunakereba"]
+                        "Romaji" => ["Affirmatif" => "Sureba", "Négatif" => "Sunakereba"]
                     ], // Conditionnel -EBA
 
                     "Conditionnel -TARA" => [
@@ -151,7 +151,7 @@ function add_selection_type($type, $base)
                     ], // Conditionnel -TARA
 
                     "Causatif (Factitif)" => [
-                        "Kanji" => ["Affirmatif neutre" => $kanji . "させる", "Négatif neutre" => $kanji . "させない", "Affirmatif polie" =>$kanji . "させます", "Négatif polie" => $kanji . "させません"],
+                        "Kanji" => ["Affirmatif neutre" => $kanji . "させる", "Négatif neutre" => $kanji . "させない", "Affirmatif polie" => $kanji . "させます", "Négatif polie" => $kanji . "させません"],
                         "Kana" => ["Affirmatif neutre" => $kanaNeg . "させる", "Négatif neutre" => $kanaNeg . "させない", "Affirmatif polie" => $kanaNeg . "させます", "Négatif polie" => $kanaNeg . "させません"],
                         "Romaji" => ["Affirmatif neutre" => $romajiNeg . "saseru", "Négatif neutre" => $romajiNeg . "sasenai", "Affirmatif polie" => $romajiNeg . "sasemasu", "Négatif polie" => $romajiNeg . "sasemasen"]
                     ], // Causatif
@@ -181,7 +181,7 @@ function add_selection_type($type, $base)
                     ] // Vouloir passé
                 ]];
 
-            } elseif (($end3 == 'eru' || $end3 == 'iru') && !in_array($end3, $exceptFirstGroupe)) { // Groupe 2 ichidan
+            } elseif (($end3 == 'eru' || $end3 == 'iru') && !in_array($base['romaji'], $exceptFirstGroupe)) { // Groupe 2 ichidan
 
                 $add = ["Verbe - Groupe 2 (Ichidan)" => [
                     "Non présent" => [
@@ -268,6 +268,7 @@ function add_selection_type($type, $base)
                         "Romaji" => ["Affirmatif neutre" => $romaji . "takatta", "Négatif neutre" => $romaji . "takunakatta", "Affirmatif polie" => $romaji . "takatta desu", "Négatif polie" => $romaji . "takunakatta desu"]
                     ] // Vouloir passé
                 ]];
+
             } else { // Groupe 1 Godan
 
                 if ($end2 == 'ru') {
