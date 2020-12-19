@@ -12,7 +12,7 @@ if (!empty($_POST['keyword'])) :
     if (!empty($users)) : ?>
         <ul class="list-group list-group-flush" id="research">
             <?php foreach ($users as $user) : ?>
-            <a href="index.php?p=account&user=<?= $user['pseudo'] ?>" class="black-text">
+            <a href="compte/<?= $user['pseudo'] ?>" class="black-text">
                 <li class="list-group-item border li-theme" style="cursor: pointer;">
                     <div class="flexible">
                         <img class="icon-research" src="./resources/icons/<?= $user['icone'] ?>.png" alt="icone">

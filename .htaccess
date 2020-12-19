@@ -1,0 +1,36 @@
+RewriteEngine On
+
+#RewriteCond %{HTTP_HOST} ^(www\.)?lexiquejaponais\.fr$ [OR,NC]
+#RewriteRule ^(.*)$ https://www.lexiquejaponais.fr/$1 [L,R=301]
+
+RewriteRule accueil$ index.php?p=accueil
+RewriteRule listes$ index.php?p=listes
+RewriteRule liste_edit$ index.php?p=liste_edit
+RewriteRule liste_edit/([0-9]+)$ index.php?p=liste_edit&id=$1
+RewriteRule theme$ index.php?p=theme
+RewriteRule admin$ index.php?p=admin
+RewriteRule kana$ index.php?p=kana
+RewriteRule points$ index.php?p=points
+RewriteRule compte$ index.php?p=account
+RewriteRule compte/$ index.php?p=account
+RewriteRule compte/([a-zA-Z0-9]+)$ index.php?p=account&user=$1
+RewriteRule stats$ index.php?p=statistiques
+RewriteRule changelog$ index.php?p=changelog
+RewriteRule contact$ index.php?p=contact
+RewriteRule groupe/([0-9]+)$ index.php?p=groupe_search&id=$1
+RewriteRule kanji/([0-9]+)$ index.php?p=kanji&id=$1
+RewriteRule recherche/([a-zA-Z0-9]+)/([0-9]+)$ index.php?p=search&mot=$1&type=$2
+
+RewriteRule mots$ index.php?p=japonais
+RewriteRule groupe_admin$ index.php?p=groupe
+RewriteRule type$ index.php?p=type
+RewriteRule kanjis$ index.php?p=kanjis
+RewriteRule reward$ index.php?p=recompense
+
+RewriteRule ajouter$ index.php?p=japonais_edit
+RewriteRule editer$ index.php?p=japonais_edit
+RewriteRule editer/([0-9]+)$ index.php?p=japonais_edit&id=$1
+RewriteRule groupe_edit$ index.php?p=groupe_edit
+RewriteRule groupe_edit/([0-9]+)$ index.php?p=groupe_edit&id=$1
+
+#RewriteRule ([a-zA-Z0-9]+)$ index.php?p=$1

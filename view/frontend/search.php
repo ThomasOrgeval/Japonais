@@ -48,7 +48,7 @@ ob_start(); ?>
                 foreach ($kanji as $aKanji) : ?>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item flexible">
-                            <a class="black-text" href="index.php?p=kanji&id=<?= $aKanji['id'] ?>">
+                            <a class="black-text" href="kanji/<?= $aKanji['id'] ?>">
                                 <?= $aKanji['kanji'] ?> - <?= $aKanji['sens'] ?>
                             </a>
                         </li>
@@ -62,7 +62,7 @@ ob_start(); ?>
         if (!empty($_POST['groupes'])) : ?>
             <div class="card-body">
                 <?php foreach ($_POST['groupes'] as $groupe) : ?>
-                    <a class="card-link" href="index.php?p=groupe_search&id=<?= $groupe['id'] ?>">
+                    <a class="card-link" href="groupe/<?= $groupe['id'] ?>">
                         <?= $groupe['libelle'] ?>
                     </a>
                 <?php endforeach; ?>

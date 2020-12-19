@@ -3,7 +3,7 @@ ob_start(); ?>
 
     <h1 class="h1-admin-left">Les groupes</h1>
 
-    <p class="add"><a href="index.php?p=groupe_edit" class="btn btn-success">Ajout</a></p>
+    <p class="add"><a href="groupe_edit" class="btn btn-success">Ajout</a></p>
 
     <table id="db" class="table table-striped table-size">
         <thead>
@@ -17,7 +17,7 @@ ob_start(); ?>
             <tr>
                 <td><?= $groupe['libelle']; ?></td>
                 <td>
-                    <a href="index.php?p=groupe_edit&id=<?= $groupe['id']; ?>" class="btn btn-outline-dark btn-small">Edit</a>
+                    <a href="groupe_edit/<?= $groupe['id']; ?>" class="btn btn-outline-dark btn-small">Edit</a>
                     <a href="index.php?p=groupe_delete&id=<?= $groupe['id']; ?>"
                        class="btn btn-outline-danger btn-small">Remove</a>
                 </td>
