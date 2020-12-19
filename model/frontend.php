@@ -647,3 +647,20 @@ function listFrancaisToJaponaisLimit1($id_japonais)
     where JAPONAIS.id=$id_japonais limit 1");
     return $select->fetch();
 }
+
+/**
+ * Kana
+ */
+
+function listKana()
+{
+    $db = dbConnect();
+    return $db->query("select hiragana, katakana, romaji from lexiqumjaponais.KANA where hiragana is not null")->fetchAll();
+}
+
+function getKana($romaji)
+{
+    $db = dbConnect();
+    $romaji = $db->quote($romaji);
+    return $db->query("select hiragana, katakana, romaji from lexiqumjaponais.KANA where romaji like $romaji")->fetch();
+}

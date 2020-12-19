@@ -1,7 +1,7 @@
 -- modifications à appporter
 alter database lexiqumjaponais character set UTF8;
 
-set global event_scheduler="ON";
+set global event_scheduler = "ON";
 
 alter table JAPONAIS
     add column `description` longtext;
@@ -78,40 +78,61 @@ alter table USER
     drop column riddle;
 alter table USER
     add column `kanji` boolean not null;
-update lexiqumjaponais.USER set user.kanji = 1;
+update lexiqumjaponais.USER
+set user.kanji = 1;
 
-alter table JAPONAIS add column `id_type` int;
-alter table JAPONAIS add foreign key (`id_type`) references TYPE (`id`);
+alter table JAPONAIS
+    add column `id_type` int;
+alter table JAPONAIS
+    add foreign key (`id_type`) references TYPE (`id`);
 
 update JAPONAIS
-inner join TRADUCTION t on JAPONAIS.id = t.id_japonais
-inner join FRANCAIS f on t.id_word = f.id set JAPONAIS.id_type = f.id_type;
+    inner join TRADUCTION t on JAPONAIS.id = t.id_japonais
+    inner join FRANCAIS f on t.id_word = f.id
+set JAPONAIS.id_type = f.id_type;
 
 alter table FRANCAIS
     drop foreign key francais_ibfk_1;
 drop index id_type on FRANCAIS;
-alter table FRANCAIS drop column id_type;
-
-alter table ANGLAIS
-    drop foreign key anglais_ibfk_1;
-drop index id_type on ANGLAIS;
-alter table ANGLAIS drop column id_type;
+alter table FRANCAIS
+    drop column id_type;
 
 drop table WORDS_GROUPE;
 create table `JAPONAIS_GROUPE`
 (
-    `id`        int auto_increment not null,
-    `id_japonais`   int                not null,
-    `id_groupe` int                not null,
+    `id`          int auto_increment not null,
+    `id_japonais` int                not null,
+    `id_groupe`   int                not null,
     primary key (`id`),
     foreign key (`id_japonais`) references JAPONAIS (`id`),
     foreign key (`id_groupe`) references GROUPE (`id`)
 ) engine = InnoDB;
 
-create table `FURIGANA`
+create table `KANA`
 (
     `id`       int auto_increment not null,
-    `furigana` varchar(255)       not null,
+    `hiragana` varchar(255),
+    `katakana` varchar(255),
+    `romaji`   varchar(255)       not null,
+    primary key (`id`)
+) engine = InnoDB;
+
+-- Autre
+
+alter table ANGLAIS
+    drop foreign key anglais_ibfk_1;
+drop index id_type on ANGLAIS;
+alter table ANGLAIS
+    drop column id_type;
+
+-- Modifications pour la tour
+
+drop table `FURIGANA`;
+create table `KANA`
+(
+    `id`       int auto_increment not null,
+    `hiragana` varchar(255),
+    `katakana` varchar(255),
     `romaji`   varchar(255)       not null,
     primary key (`id`)
 ) engine = InnoDB;

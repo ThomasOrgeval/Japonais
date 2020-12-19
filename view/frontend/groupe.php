@@ -30,6 +30,7 @@ ob_start(); ?>
         <?php endforeach; ?>
         </tbody>
     </table>
-<?php endif; ?>
-<?php $content = ob_get_clean();
+<?php endif;
+
+$content = ob_get_clean();
 require('./view/template/template.php'); ?>

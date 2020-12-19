@@ -233,11 +233,11 @@ create table `HISTORIQUE_RIDDLE`
     foreign key (`id_user`) references USER (`id`)
 ) engine = InnoDB;
 
-create table `FURIGANA`
+create table `KANA`
 (
     `id`       int auto_increment not null,
-    `hiragana` varchar(255)       not null,
-    `katakana` varchar(255)       not null,
+    `hiragana` varchar(255),
+    `katakana` varchar(255),
     `romaji`   varchar(255)       not null,
     primary key (`id`)
 ) engine = InnoDB;

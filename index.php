@@ -103,6 +103,8 @@ try {
             kanji();
         } elseif ($p === 'contact') {
             contact();
+        } elseif ($p === 'kana') {
+            kana();
         }
     } else {
         accueil();

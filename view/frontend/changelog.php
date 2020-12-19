@@ -42,7 +42,13 @@ ob_start(); ?>
             </li>
             <li>
                 <span class="font-weight-bold">Il est désormais possible de ne plus mettre les accents</span> dans les
-                énigmes !
+                énigmes !g
+            </li>
+            <li>
+                <span class="font-weight-bold">L'équipe et moi-même (c'est à dire moi) avons pensé qu'il était important d'ajouter les kanas</span>
+                pour pouvoir mieux les connaîtres ^-^
+                <a href="index.php?p=kana">Lien</a> (Il ne faut pas hésiter à cliquer sur chacun d'eux pour les voir en
+                plus grand !)
             </li>
         </ul>
         <hr class="black">

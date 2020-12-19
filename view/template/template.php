@@ -55,6 +55,7 @@
                     <a class="nav-item nav-link" href="index.php?p=admin_portail">Administration</a>
                 <?php endif;
             endif; ?>
+            <a class="nav-item nav-link" href="index.php?p=kana">Kanas</a>
         </ul>
         <div class="navbar-nav">
             <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
@@ -88,6 +89,7 @@
                         <a class="nav-item nav-link" href="index.php?p=admin_portail">Administration</a>
                     <?php endif;
                 endif; ?>
+                <a class="nav-item nav-link" href="index.php?p=kana">Kanas</a>
             </ul>
             <div class="navbar-nav">
                 <hr style="margin-top: 5px; margin-bottom: 5px">
