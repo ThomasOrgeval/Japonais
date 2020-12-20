@@ -3,7 +3,7 @@ ob_start(); ?>
 
     <h1 class="h1-admin-left">Les mots japonais</h1>
 
-    <p class="add"><a href="ajouter" class="btn btn-success">Ajout</a></p>
+    <p class="add"><a href="index.php?p=japonais_edit" class="btn btn-success">Ajout</a></p>
 
     <table id="db" class="table table-size">
         <thead>
@@ -31,7 +31,7 @@ ob_start(); ?>
                     }
                     ?></td>
                 <td>
-                    <a href="editer/<?= $mot['id']; ?>" class="btn btn-outline-dark btn-sm">Edit</a>
+                    <a href="index.php?p=japonais_edit&id=<?= $mot['id']; ?>" class="btn btn-outline-dark btn-sm">Edit</a>
                     <a onclick="deleteJaponais('<?= $mot['id'] ?>')" class="btn btn-outline-danger btn-sm">Remove</a>
                 </td>
             </tr>

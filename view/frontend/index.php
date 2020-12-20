@@ -21,7 +21,7 @@ ob_start(); ?>
         <tbody>
         <?php foreach ($_POST['words'] as $word): ?>
             <tr>
-                <td><a href="recherche/<?= $word['francais'] ?>/<?= $word['id_type'] ?>"><?= $word['francais'] ?></a></td>
+                <td><a href="index.php?p=search&mot=<?= $word['francais'] ?>&type=<?= $word['id_type'] ?>"><?= $word['francais'] ?></a></td>
                 <td><?= $word['kanji'] ?></td>
                 <td class="hidden"><?= $word['kana'] ?></td>
                 <td><?= $word['romaji'] ?></td>

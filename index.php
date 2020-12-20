@@ -37,8 +37,8 @@ try {
             }
         } elseif ($p === 'account') {
             account();
-        } elseif ($p === 'admin') {
-            admin();
+        } elseif ($p === 'admin_portail') {
+            admin_portail();
         } elseif ($p === 'type') {
             type();
         } elseif ($p === 'type_edit') {

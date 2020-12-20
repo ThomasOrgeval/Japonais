@@ -2,7 +2,7 @@
 
 require './model/backend.php';
 
-function admin()
+function admin_portail()
 {
     if (connect_admin()) {
         require './view/backend/index.php';
