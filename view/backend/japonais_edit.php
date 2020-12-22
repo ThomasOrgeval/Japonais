@@ -45,6 +45,7 @@ ob_start(); ?>
                                 <?= $group['libelle'] ?>
                                 <img id="check" class="svg" src="./resources/svgs/check.svg"
                                      alt="<?= $group['libelle'] ?>">
+                                <input type="hidden" value="1" name="groupe[<?= $group['id'] ?>]">
                             </div>
                         </div>
                     <?php endforeach;
@@ -55,6 +56,7 @@ ob_start(); ?>
                                 <?= $group['libelle'] ?>
                                 <img id="uncheck" class="svg" src="./resources/svgs/uncheck.svg"
                                      alt="<?= $group['libelle'] ?>">
+                                <input type="hidden" value="0" name="groupe[<?= $group['id'] ?>]">
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -80,7 +82,8 @@ ob_start(); ?>
                 <div id="fr_<?= $mot['id'] ?>" class="row">
                     <div class="form-group col-md-2">
                         <label class="small-screen" for="id_francais<?= $mot['id'] ?>">ID</label>
-                        <input type='text' class='form-control' id='id_francais<?= $mot['id'] ?>' name='id_francais[]'
+                        <input type='text' class='form-control bg-danger' id='id_francais<?= $mot['id'] ?>'
+                               name='id_francais[]'
                                value='<?= $mot['id']; ?>' readonly onclick="remove('fr', '<?= $mot['id'] ?>')">
                     </div>
                     <div class="form-group col-md-10">
@@ -131,7 +134,8 @@ ob_start(); ?>
                 <div id="en_<?= $mot['id'] ?>" class="row">
                     <div class="form-group col-md-2" onclick="remove('en', '<?= $mot['id'] ?>')">
                         <label class="small-screen" for="id_anglais<?= $mot['id'] ?>">ID</label>
-                        <input type='text' class='form-control' id='id_anglais<?= $mot['id'] ?>' name='id_anglais[]'
+                        <input type='text' class='form-control bg-danger' id='id_anglais<?= $mot['id'] ?>'
+                               name='id_anglais[]'
                                value='<?= $mot['id']; ?>' readonly>
                     </div>
                     <div class="form-group col-md-10">
@@ -212,41 +216,33 @@ ob_start(); ?>
         })(jQuery);
 
         function addGroup(id_group) {
-            $.post(
-                'ajax/addGroup.php',
-                {
-                    id_group: id_group,
-                    id_japonais: <?= $_GET['id'] ?>
-                },
-                function (data) {
-                    if (data === 'ADD') {
-                        $('#grp-' + id_group + ' > div > svg').attr('id', 'check');
-                        $('#grp-' + id_group + ' > div > svg > path').attr('d', 'M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z');
-                    } else if (data === 'REMOVE') {
-                        $('#grp-' + id_group + ' > div > svg').attr('id', 'uncheck');
-                        $('#grp-' + id_group + ' > div > svg > path').attr('d', 'M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z');
-                    }
-                },
-                'html'
-            );
+            if ($('#grp-' + id_group + ' > div > input').val() == 0) {
+                $('#grp-' + id_group + ' > div > svg').attr('id', 'check');
+                $('#grp-' + id_group + ' > div > svg > path').attr('d', 'M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z');
+                $('#grp-' + id_group + ' > div > input').val(1);
+            } else {
+                $('#grp-' + id_group + ' > div > svg').attr('id', 'uncheck');
+                $('#grp-' + id_group + ' > div > svg > path').attr('d', 'M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z');
+                $('#grp-' + id_group + ' > div > input').val(0);
+            }
         }
 
         function remove(lang, id) {
             if (confirm('Voulez vous vraiment supprimer ce mot ?'))
-            $.post(
-                'ajax/deleteInJapan.php',
-                {
-                    lang: lang,
-                    id: id
-                },
-                function (data) {
-                    if (data === 'success') {
-                        $('#' + lang + '_' + id).remove();
-                    }
-                    console.log(data);
-                },
-                'html'
-            );
+                $.post(
+                    'ajax/deleteInJapan.php',
+                    {
+                        lang: lang,
+                        id: id
+                    },
+                    function (data) {
+                        if (data === 'success') {
+                            $('#' + lang + '_' + id).remove();
+                        }
+                        console.log(data);
+                    },
+                    'html'
+                );
         }
     </script>
 

@@ -108,6 +108,11 @@ function japonais_add()
             }
         }
 
+        foreach ($_POST['groupe'] as $key => $group) {
+            if ($group == 0 && selectGroupAndJaponais($key, $_GET['id']) >= 1) deleteGroupeToJaponais($key, $_GET['id']);
+            else if ($group == 1 && selectGroupAndJaponais($key, $_GET['id']) == 0) addGroupeToJaponais($key, $_GET['id']);
+        }
+
         addJaponais($_GET['id'], $_POST['kanji'], $_POST['kana'], $_POST['romaji'], $_POST['description'], $_POST['id_type'], $francais, $anglais);
     } else header('Location:index.php?p=accueil');
 }
@@ -238,23 +243,6 @@ function addFrancaisFromOther($id, $francais)
         } else {
             if (empty(researchWordBack($francais))) createWord($francais);
         }
-    } else header('Location:index.php?p=accueil');
-}
-
-function wordGroupe()
-{
-    if (connect_admin()) {
-        if ($_GET['bool'] === '1') {
-            $wordGroupe = addGroupeToJaponais($_GET['id_groupe'], $_GET['id']);
-        } else {
-            $wordGroupe = deleteGroupeToJaponais($_GET['id_groupe'], $_GET['id']);
-        }
-
-        if ($wordGroupe === false) {
-            throw new Exception();
-        }
-
-        header('Location:index.php?p=word_edit&id=' . $_GET['id']);
     } else header('Location:index.php?p=accueil');
 }
 

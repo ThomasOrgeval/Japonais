@@ -17,8 +17,6 @@ try {
             }
         } elseif ($p === 'groupe_delete') {
             deleteGroupe($_GET['id']);
-        } elseif ($p === 'word_groupe') {
-            wordGroupe();
         } elseif ($p === 'logout') {
             logout();
         } elseif ($p === 'submitLogin') {

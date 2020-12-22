@@ -319,28 +319,28 @@ function listWordToGroupe($id_groupe)
     return $select->fetchAll();
 }
 
-function selectGroupeAndJaponais($id_groupe, $id_japonais)
+function addGroupeToJaponais($id_group, $id_japonais)
 {
     $db = dbConnect();
-    $id_groupe = $db->quote($id_groupe);
+    $id_group = $db->quote($id_group);
     $id_japonais = $db->quote($id_japonais);
-    return $db->query("select * from lexiqumjaponais.JAPONAIS_GROUPE where id_groupe=$id_groupe and id_japonais=$id_japonais");
+    return $db->query("insert into lexiqumjaponais.JAPONAIS_GROUPE set id_japonais=$id_japonais, id_groupe=$id_group");
 }
 
-function addGroupeToJaponais($id_groupe, $id_japonais)
+function deleteGroupeToJaponais($id_group, $id_japonais)
 {
     $db = dbConnect();
-    $word = $db->quote($id_japonais);
-    $groupe = $db->quote($id_groupe);
-    return $db->query("insert into lexiqumjaponais.JAPONAIS_GROUPE set id_japonais=$word, id_groupe=$groupe");
+    $id_japonais = $db->quote($id_japonais);
+    $id_group = $db->quote($id_group);
+    return $db->query("delete from lexiqumjaponais.JAPONAIS_GROUPE where id_japonais=$id_japonais and id_groupe=$id_group");
 }
 
-function deleteGroupeToJaponais($id_groupe, $id_japonais)
+function selectGroupAndJaponais($id_group, $id_japonais)
 {
     $db = dbConnect();
-    $idWord = $db->quote($id_japonais);
-    $idGroupe = $db->quote($id_groupe);
-    return $db->query("delete from lexiqumjaponais.JAPONAIS_GROUPE where id_japonais=$idWord and id_groupe=$idGroupe");
+    $id_japonais = $db->quote($id_japonais);
+    $id_group = $db->quote($id_group);
+    return $db->query("select id from lexiqumjaponais.JAPONAIS_GROUPE where id_japonais=$id_japonais and id_groupe=$id_group")->rowCount();
 }
 
 function deleteAllGroupeForJaponais($id_japonais)
