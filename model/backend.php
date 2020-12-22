@@ -47,10 +47,10 @@ function testGroupe($id)
  * Francais
  */
 
-function researchWordBack($search)
+function researchFrBack($search)
 {
     $db = dbConnect();
-    $select = $db->query("select * from lexiqumjaponais.FRANCAIS where francais like '$search'");
+    $select = $db->query("select id from lexiqumjaponais.FRANCAIS where francais like '$search'");
     return $select->fetch();
 }
 
@@ -196,7 +196,7 @@ function selectAnglaisAndJaponais($id_japonais, $id_anglais)
     return $select->fetchAll();
 }
 
-function createAnglaisAndJaponais($id_japonais, $id_anglais)
+function createJaponaisAndAnglais($id_japonais, $id_anglais)
 {
     $db = dbConnect();
     $id_japonais = $db->quote($id_japonais);
