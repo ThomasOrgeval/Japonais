@@ -3,26 +3,26 @@ ob_start(); ?>
 
     <div class="row">
         <div class="col-sm">
-            <h4 class="font-weight-bold">Utilisateurs :
+            <h6 class="font-weight-bold">Utilisateurs :
                 <span class="font-weight-normal"><?= $_POST['stats']['users'] ?></span>
-            </h4>
+            </h6>
         </div>
         <div class="col-sm">
-            <h4 class="font-weight-bold">Mots :
+            <h6 class="font-weight-bold">Mots :
                 <span class="font-weight-normal"><?= $_POST['stats']['japonais'] ?> en japonais</span>
-            </h4>
+            </h6>
         </div>
         <div class="col-sm">
-            <h4 class="font-weight-bold">Sakuras :
+            <h6 class="font-weight-bold">Sakuras :
                 <span class="font-weight-normal"><?= $_POST['stats']['sakura'] ?></span>
                 <img id="sakura-stats" class="svg" src="./resources/svgs/sakura.svg" alt="sakura">
-            </h4>
+            </h6>
         </div>
         <div class="col-sm">
-            <h4 class="font-weight-bold">Sakuras total :
+            <h6 class="font-weight-bold">Sakuras total :
                 <span class="font-weight-normal"><?= $_POST['stats']['sakura_total'] ?></span>
                 <img id="sakura-stats" class="svg" src="./resources/svgs/sakura.svg" alt="sakura">
-            </h4>
+            </h6>
         </div>
     </div><br/>
     <hr class="black"><br/>

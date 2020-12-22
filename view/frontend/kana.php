@@ -20,7 +20,8 @@ ob_start(); ?>
             <tr>
                 <td><?= $key ?></td>
                 <?php foreach ($kana as $value) : ?>
-                    <td onclick="kana('<?= $value['romaji'] ?>')">
+                    <td <?php if (!empty($value['hiragana'])) : ?> style="cursor: pointer;" <?php endif; ?>
+                            onclick="kana('<?= $value['romaji'] ?>')">
                         <?= $value['hiragana'] ?>
                         <?php if (!empty($value['hiragana'])) : ?> - <?php endif; ?>
                         <?= $value['katakana'] ?>

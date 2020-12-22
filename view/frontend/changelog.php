@@ -70,6 +70,9 @@ ob_start(); ?>
                 <span class="font-weight-bold">Modification pour les url de recherche</span> afin de ne plus devoir
                 écrire l'id du type de mot en question
             </li>
+            <li>
+                <span class="font-weight-bold">Mise à jour du blackthème</span> car il avait quelques bugs...
+            </li>
             <!--li>
                 <span class="font-weight-bold">Modification du htaccess</span> pour vous renvoyez les adresses http vers https 😊
             </li-->
