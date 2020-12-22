@@ -66,6 +66,19 @@
     height: 24px;
 }
 
+.list-search li {
+    height: 45px;
+}
+
+.list-search li span {
+    font-size: 20px;
+}
+
+.modal-kanji {
+    font-size: 180px;
+    text-align: center;
+}
+
 .color {
     color: black;
 }

@@ -9,7 +9,7 @@ ob_start(); ?>
     <div class="form-group card mx-auto">
         <div class="card-header">
             <div class="flexible">
-                <h4 class="card-title text-center" style="margin-top: 20px"><?= $_POST['francais']['francais'] ?></h4>
+                <h4 class="card-title font-weight-bold text-center" style="margin-top: 20px"><?= $_POST['francais']['francais'] ?></h4>
                 <a data-toggle="modal" data-target="#modalListe" style="margin-left: auto; margin-top: 20px">
                     <img id="plus-circle" class="svg" src="./resources/svgs/plus-circle.svg" alt="plus">
                 </a>
@@ -25,7 +25,7 @@ ob_start(); ?>
                 </ul>
             <?php endif;
             $i = $i + 1; ?>
-            <ul class="list-group list-group-flush" onclick="textToAudio('<?= $japonais['romaji'] ?>')"
+            <ul class="list-group list-group-flush list-search" onclick="textToAudio('<?= $japonais['romaji'] ?>')"
                 style="cursor: pointer">
                 <li class="list-group-item flexible">
                     <span>Kanji : <?= $japonais['kanji'] ?></span>

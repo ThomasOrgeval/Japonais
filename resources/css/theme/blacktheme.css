@@ -38,6 +38,10 @@ table.table tbody td a {
     fill: white;
 }
 
+#sakura-stats {
+    fill: deeppink;
+}
+
 .modal-content {
     background-color: #222222;
 }

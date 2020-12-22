@@ -6,7 +6,7 @@ ob_start(); ?>
     <div id="search" class="search" style="width: 100%"></div><br/><br/>
 
     <div class="card" style="margin: 0 auto;">
-        <div class="card-header">
+        <div class="card-header" style="cursor: pointer" onclick="modalKanji()">
             <h4 class="card-title text-center" style="margin-top: 20px"><?= $_POST['kanji'] ?></h4>
         </div>
         <ul class="list-group list-group-flush">
@@ -44,10 +44,22 @@ ob_start(); ?>
         </div>
     </div>
 
+    <div class="modal fade" id="modalKanji" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <span class="modal-kanji"><?= $_POST['kanji'] ?></span>
+            </div>
+        </div>
+    </div>
+
     <script>
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         })
+
+        function modalKanji() {
+            $('#modalKanji').modal('show');
+        }
     </script>
 
 <?php $content = ob_get_clean();

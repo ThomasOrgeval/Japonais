@@ -50,6 +50,10 @@ ob_start(); ?>
                 <a href="index.php?p=kana">Lien</a> (Il ne faut pas hésiter à cliquer sur chacun d'eux pour les voir en
                 plus grand !)
             </li>
+            <li>
+                <span class="font-weight-bold">Les kanjis sur leur fiche de kanji</span> sont désormais cliquables,
+                comme ça on peut les voir en plus grand !
+            </li>
         </ul>
         <hr class="black">
 
