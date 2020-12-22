@@ -97,7 +97,7 @@ function japonais_add()
         $romaji = securize($_POST['romaji']);
         $desc = securize($_POST['description']);
 
-        if (isset($_GET['id']) && empty($_GET['id'])) {
+        if (isset($_GET['id']) && !empty($_GET['id'])) {
             $addWord = editJaponais($kana, $kanji, $romaji, $desc, $_POST['id_type'], $_GET['id']);
             $id = $_GET['id'];
         } else {
@@ -121,7 +121,7 @@ function japonais_add()
         for ($i = 0; $i <= sizeof($_POST['id_anglais']); $i++) {
             if (!empty($_POST['anglais'][$i])) {
                 addAnglais($_POST['id_anglais'][$i], $_POST['anglais'][$i]);
-                $id_anglais = researchAnglais($_POST['anglais'][$i]);
+                $id_anglais = researchAnglais($_POST['anglais'][$i])['id'];
                 if (empty(selectAnglaisAndJaponais($id, $id_anglais))) createJaponaisAndAnglais($id, $id_anglais);
             }
         }

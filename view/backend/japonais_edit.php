@@ -228,21 +228,19 @@ ob_start(); ?>
         }
 
         function remove(lang, id) {
-            if (confirm('Voulez vous vraiment supprimer ce mot ?'))
-                $.post(
-                    'ajax/deleteInJapan.php',
-                    {
-                        lang: lang,
-                        id: id
-                    },
-                    function (data) {
-                        if (data === 'success') {
-                            $('#' + lang + '_' + id).remove();
-                        }
-                        console.log(data);
-                    },
-                    'html'
-                );
+            $.post(
+                'ajax/deleteInJapan.php',
+                {
+                    lang: lang,
+                    id: id
+                },
+                function (data) {
+                    if (data === 'success') {
+                        $('#' + lang + '_' + id).remove();
+                    } else console.log(data);
+                },
+                'html'
+            );
         }
     </script>
 
