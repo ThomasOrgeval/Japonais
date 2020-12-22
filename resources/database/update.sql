@@ -117,13 +117,14 @@ create table `KANA`
     primary key (`id`)
 ) engine = InnoDB;
 
--- Autre
-
 alter table ANGLAIS
     drop foreign key anglais_ibfk_1;
 drop index id_type on ANGLAIS;
 alter table ANGLAIS
     drop column id_type;
+
+
+
 
 -- Modifications pour la tour
 
