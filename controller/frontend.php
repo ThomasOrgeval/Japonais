@@ -410,13 +410,15 @@ function select_theme()
 function search()
 {
     if (isset($_GET['mot'])) {
-        $_POST['francais'] = researchWord($_GET['mot'], $_GET['type']);
-        $_POST['japonais'] = listJaponaisToFrancais($_POST['francais']['id'], $_POST['francais']['id_type']);
+        $_POST['francais'] = researchWord($_GET['mot']);
+        $_POST['japonais'] = listJaponaisToFrancais($_POST['francais']['id']);
         $_POST['groupes'] = listGroupeToJaponais($_POST['francais']['id']);
         $_POST['listes'] = listListes($_SESSION['id']);
         $_POST['other_listes'] = haveListes($_SESSION['id'], $_POST['francais']['id']);
+
+        $_POST['type'] = array();
         foreach ($_POST['japonais'] as $japonais) {
-            $_POST['type'][] = add_selection_type($japonais['id_type'], $japonais);
+            array_push($_POST['type'], add_selection_type($japonais['id_type'], $japonais));
         }
         foreach ($_POST['other_listes'] as $other_liste) {
             foreach ($_POST['listes'] as $liste) {

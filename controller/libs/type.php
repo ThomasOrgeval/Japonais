@@ -17,7 +17,7 @@ function add_selection_type($type, $base)
 
     switch ($type) {
 
-        case "Verbe" :
+        case 'Verbe' :
             if ($base['romaji'] == 'Suru') { // Groupe 3 irréguliers
                 $romaji = "Shi";
                 $kanji = "し";
@@ -292,6 +292,12 @@ function add_selection_type($type, $base)
                 }
 
             }
+            break;
+        case 'Adjectif':
+            $add = ["Adjectif" => "value"];
+            break;
+        case 'Nom':
+            $add = ["Nom" => "value"];
             break;
 
         default:

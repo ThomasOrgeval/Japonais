@@ -50,9 +50,6 @@ ob_start(); ?>
                 <a href="index.php?p=kana">Lien</a> (Il ne faut pas hésiter à cliquer sur chacun d'eux pour les voir en
                 plus grand !)
             </li>
-            <li>
-                <span class="font-weight-bold">Réécriture des url !</span> avec ça c'est beaucoup plus joli 😋
-            </li>
         </ul>
         <hr class="black">
 
@@ -70,8 +67,12 @@ ob_start(); ?>
                 <span class="font-weight-bold">Correction d'un bug sur les énigmes lorsque la première lettre contient un accent</span>
             </li>
             <li>
-                <span class="font-weight-bold">Modification du htaccess</span> pour vous renvoyez les adresses http vers https 😊
+                <span class="font-weight-bold">Modification pour les url de recherche</span> afin de ne plus devoir
+                écrire l'id du type de mot en question
             </li>
+            <!--li>
+                <span class="font-weight-bold">Modification du htaccess</span> pour vous renvoyez les adresses http vers https 😊
+            </li-->
         </ul>
     </div><br/>
 

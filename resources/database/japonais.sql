@@ -290,6 +290,7 @@ begin
     delete from LISTES where id_user = old.id;
 end |
 
+drop procedure if exists `insert_sakura_history`|
 create procedure insert_sakura_history(in id_user_sakura int, in nb_sakura int, in last_date date)
 begin
     if (last_date = curdate()) then

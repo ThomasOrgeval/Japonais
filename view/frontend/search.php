@@ -1,5 +1,6 @@
 <?php $title = $_POST['francais']['francais'];
-ob_start(); ?>
+ob_start();
+var_dump($_POST['type']); ?>
 
     <label for="autocomplete"></label>
     <input type="text" style="width: 100%" id="autocomplete" class="autocomplete-bar" name="mot" placeholder="Recherche"
@@ -15,14 +16,16 @@ ob_start(); ?>
                 </a>
             </div>
         </div>
-        <?php if (isset($_POST['type']) && $_POST['type'][0] != null) : ?>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item text-center">
-                    <?= key($_POST['type'][0]) ?>
-                </li>
-            </ul>
-        <?php endif; ?>
-        <?php foreach ($_POST['japonais'] as $japonais) : ?>
+        <?php $i = 0;
+        foreach ($_POST['japonais'] as $japonais) :
+            if (isset($_POST['type']) && $_POST['type'][$i] != null) : ?>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-center">
+                        <?= key($_POST['type'][$i]) ?>
+                    </li>
+                </ul>
+            <?php endif;
+            $i = $i + 1; ?>
             <ul class="list-group list-group-flush" onclick="textToAudio('<?= $japonais['romaji'] ?>')"
                 style="cursor: pointer">
                 <li class="list-group-item flexible">
@@ -37,12 +40,12 @@ ob_start(); ?>
                 </li>
             </ul>
             <?php if (!empty($japonais['description'])) : ?>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item flexible">
-                        <span><?= nl2br($japonais['description']) ?></span>
-                    </li>
-                </ul>
-            <?php endif;
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item flexible">
+                    <span><?= nl2br($japonais['description']) ?></span>
+                </li>
+            </ul>
+        <?php endif;
             $kanji = listKanjiToJaponais($japonais['id']);
             if (!empty($kanji)) :
                 foreach ($kanji as $aKanji) : ?>
@@ -56,7 +59,7 @@ ob_start(); ?>
                 <?php endforeach;
             endif;
             if ($japonais != array_slice($_POST['japonais'], -1)[0]) : ?>
-                <br/><br/>
+                <hr class="black">
             <?php endif;
         endforeach;
         if (!empty($_POST['groupes'])) : ?>
@@ -70,7 +73,7 @@ ob_start(); ?>
         <?php endif; ?>
     </div>
 
-<?php if (isset($_POST['type']) && $_POST['type'][0] != null) :
+<?php if (isset($_POST['type']) && $_POST['type'][0] != null && substr(key($_POST['type'][0]), 0, 5) == 'Verbe') :
     foreach ($_POST['type'] as $list) :
         foreach ($list as $value) :
             $i = 1; ?>

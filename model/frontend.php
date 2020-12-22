@@ -399,15 +399,15 @@ function listConfidentiality()
  * Recherche
  */
 
-function researchWord($search, $type)
+function researchWord($search)
 {
     $db = dbConnect();
-    $type = $db->quote($type);
+    $search = $db->quote($search);
     $select = $db->query("select f.francais, f.id, j.id_type, ty.type, ty.type_jp from lexiqumjaponais.FRANCAIS f
         inner join lexiqumjaponais.TRADUCTION t on f.id = t.id_word
         inner join lexiqumjaponais.JAPONAIS j on t.id_japonais = j.id
         inner join lexiqumjaponais.TYPE ty on j.id_type = ty.id
-        where francais like '$search' and j.id_type=$type");
+        where francais like $search order by id_type");
     return $select->fetch();
 }
 
@@ -521,7 +521,7 @@ function autocompleteMots($key)
         inner join lexiqumjaponais.TRADUCTION t on FRANCAIS.id = t.id_word
         inner join lexiqumjaponais.JAPONAIS j on t.id_japonais = j.id
         inner join lexiqumjaponais.TYPE ty on j.id_type = ty.id
-        where francais like '$key%' order by francais limit 0,10");
+        where francais like '$key%' group by francais order by francais limit 0,10");
     return $select->fetchAll();
 }
 
