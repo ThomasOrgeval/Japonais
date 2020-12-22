@@ -273,18 +273,20 @@ function listFrancaisAndJaponaisWhereGroupe($id)
     return $select->fetchAll();
 }
 
-function deleteAllForFrancais($id_francais)
+function deleteFrancais($id_francais)
 {
     $db = dbConnect();
     $id = $db->quote($id_francais);
     $db->exec("delete from lexiqumjaponais.TRADUCTION where id_word=$id");
+    $db->exec("delete from lexiqumjaponais.FRANCAIS where id=$id");
 }
 
-function deleteAllForAnglais($id_anglais)
+function deleteAnglais($id_anglais)
 {
     $db = dbConnect();
     $id = $db->quote($id_anglais);
     $db->exec("delete from lexiqumjaponais.TRADUCTION where id_anglais=$id");
+    $db->exec("delete from lexiqumjaponais.ANGLAIS where id=$id");
 }
 
 /**

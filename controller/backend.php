@@ -258,21 +258,6 @@ function wordGroupe()
     } else header('Location:index.php?p=accueil');
 }
 
-function deleteFrancaisInJaponais($id_francais, $id_japonais)
-{
-    if (connect_admin()) {
-        deleteAllForFrancais($id_francais);
-        $delete = supprWord($id_francais);
-        if ($delete === false) {
-            setFlash('Le mot francais n\'a pas été supprimé', 'danger');
-            throw new Exception();
-        }
-
-        setFlash('Le mot francais a bien été supprimé');
-        header('Location:index.php?p=japonais_edit&id=' . $id_japonais);
-    }
-}
-
 /**
  * Type
  */
@@ -362,20 +347,6 @@ function addJaponais($id, $kanji, $kana, $romaji, $description, $type, $listFran
  * Anglais
  */
 
-function deleteAnglaisInJaponais($id_anglais, $id_japonais)
-{
-    if (connect_admin()) {
-        deleteAllForAnglais($id_anglais);
-        $delete = supprAnglais($id_anglais);
-        if ($delete === false) {
-            setFlash('Le mot japonais n\'a pas été supprimé', 'danger');
-            throw new Exception();
-        }
-
-        setFlash('Le mot japonais a bien été supprimé');
-        header('Location:index.php?p=japonais_edit&id=' . $id_japonais);
-    } else header('Location:index.php?p=accueil');
-}
 
 function addAnglaisFromOther($id, $anglais)
 {

@@ -53,10 +53,6 @@ try {
             japonais_edit();
         } elseif ($p === 'japonais_add') {
             japonais_add();
-        } elseif ($p === 'francais_delete_in_japonais') {
-            deleteFrancaisInJaponais($_GET['id_francais'], $_GET['id']);
-        } elseif ($p === 'anglais_delete_in_japonais') {
-            deleteAnglaisInJaponais($_GET['id_anglais'], $_GET['id']);
         } elseif ($p === 'kanjis') {
             kanjis();
         } elseif ($p === 'kanji_edit') {

@@ -5,7 +5,7 @@ ob_start(); ?>
 
     <form action="index.php?p=japonais_add<?php if (isset($_GET['id'])) {
         echo '&id=' . $_GET['id'];
-    } ?>" method="post">
+    } ?>" method="post" autocomplete="off">
         <?php if (isset($_GET['id'])): ?>
             <div class="form-group">
                 <label for="id">ID</label>
@@ -69,9 +69,7 @@ ob_start(); ?>
         <hr>
         <div class="flexible wide-screen">
             <div class="form-group col-2">ID</div>
-            <div class="form-group col-6">Traduction française</div>
-            <div class="form-group col-3">Type du mot</div>
-            <div class="form-group col-1">Action</div>
+            <div class="form-group col-10">Traduction française</div>
         </div>
 
         <?php if (isset($_GET['id'])) {
@@ -79,20 +77,16 @@ ob_start(); ?>
         }
         if (!empty($mots)):
             foreach ($mots as $mot): ?>
-                <div class="row">
+                <div id="fr_<?= $mot['id'] ?>" class="row">
                     <div class="form-group col-md-2">
                         <label class="small-screen" for="id_francais<?= $mot['id'] ?>">ID</label>
                         <input type='text' class='form-control' id='id_francais<?= $mot['id'] ?>' name='id_francais[]'
-                               value='<?= $mot['id']; ?>' readonly>
+                               value='<?= $mot['id']; ?>' readonly onclick="remove('fr', '<?= $mot['id'] ?>')">
                     </div>
-                    <div class="form-group col-md-9">
+                    <div class="form-group col-md-10">
                         <label class="small-screen" for="francais<?= $mot['id'] ?>">ID</label>
                         <input type='text' class='form-control' id='francais<?= $mot['id'] ?>' name='francais[]'
                                value='<?= $mot['francais']; ?>'>
-                    </div>
-                    <div class="form-group col-md-1">
-                        <a class="btn btn-red btn-sm"
-                           href="index.php?p=francais_delete_in_japonais&id=<?= $_GET['id']; ?>&id_francais=<?= $mot['id']; ?>">-</a>
                     </div>
                 </div>
             <?php endforeach;
@@ -102,7 +96,7 @@ ob_start(); ?>
                     <label class="small-screen">ID</label>
                     <?= inputReadonly('id_francais[]'); ?>
                 </div>
-                <div class="form-group col-md-9">
+                <div class="form-group col-md-10">
                     <label class="small-screen">Français</label>
                     <?= input('francais[]'); ?>
                 </div>
@@ -114,7 +108,7 @@ ob_start(); ?>
                 <label class="small-screen">ID</label>
                 <?= inputReadonly('id_francais[]'); ?>
             </div>
-            <div class="form-group col-md-9">
+            <div class="form-group col-md-10">
                 <label class="small-screen">Français</label>
                 <?= input('francais[]'); ?>
             </div>
@@ -126,8 +120,7 @@ ob_start(); ?>
         <hr>
         <div class="flexible wide-screen">
             <div class="form-group col-md-2">ID</div>
-            <div class="form-group col-md-9">Traduction anglaise</div>
-            <div class="form-group col-md-1">Action</div>
+            <div class="form-group col-md-10">Traduction anglaise</div>
         </div>
 
         <?php if (isset($_GET['id'])) {
@@ -135,20 +128,16 @@ ob_start(); ?>
         }
         if (!empty($mots)):
             foreach ($mots as $mot): ?>
-                <div class="row">
-                    <div class="form-group col-md-2">
+                <div id="en_<?= $mot['id'] ?>" class="row">
+                    <div class="form-group col-md-2" onclick="remove('en', '<?= $mot['id'] ?>')">
                         <label class="small-screen" for="id_anglais<?= $mot['id'] ?>">ID</label>
                         <input type='text' class='form-control' id='id_anglais<?= $mot['id'] ?>' name='id_anglais[]'
                                value='<?= $mot['id']; ?>' readonly>
                     </div>
-                    <div class="form-group col-md-9">
+                    <div class="form-group col-md-10">
                         <label class="small-screen" for="anglais<?= $mot['id'] ?>">Anglais</label>
                         <input type='text' class='form-control' id='anglais<?= $mot['id'] ?>' name='anglais[]'
                                value='<?= $mot['anglais']; ?>'>
-                    </div>
-                    <div class="form-group col-md-1">
-                        <a class="btn btn-red btn-sm"
-                           href="index.php?p=anglais_delete_in_japonais&id=<?= $_GET['id']; ?>&id_anglais=<?= $mot['id']; ?>">-</a>
                     </div>
                 </div>
             <?php endforeach;
@@ -158,7 +147,7 @@ ob_start(); ?>
                     <label class="small-screen">ID</label>
                     <?= inputReadonly('id_anglais[]'); ?>
                 </div>
-                <div class="form-group col-md-9">
+                <div class="form-group col-md-10">
                     <label class="small-screen">Anglais</label>
                     <?= input('anglais[]'); ?>
                 </div>
@@ -170,7 +159,7 @@ ob_start(); ?>
                 <label class="small-screen">ID</label>
                 <?= inputReadonly('id_anglais[]'); ?>
             </div>
-            <div class="form-group col-md-9">
+            <div class="form-group col-md-10">
                 <label class="small-screen">Anglais</label>
                 <?= input('anglais[]'); ?>
             </div>
@@ -237,6 +226,24 @@ ob_start(); ?>
                         $('#grp-' + id_group + ' > div > svg').attr('id', 'uncheck');
                         $('#grp-' + id_group + ' > div > svg > path').attr('d', 'M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z');
                     }
+                },
+                'html'
+            );
+        }
+
+        function remove(lang, id) {
+            if (confirm('Voulez vous vraiment supprimer ce mot ?'))
+            $.post(
+                'ajax/deleteInJapan.php',
+                {
+                    lang: lang,
+                    id: id
+                },
+                function (data) {
+                    if (data === 'success') {
+                        $('#' + lang + '_' + id).remove();
+                    }
+                    console.log(data);
                 },
                 'html'
             );
