@@ -99,6 +99,8 @@ try {
             contact();
         } elseif ($p === 'kana') {
             kana();
+        } elseif ($p === 'history') {
+            history();
         }
     } else {
         accueil();

@@ -86,3 +86,13 @@ li {
 .table-hover tbody tr:hover {
     background-color: dimgrey !important;
 }
+
+.green-table {
+    background-color: #418a44 !important;
+    color: white;
+}
+
+.red-table {
+    background-color: #b53128 !important;
+    color: white;
+}

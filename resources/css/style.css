@@ -130,6 +130,14 @@
     margin-left: auto;
 }
 
+.green-table {
+    background-color: #85cd88 !important
+}
+
+.red-table {
+    background-color: #f56055 !important
+}
+
 .speaker {
     margin-left: auto;
     width: 20px;

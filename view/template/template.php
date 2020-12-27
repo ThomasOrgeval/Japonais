@@ -51,6 +51,7 @@
             <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
                 <a class="nav-item nav-link" href="index.php?p=listes">Mes listes</a>
                 <a class="nav-item nav-link" href="index.php?p=theme">Mes thèmes</a>
+                <a class="nav-item nav-link" href="index.php?p=history">Historique</a>
                 <?php if ($_SESSION['admin'] == 1): ?>
                     <a class="nav-item nav-link" href="index.php?p=admin_portail">Administration</a>
                 <?php endif;
@@ -85,6 +86,7 @@
                 <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
                     <a class="nav-item nav-link" href="index.php?p=listes">Mes listes</a>
                     <a class="nav-item nav-link" href="index.php?p=theme">Mes thèmes</a>
+                    <a class="nav-item nav-link" href="index.php?p=history">Historique</a>
                     <?php if ($_SESSION['admin'] == 1): ?>
                         <a class="nav-item nav-link" href="index.php?p=admin_portail">Administration</a>
                     <?php endif;

@@ -664,3 +664,9 @@ function getKana($romaji)
     $romaji = $db->quote($romaji);
     return $db->query("select hiragana, katakana, romaji from lexiqumjaponais.KANA where romaji like $romaji")->fetch();
 }
+
+function selectHistory($id)
+{
+    $db = dbConnect();
+    return $db->query("select id, riddle, response, life from lexiqumjaponais.HISTORIQUE_RIDDLE where id_user = $id order by id desc")->fetchAll();
+}

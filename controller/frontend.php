@@ -694,3 +694,24 @@ function kana()
     array_push($_POST['kana']['y'], ['hiragana' => '', 'katakana' => '', 'romaji' => '']);
     require './view/frontend/kana.php';
 }
+
+function history()
+{
+    if (connect()) {
+        $_POST['value'] = selectHistory($_SESSION['id']);
+        $_POST['history'] = array();
+
+        foreach ($_POST['value'] as $value) {
+            $traducts = listJaponaisToFrancaisWord($value['riddle']);
+            if ($traducts == null) $traducts = listFrancaisToJaponaisWord($value['riddle']);
+            array_push($value, $traducts);
+            array_push($_POST['history'], $value);
+        }
+        unset($_POST['value']);
+
+        require './view/frontend/history.php';
+    } else {
+        setFlash('Accès interdit', 'danger');
+        header('Location:index.php?p=accueil');
+    }
+}
