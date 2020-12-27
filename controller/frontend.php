@@ -16,17 +16,19 @@ require './model/frontend.php';
 
 function accueil()
 {
-    if (isset($_COOKIE['mail'], $_COOKIE['pass']) && !isset($_SESSION['pseudo'])) {
-        submitLogin($_COOKIE['mail'], $_COOKIE['pass']);
+    if (isset($_COOKIE['mail'], $_COOKIE['pass']) && !isset($_SESSION['pseudo'])) submitLogin($_COOKIE['mail'], $_COOKIE['pass']);
+
+    if (isset($_SESSION['new_life']) && $_SESSION['new_life'] === true) $_SESSION['new_life'] = false;
+
+    if (isset($_SESSION['nombreWords']) && !empty($_SESSION['nombreWords'])) $_POST['words'] = listRandomWords($_SESSION['nombreWords']);
+    else $_POST['words'] = listRandomWords(10);
+
+    foreach ($_POST['words'] as $key => $word) {
+        $kana = preg_split('/(?<!^)(?!$)/u', $word['kana']);
+        $replace = preg_split('/(?<!^)(?!$)/u', $word['kanji']);
+        $kanjis = find_kanji($word['kanji']);
     }
-    if (isset($_SESSION['new_life']) && $_SESSION['new_life'] === true) {
-        $_SESSION['new_life'] = false;
-    }
-    if (isset($_SESSION['nombreWords']) && !empty($_SESSION['nombreWords'])) {
-        $_POST['words'] = listRandomWords($_SESSION['nombreWords']);
-    } else {
-        $_POST['words'] = listRandomWords(10);
-    }
+
     require './view/frontend/index.php';
 }
 

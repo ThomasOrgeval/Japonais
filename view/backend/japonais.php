@@ -49,6 +49,8 @@ ob_start(); ?>
                 function (data) {
                     if (data === 'SUCCESS') {
                         $('#row' + id).remove();
+                    } else if(data === 'WARNING') {
+                        console.log('Accès non autorisé');
                     } else {
                         console.log(data);
                     }
