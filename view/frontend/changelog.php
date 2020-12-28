@@ -6,7 +6,7 @@ ob_start(); ?>
     <div id="v1.2" class="changelog-version">
         <div class="flexible">
             <h4 class="text-uppercase font-weight-bolder">Version 1.2
-                <span class="font-weight-lighter changelog-date">- 8 Décembre 2020<span>
+                <span class="font-weight-lighter changelog-date">- 27 Décembre 2020<span>
             </h4>
         </div>
         <hr class="black">
@@ -21,10 +21,6 @@ ob_start(); ?>
                 mots 🉐
             </li>
             <li>
-                <span class="font-weight-bold">Ajout des historique de devinette</span> pour pouvoir avoir la trace de
-                vos échecs précédents 😉
-            </li>
-            <li>
                 <span class="font-weight-bold">Valeur dans les devinettes !</span> Désormais, quand vous devez trouver
                 le mot japonais d'un mot français, vous pouvez répondre en romaji, kana ou kanji mais selon la réponse
                 les points obtenus diffèrent !
@@ -33,7 +29,7 @@ ob_start(); ?>
                     <li>Pour une traduction en kana : + 30 sakuras</li>
                     <li>Pour une traduction en kanji : + 45 sakuras</li>
                 </ul>
-                Si vous souhaitez mettre le clavier japonais en azerty, voici une solution :
+                Si vous souhaitez mettre le clavier japonais en azerty sur windows, voici une solution :
                 <a href="https://guidedujaponais.fr/ma-selection/utilitaires/utilitaires-pc-pour-le-japonais/mettre-clavier-japonais-en-azerty/"
                    target="_blank">Lien</a>
             </li>
@@ -41,18 +37,17 @@ ob_start(); ?>
                 <span class="font-weight-bold">Vous pouvez choisir de mettre les kanjis ou non</span> dans l'énigme ! 😁
             </li>
             <li>
-                <span class="font-weight-bold">Il est désormais possible de ne plus mettre les accents</span> dans les
-                énigmes !g
-            </li>
-            <li>
-                <span class="font-weight-bold">L'équipe et moi-même (c'est à dire moi) avons pensé qu'il était important d'ajouter les kanas</span>
-                pour pouvoir mieux les connaîtres ^-^
+                <span class="font-weight-bold">Ajout de la page des kanas</span> pour pouvoir mieux les connaîtres ^-^
                 <a href="index.php?p=kana">Lien</a> (Il ne faut pas hésiter à cliquer sur chacun d'eux pour les voir en
                 plus grand !)
             </li>
             <li>
                 <span class="font-weight-bold">Les kanjis sur leur fiche de kanji</span> sont désormais cliquables,
-                comme ça on peut les voir en plus grand !
+                comme ça on peut les voir en plus grand également !
+            </li>
+            <li>
+                <span class="font-weight-bold">Ajout d'un historique pour les énigmes</span> ainsi qu'une page qui lui
+                est associée ! <a href="index.php?p=history">Lien</a> 😉
             </li>
         </ul>
         <hr class="black">
@@ -75,7 +70,11 @@ ob_start(); ?>
                 écrire l'id du type de mot en question
             </li>
             <li>
-                <span class="font-weight-bold">Mise à jour du blackthème</span> car il avait quelques bugs...
+                <span class="font-weight-bold">Mise à jour du blackthème</span> car il avait quelques bugs... :(
+            </li>
+            <li>
+                <span class="font-weight-bold">Il est désormais possible de ne plus mettre les accents</span> dans les
+                énigmes !
             </li>
             <!--li>
                 <span class="font-weight-bold">Modification du htaccess</span> pour vous renvoyez les adresses http vers https 😊

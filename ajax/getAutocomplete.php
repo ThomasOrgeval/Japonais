@@ -10,11 +10,43 @@ if (!empty($_POST['keyword'])) :
 
     if (!empty($mots)) : ?>
         <ul class="list-group list-group-flush" id="research">
-            <?php foreach ($mots as $mot) : ?>
-            <a href="index.php?p=search&mot=<?= $mot['francais'] ?>" class="black-text">
-                <li class="list-group-item border li-theme" style="cursor: pointer;"><?= $mot['francais'] ?></li>
-            </a>
-            <?php endforeach; ?>
+            <?php foreach ($mots as $mot) :
+
+                $end3 = substr($mot['romaji'], strlen($mot['romaji']) - 3);
+                $end2 = substr($mot['romaji'], strlen($mot['romaji']) - 2);
+                $exceptFirstGroupe = [
+                    "Kaeru", "Miru"
+                ];
+                $types = getTypes($mot['francais']);
+
+                foreach ($types as $type) {
+                    switch ($type['type']) {
+                        case 'Verbe':
+                            if ($mot['romaji'] == 'Suru' || $mot['romaji'] == 'Kuru') $var = 'Verbe - Groupe 3 (Irrégulier)';
+                            elseif (($end3 == 'eru' || $end3 == 'iru') && !in_array($mot['romaji'], $exceptFirstGroupe))
+                                $var = 'Verbe - Groupe 2 (Ichidan)';
+                            else $var = 'Verbe - Groupe 1 (Godan)';
+                            break;
+                        case 'Adjectif':
+                            if ($end2 == 'na') $var = 'Adjectif (Rentaishi)';
+                            else $var = 'Adjectif (Keiyoushi)';
+                            break;
+                        case
+                        'Nom':
+                            if (isset($var)) $var .= ' + Nom (Futsuumeishi)';
+                            else $var = 'Nom (Futsuumeishi)';
+                            break;
+                        default:
+                            $var = $mot['type'];
+                    }
+                } ?>
+                <a href="index.php?p=search&mot=<?= $mot['francais'] ?>" class="black-text">
+                    <li class="list-group-item border li-theme" style="cursor: pointer">
+                        <?= $mot['francais'] ?> - <?= $var ?>
+                    </li>
+                </a>
+                <?php unset($var);
+            endforeach; ?>
         </ul>
     <?php endif;
 endif;

@@ -94,7 +94,7 @@ function add_selection_type($type, $base)
                     ] // Vouloir passé
                 ]];
 
-            } elseif ($base['romaji'] == 'kuru') { // Groupe 3 irréguliers
+            } elseif ($base['romaji'] == 'Kuru') { // Groupe 3 irréguliers
                 $romaji = "Ki";
                 $romajiNeg = "Ko";
                 $kana = "き";

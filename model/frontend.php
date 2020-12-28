@@ -517,11 +517,22 @@ function selectRecompense($id)
 function autocompleteMots($key)
 {
     $db = dbConnect();
-    $select = $db->query("select francais, j.id_type, type from lexiqumjaponais.FRANCAIS 
+    $select = $db->query("select francais, j.id_type, type, j.romaji from lexiqumjaponais.FRANCAIS 
         inner join lexiqumjaponais.TRADUCTION t on FRANCAIS.id = t.id_word
         inner join lexiqumjaponais.JAPONAIS j on t.id_japonais = j.id
         inner join lexiqumjaponais.TYPE ty on j.id_type = ty.id
         where francais like '$key%' group by francais order by francais limit 0,10");
+    return $select->fetchAll();
+}
+
+function getTypes($key)
+{
+    $db = dbConnect();
+    $select = $db->query("select type from lexiqumjaponais.FRANCAIS 
+        inner join lexiqumjaponais.TRADUCTION t on FRANCAIS.id = t.id_word
+        inner join lexiqumjaponais.JAPONAIS j on t.id_japonais = j.id
+        inner join lexiqumjaponais.TYPE ty on j.id_type = ty.id
+        where francais like '$key%' order by type");
     return $select->fetchAll();
 }
 
