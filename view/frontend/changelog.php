@@ -49,6 +49,9 @@ ob_start(); ?>
                 <span class="font-weight-bold">Ajout d'un historique pour les énigmes</span> ainsi qu'une page qui lui
                 est associée ! <a href="index.php?p=history">Lien</a> 😉
             </li>
+            <li>
+                <span class="font-weight-bold">Ajout des temps verbaux =D</span>
+            </li>
         </ul>
         <hr class="black">
 

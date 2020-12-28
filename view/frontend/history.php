@@ -1,7 +1,7 @@
 <?php $title = 'Historique';
 ob_start(); ?>
 
-    <h2 class="font-weight-bold">Historique</h2>
+    <h2 class="text-uppercase font-weight-bold">Historique</h2>
 
     <table class="table table-bordered table-size">
         <thead>
