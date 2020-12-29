@@ -3,7 +3,6 @@
 function add_selection_type($type, $base)
 {
     $type = testType($type)->fetch()['type'];
-    $add = array();
     $end2 = substr($base['romaji'], strlen($base['romaji']) - 2);
     $end3 = substr($base['romaji'], strlen($base['romaji']) - 3);
 
@@ -256,13 +255,577 @@ function add_selection_type($type, $base)
 
                 if ($end2 == 'ru') {
 
+                    $add = ["Verbe - Groupe 1 (Godan)" => [
+                        "Non présent" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "る", "Négatif neutre" => $kanji . "らない", "Affirmatif polie" => $kanji . "ります", "Négatif polie" => $kanji . "りません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "る", "Négatif neutre" => $kana . "らない", "Affirmatif polie" => $kana . "ります", "Négatif polie" => $kana . "りません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "ru", "Négatif neutre" => $romaji . "ranai", "Affirmatif polie" => $romaji . "rimasu", "Négatif polie" => $romaji . "rimasen"]
+                        ], // Non présent
+
+                        "Passé" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "った", "Négatif neutre" => $kanji . "らなかった", "Affirmatif polie" => $kanji . "りました", "Négatif polie" => $kanji . "りませんでした"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "った", "Négatif neutre" => $kana . "らなかった", "Affirmatif polie" => $kana . "りました", "Négatif polie" => $kana . "りませんでした"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "tta", "Négatif neutre" => $romaji . "ranakatta", "Affirmatif polie" => $romaji . "rimashita", "Négatif polie" => $romaji . "rimasen deshita"]
+                        ], // Passé
+
+                        "Impératif" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "りなさい", "Affirmatif polie" => $kanji . "ってください", "Négatif polie" => $kanji . "らないでください"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "りなさい", "Affirmatif polie" => $kana . "ってください", "Négatif polie" => $kana . "らないでください"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "rinasai", "Affirmatif polie" => $romaji . "tte kudasai", "Négatif polie" => $romaji . "ranai de kudasai"]
+                        ], // Impératif
+
+                        "Volutive" => [
+                            "Kanji" => ["Neutre" => $kanji . "よう", "Négatif neutre" => $kanji . "るまい", "Poli" => $kanji . "りましょう", "Négatif polie" => $kanji . "りますまい"],
+                            "Kana" => ["Neutre" => $kana . "よう", "Négatif neutre" => $kana . "るまい", "Poli" => $kana . "りましょう", "Négatif polie" => $kana . "りますまい"],
+                            "Romaji" => ["Neutre" => $romaji . "you", "Négatif neutre" => $romaji . "rumai", "Poli" => $romaji . "rimashou", "Négatif polie" => $romaji . "rimasumai"]
+                        ], // Volontaire
+
+                        "Présent progressif" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "っている", "Négatif neutre" => $kanji . "っていない", "Affirmatif polie" => $kanji . "っています", "Négatif polie" => $kanji . "っていません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "っている", "Négatif neutre" => $kana . "っていない", "Affirmatif polie" => $kana . "っています", "Négatif polie" => $kana . "っていません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "tte iru", "Négatif neutre" => $romaji . "tte inai", "Affirmatif polie" => $romaji . "tte imasu", "Négatif polie" => $romaji . "tte imasen"]
+                        ], // Présent progressif
+
+                        "Passé progressif" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "っていた", "Négatif neutre" => $kanji . "っていなかった", "Affirmatif polie" => $kanji . "っていました", "Négatif polie" => $kanji . "っていませんでした"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "っていた", "Négatif neutre" => $kana . "っていなかった", "Affirmatif polie" => $kana . "っていました", "Négatif polie" => $kana . "っていませんでした"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "tte ita", "Négatif neutre" => $romaji . "tte inakatta", "Affirmatif polie" => $romaji . "tte imashita", "Négatif polie" => $romaji . "tte imasen deshita"]
+                        ], // Passé progressif
+
+                        "Conditionnel" => [
+                            "Kanji" => ["-Eba" => $kanji . "れば", "-Tara" => $kanji . "ったら"],
+                            "Kana" => ["-Eba" => $kana . "れば", "-Tara" => $kana . "ったら"],
+                            "Romaji" => ["-Eba" => $romaji . "reba", "-Tara" => $romaji . "ttara"]
+                        ], // Conditionnel
+
+                        "Potentiel" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "れる", "Négatif neutre" => $kanji . "れない", "Affirmatif polie" => $kanji . "れます", "Négatif polie" => $kanji . "れません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "れる", "Négatif neutre" => $kana . "れない", "Affirmatif polie" => $kana . "れます", "Négatif polie" => $kana . "れません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "reru", "Négatif neutre" => $romaji . "renai", "Affirmatif polie" => $romaji . "remasu", "Négatif polie" => $romaji . "remasen"]
+                        ], // Potentiel
+
+                        "Causatif (Factitif)" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "らせる", "Négatif neutre" => $kanji . "らせない", "Affirmatif polie" => $kanji . "らせます", "Négatif polie" => $kanji . "らせません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "らせる", "Négatif neutre" => $kana . "らせない", "Affirmatif polie" => $kana . "らせます", "Négatif polie" => $kana . "らせません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "raseru", "Négatif neutre" => $romaji . "rasenai", "Affirmatif polie" => $romaji . "rasemasu", "Négatif polie" => $romaji . "rasemasen"]
+                        ], // Causatif
+
+                        "Passif (Subir)" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "られる", "Négatif neutre" => $kanji . "られない", "Affirmatif polie" => $kanji . "られます", "Négatif polie" => $kanji . "られません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "られる", "Négatif neutre" => $kana . "られない", "Affirmatif polie" => $kana . "られます", "Négatif polie" => $kana . "られません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "rareru", "Négatif neutre" => $romaji . "rarenai", "Affirmatif polie" => $romaji . "raremasu", "Négatif polie" => $romaji . "raremasen"]
+                        ], // Causatif passif
+
+                        "Causatif passif (Contrainte)" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "らせられる", "Négatif neutre" => $kanji . "らせられない", "Affirmatif polie" => $kanji . "らせられます", "Négatif polie" => $kanji . "らせられません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "らせられる", "Négatif neutre" => $kana . "らせられない", "Affirmatif polie" => $kana . "らせられます", "Négatif polie" => $kana . "らせられません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "raserareru", "Négatif neutre" => $romaji . "raserarenai", "Affirmatif polie" => $romaji . "raseraremasu", "Négatif polie" => $romaji . "raseraremasen"]
+                        ], // Causatif passif
+
+                        "Vouloir présent" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "りたい", "Négatif neutre" => $kanji . "りたくない", "Affirmatif polie" => $kanji . "りたいです", "Négatif polie" => $kanji . "りたくないです"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "りたい", "Négatif neutre" => $kana . "りたくない", "Affirmatif polie" => $kana . "りたいです", "Négatif polie" => $kana . "りたくないです"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "ritai", "Négatif neutre" => $romaji . "ritakunai", "Affirmatif polie" => $romaji . "ritai desu", "Négatif polie" => $romaji . "ritakunai desu"]
+                        ], // Vouloir présent
+
+                        "Vouloir passé" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "りたかった", "Négatif neutre" => $kanji . "りたくなった", "Affirmatif polie" => $kanji . "りたかったです", "Négatif polie" => $kanji . "りたくなったです"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "りたかった", "Négatif neutre" => $kana . "りたくなった", "Affirmatif polie" => $kana . "りたかったです", "Négatif polie" => $kana . "りたくなったです"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "ritakatta", "Négatif neutre" => $romaji . "ritakunakatta", "Affirmatif polie" => $romaji . "ritakatta desu", "Négatif polie" => $romaji . "ritakunakatta desu"]
+                        ] // Vouloir passé
+                    ]];
+
                 } elseif ($end2 == 'ku') {
+
+                    if ($base['romaji'] == 'Iku') {
+                        $add = ["Verbe - Groupe 1 (Godan)" => [
+                            "Non présent" => [
+                                "Kanji" => ["Affirmatif neutre" => $kanji . "く", "Négatif neutre" => $kanji . "かない", "Affirmatif polie" => $kanji . "きます", "Négatif polie" => $kanji . "きません"],
+                                "Kana" => ["Affirmatif neutre" => $kana . "く", "Négatif neutre" => $kana . "かない", "Affirmatif polie" => $kana . "きます", "Négatif polie" => $kana . "きません"],
+                                "Romaji" => ["Affirmatif neutre" => $romaji . "ku", "Négatif neutre" => $romaji . "kanai", "Affirmatif polie" => $romaji . "kimasu", "Négatif polie" => $romaji . "kimasen"]
+                            ], // Non présent
+
+                            "Passé" => [
+                                "Kanji" => ["Affirmatif neutre" => $kanji . "った", "Négatif neutre" => $kanji . "かなかった", "Affirmatif polie" => $kanji . "きました", "Négatif polie" => $kanji . "きませんでした"],
+                                "Kana" => ["Affirmatif neutre" => $kana . "った", "Négatif neutre" => $kana . "かなかった", "Affirmatif polie" => $kana . "きました", "Négatif polie" => $kana . "きませんでした"],
+                                "Romaji" => ["Affirmatif neutre" => $romaji . "tta", "Négatif neutre" => $romaji . "kanakatta", "Affirmatif polie" => $romaji . "kimashita", "Négatif polie" => $romaji . "kimasen deshita"]
+                            ], // Passé
+
+                            "Impératif" => [
+                                "Kanji" => ["Affirmatif neutre" => $kanji . "きなさい", "Affirmatif polie" => $kanji . "ってください", "Négatif polie" => $kanji . "かないでください"],
+                                "Kana" => ["Affirmatif neutre" => $kana . "きなさい", "Affirmatif polie" => $kana . "ってください", "Négatif polie" => $kana . "かないでください"],
+                                "Romaji" => ["Affirmatif neutre" => $romaji . "kinasai", "Affirmatif polie" => $romaji . "tte kudasai", "Négatif polie" => $romaji . "kanai de kudasai"]
+                            ], // Impératif
+
+                            "Volutive" => [
+                                "Kanji" => ["Neutre" => $kanji . "こう", "Négatif neutre" => $kanji . "くまい", "Poli" => $kanji . "きましょう", "Négatif polie" => $kanji . "きますまい"],
+                                "Kana" => ["Neutre" => $kana . "こう", "Négatif neutre" => $kana . "くまい", "Poli" => $kana . "きましょう", "Négatif polie" => $kana . "きますまい"],
+                                "Romaji" => ["Neutre" => $romaji . "kou", "Négatif neutre" => $romaji . "kumai", "Poli" => $romaji . "kimashou", "Négatif polie" => $romaji . "kimasumai"]
+                            ], // Volontaire
+
+                            "Présent progressif" => [
+                                "Kanji" => ["Affirmatif neutre" => $kanji . "っている", "Négatif neutre" => $kanji . "っていない", "Affirmatif polie" => $kanji . "っています", "Négatif polie" => $kanji . "っていません"],
+                                "Kana" => ["Affirmatif neutre" => $kana . "っている", "Négatif neutre" => $kana . "っていない", "Affirmatif polie" => $kana . "っています", "Négatif polie" => $kana . "っていません"],
+                                "Romaji" => ["Affirmatif neutre" => $romaji . "tte iru", "Négatif neutre" => $romaji . "tte inai", "Affirmatif polie" => $romaji . "tte imasu", "Négatif polie" => $romaji . "tte imasen"]
+                            ], // Présent progressif
+
+                            "Passé progressif" => [
+                                "Kanji" => ["Affirmatif neutre" => $kanji . "っていた", "Négatif neutre" => $kanji . "っていなかった", "Affirmatif polie" => $kanji . "っていました", "Négatif polie" => $kanji . "っていませんでした"],
+                                "Kana" => ["Affirmatif neutre" => $kana . "っていた", "Négatif neutre" => $kana . "っていなかった", "Affirmatif polie" => $kana . "っていました", "Négatif polie" => $kana . "っていませんでした"],
+                                "Romaji" => ["Affirmatif neutre" => $romaji . "tte ita", "Négatif neutre" => $romaji . "tte inakatta", "Affirmatif polie" => $romaji . "tte imashita", "Négatif polie" => $romaji . "tte imasen deshita"]
+                            ], // Passé progressif
+
+                            "Conditionnel" => [
+                                "Kanji" => ["-Eba" => $kanji . "けば", "-Tara" => $kanji . "ったら"],
+                                "Kana" => ["-Eba" => $kana . "けば", "-Tara" => $kana . "ったら"],
+                                "Romaji" => ["-Eba" => $romaji . "keba", "-Tara" => $romaji . "ttara"]
+                            ], // Conditionnel
+
+                            "Potentiel" => [
+                                "Kanji" => ["Affirmatif neutre" => $kanji . "ける", "Négatif neutre" => $kanji . "けない", "Affirmatif polie" => $kanji . "けます", "Négatif polie" => $kanji . "けません"],
+                                "Kana" => ["Affirmatif neutre" => $kana . "ける", "Négatif neutre" => $kana . "けない", "Affirmatif polie" => $kana . "けます", "Négatif polie" => $kana . "けません"],
+                                "Romaji" => ["Affirmatif neutre" => $romaji . "keru", "Négatif neutre" => $romaji . "kenai", "Affirmatif polie" => $romaji . "kemasu", "Négatif polie" => $romaji . "kemasen"]
+                            ], // Potentiel
+
+                            "Causatif (Factitif)" => [
+                                "Kanji" => ["Affirmatif neutre" => $kanji . "かせる", "Négatif neutre" => $kanji . "かせない", "Affirmatif polie" => $kanji . "かせます", "Négatif polie" => $kanji . "かせません"],
+                                "Kana" => ["Affirmatif neutre" => $kana . "かせる", "Négatif neutre" => $kana . "かせない", "Affirmatif polie" => $kana . "かせます", "Négatif polie" => $kana . "かせません"],
+                                "Romaji" => ["Affirmatif neutre" => $romaji . "kaseru", "Négatif neutre" => $romaji . "kasenai", "Affirmatif polie" => $romaji . "kasemasu", "Négatif polie" => $romaji . "kasemasen"]
+                            ], // Causatif
+
+                            "Passif (Subir)" => [
+                                "Kanji" => ["Affirmatif neutre" => $kanji . "かれる", "Négatif neutre" => $kanji . "かれない", "Affirmatif polie" => $kanji . "かれます", "Négatif polie" => $kanji . "かれません"],
+                                "Kana" => ["Affirmatif neutre" => $kana . "かれる", "Négatif neutre" => $kana . "かれない", "Affirmatif polie" => $kana . "かれます", "Négatif polie" => $kana . "かれません"],
+                                "Romaji" => ["Affirmatif neutre" => $romaji . "kareru", "Négatif neutre" => $romaji . "karenai", "Affirmatif polie" => $romaji . "karemasu", "Négatif polie" => $romaji . "karemasen"]
+                            ], // Causatif passif
+
+                            "Causatif passif (Contrainte)" => [
+                                "Kanji" => ["Affirmatif neutre" => $kanji . "かせられる", "Négatif neutre" => $kanji . "かせられない", "Affirmatif polie" => $kanji . "かせられます", "Négatif polie" => $kanji . "かせられません"],
+                                "Kana" => ["Affirmatif neutre" => $kana . "かせられる", "Négatif neutre" => $kana . "かせられない", "Affirmatif polie" => $kana . "かせられます", "Négatif polie" => $kana . "かせられません"],
+                                "Romaji" => ["Affirmatif neutre" => $romaji . "kaserareru", "Négatif neutre" => $romaji . "kaserarenai", "Affirmatif polie" => $romaji . "kaseraremasu", "Négatif polie" => $romaji . "kaseraremasen"]
+                            ], // Causatif passif
+
+                            "Vouloir présent" => [
+                                "Kanji" => ["Affirmatif neutre" => $kanji . "きたい", "Négatif neutre" => $kanji . "きたくない", "Affirmatif polie" => $kanji . "きたいです", "Négatif polie" => $kanji . "きたくないです"],
+                                "Kana" => ["Affirmatif neutre" => $kana . "きたい", "Négatif neutre" => $kana . "きたくない", "Affirmatif polie" => $kana . "きたいです", "Négatif polie" => $kana . "きたくないです"],
+                                "Romaji" => ["Affirmatif neutre" => $romaji . "kitai", "Négatif neutre" => $romaji . "kitakunai", "Affirmatif polie" => $romaji . "kitai desu", "Négatif polie" => $romaji . "kitakunai desu"]
+                            ], // Vouloir présent
+
+                            "Vouloir passé" => [
+                                "Kanji" => ["Affirmatif neutre" => $kanji . "きたかった", "Négatif neutre" => $kanji . "きたくなった", "Affirmatif polie" => $kanji . "きたかったです", "Négatif polie" => $kanji . "きたくなったです"],
+                                "Kana" => ["Affirmatif neutre" => $kana . "きたかった", "Négatif neutre" => $kana . "きたくなった", "Affirmatif polie" => $kana . "きたかったです", "Négatif polie" => $kana . "きたくなったです"],
+                                "Romaji" => ["Affirmatif neutre" => $romaji . "kitakatta", "Négatif neutre" => $romaji . "kitakunakatta", "Affirmatif polie" => $romaji . "kitakatta desu", "Négatif polie" => $romaji . "kitakunakatta desu"]
+                            ] // Vouloir passé
+                        ]];
+                    } else {
+                        $add = ["Verbe - Groupe 1 (Godan)" => [
+                            "Non présent" => [
+                                "Kanji" => ["Affirmatif neutre" => $kanji . "く", "Négatif neutre" => $kanji . "かない", "Affirmatif polie" => $kanji . "きます", "Négatif polie" => $kanji . "きません"],
+                                "Kana" => ["Affirmatif neutre" => $kana . "く", "Négatif neutre" => $kana . "かない", "Affirmatif polie" => $kana . "きます", "Négatif polie" => $kana . "きません"],
+                                "Romaji" => ["Affirmatif neutre" => $romaji . "ku", "Négatif neutre" => $romaji . "kanai", "Affirmatif polie" => $romaji . "kimasu", "Négatif polie" => $romaji . "kimasen"]
+                            ], // Non présent
+
+                            "Passé" => [
+                                "Kanji" => ["Affirmatif neutre" => $kanji . "った", "Négatif neutre" => $kanji . "かなかった", "Affirmatif polie" => $kanji . "きました", "Négatif polie" => $kanji . "きませんでした"],
+                                "Kana" => ["Affirmatif neutre" => $kana . "った", "Négatif neutre" => $kana . "かなかった", "Affirmatif polie" => $kana . "きました", "Négatif polie" => $kana . "きませんでした"],
+                                "Romaji" => ["Affirmatif neutre" => $romaji . "tta", "Négatif neutre" => $romaji . "kanakatta", "Affirmatif polie" => $romaji . "kimashita", "Négatif polie" => $romaji . "kimasen deshita"]
+                            ], // Passé
+
+                            "Impératif" => [
+                                "Kanji" => ["Affirmatif neutre" => $kanji . "きなさい", "Affirmatif polie" => $kanji . "いてください", "Négatif polie" => $kanji . "かないでください"],
+                                "Kana" => ["Affirmatif neutre" => $kana . "きなさい", "Affirmatif polie" => $kana . "いてください", "Négatif polie" => $kana . "かないでください"],
+                                "Romaji" => ["Affirmatif neutre" => $romaji . "kinasai", "Affirmatif polie" => $romaji . "ite kudasai", "Négatif polie" => $romaji . "kanai de kudasai"]
+                            ], // Impératif
+
+                            "Volutive" => [
+                                "Kanji" => ["Neutre" => $kanji . "こう", "Négatif neutre" => $kanji . "くまい", "Poli" => $kanji . "きましょう", "Négatif polie" => $kanji . "きますまい"],
+                                "Kana" => ["Neutre" => $kana . "こう", "Négatif neutre" => $kana . "くまい", "Poli" => $kana . "きましょう", "Négatif polie" => $kana . "きますまい"],
+                                "Romaji" => ["Neutre" => $romaji . "kou", "Négatif neutre" => $romaji . "kumai", "Poli" => $romaji . "kimashou", "Négatif polie" => $romaji . "kimasumai"]
+                            ], // Volontaire
+
+                            "Présent progressif" => [
+                                "Kanji" => ["Affirmatif neutre" => $kanji . "っている", "Négatif neutre" => $kanji . "っていない", "Affirmatif polie" => $kanji . "っています", "Négatif polie" => $kanji . "っていません"],
+                                "Kana" => ["Affirmatif neutre" => $kana . "っている", "Négatif neutre" => $kana . "っていない", "Affirmatif polie" => $kana . "っています", "Négatif polie" => $kana . "っていません"],
+                                "Romaji" => ["Affirmatif neutre" => $romaji . "ite iru", "Négatif neutre" => $romaji . "ite inai", "Affirmatif polie" => $romaji . "ite imasu", "Négatif polie" => $romaji . "ite imasen"]
+                            ], // Présent progressif
+
+                            "Passé progressif" => [
+                                "Kanji" => ["Affirmatif neutre" => $kanji . "いていた", "Négatif neutre" => $kanji . "いていなかった", "Affirmatif polie" => $kanji . "いていました", "Négatif polie" => $kanji . "いていませんでした"],
+                                "Kana" => ["Affirmatif neutre" => $kana . "いていた", "Négatif neutre" => $kana . "いていなかった", "Affirmatif polie" => $kana . "いていました", "Négatif polie" => $kana . "いていませんでした"],
+                                "Romaji" => ["Affirmatif neutre" => $romaji . "ite ita", "Négatif neutre" => $romaji . "ite inakatta", "Affirmatif polie" => $romaji . "ite imashita", "Négatif polie" => $romaji . "ite imasen deshita"]
+                            ], // Passé progressif
+
+                            "Conditionnel" => [
+                                "Kanji" => ["-Eba" => $kanji . "けば", "-Tara" => $kanji . "いたら"],
+                                "Kana" => ["-Eba" => $kana . "けば", "-Tara" => $kana . "いたら"],
+                                "Romaji" => ["-Eba" => $romaji . "keba", "-Tara" => $romaji . "itara"]
+                            ], // Conditionnel
+
+                            "Potentiel" => [
+                                "Kanji" => ["Affirmatif neutre" => $kanji . "ける", "Négatif neutre" => $kanji . "けない", "Affirmatif polie" => $kanji . "けます", "Négatif polie" => $kanji . "けません"],
+                                "Kana" => ["Affirmatif neutre" => $kana . "ける", "Négatif neutre" => $kana . "けない", "Affirmatif polie" => $kana . "けます", "Négatif polie" => $kana . "けません"],
+                                "Romaji" => ["Affirmatif neutre" => $romaji . "keru", "Négatif neutre" => $romaji . "kenai", "Affirmatif polie" => $romaji . "kemasu", "Négatif polie" => $romaji . "kemasen"]
+                            ], // Potentiel
+
+                            "Causatif (Factitif)" => [
+                                "Kanji" => ["Affirmatif neutre" => $kanji . "かせる", "Négatif neutre" => $kanji . "かせない", "Affirmatif polie" => $kanji . "かせます", "Négatif polie" => $kanji . "かせません"],
+                                "Kana" => ["Affirmatif neutre" => $kana . "かせる", "Négatif neutre" => $kana . "かせない", "Affirmatif polie" => $kana . "かせます", "Négatif polie" => $kana . "かせません"],
+                                "Romaji" => ["Affirmatif neutre" => $romaji . "kaseru", "Négatif neutre" => $romaji . "kasenai", "Affirmatif polie" => $romaji . "kasemasu", "Négatif polie" => $romaji . "kasemasen"]
+                            ], // Causatif
+
+                            "Passif (Subir)" => [
+                                "Kanji" => ["Affirmatif neutre" => $kanji . "かれる", "Négatif neutre" => $kanji . "かれない", "Affirmatif polie" => $kanji . "かれます", "Négatif polie" => $kanji . "かれません"],
+                                "Kana" => ["Affirmatif neutre" => $kana . "かれる", "Négatif neutre" => $kana . "かれない", "Affirmatif polie" => $kana . "かれます", "Négatif polie" => $kana . "かれません"],
+                                "Romaji" => ["Affirmatif neutre" => $romaji . "kareru", "Négatif neutre" => $romaji . "karenai", "Affirmatif polie" => $romaji . "karemasu", "Négatif polie" => $romaji . "karemasen"]
+                            ], // Causatif passif
+
+                            "Causatif passif (Contrainte)" => [
+                                "Kanji" => ["Affirmatif neutre" => $kanji . "かせられる", "Négatif neutre" => $kanji . "かせられない", "Affirmatif polie" => $kanji . "かせられます", "Négatif polie" => $kanji . "かせられません"],
+                                "Kana" => ["Affirmatif neutre" => $kana . "かせられる", "Négatif neutre" => $kana . "かせられない", "Affirmatif polie" => $kana . "かせられます", "Négatif polie" => $kana . "かせられません"],
+                                "Romaji" => ["Affirmatif neutre" => $romaji . "kaserareru", "Négatif neutre" => $romaji . "kaserarenai", "Affirmatif polie" => $romaji . "kaseraremasu", "Négatif polie" => $romaji . "kaseraremasen"]
+                            ], // Causatif passif
+
+                            "Vouloir présent" => [
+                                "Kanji" => ["Affirmatif neutre" => $kanji . "きたい", "Négatif neutre" => $kanji . "きたくない", "Affirmatif polie" => $kanji . "きたいです", "Négatif polie" => $kanji . "きたくないです"],
+                                "Kana" => ["Affirmatif neutre" => $kana . "きたい", "Négatif neutre" => $kana . "きたくない", "Affirmatif polie" => $kana . "きたいです", "Négatif polie" => $kana . "きたくないです"],
+                                "Romaji" => ["Affirmatif neutre" => $romaji . "kitai", "Négatif neutre" => $romaji . "kitakunai", "Affirmatif polie" => $romaji . "kitai desu", "Négatif polie" => $romaji . "kitakunai desu"]
+                            ], // Vouloir présent
+
+                            "Vouloir passé" => [
+                                "Kanji" => ["Affirmatif neutre" => $kanji . "きたかった", "Négatif neutre" => $kanji . "きたくなった", "Affirmatif polie" => $kanji . "きたかったです", "Négatif polie" => $kanji . "きたくなったです"],
+                                "Kana" => ["Affirmatif neutre" => $kana . "きたかった", "Négatif neutre" => $kana . "きたくなった", "Affirmatif polie" => $kana . "きたかったです", "Négatif polie" => $kana . "きたくなったです"],
+                                "Romaji" => ["Affirmatif neutre" => $romaji . "kitakatta", "Négatif neutre" => $romaji . "kitakunakatta", "Affirmatif polie" => $romaji . "kitakatta desu", "Négatif polie" => $romaji . "kitakunakatta desu"]
+                            ] // Vouloir passé
+                        ]];
+                    }
 
                 } elseif ($end2 == 'gu') {
 
+                    $add = ["Verbe - Groupe 1 (Godan)" => [
+                        "Non présent" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "ぐ", "Négatif neutre" => $kanji . "がない", "Affirmatif polie" => $kanji . "ぎます", "Négatif polie" => $kanji . "ぎません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "ぐ", "Négatif neutre" => $kana . "がない", "Affirmatif polie" => $kana . "ぎます", "Négatif polie" => $kana . "ぎません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "gu", "Négatif neutre" => $romaji . "ganai", "Affirmatif polie" => $romaji . "gimasu", "Négatif polie" => $romaji . "gimasen"]
+                        ], // Non présent
+
+                        "Passé" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "った", "Négatif neutre" => $kanji . "がなかった", "Affirmatif polie" => $kanji . "ぎました", "Négatif polie" => $kanji . "ぎませんでした"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "った", "Négatif neutre" => $kana . "がなかった", "Affirmatif polie" => $kana . "ぎました", "Négatif polie" => $kana . "ぎませんでした"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "tta", "Négatif neutre" => $romaji . "ganakatta", "Affirmatif polie" => $romaji . "gimashita", "Négatif polie" => $romaji . "gimasen deshita"]
+                        ], // Passé
+
+                        "Impératif" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "ぎなさい", "Affirmatif polie" => $kanji . "ってください", "Négatif polie" => $kanji . "がないでください"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "ぎなさい", "Affirmatif polie" => $kana . "ってください", "Négatif polie" => $kana . "がないでください"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "ginasai", "Affirmatif polie" => $romaji . "tte kudasai", "Négatif polie" => $romaji . "ganai de kudasai"]
+                        ], // Impératif
+
+                        "Volutive" => [
+                            "Kanji" => ["Neutre" => $kanji . "ごう", "Négatif neutre" => $kanji . "ぐまい", "Poli" => $kanji . "ぎましょう", "Négatif polie" => $kanji . "ぎますまい"],
+                            "Kana" => ["Neutre" => $kana . "ごう", "Négatif neutre" => $kana . "ぐまい", "Poli" => $kana . "ぎましょう", "Négatif polie" => $kana . "ぎますまい"],
+                            "Romaji" => ["Neutre" => $romaji . "gou", "Négatif neutre" => $romaji . "gumai", "Poli" => $romaji . "gimashou", "Négatif polie" => $romaji . "gimasumai"]
+                        ], // Volontaire
+
+                        "Présent progressif" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "っている", "Négatif neutre" => $kanji . "っていない", "Affirmatif polie" => $kanji . "っています", "Négatif polie" => $kanji . "っていません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "っている", "Négatif neutre" => $kana . "っていない", "Affirmatif polie" => $kana . "っています", "Négatif polie" => $kana . "っていません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "tte iru", "Négatif neutre" => $romaji . "tte inai", "Affirmatif polie" => $romaji . "tte imasu", "Négatif polie" => $romaji . "tte imasen"]
+                        ], // Présent progressif
+
+                        "Passé progressif" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "っていた", "Négatif neutre" => $kanji . "っていなかった", "Affirmatif polie" => $kanji . "っていました", "Négatif polie" => $kanji . "っていませんでした"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "っていた", "Négatif neutre" => $kana . "っていなかった", "Affirmatif polie" => $kana . "っていました", "Négatif polie" => $kana . "っていませんでした"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "tte ita", "Négatif neutre" => $romaji . "tte inakatta", "Affirmatif polie" => $romaji . "tte imashita", "Négatif polie" => $romaji . "tte imasen deshita"]
+                        ], // Passé progressif
+
+                        "Conditionnel" => [
+                            "Kanji" => ["-Eba" => $kanji . "げば", "-Tara" => $kanji . "ったら"],
+                            "Kana" => ["-Eba" => $kana . "げば", "-Tara" => $kana . "ったら"],
+                            "Romaji" => ["-Eba" => $romaji . "geba", "-Tara" => $romaji . "ttara"]
+                        ], // Conditionnel
+
+                        "Potentiel" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "げる", "Négatif neutre" => $kanji . "げない", "Affirmatif polie" => $kanji . "げます", "Négatif polie" => $kanji . "げません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "げる", "Négatif neutre" => $kana . "げない", "Affirmatif polie" => $kana . "げます", "Négatif polie" => $kana . "げません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "geru", "Négatif neutre" => $romaji . "genai", "Affirmatif polie" => $romaji . "gemasu", "Négatif polie" => $romaji . "gemasen"]
+                        ], // Potentiel
+
+                        "Causatif (Factitif)" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "がせる", "Négatif neutre" => $kanji . "がせない", "Affirmatif polie" => $kanji . "がせます", "Négatif polie" => $kanji . "がせません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "がせる", "Négatif neutre" => $kana . "がせない", "Affirmatif polie" => $kana . "がせます", "Négatif polie" => $kana . "がせません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "gaseru", "Négatif neutre" => $romaji . "gasenai", "Affirmatif polie" => $romaji . "gasemasu", "Négatif polie" => $romaji . "gasemasen"]
+                        ], // Causatif
+
+                        "Passif (Subir)" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "がれる", "Négatif neutre" => $kanji . "がれない", "Affirmatif polie" => $kanji . "がれます", "Négatif polie" => $kanji . "がれません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "がれる", "Négatif neutre" => $kana . "がれない", "Affirmatif polie" => $kana . "がれます", "Négatif polie" => $kana . "がれません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "gareru", "Négatif neutre" => $romaji . "garenai", "Affirmatif polie" => $romaji . "garemasu", "Négatif polie" => $romaji . "garemasen"]
+                        ], // Causatif passif
+
+                        "Causatif passif (Contrainte)" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "がせられる", "Négatif neutre" => $kanji . "がせられない", "Affirmatif polie" => $kanji . "がせられます", "Négatif polie" => $kanji . "がせられません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "がせられる", "Négatif neutre" => $kana . "がせられない", "Affirmatif polie" => $kana . "がせられます", "Négatif polie" => $kana . "がせられません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "gaserareru", "Négatif neutre" => $romaji . "gaserarenai", "Affirmatif polie" => $romaji . "gaseraremasu", "Négatif polie" => $romaji . "gaseraremasen"]
+                        ], // Causatif passif
+
+                        "Vouloir présent" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "ぎたい", "Négatif neutre" => $kanji . "ぎたくない", "Affirmatif polie" => $kanji . "ぎたいです", "Négatif polie" => $kanji . "ぎたくないです"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "ぎたい", "Négatif neutre" => $kana . "ぎたくない", "Affirmatif polie" => $kana . "ぎたいです", "Négatif polie" => $kana . "ぎたくないです"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "gitai", "Négatif neutre" => $romaji . "gitakunai", "Affirmatif polie" => $romaji . "gitai desu", "Négatif polie" => $romaji . "gitakunai desu"]
+                        ], // Vouloir présent
+
+                        "Vouloir passé" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "ぎたかった", "Négatif neutre" => $kanji . "ぎたくなった", "Affirmatif polie" => $kanji . "ぎたかったです", "Négatif polie" => $kanji . "ぎたくなったです"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "ぎたかった", "Négatif neutre" => $kana . "ぎたくなった", "Affirmatif polie" => $kana . "ぎたかったです", "Négatif polie" => $kana . "ぎたくなったです"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "gitakatta", "Négatif neutre" => $romaji . "gitakunakatta", "Affirmatif polie" => $romaji . "gitakatta desu", "Négatif polie" => $romaji . "gitakunakatta desu"]
+                        ] // Vouloir passé
+                    ]];
+
+                } elseif ($end3 == 'tsu') {
+
+                    $add = ["Verbe - Groupe 1 (Godan)" => [
+                        "Non présent" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "つ", "Négatif neutre" => $kanji . "たない", "Affirmatif polie" => $kanji . "ちます", "Négatif polie" => $kanji . "ちません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "つ", "Négatif neutre" => $kana . "たない", "Affirmatif polie" => $kana . "ちます", "Négatif polie" => $kana . "ちません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "tsu", "Négatif neutre" => $romaji . "tanai", "Affirmatif polie" => $romaji . "chimasu", "Négatif polie" => $romaji . "chimasen"]
+                        ], // Non présent
+
+                        "Passé" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "った", "Négatif neutre" => $kanji . "たなかった", "Affirmatif polie" => $kanji . "ちました", "Négatif polie" => $kanji . "ちませんでした"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "った", "Négatif neutre" => $kana . "たなかった", "Affirmatif polie" => $kana . "ちました", "Négatif polie" => $kana . "ちませんでした"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "tta", "Négatif neutre" => $romaji . "tanakatta", "Affirmatif polie" => $romaji . "chimashita", "Négatif polie" => $romaji . "chimasen deshita"]
+                        ], // Passé
+
+                        "Impératif" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "ちなさい", "Affirmatif polie" => $kanji . "ってください", "Négatif polie" => $kanji . "たないでください"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "ちなさい", "Affirmatif polie" => $kana . "ってください", "Négatif polie" => $kana . "たないでください"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "chinasai", "Affirmatif polie" => $romaji . "tte kudasai", "Négatif polie" => $romaji . "tanai de kudasai"]
+                        ], // Impératif
+
+                        "Volutive" => [
+                            "Kanji" => ["Neutre" => $kanji . "とう", "Négatif neutre" => $kanji . "つまい", "Poli" => $kanji . "ちましょう", "Négatif polie" => $kanji . "ちますまい"],
+                            "Kana" => ["Neutre" => $kana . "とう", "Négatif neutre" => $kana . "つまい", "Poli" => $kana . "ちましょう", "Négatif polie" => $kana . "ちますまい"],
+                            "Romaji" => ["Neutre" => $romaji . "tou", "Négatif neutre" => $romaji . "tsumai", "Poli" => $romaji . "chimashou", "Négatif polie" => $romaji . "chimasumai"]
+                        ], // Volontaire
+
+                        "Présent progressif" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "っている", "Négatif neutre" => $kanji . "っていない", "Affirmatif polie" => $kanji . "っています", "Négatif polie" => $kanji . "っていません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "っている", "Négatif neutre" => $kana . "っていない", "Affirmatif polie" => $kana . "っています", "Négatif polie" => $kana . "っていません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "tte iru", "Négatif neutre" => $romaji . "tte inai", "Affirmatif polie" => $romaji . "tte imasu", "Négatif polie" => $romaji . "tte imasen"]
+                        ], // Présent progressif
+
+                        "Passé progressif" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "っていた", "Négatif neutre" => $kanji . "っていなかった", "Affirmatif polie" => $kanji . "っていました", "Négatif polie" => $kanji . "っていませんでした"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "っていた", "Négatif neutre" => $kana . "っていなかった", "Affirmatif polie" => $kana . "っていました", "Négatif polie" => $kana . "っていませんでした"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "tte ita", "Négatif neutre" => $romaji . "tte inakatta", "Affirmatif polie" => $romaji . "tte imashita", "Négatif polie" => $romaji . "tte imasen deshita"]
+                        ], // Passé progressif
+
+                        "Conditionnel" => [
+                            "Kanji" => ["-Eba" => $kanji . "てば", "-Tara" => $kanji . "つなら"],
+                            "Kana" => ["-Eba" => $kana . "てば", "-Tara" => $kana . "つなら"],
+                            "Romaji" => ["-Eba" => $romaji . "teba", "-Tara" => $romaji . "tsu nara"]
+                        ], // Conditionnel
+
+                        "Potentiel" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "てる", "Négatif neutre" => $kanji . "てない", "Affirmatif polie" => $kanji . "てます", "Négatif polie" => $kanji . "てません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "てる", "Négatif neutre" => $kana . "てない", "Affirmatif polie" => $kana . "てます", "Négatif polie" => $kana . "てません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "teru", "Négatif neutre" => $romaji . "tenai", "Affirmatif polie" => $romaji . "temasu", "Négatif polie" => $romaji . "temasen"]
+                        ], // Potentiel
+
+                        "Causatif (Factitif)" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "たせる", "Négatif neutre" => $kanji . "たせない", "Affirmatif polie" => $kanji . "たせます", "Négatif polie" => $kanji . "たせません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "たせる", "Négatif neutre" => $kana . "たせない", "Affirmatif polie" => $kana . "たせます", "Négatif polie" => $kana . "たせません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "taseru", "Négatif neutre" => $romaji . "tasenai", "Affirmatif polie" => $romaji . "tasemasu", "Négatif polie" => $romaji . "tasemasen"]
+                        ], // Causatif
+
+                        "Passif (Subir)" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "たれる", "Négatif neutre" => $kanji . "たれない", "Affirmatif polie" => $kanji . "たれます", "Négatif polie" => $kanji . "たれません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "たれる", "Négatif neutre" => $kana . "たれない", "Affirmatif polie" => $kana . "たれます", "Négatif polie" => $kana . "たれません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "tareru", "Négatif neutre" => $romaji . "tarenai", "Affirmatif polie" => $romaji . "taremasu", "Négatif polie" => $romaji . "taremasen"]
+                        ], // Causatif passif
+
+                        "Causatif passif (Contrainte)" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "たせられる", "Négatif neutre" => $kanji . "たせられない", "Affirmatif polie" => $kanji . "たせられます", "Négatif polie" => $kanji . "たせられません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "たせられる", "Négatif neutre" => $kana . "たせられない", "Affirmatif polie" => $kana . "たせられます", "Négatif polie" => $kana . "たせられません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "taserareru", "Négatif neutre" => $romaji . "taserarenai", "Affirmatif polie" => $romaji . "taseraremasu", "Négatif polie" => $romaji . "taseraremasen"]
+                        ], // Causatif passif
+
+                        "Vouloir présent" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "ちたい", "Négatif neutre" => $kanji . "ちたくない", "Affirmatif polie" => $kanji . "ちたいです", "Négatif polie" => $kanji . "ちたくないです"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "ちたい", "Négatif neutre" => $kana . "ちたくない", "Affirmatif polie" => $kana . "ちたいです", "Négatif polie" => $kana . "ちたくないです"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "chitai", "Négatif neutre" => $romaji . "chitakunai", "Affirmatif polie" => $romaji . "chitai desu", "Négatif polie" => $romaji . "chitakunai desu"]
+                        ], // Vouloir présent
+
+                        "Vouloir passé" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "ちたかった", "Négatif neutre" => $kanji . "ちたくなった", "Affirmatif polie" => $kanji . "ちたかったです", "Négatif polie" => $kanji . "ちたくなったです"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "ちたかった", "Négatif neutre" => $kana . "ちたくなった", "Affirmatif polie" => $kana . "ちたかったです", "Négatif polie" => $kana . "ちたくなったです"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "chitakatta", "Négatif neutre" => $romaji . "chitakunakatta", "Affirmatif polie" => $romaji . "chitakatta desu", "Négatif polie" => $romaji . "chitakunakatta desu"]
+                        ] // Vouloir passé
+                    ]];
+
                 } elseif ($end2 == 'su') {
 
+                    $add = ["Verbe - Groupe 1 (Godan)" => [
+                        "Non présent" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "す", "Négatif neutre" => $kanji . "さない", "Affirmatif polie" => $kanji . "します", "Négatif polie" => $kanji . "しません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "す", "Négatif neutre" => $kana . "さない", "Affirmatif polie" => $kana . "します", "Négatif polie" => $kana . "しません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "su", "Négatif neutre" => $romaji . "sanai", "Affirmatif polie" => $romaji . "shimasu", "Négatif polie" => $romaji . "shimasen"]
+                        ], // Non présent
+
+                        "Passé" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "した", "Négatif neutre" => $kanji . "さなかった", "Affirmatif polie" => $kanji . "しました", "Négatif polie" => $kanji . "しませんでした"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "した", "Négatif neutre" => $kana . "さなかった", "Affirmatif polie" => $kana . "しました", "Négatif polie" => $kana . "しませんでした"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "shita", "Négatif neutre" => $romaji . "sanakatta", "Affirmatif polie" => $romaji . "simashita", "Négatif polie" => $romaji . "simasen deshita"]
+                        ], // Passé
+
+                        "Impératif" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "しなさい", "Affirmatif polie" => $kanji . "してください", "Négatif polie" => $kanji . "さないでください"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "しなさい", "Affirmatif polie" => $kana . "してください", "Négatif polie" => $kana . "さないでください"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "shinasai", "Affirmatif polie" => $romaji . "shite kudasai", "Négatif polie" => $romaji . "sanai de kudasai"]
+                        ], // Impératif
+
+                        "Volutive" => [
+                            "Kanji" => ["Neutre" => $kanji . "そう", "Négatif neutre" => $kanji . "すまい", "Poli" => $kanji . "しましょう", "Négatif polie" => $kanji . "しますまい"],
+                            "Kana" => ["Neutre" => $kana . "そう", "Négatif neutre" => $kana . "すまい", "Poli" => $kana . "しましょう", "Négatif polie" => $kana . "しますまい"],
+                            "Romaji" => ["Neutre" => $romaji . "sou", "Négatif neutre" => $romaji . "sumai", "Poli" => $romaji . "shimashou", "Négatif polie" => $romaji . "shimasumai"]
+                        ], // Volontaire
+
+                        "Présent progressif" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "している", "Négatif neutre" => $kanji . "していない", "Affirmatif polie" => $kanji . "しています", "Négatif polie" => $kanji . "していません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "している", "Négatif neutre" => $kana . "していない", "Affirmatif polie" => $kana . "しています", "Négatif polie" => $kana . "していません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "shite iru", "Négatif neutre" => $romaji . "shite inai", "Affirmatif polie" => $romaji . "shite imasu", "Négatif polie" => $romaji . "shite imasen"]
+                        ], // Présent progressif
+
+                        "Passé progressif" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "していた", "Négatif neutre" => $kanji . "していなかった", "Affirmatif polie" => $kanji . "していました", "Négatif polie" => $kanji . "していませんでした"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "していた", "Négatif neutre" => $kana . "していなかった", "Affirmatif polie" => $kana . "していました", "Négatif polie" => $kana . "していませんでした"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "shite ita", "Négatif neutre" => $romaji . "shite inakatta", "Affirmatif polie" => $romaji . "shite imashita", "Négatif polie" => $romaji . "shite imasen deshita"]
+                        ], // Passé progressif
+
+                        "Conditionnel" => [
+                            "Kanji" => ["-Eba" => $kanji . "せば", "-Tara" => $kanji . "したら"],
+                            "Kana" => ["-Eba" => $kana . "せば", "-Tara" => $kana . "したら"],
+                            "Romaji" => ["-Eba" => $romaji . "seba", "-Tara" => $romaji . "shitara"]
+                        ], // Conditionnel
+
+                        "Potentiel" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "せる", "Négatif neutre" => $kanji . "せない", "Affirmatif polie" => $kanji . "せます", "Négatif polie" => $kanji . "せません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "せる", "Négatif neutre" => $kana . "せない", "Affirmatif polie" => $kana . "せます", "Négatif polie" => $kana . "せません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "seru", "Négatif neutre" => $romaji . "senai", "Affirmatif polie" => $romaji . "semasu", "Négatif polie" => $romaji . "semasen"]
+                        ], // Potentiel
+
+                        "Causatif (Factitif)" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "させる", "Négatif neutre" => $kanji . "させない", "Affirmatif polie" => $kanji . "させます", "Négatif polie" => $kanji . "させません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "させる", "Négatif neutre" => $kana . "させない", "Affirmatif polie" => $kana . "させます", "Négatif polie" => $kana . "させません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "saseru", "Négatif neutre" => $romaji . "sasenai", "Affirmatif polie" => $romaji . "sasemasu", "Négatif polie" => $romaji . "sasemasen"]
+                        ], // Causatif
+
+                        "Passif (Subir)" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "される", "Négatif neutre" => $kanji . "されない", "Affirmatif polie" => $kanji . "されます", "Négatif polie" => $kanji . "されません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "される", "Négatif neutre" => $kana . "されない", "Affirmatif polie" => $kana . "されます", "Négatif polie" => $kana . "されません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "sareru", "Négatif neutre" => $romaji . "sarenai", "Affirmatif polie" => $romaji . "saremasu", "Négatif polie" => $romaji . "saremasen"]
+                        ], // Causatif passif
+
+                        "Causatif passif (Contrainte)" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "させられる", "Négatif neutre" => $kanji . "させられない", "Affirmatif polie" => $kanji . "させられます", "Négatif polie" => $kanji . "させられません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "させられる", "Négatif neutre" => $kana . "させられない", "Affirmatif polie" => $kana . "させられます", "Négatif polie" => $kana . "させられません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "saserareru", "Négatif neutre" => $romaji . "saserarenai", "Affirmatif polie" => $romaji . "saseraremasu", "Négatif polie" => $romaji . "saseraremasen"]
+                        ], // Causatif passif
+
+                        "Vouloir présent" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "したい", "Négatif neutre" => $kanji . "したくない", "Affirmatif polie" => $kanji . "したいです", "Négatif polie" => $kanji . "したくないです"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "したい", "Négatif neutre" => $kana . "したくない", "Affirmatif polie" => $kana . "したいです", "Négatif polie" => $kana . "したくないです"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "shitai", "Négatif neutre" => $romaji . "shitakunai", "Affirmatif polie" => $romaji . "shitai desu", "Négatif polie" => $romaji . "shitakunai desu"]
+                        ], // Vouloir présent
+
+                        "Vouloir passé" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "したかった", "Négatif neutre" => $kanji . "したくなった", "Affirmatif polie" => $kanji . "したかったです", "Négatif polie" => $kanji . "したくなったです"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "したかった", "Négatif neutre" => $kana . "したくなった", "Affirmatif polie" => $kana . "したかったです", "Négatif polie" => $kana . "したくなったです"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "shitakatta", "Négatif neutre" => $romaji . "shitakunakatta", "Affirmatif polie" => $romaji . "shitakatta desu", "Négatif polie" => $romaji . "shitakunakatta desu"]
+                        ] // Vouloir passé
+                    ]];
+
                 } elseif ($end2 == 'nu') {
+
+                    $add = ["Verbe - Groupe 1 (Godan)" => [
+                        "Non présent" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "ぬ", "Négatif neutre" => $kanji . "なない", "Affirmatif polie" => $kanji . "にます", "Négatif polie" => $kanji . "にません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "ぬ", "Négatif neutre" => $kana . "なない", "Affirmatif polie" => $kana . "にます", "Négatif polie" => $kana . "にません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "nu", "Négatif neutre" => $romaji . "nanai", "Affirmatif polie" => $romaji . "nimasu", "Négatif polie" => $romaji . "nimasen"]
+                        ], // Non présent
+
+                        "Passé" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "んだ", "Négatif neutre" => $kanji . "ななかった", "Affirmatif polie" => $kanji . "にました", "Négatif polie" => $kanji . "にませんでした"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "んだ", "Négatif neutre" => $kana . "ななかった", "Affirmatif polie" => $kana . "にました", "Négatif polie" => $kana . "にませんでした"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "nda", "Négatif neutre" => $romaji . "nanakatta", "Affirmatif polie" => $romaji . "nimashita", "Négatif polie" => $romaji . "nimasen deshita"]
+                        ], // Passé
+
+                        "Impératif" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "になさい", "Affirmatif polie" => $kanji . "んでください", "Négatif polie" => $kanji . "なないでください"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "になさい", "Affirmatif polie" => $kana . "んでください", "Négatif polie" => $kana . "なないでください"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "ninasai", "Affirmatif polie" => $romaji . "nde kudasai", "Négatif polie" => $romaji . "nanai de kudasai"]
+                        ], // Impératif
+
+                        "Volutive" => [
+                            "Kanji" => ["Neutre" => $kanji . "のう", "Négatif neutre" => $kanji . "ぬまい", "Poli" => $kanji . "にましょう", "Négatif polie" => $kanji . "にますまい"],
+                            "Kana" => ["Neutre" => $kana . "のう", "Négatif neutre" => $kana . "ぬまい", "Poli" => $kana . "にましょう", "Négatif polie" => $kana . "にますまい"],
+                            "Romaji" => ["Neutre" => $romaji . "nou", "Négatif neutre" => $romaji . "numai", "Poli" => $romaji . "nimashou", "Négatif polie" => $romaji . "nimasumai"]
+                        ], // Volontaire
+
+                        "Présent progressif" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "んでいる", "Négatif neutre" => $kanji . "んでいない", "Affirmatif polie" => $kanji . "んでいます", "Négatif polie" => $kanji . "んでいません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "んでいる", "Négatif neutre" => $kana . "んでいない", "Affirmatif polie" => $kana . "んでいます", "Négatif polie" => $kana . "んでいません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "nde iru", "Négatif neutre" => $romaji . "nde inai", "Affirmatif polie" => $romaji . "nde imasu", "Négatif polie" => $romaji . "nde imasen"]
+                        ], // Présent progressif
+
+                        "Passé progressif" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "んでいた", "Négatif neutre" => $kanji . "んでいなかった", "Affirmatif polie" => $kanji . "んでいました", "Négatif polie" => $kanji . "んでいませんでした"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "んでいた", "Négatif neutre" => $kana . "んでいなかった", "Affirmatif polie" => $kana . "んでいました", "Négatif polie" => $kana . "んでいませんでした"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "nde ita", "Négatif neutre" => $romaji . "nde inakatta", "Affirmatif polie" => $romaji . "nde imashita", "Négatif polie" => $romaji . "nde imasen deshita"]
+                        ], // Passé progressif
+
+                        "Conditionnel" => [
+                            "Kanji" => ["-Eba" => $kanji . "ねば", "-Tara" => $kanji . "んだら"],
+                            "Kana" => ["-Eba" => $kana . "ねば", "-Tara" => $kana . "んだら"],
+                            "Romaji" => ["-Eba" => $romaji . "neba", "-Tara" => $romaji . "ndara"]
+                        ], // Conditionnel
+
+                        "Potentiel" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "ねる", "Négatif neutre" => $kanji . "ねない", "Affirmatif polie" => $kanji . "ねます", "Négatif polie" => $kanji . "ねません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "ねる", "Négatif neutre" => $kana . "ねない", "Affirmatif polie" => $kana . "ねます", "Négatif polie" => $kana . "ねません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "neru", "Négatif neutre" => $romaji . "nenai", "Affirmatif polie" => $romaji . "nemasu", "Négatif polie" => $romaji . "nemasen"]
+                        ], // Potentiel
+
+                        "Causatif (Factitif)" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "なせる", "Négatif neutre" => $kanji . "なせない", "Affirmatif polie" => $kanji . "なせます", "Négatif polie" => $kanji . "なせません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "なせる", "Négatif neutre" => $kana . "なせない", "Affirmatif polie" => $kana . "なせます", "Négatif polie" => $kana . "なせません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "naseru", "Négatif neutre" => $romaji . "nasenai", "Affirmatif polie" => $romaji . "nasemasu", "Négatif polie" => $romaji . "nasemasen"]
+                        ], // Causatif
+
+                        "Passif (Subir)" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "なれる", "Négatif neutre" => $kanji . "なれない", "Affirmatif polie" => $kanji . "なれます", "Négatif polie" => $kanji . "なれません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "なれる", "Négatif neutre" => $kana . "なれない", "Affirmatif polie" => $kana . "なれます", "Négatif polie" => $kana . "なれません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "nareru", "Négatif neutre" => $romaji . "narenai", "Affirmatif polie" => $romaji . "naremasu", "Négatif polie" => $romaji . "naremasen"]
+                        ], // Causatif passif
+
+                        "Causatif passif (Contrainte)" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "なせられる", "Négatif neutre" => $kanji . "なせられない", "Affirmatif polie" => $kanji . "なせられます", "Négatif polie" => $kanji . "なせられません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "なせられる", "Négatif neutre" => $kana . "なせられない", "Affirmatif polie" => $kana . "なせられます", "Négatif polie" => $kana . "なせられません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "naserareru", "Négatif neutre" => $romaji . "naserarenai", "Affirmatif polie" => $romaji . "naseraremasu", "Négatif polie" => $romaji . "naseraremasen"]
+                        ], // Causatif passif
+
+                        "Vouloir présent" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "にたい", "Négatif neutre" => $kanji . "にたくない", "Affirmatif polie" => $kanji . "にたいです", "Négatif polie" => $kanji . "にたくないです"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "にたい", "Négatif neutre" => $kana . "にたくない", "Affirmatif polie" => $kana . "にたいです", "Négatif polie" => $kana . "にたくないです"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "nitai", "Négatif neutre" => $romaji . "nitakunai", "Affirmatif polie" => $romaji . "nitai desu", "Négatif polie" => $romaji . "nitakunai desu"]
+                        ], // Vouloir présent
+
+                        "Vouloir passé" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "にたかった", "Négatif neutre" => $kanji . "にたくなった", "Affirmatif polie" => $kanji . "にたかったです", "Négatif polie" => $kanji . "にたくなったです"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "にたかった", "Négatif neutre" => $kana . "にたくなった", "Affirmatif polie" => $kana . "にたかったです", "Négatif polie" => $kana . "にたくなったです"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "nitakatta", "Négatif neutre" => $romaji . "nitakunakatta", "Affirmatif polie" => $romaji . "nitakatta desu", "Négatif polie" => $romaji . "nitakunakatta desu"]
+                        ] // Vouloir passé
+                    ]];
 
                 } elseif ($end2 == 'mu') {
 
@@ -348,12 +911,169 @@ function add_selection_type($type, $base)
 
                 } elseif ($end2 == 'bu') {
 
-                } elseif ($end2 == 'tu') {
+                    $add = ["Verbe - Groupe 1 (Godan)" => [
+                        "Non présent" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "ぶ", "Négatif neutre" => $kanji . "ばない", "Affirmatif polie" => $kanji . "びます", "Négatif polie" => $kanji . "びません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "ぶ", "Négatif neutre" => $kana . "ばない", "Affirmatif polie" => $kana . "びます", "Négatif polie" => $kana . "びません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "bu", "Négatif neutre" => $romaji . "banai", "Affirmatif polie" => $romaji . "bimasu", "Négatif polie" => $romaji . "bimasen"]
+                        ], // Non présent
+
+                        "Passé" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "んだ", "Négatif neutre" => $kanji . "ばなかった", "Affirmatif polie" => $kanji . "びました", "Négatif polie" => $kanji . "びませんでした"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "んだ", "Négatif neutre" => $kana . "ばなかった", "Affirmatif polie" => $kana . "びました", "Négatif polie" => $kana . "びませんでした"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "nda", "Négatif neutre" => $romaji . "banakatta", "Affirmatif polie" => $romaji . "bimashita", "Négatif polie" => $romaji . "bimasen deshita"]
+                        ], // Passé
+
+                        "Impératif" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "びなさい", "Affirmatif polie" => $kanji . "んでください", "Négatif polie" => $kanji . "ばないでください"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "びなさい", "Affirmatif polie" => $kana . "んでください", "Négatif polie" => $kana . "ばないでください"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "binasai", "Affirmatif polie" => $romaji . "nde kudasai", "Négatif polie" => $romaji . "banai de kudasai"]
+                        ], // Impératif
+
+                        "Volutive" => [
+                            "Kanji" => ["Neutre" => $kanji . "ぼう", "Négatif neutre" => $kanji . "ぶまい", "Poli" => $kanji . "びましょう", "Négatif polie" => $kanji . "びますまい"],
+                            "Kana" => ["Neutre" => $kana . "ぼう", "Négatif neutre" => $kana . "ぶまい", "Poli" => $kana . "びましょう", "Négatif polie" => $kana . "びますまい"],
+                            "Romaji" => ["Neutre" => $romaji . "bou", "Négatif neutre" => $romaji . "bumai", "Poli" => $romaji . "bimashou", "Négatif polie" => $romaji . "bimasumai"]
+                        ], // Volontaire
+
+                        "Présent progressif" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "んでいる", "Négatif neutre" => $kanji . "んでいない", "Affirmatif polie" => $kanji . "んでいます", "Négatif polie" => $kanji . "んでいません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "んでいる", "Négatif neutre" => $kana . "んでいない", "Affirmatif polie" => $kana . "んでいます", "Négatif polie" => $kana . "んでいません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "nde iru", "Négatif neutre" => $romaji . "nde inai", "Affirmatif polie" => $romaji . "nde imasu", "Négatif polie" => $romaji . "nde imasen"]
+                        ], // Présent progressif
+
+                        "Passé progressif" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "んでいた", "Négatif neutre" => $kanji . "んでいなかった", "Affirmatif polie" => $kanji . "んでいました", "Négatif polie" => $kanji . "んでいませんでした"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "んでいた", "Négatif neutre" => $kana . "んでいなかった", "Affirmatif polie" => $kana . "んでいました", "Négatif polie" => $kana . "んでいませんでした"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "nde ita", "Négatif neutre" => $romaji . "nde inakatta", "Affirmatif polie" => $romaji . "nde imashita", "Négatif polie" => $romaji . "nde imasen deshita"]
+                        ], // Passé progressif
+
+                        "Conditionnel" => [
+                            "Kanji" => ["-Eba" => $kanji . "べば", "-Tara" => $kanji . "んだら"],
+                            "Kana" => ["-Eba" => $kana . "べば", "-Tara" => $kana . "んだら"],
+                            "Romaji" => ["-Eba" => $romaji . "beba", "-Tara" => $romaji . "ndara"]
+                        ], // Conditionnel
+
+                        "Potentiel" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "べる", "Négatif neutre" => $kanji . "べない", "Affirmatif polie" => $kanji . "べます", "Négatif polie" => $kanji . "べません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "べる", "Négatif neutre" => $kana . "べない", "Affirmatif polie" => $kana . "べます", "Négatif polie" => $kana . "べません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "beru", "Négatif neutre" => $romaji . "benai", "Affirmatif polie" => $romaji . "bemasu", "Négatif polie" => $romaji . "bemasen"]
+                        ], // Potentiel
+
+                        "Causatif (Factitif)" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "ばせる", "Négatif neutre" => $kanji . "ばせない", "Affirmatif polie" => $kanji . "ばせます", "Négatif polie" => $kanji . "ばせません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "ばせる", "Négatif neutre" => $kana . "ばせない", "Affirmatif polie" => $kana . "ばせます", "Négatif polie" => $kana . "ばせません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "baseru", "Négatif neutre" => $romaji . "basenai", "Affirmatif polie" => $romaji . "basemasu", "Négatif polie" => $romaji . "basemasen"]
+                        ], // Causatif
+
+                        "Passif (Subir)" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "ばれる", "Négatif neutre" => $kanji . "ばれない", "Affirmatif polie" => $kanji . "ばれます", "Négatif polie" => $kanji . "ばれません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "ばれる", "Négatif neutre" => $kana . "ばれない", "Affirmatif polie" => $kana . "ばれます", "Négatif polie" => $kana . "ばれません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "bareru", "Négatif neutre" => $romaji . "barenai", "Affirmatif polie" => $romaji . "baremasu", "Négatif polie" => $romaji . "baremasen"]
+                        ], // Causatif passif
+
+                        "Causatif passif (Contrainte)" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "ばせられる", "Négatif neutre" => $kanji . "ばせられない", "Affirmatif polie" => $kanji . "ばせられます", "Négatif polie" => $kanji . "ばせられません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "ばせられる", "Négatif neutre" => $kana . "ばせられない", "Affirmatif polie" => $kana . "ばせられます", "Négatif polie" => $kana . "ばせられません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "baserareru", "Négatif neutre" => $romaji . "baserarenai", "Affirmatif polie" => $romaji . "baseraremasu", "Négatif polie" => $romaji . "baseraremasen"]
+                        ], // Causatif passif
+
+                        "Vouloir présent" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "びたい", "Négatif neutre" => $kanji . "びたくない", "Affirmatif polie" => $kanji . "びたいです", "Négatif polie" => $kanji . "びたくないです"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "びたい", "Négatif neutre" => $kana . "びたくない", "Affirmatif polie" => $kana . "びたいです", "Négatif polie" => $kana . "びたくないです"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "bitai", "Négatif neutre" => $romaji . "bitakunai", "Affirmatif polie" => $romaji . "bitai desu", "Négatif polie" => $romaji . "bitakunai desu"]
+                        ], // Vouloir présent
+
+                        "Vouloir passé" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "びたかった", "Négatif neutre" => $kanji . "びたくなった", "Affirmatif polie" => $kanji . "びたかったです", "Négatif polie" => $kanji . "びたくなったです"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "びたかった", "Négatif neutre" => $kana . "びたくなった", "Affirmatif polie" => $kana . "びたかったです", "Négatif polie" => $kana . "びたくなったです"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "bitakatta", "Négatif neutre" => $romaji . "bitakunakatta", "Affirmatif polie" => $romaji . "bitakatta desu", "Négatif polie" => $romaji . "bitakunakatta desu"]
+                        ] // Vouloir passé
+                    ]];
 
                 } else { // End = 'u'
 
-                }
+                    $add = ["Verbe - Groupe 1 (Godan)" => [
+                        "Non présent" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "う", "Négatif neutre" => $kanji . "わない", "Affirmatif polie" => $kanji . "います", "Négatif polie" => $kanji . "いません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "う", "Négatif neutre" => $kana . "わない", "Affirmatif polie" => $kana . "います", "Négatif polie" => $kana . "いません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "u", "Négatif neutre" => $romaji . "wanai", "Affirmatif polie" => $romaji . "imasu", "Négatif polie" => $romaji . "imasen"]
+                        ], // Non présent
 
+                        "Passé" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "った", "Négatif neutre" => $kanji . "わなかった", "Affirmatif polie" => $kanji . "いました", "Négatif polie" => $kanji . "いませんでした"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "った", "Négatif neutre" => $kana . "わなかった", "Affirmatif polie" => $kana . "いました", "Négatif polie" => $kana . "いませんでした"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "tta", "Négatif neutre" => $romaji . "wanakatta", "Affirmatif polie" => $romaji . "imashita", "Négatif polie" => $romaji . "imasen deshita"]
+                        ], // Passé
+
+                        "Impératif" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "いなさい", "Affirmatif polie" => $kanji . "ってください", "Négatif polie" => $kanji . "わないでください"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "いなさい", "Affirmatif polie" => $kana . "ってください", "Négatif polie" => $kana . "わないでください"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "inasai", "Affirmatif polie" => $romaji . "tte kudasai", "Négatif polie" => $romaji . "wanai de kudasai"]
+                        ], // Impératif
+
+                        "Volutive" => [
+                            "Kanji" => ["Neutre" => $kanji . "おう", "Négatif neutre" => $kanji . "うまい", "Poli" => $kanji . "いましょう", "Négatif polie" => $kanji . "いますまい"],
+                            "Kana" => ["Neutre" => $kana . "おう", "Négatif neutre" => $kana . "うまい", "Poli" => $kana . "いましょう", "Négatif polie" => $kana . "いますまい"],
+                            "Romaji" => ["Neutre" => $romaji . "ou", "Négatif neutre" => $romaji . "umai", "Poli" => $romaji . "imashou", "Négatif polie" => $romaji . "imasumai"]
+                        ], // Volontaire
+
+                        "Présent progressif" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "っている", "Négatif neutre" => $kanji . "っていない", "Affirmatif polie" => $kanji . "っています", "Négatif polie" => $kanji . "っていません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "っている", "Négatif neutre" => $kana . "っていない", "Affirmatif polie" => $kana . "っています", "Négatif polie" => $kana . "っていません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "tte iru", "Négatif neutre" => $romaji . "tte inai", "Affirmatif polie" => $romaji . "tte imasu", "Négatif polie" => $romaji . "tte imasen"]
+                        ], // Présent progressif
+
+                        "Passé progressif" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "っていた", "Négatif neutre" => $kanji . "っていなかった", "Affirmatif polie" => $kanji . "っていました", "Négatif polie" => $kanji . "っていませんでした"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "っていた", "Négatif neutre" => $kana . "っていなかった", "Affirmatif polie" => $kana . "っていました", "Négatif polie" => $kana . "っていませんでした"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "tte ita", "Négatif neutre" => $romaji . "tte inakatta", "Affirmatif polie" => $romaji . "tte imashita", "Négatif polie" => $romaji . "tte imasen deshita"]
+                        ], // Passé progressif
+
+                        "Conditionnel" => [
+                            "Kanji" => ["-Eba" => $kanji . "えば", "-Tara" => $kanji . "ったら"],
+                            "Kana" => ["-Eba" => $kana . "えば", "-Tara" => $kana . "ったら"],
+                            "Romaji" => ["-Eba" => $romaji . "eba", "-Tara" => $romaji . "ttara"]
+                        ], // Conditionnel
+
+                        "Potentiel" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "える", "Négatif neutre" => $kanji . "えない", "Affirmatif polie" => $kanji . "えます", "Négatif polie" => $kanji . "えません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "える", "Négatif neutre" => $kana . "えない", "Affirmatif polie" => $kana . "えます", "Négatif polie" => $kana . "えません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "eru", "Négatif neutre" => $romaji . "enai", "Affirmatif polie" => $romaji . "emasu", "Négatif polie" => $romaji . "emasen"]
+                        ], // Potentiel
+
+                        "Causatif (Factitif)" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "わせる", "Négatif neutre" => $kanji . "わせない", "Affirmatif polie" => $kanji . "わせます", "Négatif polie" => $kanji . "わせません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "わせる", "Négatif neutre" => $kana . "わせない", "Affirmatif polie" => $kana . "わせます", "Négatif polie" => $kana . "わせません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "waseru", "Négatif neutre" => $romaji . "wasenai", "Affirmatif polie" => $romaji . "wasemasu", "Négatif polie" => $romaji . "wasemasen"]
+                        ], // Causatif
+
+                        "Passif (Subir)" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "われる", "Négatif neutre" => $kanji . "われない", "Affirmatif polie" => $kanji . "われます", "Négatif polie" => $kanji . "われません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "われる", "Négatif neutre" => $kana . "われない", "Affirmatif polie" => $kana . "われます", "Négatif polie" => $kana . "われません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "wareru", "Négatif neutre" => $romaji . "warenai", "Affirmatif polie" => $romaji . "waremasu", "Négatif polie" => $romaji . "waremasen"]
+                        ], // Causatif passif
+
+                        "Causatif passif (Contrainte)" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "わせられる", "Négatif neutre" => $kanji . "わせられない", "Affirmatif polie" => $kanji . "わせられます", "Négatif polie" => $kanji . "わせられません"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "わせられる", "Négatif neutre" => $kana . "わせられない", "Affirmatif polie" => $kana . "わせられます", "Négatif polie" => $kana . "わせられません"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "waserareru", "Négatif neutre" => $romaji . "waserarenai", "Affirmatif polie" => $romaji . "waseraremasu", "Négatif polie" => $romaji . "waseraremasen"]
+                        ], // Causatif passif
+
+                        "Vouloir présent" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "いたい", "Négatif neutre" => $kanji . "いたくない", "Affirmatif polie" => $kanji . "いたいです", "Négatif polie" => $kanji . "いたくないです"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "いたい", "Négatif neutre" => $kana . "いたくない", "Affirmatif polie" => $kana . "いたいです", "Négatif polie" => $kana . "いたくないです"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "itai", "Négatif neutre" => $romaji . "itakunai", "Affirmatif polie" => $romaji . "itai desu", "Négatif polie" => $romaji . "itakunai desu"]
+                        ], // Vouloir présent
+
+                        "Vouloir passé" => [
+                            "Kanji" => ["Affirmatif neutre" => $kanji . "いたかった", "Négatif neutre" => $kanji . "いたくなった", "Affirmatif polie" => $kanji . "いたかったです", "Négatif polie" => $kanji . "いたくなったです"],
+                            "Kana" => ["Affirmatif neutre" => $kana . "いたかった", "Négatif neutre" => $kana . "いたくなった", "Affirmatif polie" => $kana . "いたかったです", "Négatif polie" => $kana . "いたくなったです"],
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "itakatta", "Négatif neutre" => $romaji . "itakunakatta", "Affirmatif polie" => $romaji . "itakatta desu", "Négatif polie" => $romaji . "itakunakatta desu"]
+                        ] // Vouloir passé
+                    ]];
+
+                }
             }
             break;
         case 'Adjectif':
