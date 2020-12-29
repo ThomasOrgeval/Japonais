@@ -675,7 +675,7 @@ function add_selection_type($type, $base)
                         "Passé" => [
                             "Kanji" => ["Affirmatif neutre" => $kanji . "した", "Négatif neutre" => $kanji . "さなかった", "Affirmatif polie" => $kanji . "しました", "Négatif polie" => $kanji . "しませんでした"],
                             "Kana" => ["Affirmatif neutre" => $kana . "した", "Négatif neutre" => $kana . "さなかった", "Affirmatif polie" => $kana . "しました", "Négatif polie" => $kana . "しませんでした"],
-                            "Romaji" => ["Affirmatif neutre" => $romaji . "shita", "Négatif neutre" => $romaji . "sanakatta", "Affirmatif polie" => $romaji . "simashita", "Négatif polie" => $romaji . "simasen deshita"]
+                            "Romaji" => ["Affirmatif neutre" => $romaji . "shita", "Négatif neutre" => $romaji . "sanakatta", "Affirmatif polie" => $romaji . "shimashita", "Négatif polie" => $romaji . "simasen deshita"]
                         ], // Passé
 
                         "Impératif" => [
@@ -992,6 +992,8 @@ function add_selection_type($type, $base)
                     ]];
 
                 } else { // End = 'u'
+
+                    $romaji = substr($base['romaji'], 0, -1);
 
                     $add = ["Verbe - Groupe 1 (Godan)" => [
                         "Non présent" => [
