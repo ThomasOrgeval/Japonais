@@ -3,6 +3,39 @@ ob_start(); ?>
 
     <h2 class="text-uppercase font-weight-bold">Nouveautés :</h2><br/>
 
+    <div id="v1.3" class="changelog-version">
+        <div class="flexible">
+            <h4 class="text-uppercase font-weight-bolder">Version 1.3
+                <span class="font-weight-lighter changelog-date">- 02 Janvier 2021<span>
+            </h4>
+        </div>
+        <hr class="black">
+
+        <h5 class="text-uppercase font-weight-bold green-text">Nouvelles fonctionnalités</h5>
+        <ul class="list-unstyled changelog-list">
+            <li>
+                <span class="font-weight-bold">Ajout d'un bouton de retour</span> afin que vous puissiez donner votre avis
+                voire m'aider ! Ça sera avec plaisir 🤗 <a href="index.php?p=contact">En bas de page</a>
+            </li>
+        </ul>
+        <hr class="black">
+
+        <h5 class="text-uppercase font-weight-bold orange-text">Correction de bugs & Mises à jour</h5>
+        <ul class="list-unstyled changelog-list">
+            <li>
+                <span class="font-weight-bold">Résolution de nombreux bugs :</span>
+                <ul class="list-unstyled">
+                    <li>Affichage des groupes pour les fiches des mots</li>
+                    <li>Temps verbaux qui ne prennaient par toute la largeur sur mobile</li>
+                    <li>Modifications côté administration</li>
+                </ul>
+            </li>
+            <!--li>
+                <span class="font-weight-bold">Modification du htaccess</span> pour vous renvoyez les adresses http vers https 😊
+            </li-->
+        </ul>
+    </div><br/>
+
     <div id="v1.2" class="changelog-version">
         <div class="flexible">
             <h4 class="text-uppercase font-weight-bolder">Version 1.2
@@ -79,9 +112,6 @@ ob_start(); ?>
                 <span class="font-weight-bold">Il est désormais possible de ne plus mettre les accents</span> dans les
                 énigmes !
             </li>
-            <!--li>
-                <span class="font-weight-bold">Modification du htaccess</span> pour vous renvoyez les adresses http vers https 😊
-            </li-->
         </ul>
     </div><br/>
 

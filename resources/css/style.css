@@ -204,6 +204,15 @@ body.modal-open {
     overflow-x: hidden;
 }
 
+.purple-textarea textarea.md-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #8433ec;
+    box-shadow: 0 1px 0 0 #8433ec;
+}
+
+.purple-textarea textarea.md-textarea:focus:not([readonly])+label {
+    color: #8433ec;
+}
+
 @media screen and (min-width: 768px) {
 
     #navbar-top-small {

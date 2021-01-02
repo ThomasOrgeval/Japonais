@@ -1,7 +1,6 @@
 <?php $title = $_POST['francais']['francais'];
 ob_start(); ?>
 
-<?php var_dump($_POST['groupes']) ?>
     <label for="autocomplete"></label>
     <input type="text" style="width: 100%" id="autocomplete" class="autocomplete-bar" name="mot" placeholder="Recherche"
            autocomplete="off">

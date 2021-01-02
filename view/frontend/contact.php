@@ -32,7 +32,41 @@ ob_start(); ?>
                 </div-->
             </div>
         </div>
+    </div><br/><br/>
+
+<?php if (isset($_SESSION) && !empty($_SESSION) && $_SESSION['connect'] === 'OK') : ?>
+    <div>
+        <div class="md-form purple-textarea">
+            <textarea id="feedback" class="md-textarea form-control" rows="3"></textarea>
+            <label for="feedback">Message de retour</label>
+        </div>
+        <button id="btnFeedback" class="btn btn-purple" onclick="sendFeedback($('#feedback').val())">Envoyer</button>
     </div>
 
-<?php $content = ob_get_clean();
+    <div id="snackbar"></div>
+
+    <script>
+        function sendFeedback(text) {
+            if (text !== '') $("#btnFeedback").attr("disabled", true);
+            $.post(
+                'ajax/sendFeedback.php',
+                {
+                    text: text,
+                    user: '<?= $_SESSION['pseudo']; ?>'
+                },
+                function (data) {
+                    if (data === 'success') {
+                        toast('Message envoyé ! ありがとうございます!');
+                    } else if (data === 'empty') {
+                        toast('Votre message est vide :(')
+                    } else {
+                        console.log(data);
+                    }
+                },
+                'html'
+            );
+        }
+    </script>
+<?php endif;
+$content = ob_get_clean();
 require('./view/template/template.php'); ?>
