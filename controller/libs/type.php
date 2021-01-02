@@ -10,9 +10,7 @@ function add_selection_type($type, $base)
     $kana = substr($base['kana'], 0, -3);
     $kanji = substr($base['kanji'], 0, -3);
 
-    $exceptFirstGroupe = [
-        "Kaeru", "Miru"
-    ];
+    $exceptFirstGroupe = listExceptions();
 
     switch ($type) {
 

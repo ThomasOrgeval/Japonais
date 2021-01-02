@@ -688,3 +688,13 @@ function selectHistory($id)
     $db = dbConnect();
     return $db->query("select id, riddle, response, life from lexiqumjaponais.HISTORIQUE_RIDDLE where id_user = $id order by id desc")->fetchAll();
 }
+
+/**
+ * Exception
+ */
+
+function listExceptions()
+{
+    $db = dbConnect();
+    return $db->query("select libelle from lexiqumjaponais.EXCEPTION")->fetchAll(PDO::FETCH_COLUMN);
+}

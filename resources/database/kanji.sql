@@ -1,7 +1,5 @@
-use lexiqumjaponais;
-
 insert into `KANJI` (id, kanji, lignes, grade, on_yomi, kun_yomi, sens, sens_en)
-VALUES (1, '亜', 7, 7, 'a', '"rank next, come after, Asia, sub-, -ous (in acids)"', '-', '-'),
+values (1, '亜', 7, 7, 'a', '"rank next, come after, Asia, sub-, -ous (in acids)"', '-', '-'),
        (2, '哀', 9, 7, 'ai', '"pity, have mercy on, sympathize with"', '"awa(re), awa(remu)"',
         '"pity, have mercy on, sympathize with, grief, sorrow, misery'),
        (3, '挨', 10, 7, 'ai', '"push open"', '-', '-'),

@@ -242,6 +242,13 @@ create table `KANA`
     primary key (`id`)
 ) engine = InnoDB;
 
+create table `EXCEPTION`
+(
+    `id`      int auto_increment not null,
+    `libelle` varchar(255),
+    primary key (`id`)
+) engine = InnoDB;
+
 delimiter |
 
 create trigger after_update_sakura
