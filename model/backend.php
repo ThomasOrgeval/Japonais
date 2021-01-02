@@ -129,6 +129,7 @@ function supprJaponais($id)
 {
     $db = dbConnect();
     $id = $db->quote($id);
+    $db->query("delete from lexiqumjaponais.TRADUCTION where id_japonais=$id");
     return $db->query("delete from lexiqumjaponais.JAPONAIS where id=$id");
 }
 
@@ -281,12 +282,30 @@ function deleteFrancais($id_francais)
     $db->exec("delete from lexiqumjaponais.FRANCAIS where id=$id");
 }
 
+function uniqueFrancais($id_francais)
+{
+    $db = dbConnect();
+    $id_francais = $db->quote($id_francais);
+    return $db->query("select t.id from lexiqumjaponais.TRADUCTION t
+    inner join lexiqumjaponais.FRANCAIS on t.id_word = FRANCAIS.id 
+    where FRANCAIS.id = $id_francais")->rowCount();
+}
+
 function deleteAnglais($id_anglais)
 {
     $db = dbConnect();
     $id = $db->quote($id_anglais);
     $db->exec("delete from lexiqumjaponais.TRADUCTION where id_anglais=$id");
     $db->exec("delete from lexiqumjaponais.ANGLAIS where id=$id");
+}
+
+function uniqueAnglais($id_anglais)
+{
+    $db = dbConnect();
+    $id = $db->quote($id_anglais);
+    return $db->query("select t.id from lexiqumjaponais.TRADUCTION t
+    inner join lexiqumjaponais.ANGLAIS on t.id_anglais = ANGLAIS.id 
+    where ANGLAIS.id = $id")->rowCount();
 }
 
 /**

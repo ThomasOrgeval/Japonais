@@ -33,12 +33,12 @@ ob_start(); ?>
             <?= select('id_type', $_POST['type']); ?>
         </div>
 
-        <?php if (isset($_GET['id'])): ?>
-            <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" id="groupe" data-toggle="dropdown" aria-haspopup="true"
-                   aria-expanded="false">Les groupes</a>
-                <div class="dropdown-menu" aria-labelledby="groupe">
-                    <?php foreach ($_POST['groupes'] as $group) : ?>
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" id="groupe" data-toggle="dropdown" aria-haspopup="true"
+               aria-expanded="false">Les groupes</a>
+            <div class="dropdown-menu" aria-labelledby="groupe">
+                <?php if (!empty($_POST['groupes'])) :
+                    foreach ($_POST['groupes'] as $group) : ?>
                         <div id="grp-<?= $group['id'] ?>" class="dropdown-item"
                              onclick="addGroup('<?= $group['id'] ?>')">
                             <div class="flexible">
@@ -49,20 +49,20 @@ ob_start(); ?>
                             </div>
                         </div>
                     <?php endforeach;
-                    foreach ($_POST['otherGroupes'] as $group) : ?>
-                        <div id="grp-<?= $group['id'] ?>" class="dropdown-item"
-                             onclick="addGroup('<?= $group['id'] ?>')">
-                            <div class="flexible">
-                                <?= $group['libelle'] ?>
-                                <img id="uncheck" class="svg" src="./resources/svgs/uncheck.svg"
-                                     alt="<?= $group['libelle'] ?>">
-                                <input type="hidden" value="0" name="groupe[<?= $group['id'] ?>]">
-                            </div>
+                endif;
+                foreach ($_POST['otherGroupes'] as $group) : ?>
+                    <div id="grp-<?= $group['id'] ?>" class="dropdown-item"
+                         onclick="addGroup('<?= $group['id'] ?>')">
+                        <div class="flexible">
+                            <?= $group['libelle'] ?>
+                            <img id="uncheck" class="svg" src="./resources/svgs/uncheck.svg"
+                                 alt="<?= $group['libelle'] ?>">
+                            <input type="hidden" value="0" name="groupe[<?= $group['id'] ?>]">
                         </div>
-                    <?php endforeach; ?>
-                </div>
+                    </div>
+                <?php endforeach; ?>
             </div>
-        <?php endif; ?>
+        </div>
         <br/>
         <hr class="black">
 
@@ -70,8 +70,8 @@ ob_start(); ?>
         <h5 class="font-weight-bold">Français :</h5>
         <hr>
         <div class="flexible wide-screen">
-            <div class="form-group col-2">ID</div>
-            <div class="form-group col-10">Traduction française</div>
+            <div class="form-group col-md-2">ID</div>
+            <div class="form-group col-md-10">Traduction française</div>
         </div>
 
         <?php if (isset($_GET['id'])) {
@@ -83,11 +83,11 @@ ob_start(); ?>
                     <div class="form-group col-md-2">
                         <label class="small-screen" for="id_francais<?= $mot['id'] ?>">ID</label>
                         <input type='text' class='form-control bg-danger' id='id_francais<?= $mot['id'] ?>'
-                               name='id_francais[]'
+                               name='id_francais[]' style="cursor: pointer; color: white"
                                value='<?= $mot['id']; ?>' readonly onclick="remove('fr', '<?= $mot['id'] ?>')">
                     </div>
                     <div class="form-group col-md-10">
-                        <label class="small-screen" for="francais<?= $mot['id'] ?>">ID</label>
+                        <label class="small-screen" for="francais<?= $mot['id'] ?>">Traduction française</label>
                         <input type='text' class='form-control' id='francais<?= $mot['id'] ?>' name='francais[]'
                                value='<?= $mot['francais']; ?>'>
                     </div>
@@ -135,7 +135,7 @@ ob_start(); ?>
                     <div class="form-group col-md-2" onclick="remove('en', '<?= $mot['id'] ?>')">
                         <label class="small-screen" for="id_anglais<?= $mot['id'] ?>">ID</label>
                         <input type='text' class='form-control bg-danger' id='id_anglais<?= $mot['id'] ?>'
-                               name='id_anglais[]'
+                               name='id_anglais[]' style="cursor: pointer; color: white"
                                value='<?= $mot['id']; ?>' readonly>
                     </div>
                     <div class="form-group col-md-10">
@@ -237,7 +237,11 @@ ob_start(); ?>
                 function (data) {
                     if (data === 'success') {
                         $('#' + lang + '_' + id).remove();
-                    } else console.log(data);
+                    } else if(data === 'fail') {
+                        console.log('Accès non autorisé');
+                    } else {
+                        console.log(data);
+                    }
                 },
                 'html'
             );

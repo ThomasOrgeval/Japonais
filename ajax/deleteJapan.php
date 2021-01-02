@@ -1,6 +1,7 @@
 <?php
 
-if ($_SESSION['connect'] === 'OK' && $_SESSION['admin'] === 1) {
+session_start();
+if ($_SESSION['connect'] === 'OK' && $_SESSION['admin'] == 1) {
     require_once '../model/frontend.php';
     require_once '../model/backend.php';
 
@@ -8,15 +9,19 @@ if ($_SESSION['connect'] === 'OK' && $_SESSION['admin'] === 1) {
     deleteAllGroupeForJaponais($_POST['id']);
     $anglais = listAnglaisToJaponais($_POST['id']);
     foreach ($anglais as $word) {
-        deleteAnglais($word['id']);
-        supprAnglais($word['id']);
+        if (uniqueAnglais($word['id']) == 1) {
+            deleteAnglais($word['id']);
+            supprAnglais($word['id']);
+        }
     }
     $francais = listFrancaisToJaponais($_POST['id']);
     foreach ($francais as $word) {
-        deleteFrancais($word['id']);
-        supprWord($word['id']);
+        if (uniqueFrancais($word['id']) == 1) {
+            deleteFrancais($word['id']);
+            supprWord($word['id']);
+        }
     }
     $deleteJaponais = supprJaponais($_POST['id']);
 
-    if ($deleteJaponais == true) echo 'SUCCESS';
-} else echo 'WARNING';
+    if ($deleteJaponais == true) echo 'success';
+} else echo 'fail';

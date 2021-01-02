@@ -69,6 +69,7 @@ function japonais_edit()
     if (connect_admin()) {
         $types = listType();
         $type_list = array();
+        $_POST['groupes'] = array();
         foreach ($types as $type) {
             $type_list[$type['id']] = $type['type'];
         }
@@ -81,9 +82,9 @@ function japonais_edit()
             }
             $_POST = $japonais->fetch();
             $_POST['groupes'] = listGroupeToJaponais($_GET['id']);
-            $_POST['otherGroupes'] = otherGroupe();
             $_POST['kanjis'] = listKanjiToJaponais($_GET['id']);
         }
+        $_POST['otherGroupes'] = otherGroupe($_POST['groupes']);
         $_POST['type'] = $type_list;
         require './view/backend/japonais_edit.php';
     } else header('Location:index.php?p=accueil');
@@ -107,8 +108,8 @@ function japonais_add()
         addJaponaisKanji($kanji, $id);
 
         foreach ($_POST['groupe'] as $key => $group) {
-            if ($group == 0 && selectGroupAndJaponais($key, $_GET['id']) >= 1) deleteGroupeToJaponais($key, $_GET['id']);
-            else if ($group == 1 && selectGroupAndJaponais($key, $_GET['id']) == 0) addGroupeToJaponais($key, $_GET['id']);
+            if ($group == 0 && selectGroupAndJaponais($key, $id) >= 1) deleteGroupeToJaponais($key, $id);
+            else if ($group == 1 && selectGroupAndJaponais($key, $id) == 0) addGroupeToJaponais($key, $id);
         }
 
         for ($i = 0; $i <= sizeof($_POST['id_francais']); $i++) {
@@ -402,11 +403,11 @@ function deleteRecompense($id)
     } else header('Location:index.php?p=accueil');
 }
 
-function otherGroupe()
+function otherGroupe($listPresent)
 {
     if (connect_admin()) {
-        $listPresent = listGroupeToJaponais($_GET['id']);
         $listAll = listGroupe();
+        if (empty($listPresent)) return $listAll;
         $listOther = $listAll;
         foreach ($listPresent as $present) {
             foreach ($listAll as $item) {

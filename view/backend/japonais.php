@@ -47,9 +47,9 @@ ob_start(); ?>
                     id: id
                 },
                 function (data) {
-                    if (data === 'SUCCESS') {
+                    if (data === 'success') {
                         $('#row' + id).remove();
-                    } else if(data === 'WARNING') {
+                    } else if(data === 'fail') {
                         console.log('Accès non autorisé');
                     } else {
                         console.log(data);
