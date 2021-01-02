@@ -205,32 +205,6 @@ function createJaponaisAndAnglais($id_japonais, $id_anglais)
     return $db->query("insert into lexiqumjaponais.TRADUCTION set id_japonais=$id_japonais, id_anglais=$id_anglais");
 }
 
-function listJaponaisToFrancais($id_francais)
-{
-    $db = dbConnect();
-    $id_francais = $db->quote($id_francais);
-    $select = $db->query("select JAPONAIS.* from lexiqumjaponais.JAPONAIS
-    inner join lexiqumjaponais.TRADUCTION t
-        on t.id_japonais = JAPONAIS.id
-    inner join lexiqumjaponais.FRANCAIS
-        on t.id_word = FRANCAIS.id
-    where FRANCAIS.id=$id_francais order by id_type");
-    return $select->fetchAll();
-}
-
-function listAnglaisToFrancais($id_francais)
-{
-    $db = dbConnect();
-    $id_francais = $db->quote($id_francais);
-    $select = $db->query("select ANGLAIS.id, ANGLAIS.anglais from lexiqumjaponais.ANGLAIS
-    inner join lexiqumjaponais.TRADUCTION as wj
-        on wj.id_anglais = ANGLAIS.id
-    inner join lexiqumjaponais.FRANCAIS
-        on wj.id_word = FRANCAIS.id
-    where FRANCAIS.id=$id_francais");
-    return $select->fetchAll();
-}
-
 function listFrancaisToJaponais($id_japonais)
 {
     $db = dbConnect();
@@ -238,9 +212,7 @@ function listFrancaisToJaponais($id_japonais)
     $select = $db->query("select FRANCAIS.id, FRANCAIS.francais from lexiqumjaponais.FRANCAIS
     inner join lexiqumjaponais.TRADUCTION as wj
         on wj.id_word = FRANCAIS.id
-    inner join lexiqumjaponais.JAPONAIS
-        on wj.id_japonais = JAPONAIS.id
-    where JAPONAIS.id=$id_japonais");
+    where id_japonais=$id_japonais");
     return $select->fetchAll();
 }
 
@@ -251,9 +223,7 @@ function listAnglaisToJaponais($id_japonais)
     $select = $db->query("select ANGLAIS.id, ANGLAIS.anglais from lexiqumjaponais.ANGLAIS
     inner join lexiqumjaponais.TRADUCTION as wj
         on wj.id_anglais = ANGLAIS.id
-    inner join lexiqumjaponais.JAPONAIS
-        on wj.id_japonais = JAPONAIS.id
-    where JAPONAIS.id=$id_japonais");
+    where id_japonais=$id_japonais");
     return $select->fetchAll();
 }
 

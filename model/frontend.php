@@ -403,11 +403,7 @@ function researchWord($search)
 {
     $db = dbConnect();
     $search = $db->quote($search);
-    $select = $db->query("select f.francais, f.id, j.id_type, ty.type, ty.type_jp from lexiqumjaponais.FRANCAIS f
-        inner join lexiqumjaponais.TRADUCTION t on f.id = t.id_word
-        inner join lexiqumjaponais.JAPONAIS j on t.id_japonais = j.id
-        inner join lexiqumjaponais.TYPE ty on j.id_type = ty.id
-        where francais like $search order by id_type");
+    $select = $db->query("select * from lexiqumjaponais.FRANCAIS f where francais like $search");
     return $select->fetch();
 }
 
@@ -416,6 +412,17 @@ function researchGroupeId($search)
     $db = dbConnect();
     $select = $db->query("select * from lexiqumjaponais.GROUPE where id=$search");
     return $select->fetch();
+}
+
+function listJaponaisToFrancais($id_francais)
+{
+    $db = dbConnect();
+    $id_francais = $db->quote($id_francais);
+    $select = $db->query("select JAPONAIS.* from lexiqumjaponais.JAPONAIS
+    inner join lexiqumjaponais.TRADUCTION t
+        on t.id_japonais = JAPONAIS.id
+    where id_word=$id_francais order by id_type");
+    return $select->fetchAll();
 }
 
 /**

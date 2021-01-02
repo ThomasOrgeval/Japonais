@@ -1,6 +1,7 @@
 <?php $title = $_POST['francais']['francais'];
 ob_start(); ?>
 
+<?php var_dump($_POST['groupes']) ?>
     <label for="autocomplete"></label>
     <input type="text" style="width: 100%" id="autocomplete" class="autocomplete-bar" name="mot" placeholder="Recherche"
            autocomplete="off">
@@ -9,7 +10,8 @@ ob_start(); ?>
     <div class="form-group card mx-auto">
         <div class="card-header">
             <div class="flexible">
-                <h4 class="card-title font-weight-bold text-center" style="margin-top: 20px"><?= $_POST['francais']['francais'] ?></h4>
+                <h4 class="card-title font-weight-bold text-center"
+                    style="margin-top: 20px"><?= $_POST['francais']['francais'] ?></h4>
                 <a data-toggle="modal" data-target="#modalListe" style="margin-left: auto; margin-top: 20px">
                     <img id="plus-circle" class="svg" src="./resources/svgs/plus-circle.svg" alt="plus">
                 </a>
@@ -60,16 +62,16 @@ ob_start(); ?>
             if ($japonais != array_slice($_POST['japonais'], -1)[0]) : ?>
                 <hr class="black">
             <?php endif;
-        endforeach;
-        if (!empty($_POST['groupes'])) : ?>
-            <div class="card-body">
-                <?php foreach ($_POST['groupes'] as $groupe) : ?>
-                    <a class="card-link" href="index.php?p=groupe_search&id=<?= $groupe['id'] ?>">
-                        <?= $groupe['libelle'] ?>
-                    </a>
-                <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
+            if (!empty($_POST['groupes'][$japonais["id"]])) : ?>
+                <div class="card-body">
+                    <?php foreach ($_POST['groupes'][$japonais["id"]] as $groupe) : ?>
+                        <a class="card-link" href="index.php?p=groupe_search&id=<?= $groupe['id'] ?>">
+                            <?= $groupe['libelle'] ?>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif;
+        endforeach; ?>
     </div>
 
 <?php if (isset($_POST['type']) && $_POST['type'][0] != null && substr(key($_POST['type'][0]), 0, 5) == 'Verbe') :

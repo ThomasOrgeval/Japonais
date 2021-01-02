@@ -24,6 +24,7 @@ function accueil()
     else $_POST['words'] = listRandomWords(10);
 
     foreach ($_POST['words'] as $key => $word) {
+        // Preparation for furigana
         $kana = preg_split('/(?<!^)(?!$)/u', $word['kana']);
         $replace = preg_split('/(?<!^)(?!$)/u', $word['kanji']);
         $kanjis = find_kanji($word['kanji']);
@@ -412,16 +413,19 @@ function select_theme()
 function search()
 {
     if (isset($_GET['mot'])) {
+        $_POST['groupes'] = array();
+        $_POST['type'] = array();
+
         $_POST['francais'] = researchWord($_GET['mot']);
         $_POST['japonais'] = listJaponaisToFrancais($_POST['francais']['id']);
-        $_POST['groupes'] = listGroupeToJaponais($_POST['francais']['id']);
         $_POST['listes'] = listListes($_SESSION['id']);
         $_POST['other_listes'] = haveListes($_SESSION['id'], $_POST['francais']['id']);
 
-        $_POST['type'] = array();
         foreach ($_POST['japonais'] as $japonais) {
+            $_POST['groupes'][$japonais['id']] = listGroupeToJaponais($japonais['id']);
             array_push($_POST['type'], add_selection_type($japonais['id_type'], $japonais));
         }
+
         foreach ($_POST['other_listes'] as $other_liste) {
             foreach ($_POST['listes'] as $liste) {
                 if ($liste['nom'] === $other_liste['nom']) {
@@ -429,6 +433,7 @@ function search()
                 }
             }
         }
+
         require './view/frontend/search.php';
     } else {
         setFlash('Ce mot n\'existe pas', 'danger');
