@@ -2,7 +2,7 @@
 
 if (!empty($_POST['text'])) {
     $mail = 'orgevalthomas@gmail.com';
-    $header = 'From: ' . $_POST['text'] . ' <support@lexiquejaponais.fr>' . "\r\n" .
+    $header = 'From: ' . $_POST['user'] . ' <support@lexiquejaponais.fr>' . "\r\n" .
         'Reply-To: support@lexiquejaponais.fr' . "\r\n" .
         'X-Mailer: PHP/' . PHP_VERSION . "\r\n" .
         "Content-type: text/html; charset=utf-8";
@@ -15,5 +15,6 @@ if (!empty($_POST['text'])) {
                     <span> ' . $_POST['text'] . ' </span>
                 </body>
                 </html>';
-    mail($mail, "Message - lexiquejaponais.fr", $message, $header);
+    mail($mail, $_POST['user'] . " - lexiquejaponais.fr", $message, $header);
+    echo 'succes';
 } elseif (empty($_POST['text'])) echo 'empty';

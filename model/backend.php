@@ -50,7 +50,8 @@ function testGroupe($id)
 function researchFrBack($search)
 {
     $db = dbConnect();
-    $select = $db->query("select id from lexiqumjaponais.FRANCAIS where francais like '$search'");
+    $search = $db->quote($search);
+    $select = $db->query("select id from lexiqumjaponais.FRANCAIS where francais like $search");
     return $select->fetch();
 }
 

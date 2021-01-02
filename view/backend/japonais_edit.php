@@ -74,27 +74,25 @@ ob_start(); ?>
             <div class="form-group col-md-10">Traduction française</div>
         </div>
 
-        <?php if (isset($_GET['id'])) {
-            $mots = listFrancaisToJaponais($_GET['id']);
-        }
+        <?php if (isset($_GET['id'])) $mots = listFrancaisToJaponais($_GET['id']);
         if (!empty($mots)):
             foreach ($mots as $mot): ?>
                 <div id="fr_<?= $mot['id'] ?>" class="row">
                     <div class="form-group col-md-2">
                         <label class="small-screen" for="id_francais<?= $mot['id'] ?>">ID</label>
-                        <input type='text' class='form-control bg-danger' id='id_francais<?= $mot['id'] ?>'
-                               name='id_francais[]' style="cursor: pointer; color: white"
-                               value='<?= $mot['id']; ?>' readonly onclick="remove('fr', '<?= $mot['id'] ?>')">
+                        <input type="text" class="form-control bg-danger" id="id_francais<?= $mot['id'] ?>"
+                               name="id_francais[]" style="cursor: pointer; color: white"
+                               value="<?= $mot['id']; ?>" readonly onclick="remove('fr', '<?= $mot['id'] ?>')">
                     </div>
                     <div class="form-group col-md-10">
                         <label class="small-screen" for="francais<?= $mot['id'] ?>">Traduction française</label>
-                        <input type='text' class='form-control' id='francais<?= $mot['id'] ?>' name='francais[]'
-                               value='<?= $mot['francais']; ?>'>
+                        <input type="text" class="form-control" id="francais<?= $mot['id'] ?>" name="francais[]"
+                               value="<?= $mot['francais']; ?>">
                     </div>
                 </div>
             <?php endforeach;
         else: ?>
-            <div class="flexible">
+            <div class="row">
                 <div class="form-group col-md-2">
                     <label class="small-screen">ID</label>
                     <?= inputReadonly('id_francais[]'); ?>
@@ -126,9 +124,7 @@ ob_start(); ?>
             <div class="form-group col-md-10">Traduction anglaise</div>
         </div>
 
-        <?php if (isset($_GET['id'])) {
-            $mots = listAnglaisToJaponais($_GET['id']);
-        }
+        <?php if (isset($_GET['id'])) $mots = listAnglaisToJaponais($_GET['id']);
         if (!empty($mots)):
             foreach ($mots as $mot): ?>
                 <div id="en_<?= $mot['id'] ?>" class="row">
@@ -136,12 +132,12 @@ ob_start(); ?>
                         <label class="small-screen" for="id_anglais<?= $mot['id'] ?>">ID</label>
                         <input type='text' class='form-control bg-danger' id='id_anglais<?= $mot['id'] ?>'
                                name='id_anglais[]' style="cursor: pointer; color: white"
-                               value='<?= $mot['id']; ?>' readonly>
+                               value="<?= $mot['id']; ?>" readonly>
                     </div>
                     <div class="form-group col-md-10">
                         <label class="small-screen" for="anglais<?= $mot['id'] ?>">Anglais</label>
                         <input type='text' class='form-control' id='anglais<?= $mot['id'] ?>' name='anglais[]'
-                               value='<?= $mot['anglais']; ?>'>
+                               value="<?= $mot['anglais']; ?>">
                     </div>
                 </div>
             <?php endforeach;
