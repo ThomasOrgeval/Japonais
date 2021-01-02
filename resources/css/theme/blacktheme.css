@@ -96,3 +96,11 @@ li {
     background-color: #b53128 !important;
     color: white;
 }
+
+.button-a {
+    color: red;
+}
+
+.button-a:hover {
+    color: darkred;
+}

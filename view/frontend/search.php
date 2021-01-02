@@ -65,7 +65,7 @@ ob_start(); ?>
             if (!empty($_POST['groupes'][$japonais["id"]])) : ?>
                 <div class="card-body">
                     <?php foreach ($_POST['groupes'][$japonais["id"]] as $groupe) : ?>
-                        <a class="card-link" href="index.php?p=groupe_search&id=<?= $groupe['id'] ?>">
+                        <a class="card-link button-a" href="index.php?p=groupe_search&id=<?= $groupe['id'] ?>">
                             <?= $groupe['libelle'] ?>
                         </a>
                     <?php endforeach; ?>
@@ -78,7 +78,7 @@ ob_start(); ?>
     foreach ($_POST['type'] as $list) :
         foreach ($list as $value) :
             $i = 1; ?>
-            <div class="card-group">
+            <div class="row">
                 <?php foreach ($value as $key => $item) :
                     $j = 0; ?>
                     <div class="col-md-4">
@@ -95,7 +95,7 @@ ob_start(); ?>
                                             <a class="collapsed" data-toggle="collapse" data-parent="#card<?= $i ?>"
                                                href="#collapse<?= $lecture . $i ?>" aria-expanded="false"
                                                aria-controls="collapse<?= $lecture . $i ?>">
-                                                <div class="flexible">
+                                                <div class="flexible button-a">
                                                     <span><?= $lecture ?></span>
                                                     <i class="fas fa-angle-down rotate-icon"
                                                        style="margin-left: auto"></i>
