@@ -17,6 +17,9 @@ ob_start(); ?>
                 <span class="font-weight-bold">Ajout d'un bouton de retour</span> afin que vous puissiez donner votre avis
                 voire m'aider ! Ça sera avec plaisir 🤗 <a href="index.php?p=contact">En bas de page</a>
             </li>
+            <li>
+                <span class="font-weight-bold">Ajout d'un nouveau thème</span> basé sur le bleu !
+            </li>
         </ul>
         <hr class="black">
 

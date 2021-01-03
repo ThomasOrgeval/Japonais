@@ -213,6 +213,14 @@ body.modal-open {
     color: #8433ec;
 }
 
+.card {
+    background-color: #222222;
+}
+
+.card-body {
+    background-color: white !important;
+}
+
 @media screen and (min-width: 768px) {
 
     #navbar-top-small {

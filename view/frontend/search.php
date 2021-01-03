@@ -19,7 +19,7 @@ ob_start(); ?>
         <?php $i = 0;
         foreach ($_POST['japonais'] as $japonais) :
             if (isset($_POST['type']) && $_POST['type'][$i] != null) : ?>
-                <ul class="list-group list-group-flush">
+                <ul class="list-group list-group-flush list-search">
                     <li class="list-group-item text-center">
                         <?= key($_POST['type'][$i]) ?>
                     </li>
@@ -49,7 +49,7 @@ ob_start(); ?>
             $kanji = listKanjiToJaponais($japonais['id']);
             if (!empty($kanji)) :
                 foreach ($kanji as $aKanji) : ?>
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush list-search">
                         <li class="list-group-item flexible">
                             <a class="black-text button-a" href="index.php?p=kanji&id=<?= $aKanji['id'] ?>">
                                 <?= $aKanji['kanji'] ?> - <?= $aKanji['sens'] ?>
