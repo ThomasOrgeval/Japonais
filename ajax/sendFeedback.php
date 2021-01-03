@@ -12,9 +12,9 @@ if (!empty($_POST['text'])) {
                     <meta charset="utf-8" />
                 </head>
                 <body>
-                    <span> ' . $_POST['text'] . ' </span>
+                    <p> ' . nl2br($_POST['text']) . ' </p>
                 </body>
                 </html>';
     mail($mail, $_POST['user'] . " - lexiquejaponais.fr", $message, $header);
-    echo 'succes';
+    echo 'success';
 } elseif (empty($_POST['text'])) echo 'empty';

@@ -57,6 +57,7 @@ ob_start(); ?>
                 function (data) {
                     if (data === 'success') {
                         toast('Message envoyé ! ありがとうございます!');
+                        $("#btnFeedback").attr("enabled", true);
                     } else if (data === 'empty') {
                         toast('Votre message est vide :(')
                     } else {

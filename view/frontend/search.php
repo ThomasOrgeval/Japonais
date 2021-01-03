@@ -51,7 +51,7 @@ ob_start(); ?>
                 foreach ($kanji as $aKanji) : ?>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item flexible">
-                            <a class="black-text" href="index.php?p=kanji&id=<?= $aKanji['id'] ?>">
+                            <a class="black-text button-a" href="index.php?p=kanji&id=<?= $aKanji['id'] ?>">
                                 <?= $aKanji['kanji'] ?> - <?= $aKanji['sens'] ?>
                             </a>
                         </li>

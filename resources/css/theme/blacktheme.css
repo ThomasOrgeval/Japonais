@@ -98,9 +98,9 @@ li {
 }
 
 .button-a {
-    color: red;
+    color: red !important;
 }
 
 .button-a:hover {
-    color: darkred;
+    color: darkred !important;
 }
