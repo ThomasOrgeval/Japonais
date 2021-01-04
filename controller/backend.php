@@ -20,6 +20,12 @@ function groupe()
 function groupe_edit()
 {
     if (connect_admin()) {
+        $groupes = listGroupe();
+        $groupe_list = [0=>''];
+        foreach ($groupes as $groupe) {
+            $groupe_list[$groupe['id']] = $groupe['libelle'];
+        }
+
         if (isset($_GET['id'])) {
             $groupe = testGroupe($_GET['id']);
             if ($groupe->rowCount() === 0) {
@@ -27,6 +33,7 @@ function groupe_edit()
                 header('Location: index.php?p=groupe');
             }
             $_POST = $groupe->fetch();
+            unset($groupe_list[array_search($_POST['libelle'], $groupe_list, true)]);
             $_POST['mots'] = listWordToGroupe($_GET['id']);
         }
         require 'view/backend/groupe_edit.php';
@@ -213,15 +220,18 @@ function securize($var)
  * Groupe
  */
 
-function addGroupe($libelle, $id)
+function addGroupe()
 {
     if (connect_admin()) {
-        $libelle = securize($libelle);
+        $libelle = securize($_POST['libelle']);
+        if (strlen($_POST['id_parent']) != 0 && (int)$_POST['id_parent'] != 0) $id_parent = (int) securize($_POST['id_parent']);
+        else $id_parent = null;
+        $quantifieur = securize($_POST['quantifieur']);
 
-        if ($id > 0) {
-            $addGroupe = editGroupe($id, $libelle);
+        if ($_GET['id'] > 0) {
+            $addGroupe = editGroupe($_GET['id'], $libelle, $id_parent, $quantifieur);
         } else {
-            $addGroupe = createGroupe($libelle);
+            $addGroupe = createGroupe($libelle, $id_parent, $quantifieur);
         }
 
         if ($addGroupe === false) {

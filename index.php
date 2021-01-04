@@ -12,9 +12,7 @@ try {
         } elseif ($p === 'groupe_edit') {
             groupe_edit();
         } elseif ($p === 'groupe_add') {
-            if (isset($_POST['save'])) {
-                addGroupe($_POST['libelle'], $_GET['id']);
-            }
+            addGroupe();
         } elseif ($p === 'groupe_delete') {
             deleteGroupe($_GET['id']);
         } elseif ($p === 'logout') {

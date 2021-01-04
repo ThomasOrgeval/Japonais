@@ -18,6 +18,14 @@ ob_start(); ?>
                     <label for="libelle">Nom du groupe</label>
                     <?= input('libelle'); ?>
                 </div>
+                <div class="form-group">
+                    <label for="id_parent">Groupe parent</label>
+                    <?= select('id_parent', $groupe_list); ?>
+                </div>
+                <div class="form-group">
+                    <label for="quantifieur">Quantifieur</label>
+                    <?= input('quantifieur'); ?>
+                </div>
             </div>
             <div class="col-md-4">
                 <h5>Liste des mots :</h5>

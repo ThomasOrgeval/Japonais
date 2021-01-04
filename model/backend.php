@@ -4,21 +4,18 @@
  * Groupes
  */
 
-function createGroupe($libelle)
+function createGroupe($libelle, $id_parent, $quantifieur)
 {
     $db = dbConnect();
-    $addGroupe = $db->prepare('insert into lexiqumjaponais.GROUPE(libelle) values(?)');
-    $addGroupe = $addGroupe->execute(array($libelle));
-    return $addGroupe;
+    $addGroupe = $db->prepare('insert into lexiqumjaponais.GROUPE(libelle, id_parent, quantifieur) values(?, ?, ?)');
+    return $addGroupe->execute(array($libelle, $id_parent, $quantifieur));
 }
 
-function editGroupe($id, $libelle)
+function editGroupe($id, $libelle, $id_parent, $quantifieur)
 {
     $db = dbConnect();
-    $id = $db->quote($id);
-    $libelle = $db->quote($libelle);
-    $editGroupe = $db->query("update lexiqumjaponais.GROUPE set libelle=$libelle where id=$id");
-    return $editGroupe;
+    $addGroupe = $db->prepare('update lexiqumjaponais.GROUPE set libelle=?, id_parent=?, quantifieur=? where id=?');
+    return $addGroupe->execute(array($libelle, $id_parent, $quantifieur, $id));
 }
 
 function supprGroupe($id)
@@ -40,7 +37,7 @@ function testGroupe($id)
 {
     $db = dbConnect();
     $id = $db->quote($id);
-    return $db->query("select id, libelle from lexiqumjaponais.GROUPE where id=$id");
+    return $db->query("select id, libelle, id_parent, quantifieur from lexiqumjaponais.GROUPE where id=$id");
 }
 
 /**
