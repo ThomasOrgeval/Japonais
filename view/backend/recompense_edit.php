@@ -1,4 +1,4 @@
-<?php $title =  isset($_POST['id']) ?  $_POST ['libelle'] . ' - Edition' : 'Nouvelle récompense';
+<?php $title = isset($_POST['id']) ? $_POST ['libelle'] . ' - Edition' : 'Nouvelle récompense';
 ob_start(); ?>
 
     <h1 class="h1-admin">Editer une récompense</h1>
@@ -34,9 +34,11 @@ ob_start(); ?>
 
             <div class="col-md-4">
                 <h5>Liste des acheteurs :</h5>
-                <?php foreach ($_POST['acheteurs'] as $acheteur) : ?>
-                    <span><?= $acheteur['pseudo'] ?></span>
-                <?php endforeach; ?>
+                <?php if (isset($_POST['acheteurs'])) :
+                    foreach ($_POST['acheteurs'] as $acheteur) : ?>
+                        <span><?= $acheteur['pseudo'] ?></span>
+                    <?php endforeach;
+                endif; ?>
             </div>
         </div>
         <button type="submit" class="btn btn-green" name="save">Enregistrer</button>
