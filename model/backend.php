@@ -522,7 +522,7 @@ function supprRecompense($id)
 function listTypeRecompense()
 {
     $db = dbConnect();
-    $select = $db->query('select id, type from lexiqumjaponais.RECOMPENSE_TYPE order by type asc');
+    $select = $db->query('select id, type from lexiqumjaponais.RECOMPENSE_TYPE order by type');
     return $select->fetchAll();
 }
 
@@ -535,7 +535,7 @@ function listAchateurFromRecompense($id_recompense)
     $db = dbConnect();
     $id_recompense = $db->quote($id_recompense);
     $select = $db->query("select USER.pseudo from lexiqumjaponais.ACHAT
-        inner join lexiqumjaponais.USER on achat.id_user = user.id
+        inner join lexiqumjaponais.USER on ACHAT.id_user = USER.id
         where id_recompense=$id_recompense");
     return $select->fetchAll();
 }
