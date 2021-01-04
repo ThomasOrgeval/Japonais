@@ -77,12 +77,15 @@ function change_icon()
 {
     if (connect()) {
         if (isset($_GET['id']) && (!empty($_GET['id']) || $_GET['id'] == 0)) {
-            if (haveIcon($_SESSION['id'], $_GET['id']) || $_GET['id'] == 0) {
+            if ($_GET['id'] == 0) {
+                setIcon($_SESSION['id'], $_GET['id']);
+                $_SESSION['icone'] = $_GET['id'];
+            } elseif (haveIcon($_SESSION['id'], $_GET['id']) || $_GET['id'] == 0) {
                 $icone = changeIcon($_GET['id']);
                 setIcon($_SESSION['id'], $icone['slug']);
                 $_SESSION['icone'] = $icone['slug'];
-                setFlash('L\'îcone a été modifiée');
             }
+            setFlash('L\'îcone a été modifiée');
         }
         header('Location:index.php?p=account');
     }
