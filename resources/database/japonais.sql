@@ -133,9 +133,10 @@ create table `JUKUGO`
 
 create table `GROUPE`
 (
-    `id`        int auto_increment not null,
-    `libelle`   varchar(255)       not null,
-    `id_parent` int,
+    `id`          int auto_increment not null,
+    `libelle`     varchar(255)       not null,
+    `id_parent`   int,
+    `quantifieur` varchar(255),
     primary key (`id`),
     foreign key (`id_parent`) references `GROUPE` (`id`)
 ) engine = InnoDB;

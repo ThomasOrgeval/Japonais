@@ -188,7 +188,7 @@ function recompense_edit()
             $_POST = $recompense->fetch();
             $_POST['acheteurs'] = listAchateurFromRecompense($_GET['id']);
         }
-        require './view/backend/recompense_edit.php';
+        var_dump($_POST);
     } else header('Location:index.php?p=accueil');
 }
 
