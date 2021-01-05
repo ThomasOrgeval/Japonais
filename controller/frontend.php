@@ -421,7 +421,7 @@ function search()
         $_POST['groupes'] = array();
         $_POST['type'] = array();
 
-        $_POST['francais'] = researchWord($_GET['mot']);
+        $_POST['francais'] = researchWord(securize($_GET['mot']));
         $_POST['japonais'] = listJaponaisToFrancais($_POST['francais']['id']);
         $_POST['listes'] = listListes($_SESSION['id']);
         $_POST['other_listes'] = haveListes($_SESSION['id'], $_POST['francais']['id']);

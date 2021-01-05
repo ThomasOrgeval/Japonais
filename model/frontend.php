@@ -411,7 +411,7 @@ function researchWord($search)
 {
     $db = dbConnect();
     $search = $db->quote($search);
-    $select = $db->query("select * from lexiqumjaponais.FRANCAIS f where slug like $search");
+    $select = $db->query("select * from lexiqumjaponais.FRANCAIS where slug like $search");
     return $select->fetch();
 }
 
