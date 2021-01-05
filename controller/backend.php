@@ -280,6 +280,8 @@ function addFrancais($id, $francais)
 
 function slug($str, $delimiter = '-')
 {
+    $unwanted_array = ['é'=>'e', 'è' => 'e', 'É' => 'e', 'ç' => 'c', 'È' => 'e', 'Ù' => 'u', 'ù' => 'u', 'À' => 'a', 'à' => 'a', 'Ç' => 'c'];
+    $str = strtr( $str, $unwanted_array );
     return strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter, preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $str))))), $delimiter));
 }
 
