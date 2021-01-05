@@ -40,7 +40,7 @@ if (!empty($_POST['keyword'])) :
                             $var = $mot['type'];
                     }
                 } ?>
-                <a href="index.php?p=search&mot=<?= $mot['francais'] ?>" class="black-text">
+                <a href="recherche/<?= $mot['slug'] ?>" class="black-text">
                     <li class="list-group-item border li-theme" style="cursor: pointer">
                         <?= $mot['francais'] ?> - <?= $var ?>
                     </li>

@@ -144,7 +144,7 @@ endif; ?>
                     <hr>
                     <ul id="searchListe" class="list-group list-group-flush" style="width: 100%">
                         <?php foreach ($_POST['listes'] as $liste) : ?>
-                            <a onclick="addToList('<?= $liste['id'] ?>', '<?= $_POST['word']['id'] ?>')">
+                            <a onclick="addToList('<?= $liste['id'] ?>', '<?= $_POST['francais']['id'] ?>')">
                                 <li id="li-<?= $liste['id'] ?>" class="list-group-item border li-theme">
                                     <div class="flexible">
                                         <span><?= $liste['nom'] ?></span>

@@ -78,6 +78,7 @@ create table `FRANCAIS`
 (
     `id`       int auto_increment not null,
     `francais` varchar(255)       not null,
+    `slug`     varchar(255),
     primary key (`id`)
 ) engine = InnoDB;
 

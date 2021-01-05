@@ -9,3 +9,6 @@ create table `EXCEPTION`
 
 alter table GROUPE
     add column `quantifieur` varchar(255);
+
+alter table FRANCAIS
+    add column `slug` varchar(255);

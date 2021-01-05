@@ -21,7 +21,7 @@ function groupe_edit()
 {
     if (connect_admin()) {
         $groupes = listGroupe();
-        $groupe_list = [0=>''];
+        $groupe_list = [0 => ''];
         foreach ($groupes as $groupe) {
             $groupe_list[$groupe['id']] = $groupe['libelle'];
         }
@@ -224,7 +224,7 @@ function addGroupe()
 {
     if (connect_admin()) {
         $libelle = securize($_POST['libelle']);
-        if (strlen($_POST['id_parent']) != 0 && (int)$_POST['id_parent'] != 0) $id_parent = (int) securize($_POST['id_parent']);
+        if (strlen($_POST['id_parent']) != 0 && (int)$_POST['id_parent'] != 0) $id_parent = (int)securize($_POST['id_parent']);
         else $id_parent = null;
         $quantifieur = securize($_POST['quantifieur']);
 
@@ -267,13 +267,19 @@ function addFrancais($id, $francais)
 {
     if (connect_admin()) {
         $francais = securize($francais);
+        $slug = securize(createSlug($francais));
 
         if ($id > 0) {
-            editWord($francais, $id);
+            editWord($francais, $id, $slug);
         } else {
-            if (empty(researchFrBack($francais))) createWord($francais);
+            if (empty(researchFrBack($francais))) createWord($francais, $slug);
         }
     } else header('Location:index.php?p=accueil');
+}
+
+function createSlug($str, $delimiter = '-')
+{
+    return strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter, preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $str))))), $delimiter));
 }
 
 /**

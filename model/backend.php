@@ -52,19 +52,21 @@ function researchFrBack($search)
     return $select->fetch();
 }
 
-function editWord($fr, $id)
+function editWord($fr, $id, $slug)
 {
     $db = dbConnect();
     $fr = $db->quote($fr);
     $id = $db->quote($id);
-    return $db->query("update lexiqumjaponais.FRANCAIS set francais=$fr where id=$id");
+    $slug = $db->quote($slug);
+    return $db->query("update lexiqumjaponais.FRANCAIS set francais=$fr, slug=$slug where id=$id");
 }
 
-function createWord($francais)
+function createWord($francais, $slug)
 {
     $db = dbConnect();
     $francais = $db->quote($francais);
-    $db->query("insert into lexiqumjaponais.FRANCAIS set francais=$francais");
+    $slug = $db->quote($slug);
+    $db->query("insert into lexiqumjaponais.FRANCAIS set francais=$francais, slug=$slug");
 }
 
 function supprWord($id)

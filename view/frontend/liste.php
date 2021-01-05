@@ -25,7 +25,7 @@ ob_start(); ?>
         <?php foreach ($_POST['mots'] as $mot):
             $japonais = listJaponaisToFrancais($mot['id']) ?>
             <tr>
-                <td><a href="index.php?p=search&mot=<?= $mot['francais'] ?>"><?= $mot['francais'] ?></a></td>
+                <td><a href="recherche/<?= $mot['slug'] ?>"><?= $mot['francais'] ?></a></td>
                 <td><?php if (sizeof($japonais) > 1) {
                         foreach ($japonais as $value) {
                             echo $value['kanji'] . ", ";

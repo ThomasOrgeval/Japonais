@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <base href="/japonais/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8"/>
     <title><?= $title ?></title>
     <link rel="shortcut icon" type="image" href="./resources/svgs/sakura_login.svg">
@@ -274,10 +275,10 @@
     <div class="footer-copyright text-center py-3">© 2020 Copyright:
         <a href="https://lexiquejaponais.fr"> lexiquejaponais.fr.</a>
         All Rights Reserved.
-        <a href="https://discord.gg/Mksrg3hDuv" style="margin-left: 8px">
+        <a href="https://discord.gg/Mksrg3hDuv" target="_blank" style="margin-left: 8px">
             <i class="fab fa-discord"></i>
         </a>
-        <a href="https://www.instagram.com/lexiquejaponais/" style="margin-left: 8px">
+        <a href="https://www.instagram.com/lexiquejaponais/" target="_blank" style="margin-left: 8px">
             <i class="fab fa-instagram"></i>
         </a>
     </div>

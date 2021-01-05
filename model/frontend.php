@@ -228,7 +228,7 @@ function deleteRecup($id)
 function listRandomWords($nombre)
 {
     $db = dbConnect();
-    $select = $db->query("select FRANCAIS.id, FRANCAIS.francais, JAPONAIS.id_type, JAPONAIS.id, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji, TYPE.id, TYPE.type from lexiqumjaponais.JAPONAIS
+    $select = $db->query("select FRANCAIS.id, FRANCAIS.francais, FRANCAIS.slug, JAPONAIS.id_type, JAPONAIS.id, JAPONAIS.kanji, JAPONAIS.kana, JAPONAIS.romaji, TYPE.id, TYPE.type from lexiqumjaponais.JAPONAIS
     inner join lexiqumjaponais.TRADUCTION as wj
         on wj.id_japonais = JAPONAIS.id
     inner join lexiqumjaponais.FRANCAIS
@@ -403,7 +403,7 @@ function researchWord($search)
 {
     $db = dbConnect();
     $search = $db->quote($search);
-    $select = $db->query("select * from lexiqumjaponais.FRANCAIS f where francais like $search");
+    $select = $db->query("select * from lexiqumjaponais.FRANCAIS f where slug like $search");
     return $select->fetch();
 }
 
@@ -524,7 +524,7 @@ function selectRecompense($id)
 function autocompleteMots($key)
 {
     $db = dbConnect();
-    $select = $db->query("select francais, j.id_type, type, j.romaji from lexiqumjaponais.FRANCAIS 
+    $select = $db->query("select francais, slug, j.id_type, type, j.romaji from lexiqumjaponais.FRANCAIS 
         inner join lexiqumjaponais.TRADUCTION t on FRANCAIS.id = t.id_word
         inner join lexiqumjaponais.JAPONAIS j on t.id_japonais = j.id
         inner join lexiqumjaponais.TYPE ty on j.id_type = ty.id
