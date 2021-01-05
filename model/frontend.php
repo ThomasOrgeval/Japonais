@@ -5,10 +5,11 @@ function dbConnect()
     if ($_SERVER['HTTP_HOST'] === 'localhost') {
         $db = new PDO('mysql:host=localhost;dbname=lexiqumjaponais;charset=utf8', 'root', '');
     } else {
-        $host = $_ENV['HOST'];
-        $dbname = $_ENV['DBNAME'];
-        $user = $_ENV['USER'];
-        $pass = $_ENV['MDP'];
+        $var = getenv();
+        $host = $var['HOST'];
+        $dbname = $var['DBNAME'];
+        $user = $var['USER'];
+        $pass = $var['MDP'];
         $db = new PDO('mysql:host=' . $host . '; dbname=' . $dbname . '; charset=utf8', $user, $pass);
     }
     $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
