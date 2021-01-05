@@ -274,6 +274,12 @@
     <div class="footer-copyright text-center py-3">© 2020 Copyright:
         <a href="https://lexiquejaponais.fr"> lexiquejaponais.fr.</a>
         All Rights Reserved.
+        <a href="https://discord.gg/Mksrg3hDuv" style="margin-left: 8px">
+            <i class="fab fa-discord"></i>
+        </a>
+        <a href="https://www.instagram.com/lexiquejaponais/" style="margin-left: 8px">
+            <i class="fab fa-instagram"></i>
+        </a>
     </div>
 </footer>
 

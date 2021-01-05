@@ -22,7 +22,7 @@ ob_start(); ?>
                 <span class="font-weight-bold">Ajout d'un nouveau thème</span> basé sur le bleu !
             </li>
             <li>
-                <span class="font-weight-bold">Ajout des nombres de 0 à 10000 !</span>
+                <span class="font-weight-bold">Ajout des nombres de 0 à 10000 !</span> <a href="index.php?p=number">Lien</a>
             </li>
             <li>
                 <span class="font-weight-bold">Modification du lien pour trouver le tableau des kanas</span>, il faut
