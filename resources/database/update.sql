@@ -7,4 +7,5 @@ create table `EXCEPTION`
     primary key (`id`)
 ) engine = InnoDB;
 
-alter table GROUPE add column `quantifieur` varchar(255);
+alter table GROUPE
+    add column `quantifieur` varchar(255);

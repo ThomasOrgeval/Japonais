@@ -57,3 +57,7 @@ table.table thead th, table.table tbody td, table.table tfoot tr, table.table tb
 .color {
     color: white;
 }
+
+.modal-body, .modal-header {
+    border-bottom: 1px solid black;
+}
