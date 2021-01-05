@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <base href="/japonais/">
+    <?php if ($_SERVER['HTTP_HOST'] === 'localhost') : ?>
+        <base href="/japonais/">
+    <?php else :
+        define('BASE_URL', 'https://lexiquejaponais.fr/'); ?>
+        <base href="<?= BASE_URL ?>">
+    <?php endif; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8"/>
     <title><?= $title ?></title>
     <link rel="shortcut icon" type="image" href="./resources/svgs/sakura_login.svg">
