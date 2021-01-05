@@ -56,7 +56,7 @@
                     <a class="nav-item nav-link" href="index.php?p=admin_portail">Administration</a>
                 <?php endif;
             endif; ?>
-            <a class="nav-item nav-link" href="index.php?p=kana">Kanas</a>
+            <a class="nav-item nav-link" href="index.php?p=courses">Cours</a>
         </ul>
         <div class="navbar-nav">
             <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
@@ -91,7 +91,7 @@
                         <a class="nav-item nav-link" href="index.php?p=admin_portail">Administration</a>
                     <?php endif;
                 endif; ?>
-                <a class="nav-item nav-link" href="index.php?p=kana">Kanas</a>
+                <a class="nav-item nav-link" href="index.php?p=courses">Cours</a>
             </ul>
             <div class="navbar-nav">
                 <hr style="margin-top: 5px; margin-bottom: 5px">
@@ -278,25 +278,6 @@
 </footer>
 
 <script>
-    // Datatables
-    $(document).ready(function () {
-        $('#db').dataTable({
-            "paging": false,
-            "fnInitComplete": function () {
-                const myCustomScrollbar = document.querySelector('#dt-vertical-scroll_wrapper .dataTables_scrollBody');
-                const ps = new PerfectScrollbar(myCustomScrollbar);
-            },
-            "scrollY": 600,
-
-            "aaSorting": [],
-            columnDefs: [{
-                orderable: false,
-                targets: [0, 1, 4]
-            }]
-        });
-        $('.dataTables_length').addClass('bs-select');
-    });
-
     // SVG changer de couleur
     jQuery('img.svg').each(function () {
         var $img = jQuery(this);

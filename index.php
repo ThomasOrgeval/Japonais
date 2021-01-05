@@ -99,6 +99,10 @@ try {
             kana();
         } elseif ($p === 'history') {
             history();
+        } elseif ($p === 'courses') {
+            courses();
+        } elseif ($p === 'number') {
+            number();
         }
     } else {
         accueil();

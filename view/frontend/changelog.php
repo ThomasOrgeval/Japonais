@@ -6,7 +6,7 @@ ob_start(); ?>
     <div id="v1.3" class="changelog-version">
         <div class="flexible">
             <h4 class="text-uppercase font-weight-bolder">Version 1.3
-                <span class="font-weight-lighter changelog-date">- 02 Janvier 2021<span>
+                <span class="font-weight-lighter changelog-date">- 05 Janvier 2021<span>
             </h4>
         </div>
         <hr class="black">
@@ -14,11 +14,19 @@ ob_start(); ?>
         <h5 class="text-uppercase font-weight-bold green-text">Nouvelles fonctionnalités</h5>
         <ul class="list-unstyled changelog-list">
             <li>
-                <span class="font-weight-bold">Ajout d'un bouton de retour</span> afin que vous puissiez donner votre avis
+                <span class="font-weight-bold">Ajout d'un bouton de retour</span> afin que vous puissiez donner votre
+                avis
                 voire m'aider ! Ça sera avec plaisir 🤗 <a href="index.php?p=contact">En bas de page</a>
             </li>
             <li>
                 <span class="font-weight-bold">Ajout d'un nouveau thème</span> basé sur le bleu !
+            </li>
+            <li>
+                <span class="font-weight-bold">Ajout des nombres de 0 à 10000 !</span>
+            </li>
+            <li>
+                <span class="font-weight-bold">Modification du lien pour trouver le tableau des kanas</span>, il faut
+                désormais aller dans "cours" en haut de votre écran ;)
             </li>
         </ul>
         <hr class="black">
