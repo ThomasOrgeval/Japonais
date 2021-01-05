@@ -282,11 +282,24 @@ function uniqueAnglais($id_anglais)
  * Japonais - Groupe
  */
 
-function listGroupeToJaponais($id_japonais)
+function selectGroupeFromJaponais($id_japonais)
 {
     $db = dbConnect();
     $id_japonais = $db->quote($id_japonais);
     $select = $db->query("select GROUPE.* from lexiqumjaponais.JAPONAIS j
+    inner join lexiqumjaponais.JAPONAIS_GROUPE jg
+        on jg.id_japonais = j.id
+    inner join lexiqumjaponais.GROUPE
+        on jg.id_groupe = GROUPE.id
+    where j.id=$id_japonais order by libelle");
+    return $select->fetchAll();
+}
+
+function listGroupeToJaponais($id_japonais)
+{
+    $db = dbConnect();
+    $id_japonais = $db->quote($id_japonais);
+    $select = $db->query("select GROUPE.id, GROUPE.libelle from lexiqumjaponais.JAPONAIS j
     inner join lexiqumjaponais.JAPONAIS_GROUPE jg
         on jg.id_japonais = j.id
     inner join lexiqumjaponais.GROUPE

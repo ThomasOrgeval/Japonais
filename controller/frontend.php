@@ -427,7 +427,7 @@ function search()
         $_POST['other_listes'] = haveListes($_SESSION['id'], $_POST['francais']['id']);
 
         foreach ($_POST['japonais'] as $japonais) {
-            $_POST['groupes'][$japonais['id']] = listGroupeToJaponais($japonais['id']);
+            $_POST['groupes'][$japonais['id']] = selectGroupeFromJaponais($japonais['id']);
             array_push($_POST['type'], add_selection_type($japonais['id_type'], $japonais));
         }
 
