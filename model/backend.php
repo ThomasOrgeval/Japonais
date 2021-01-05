@@ -36,8 +36,17 @@ function listGroupe()
 function testGroupe($id)
 {
     $db = dbConnect();
+    $select = $db->prepare("select id, libelle, id_parent, quantifieur from lexiqumjaponais.GROUPE where id=?");
+    $select->execute(array($id));
+    return $select->fetch();
+}
+
+function nbrGroupe($id)
+{
+    $db = dbConnect();
     $id = $db->quote($id);
-    return $db->query("select id, libelle, id_parent, quantifieur from lexiqumjaponais.GROUPE where id=$id");
+    $select = $db->query("select id, libelle, id_parent, quantifieur from lexiqumjaponais.GROUPE where id=$id");
+    return $select->rowCount();
 }
 
 /**

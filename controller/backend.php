@@ -27,12 +27,11 @@ function groupe_edit()
         }
 
         if (isset($_GET['id'])) {
-            $groupe = testGroupe($_GET['id']);
-            if ($groupe->rowCount() === 0) {
+            if (nbrGroupe($_GET['id']) === 0) {
                 setFlash('Il n\'y a pas de groupe avec cet ID', 'danger');
                 header('Location: index.php?p=groupe');
             }
-            $_POST = $groupe->fetch();
+            $_POST = testGroupe($_GET['id']);
             unset($groupe_list[array_search($_POST['libelle'], $groupe_list, true)]);
             $_POST['mots'] = listWordToGroupe($_GET['id']);
         }

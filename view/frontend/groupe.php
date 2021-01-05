@@ -1,6 +1,7 @@
 <?php $title = $_POST['groupe']['libelle'];
 ob_start(); ?>
 
+    <label for="autocomplete"></label>
     <input type="text" style="width: 100%" id="autocomplete" name="mot" placeholder="Recherche" autocomplete="off">
     <div id="search" class="search" style="width: 100%"></div><br/><br/>
 
@@ -49,6 +50,7 @@ if (!empty($_POST['words'])) : ?>
         <p>
             <span>Voici un groupe enfant de <?= $_POST['groupe']['libelle'] ?> :</span>
             <a href="groupe/<?= $enfant['slug'] ?>"><?= $enfant['libelle'] ?></a>
+            <span> dont voici le contenu</span>
         </p>
         <table class="table table-striped table-size">
             <thead>
