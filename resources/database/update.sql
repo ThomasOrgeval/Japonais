@@ -15,3 +15,6 @@ alter table FRANCAIS
 
 alter table USER
     add column `slug` varchar(255);
+
+alter table GROUPE
+    add column `slug` varchar(255);

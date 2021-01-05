@@ -265,7 +265,7 @@ ob_start(); ?>
             switch (label) {
                 <?php foreach ($_POST['stats']['kanjis'] as $kanji): ?>
                     case '<?= $kanji['kanji'] ?> <?= $kanji['kun_yomi'] ?>':
-                        window.open('https://lexiquejaponais.fr/index.php?p=kanji&id=<?= $kanji['id'] ?>');
+                        window.open('https://lexiquejaponais.fr/kanji/<?= $kanji['id'] ?>');
                         break;
                 <?php endforeach; ?>
             }

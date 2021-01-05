@@ -254,7 +254,7 @@
 
                 <ul class="list-unstyled">
                     <li>
-                        <a href="index.php?p=statistiques">Statistiques</a>
+                        <a href="stats">Statistiques</a>
                     </li>
                 </ul>
             </div>
@@ -263,17 +263,17 @@
 
                 <ul class="list-unstyled">
                     <li>
-                        <a href="index.php?p=changelog">Changelog</a>
+                        <a href="changelog">Changelog</a>
                     </li>
                     <li>
-                        <a href="index.php?p=contact">Contact</a>
+                        <a href="contact">Contact</a>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="footer-copyright text-center py-3">© 2020 Copyright:
-        <a href="https://lexiquejaponais.fr"> lexiquejaponais.fr.</a>
+        <a href="accueil"> lexiquejaponais.fr.</a>
         All Rights Reserved.
         <a href="https://discord.gg/Mksrg3hDuv" target="_blank" style="margin-left: 8px">
             <i class="fab fa-discord"></i>

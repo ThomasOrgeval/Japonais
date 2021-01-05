@@ -1,8 +1,4 @@
-<?php if (isset($_POST['id'])) {
-    $title = $_POST['nom'] . ' - Edition';
-} else {
-    $title = 'Ma nouvelle liste';
-}
+<?php $title = isset($_POST['id']) ? $_POST['nom'] . ' - Edition' : 'Ma nouvelle liste';
 ob_start(); ?>
 
     <h1 class="h1-admin">Editer une liste</h1>

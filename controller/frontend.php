@@ -88,7 +88,7 @@ function change_icon()
             }
             setFlash('L\'îcone a été modifiée');
         }
-        header('Location:index.php?p=account');
+        header('Location:compte');
     }
 }
 
@@ -147,7 +147,7 @@ function liste_edit()
             if (empty($_POST) || $_POST['id_user'] != $_SESSION['id']) {
                 unset($_POST);
                 setFlash('Vous n\'avez pas accès à cette liste');
-                header('Location:index.php?p=listes');
+                header('Location:listes');
             }
         }
         require './view/frontend/liste_edit.php';
@@ -449,7 +449,7 @@ function search()
 function groupe_page()
 {
     $id = securize($_GET['id']);
-    $_POST['groupe'] = researchGroupeId($id);
+    $_POST['groupe'] = researchGroupeSlug($id);
     if (!empty($_POST['groupe'])) {
         $_POST['words'] = listFrancaisAndJaponaisWhereGroupe($_POST['groupe']['id']);
         require './view/frontend/groupe.php';

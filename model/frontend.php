@@ -415,10 +415,11 @@ function researchWord($search)
     return $select->fetch();
 }
 
-function researchGroupeId($search)
+function researchGroupeSlug($search)
 {
     $db = dbConnect();
-    $select = $db->query("select * from lexiqumjaponais.GROUPE where id=$search");
+    $search = $db->quote($search);
+    $select = $db->query("select * from lexiqumjaponais.GROUPE where slug like $search");
     return $select->fetch();
 }
 
@@ -665,7 +666,7 @@ function listFrancaisToJaponaisLimit1($id_japonais)
 {
     $db = dbConnect();
     $id_japonais = $db->quote($id_japonais);
-    $select = $db->query("select FRANCAIS.francais, JAPONAIS.id_type from lexiqumjaponais.FRANCAIS
+    $select = $db->query("select FRANCAIS.francais, FRANCAIS.slug, JAPONAIS.id_type from lexiqumjaponais.FRANCAIS
     inner join lexiqumjaponais.TRADUCTION as wj
         on wj.id_word = FRANCAIS.id
     inner join lexiqumjaponais.JAPONAIS
@@ -694,7 +695,7 @@ function getKana($romaji)
 function selectHistory($id)
 {
     $db = dbConnect();
-    return $db->query("select id, riddle, response, life from lexiqumjaponais.HISTORIQUE_RIDDLE where id_user = $id order by id desc")->fetchAll();
+    return $db->query("select id, riddle, response, life from lexiqumjaponais.HISTORIQUE_RIDDLE where id_user = $id order by id desc limit 15")->fetchAll();
 }
 
 /**

@@ -4,18 +4,18 @@
  * Groupes
  */
 
-function createGroupe($libelle, $id_parent, $quantifieur)
+function createGroupe($libelle, $id_parent, $quantifieur, $slug)
 {
     $db = dbConnect();
-    $addGroupe = $db->prepare('insert into lexiqumjaponais.GROUPE(libelle, id_parent, quantifieur) values(?, ?, ?)');
-    return $addGroupe->execute(array($libelle, $id_parent, $quantifieur));
+    $addGroupe = $db->prepare('insert into lexiqumjaponais.GROUPE(libelle, id_parent, quantifieur, slug) values(?, ?, ?, ?)');
+    return $addGroupe->execute(array($libelle, $id_parent, $quantifieur, $slug));
 }
 
-function editGroupe($id, $libelle, $id_parent, $quantifieur)
+function editGroupe($id, $libelle, $id_parent, $quantifieur, $slug)
 {
     $db = dbConnect();
-    $addGroupe = $db->prepare('update lexiqumjaponais.GROUPE set libelle=?, id_parent=?, quantifieur=? where id=?');
-    return $addGroupe->execute(array($libelle, $id_parent, $quantifieur, $id));
+    $addGroupe = $db->prepare('update lexiqumjaponais.GROUPE set libelle=?, id_parent=?, quantifieur=?, slug=? where id=?');
+    return $addGroupe->execute(array($libelle, $id_parent, $quantifieur, $slug, $id));
 }
 
 function supprGroupe($id)
@@ -286,7 +286,7 @@ function listGroupeToJaponais($id_japonais)
 {
     $db = dbConnect();
     $id_japonais = $db->quote($id_japonais);
-    $select = $db->query("select GROUPE.id, GROUPE.libelle from lexiqumjaponais.JAPONAIS j
+    $select = $db->query("select GROUPE.* from lexiqumjaponais.JAPONAIS j
     inner join lexiqumjaponais.JAPONAIS_GROUPE jg
         on jg.id_japonais = j.id
     inner join lexiqumjaponais.GROUPE

@@ -139,6 +139,7 @@ create table `GROUPE`
     `libelle`     varchar(255)       not null,
     `id_parent`   int,
     `quantifieur` varchar(255),
+    `slug`        varchar(255),
     primary key (`id`),
     foreign key (`id_parent`) references `GROUPE` (`id`)
 ) engine = InnoDB;

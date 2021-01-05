@@ -2,7 +2,7 @@ body {
     background-color: #f1f1f1;
 }
 
-.navbar, .changelog-version, .page-footer, .card-body, .page-footer, .modal-content, .card, .list-search li, .table-hover tbody tr:hover {
+.navbar, .changelog-version, .page-footer, .card-body, .page-footer, .modal-content, .card, .list-search li, .list-group li, .table-hover tbody tr:hover {
     background-color: #dbe2ef !important;
 }
 

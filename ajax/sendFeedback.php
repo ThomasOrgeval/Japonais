@@ -1,7 +1,7 @@
 <?php
 
 if (!empty($_POST['text'])) {
-    $mail = 'orgevalthomas@gmail.com';
+    $mail = 'learn@lexiquejaponais.fr';
     $header = 'From: ' . $_POST['user'] . ' <support@lexiquejaponais.fr>' . "\r\n" .
         'Reply-To: support@lexiquejaponais.fr' . "\r\n" .
         'X-Mailer: PHP/' . PHP_VERSION . "\r\n" .

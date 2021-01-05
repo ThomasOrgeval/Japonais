@@ -6,7 +6,7 @@ function admin_portail()
 {
     if (connect_admin()) {
         require './view/backend/index.php';
-    } else header('Location:index.php?p=accueil');
+    } else header('Location:accueil');
 }
 
 function groupe()
@@ -14,7 +14,7 @@ function groupe()
     if (connect_admin()) {
         $_POST['groupes'] = listGroupe();
         require './view/backend/groupe.php';
-    } else header('Location:index.php?p=accueil');
+    } else header('Location:accueil');
 }
 
 function groupe_edit()
@@ -37,7 +37,7 @@ function groupe_edit()
             $_POST['mots'] = listWordToGroupe($_GET['id']);
         }
         require 'view/backend/groupe_edit.php';
-    } else header('Location:index.php?p=accueil');
+    } else header('Location:accueil');
 }
 
 function type()
@@ -45,7 +45,7 @@ function type()
     if (connect_admin()) {
         $_POST['type'] = listType();
         require './view/backend/type.php';
-    } else header('Location:index.php?p=accueil');
+    } else header('Location:accueil');
 }
 
 function type_edit()
@@ -60,7 +60,7 @@ function type_edit()
             $_POST = $type->fetch();
         }
         require './view/backend/type_edit.php';
-    } else header('Location:index.php?p=accueil');
+    } else header('Location:accueil');
 }
 
 function japonais()
@@ -68,7 +68,7 @@ function japonais()
     if (connect_admin()) {
         $_POST['japonais'] = listJaponais();
         require './view/backend/japonais.php';
-    } else header('Location:index.php?p=accueil');
+    } else header('Location:accueil');
 }
 
 function japonais_edit()
@@ -94,7 +94,7 @@ function japonais_edit()
         $_POST['otherGroupes'] = otherGroupe($_POST['groupes']);
         $_POST['type'] = $type_list;
         require './view/backend/japonais_edit.php';
-    } else header('Location:index.php?p=accueil');
+    } else header('Location:accueil');
 }
 
 function japonais_add()
@@ -141,7 +141,7 @@ function japonais_add()
 
         setFlash('Le mot a bien été crée');
         header('Location:index.php?p=japonais');
-    } else header('Location:index.php?p=accueil');
+    } else header('Location:accueil');
 }
 
 function kanjis()
@@ -149,7 +149,7 @@ function kanjis()
     if (connect_admin()) {
         $_POST['kanji'] = listKanji();
         require './view/backend/kanjis.php';
-    } else header('Location:index.php?p=accueil');
+    } else header('Location:accueil');
 }
 
 function kanji_edit()
@@ -166,7 +166,7 @@ function kanji_edit()
             $_POST['japonais'] = listJaponaisToKanji($_GET['id']);
         }
         require './view/backend/kanji_edit.php';
-    } else header('Location:index.php?p=accueil');
+    } else header('Location:accueil');
 }
 
 function recompense()
@@ -174,7 +174,7 @@ function recompense()
     if (connect_admin()) {
         $_POST['recompense'] = listRecompense();
         require './view/backend/recompense.php';
-    } else header('Location:index.php?p=accueil');
+    } else header('Location:accueil');
 }
 
 function recompense_edit()
@@ -196,13 +196,13 @@ function recompense_edit()
             $_POST['acheteurs'] = listAchateurFromRecompense($_GET['id']);
         }
         require './view/backend/recompense_edit.php';
-    } else header('Location:index.php?p=accueil');
+    } else header('Location:accueil');
 }
 
 function connect_admin()
 {
     if ($_SESSION['connect'] !== 'OK' || $_SESSION['admin'] === 0) {
-        header('Location:index.php?p=accueil');
+        header('Location:accueil');
         return false;
     }
     return true;
@@ -227,11 +227,12 @@ function addGroupe()
         if (strlen($_POST['id_parent']) != 0 && (int)$_POST['id_parent'] != 0) $id_parent = (int)securize($_POST['id_parent']);
         else $id_parent = null;
         $quantifieur = securize($_POST['quantifieur']);
+        $slug = slug($libelle);
 
         if ($_GET['id'] > 0) {
-            $addGroupe = editGroupe($_GET['id'], $libelle, $id_parent, $quantifieur);
+            $addGroupe = editGroupe($_GET['id'], $libelle, $id_parent, $quantifieur, $slug);
         } else {
-            $addGroupe = createGroupe($libelle, $id_parent, $quantifieur);
+            $addGroupe = createGroupe($libelle, $id_parent, $quantifieur, $slug);
         }
 
         if ($addGroupe === false) {
@@ -241,7 +242,7 @@ function addGroupe()
 
         setFlash('Le groupe a bien été ajouté');
         header('Location:index.php?p=groupe');
-    } else header('Location:index.php?p=accueil');
+    } else header('Location:accueil');
 }
 
 function deleteGroupe($id)
@@ -256,7 +257,7 @@ function deleteGroupe($id)
 
         setFlash('Le groupe a bien été supprimé');
         header('Location:index.php?p=groupe');
-    } else header('Location:index.php?p=accueil');
+    } else header('Location:accueil');
 }
 
 /**
@@ -274,7 +275,7 @@ function addFrancais($id, $francais)
         } else {
             if (empty(researchFrBack($francais))) createWord($francais, $slug);
         }
-    } else header('Location:index.php?p=accueil');
+    } else header('Location:accueil');
 }
 
 function slug($str, $delimiter = '-')
@@ -305,7 +306,7 @@ function addType()
 
         setFlash('Le type a bien été crée');
         header('Location:index.php?p=type');
-    } else header('Location:index.php?p=accueil');
+    } else header('Location:accueil');
 }
 
 function deleteType($id)
@@ -319,7 +320,7 @@ function deleteType($id)
 
         setFlash('Le type a bien été supprimé');
         header('Location:index.php?p=type');
-    } else header('Location:index.php?p=accueil');
+    } else header('Location:accueil');
 }
 
 /**
@@ -337,7 +338,7 @@ function addAnglais($id, $anglais)
         } else {
             if (empty(researchAnglais($anglais))) createAnglais($anglais);
         }
-    } else header('Location:index.php?p=accueil');
+    } else header('Location:accueil');
 }
 
 /**
@@ -354,7 +355,7 @@ function saveKanji()
         }
         setFlash('Le kanji a bien été sauvegardé');
         header('Location:index.php?p=kanjis');
-    } else header('Location:index.php?p=accueil');
+    } else header('Location:accueil');
 }
 
 function addJaponaisKanji($values, $id)
@@ -402,7 +403,7 @@ function addRecompense()
         } else {
             setFlash("Le slug n'est pas valide", 'danger');
         }
-    } else header('Location:index.php?p=accueil');
+    } else header('Location:accueil');
 }
 
 function deleteRecompense($id)
@@ -416,7 +417,7 @@ function deleteRecompense($id)
 
         setFlash('La récompense a bien été supprimée');
         header('Location:index.php?p=recompense');
-    } else header('Location:index.php?p=accueil');
+    } else header('Location:accueil');
 }
 
 function otherGroupe($listPresent)

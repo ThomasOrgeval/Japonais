@@ -31,7 +31,7 @@ ob_start(); ?>
             <span class="font-weight-bold">Liste des mots utilisant ce kanji :</span><br/><br>
                 <?php $i = count($_POST['japonais']);
                 foreach ($_POST['japonais'] as $japonais) : ?>
-                    <a class="card-link button-a" href="index.php?p=search&mot=<?= $japonais['francais'] ?>">
+                    <a class="card-link button-a" href="recherche/<?= $japonais['slug'] ?>">
                         <?= $japonais['kanji'] ?> - <?= $japonais['romaji'] ?> : <?= $japonais['francais'] ?>
                     </a>
                     <?php if (--$i): ?>
