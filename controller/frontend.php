@@ -450,8 +450,15 @@ function groupe_page()
 {
     $id = securize($_GET['id']);
     $_POST['groupe'] = researchGroupeSlug($id);
+    $_POST['parent'] = groupeParent($_POST['groupe']['id_parent']);
+    $_POST['enfant'] = groupeEnfant($_POST['groupe']['id']);
     if (!empty($_POST['groupe'])) {
         $_POST['words'] = listFrancaisAndJaponaisWhereGroupe($_POST['groupe']['id']);
+        if (isset($_POST['enfant'])) {
+            foreach ($_POST['enfant'] as $key => $enfant) {
+                $_POST['enfant'][$key]['words'] =  listFrancaisAndJaponaisWhereGroupe($enfant['id']);
+            }
+        }
         require './view/frontend/groupe.php';
     } else {
         setFlash('Ce groupe n\'existe pas', 'danger');

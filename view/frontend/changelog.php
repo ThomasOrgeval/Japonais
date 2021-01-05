@@ -22,11 +22,19 @@ ob_start(); ?>
                 <span class="font-weight-bold">Ajout d'un nouveau thème</span> basé sur le bleu !
             </li>
             <li>
-                <span class="font-weight-bold">Ajout des nombres de 0 à 10000 !</span> <a href="index.php?p=number">Lien</a>
+                <span class="font-weight-bold">Ajout des nombres de 0 à 10000 !</span> <a
+                        href="index.php?p=number">Lien</a>
             </li>
             <li>
                 <span class="font-weight-bold">Modification du lien pour trouver le tableau des kanas</span>, il faut
                 désormais aller dans "cours" en haut de votre écran ;)
+            </li>
+            <li>
+                <span class="font-weight-bold">Ajout des belles urls !</span>
+            </li>
+            <li>
+                <span class="font-weight-bold">On peut désormais voir les groupes enfants et parent de chacun des groupes
+                    ainsi que les quantifieurs de chacun des groupes s'il existe</span>
             </li>
         </ul>
         <hr class="black">

@@ -231,15 +231,17 @@ function listFrancaisAndJaponaisWhereGroupe($id)
 {
     $db = dbConnect();
     $id = $db->quote($id);
-    $select = $db->query("select f.id, f.francais, j.id_type, j.kanji, j.kana, j.romaji, j.description  from lexiqumjaponais.GROUPE
+    $select = $db->query("select f.id, f.francais, f.slug, t.type as id_type, j.kanji, j.kana, j.romaji, j.description  from lexiqumjaponais.GROUPE
     inner join lexiqumjaponais.JAPONAIS_GROUPE jg
         on jg.id_groupe = GROUPE.id
     inner join lexiqumjaponais.JAPONAIS j
         on jg.id_japonais = j.id
-    inner join lexiqumjaponais.TRADUCTION as wj
+    inner join lexiqumjaponais.TRADUCTION wj
     	on wj.id_japonais = j.id
     inner join lexiqumjaponais.FRANCAIS f
     	on wj.id_word = f.id
+    inner join lexiqumjaponais.TYPE t 
+        on j.id_type = t.id
     where GROUPE.id=$id");
     return $select->fetchAll();
 }

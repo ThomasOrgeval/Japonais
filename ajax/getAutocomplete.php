@@ -14,10 +14,8 @@ if (!empty($_POST['keyword'])) :
 
                 $end3 = substr($mot['romaji'], strlen($mot['romaji']) - 3);
                 $end2 = substr($mot['romaji'], strlen($mot['romaji']) - 2);
-                $exceptFirstGroupe = [
-                    "Kaeru", "Miru"
-                ];
-                $types = getTypes($mot['francais']);
+                $exceptFirstGroupe = listExceptions();
+                $types = getTypes(addslashes($mot['francais']));
 
                 foreach ($types as $type) {
                     switch ($type['type']) {

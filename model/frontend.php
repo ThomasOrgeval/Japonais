@@ -423,6 +423,20 @@ function researchGroupeSlug($search)
     return $select->fetch();
 }
 
+function groupeParent($id)
+{
+    $db = dbConnect();
+    $id = $db->quote($id);
+    return $db->query("select * from lexiqumjaponais.GROUPE where id=$id")->fetch();
+}
+
+function groupeEnfant($id)
+{
+    $db = dbConnect();
+    $id = $db->quote($id);
+    return $db->query("select * from lexiqumjaponais.GROUPE where id_parent=$id")->fetchAll();
+}
+
 function listJaponaisToFrancais($id_francais)
 {
     $db = dbConnect();
