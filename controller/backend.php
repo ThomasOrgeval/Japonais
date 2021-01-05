@@ -267,7 +267,7 @@ function addFrancais($id, $francais)
 {
     if (connect_admin()) {
         $francais = securize($francais);
-        $slug = securize(createSlug($francais));
+        $slug = securize(slug($francais));
 
         if ($id > 0) {
             editWord($francais, $id, $slug);
@@ -277,7 +277,7 @@ function addFrancais($id, $francais)
     } else header('Location:index.php?p=accueil');
 }
 
-function createSlug($str, $delimiter = '-')
+function slug($str, $delimiter = '-')
 {
     return strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter, preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $str))))), $delimiter));
 }

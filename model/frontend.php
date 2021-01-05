@@ -20,14 +20,14 @@ function dbConnect()
  * User
  */
 
-function createUser($pseudo, $pass, $mail)
+function createUser($pseudo, $pass, $mail, $slug)
 {
     $db = dbConnect();
     $pseudo = $db->quote($pseudo);
     $pass = $db->quote($pass);
     $mail = $db->quote($mail);
-    $db->query("insert into lexiqumjaponais.USER(pseudo, pass, mail, date, droits, nombre, icone, life, last_login, theme, kanji) 
-                        values ($pseudo, $pass, $mail, curdate(), 0, 10, 0, 5, curdate(), 0, 1) ");
+    $db->query("insert into lexiqumjaponais.USER(pseudo, pass, mail, date, droits, nombre, icone, life, last_login, theme, kanji, slug) 
+                        values ($pseudo, $pass, $mail, curdate(), 0, 10, 0, 5, curdate(), 0, 1, $slug) ");
 }
 
 function loginUser($mail, $pass)
@@ -46,6 +46,14 @@ function searchPseudo($pseudo)
 {
     $db = dbConnect();
     $selectUser = $db->prepare('select pseudo from lexiqumjaponais.USER where pseudo=?');
+    $selectUser->execute(array($pseudo));
+    return $selectUser->fetch();
+}
+
+function searchSlug($pseudo)
+{
+    $db = dbConnect();
+    $selectUser = $db->prepare('select slug from lexiqumjaponais.USER where slug=?');
     $selectUser->execute(array($pseudo));
     return $selectUser->fetch();
 }
@@ -547,7 +555,7 @@ function autocompleteUser($key, $id_user)
 {
     $db = dbConnect();
     $id_user = $db->quote($id_user);
-    $select = $db->query("select pseudo, icone from lexiqumjaponais.USER where pseudo like '$key%' and id!=$id_user order by pseudo limit 0,5");
+    $select = $db->query("select pseudo, icone, slug from lexiqumjaponais.USER where pseudo like '$key%' and id!=$id_user order by pseudo limit 0,5");
     return $select->fetchAll();
 }
 

@@ -40,7 +40,7 @@ function logout()
     setcookie('mail');
     setcookie('pass');
     setcookie('theme');
-    header('Location:index.php?p=accueil');
+    header('Location:accueil');
 }
 
 function account()
@@ -108,7 +108,7 @@ function save_account()
         } else {
             setFlash('Vous n\'avez pas rentré un nombre', 'danger');
         }
-        header('Location:index.php?p=accueil');
+        header('Location:accueil');
     }
 }
 
@@ -121,7 +121,7 @@ function liste()
         require './view/frontend/liste.php';
     } else {
         setFlash('Cette liste n\'est pas accessible');
-        header('Location:index.php?p=accueil');
+        header('Location:accueil');
     }
 }
 
@@ -199,7 +199,7 @@ function achat()
 function connect()
 {
     if ($_SESSION['connect'] !== 'OK') {
-        header('Location:index.php?p=accueil');
+        header('Location:accueil');
         return false;
     }
     return true;
@@ -246,7 +246,7 @@ function submitLogin($mail, $password)
     } else {
         setFlash('Un champ est vide', 'danger');
     }
-    header('Location:index.php?p=accueil');
+    header('Location:accueil');
 }
 
 function submitRegister($pseudo, $password, $mail)
@@ -258,15 +258,16 @@ function submitRegister($pseudo, $password, $mail)
     if (!empty($pseudo) && !empty($password) && !empty($mail)) {
         $correctMail = searchMail($mail);
         $correctPseudo = searchPseudo($pseudo);
+        $correctSlug = searchSlug(slug($pseudo));
         if ($correctMail) {
             setFlash('L\'adresse mail est déjà utilisée', 'danger');
-            header('Location:index.php?p=accueil');
-        } elseif ($correctPseudo) {
+            header('Location:accueil');
+        } elseif ($correctPseudo || $correctSlug) {
             setFlash('Le pseudo est déjà utilisé', 'danger');
-            header('Location:index.php?p=accueil');
+            header('Location:accueil');
         } else {
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
-            createUser($pseudo, $password_hash, $mail);
+            createUser($pseudo, $password_hash, $mail, slug($pseudo));
             submitLogin($mail, $password);
         }
     }
@@ -281,7 +282,7 @@ function forget_password()
         createCode($_SESSION['recup_mail'], searchMail($_SESSION['recup_mail'])['pseudo']);
     } else {
         setFlash('Le code est invalide', 'danger');
-        header('Location:index.php?p=accueil');
+        header('Location:accueil');
     }
 }
 
@@ -410,7 +411,7 @@ function select_theme()
     if (connect()) {
         setTheme($_SESSION['id'], $_GET['id']);
         $_SESSION['theme'] = $_GET['id'];
-        header('Location:index.php?p=accueil');
+        header('Location:accueil');
     }
 }
 
@@ -441,7 +442,7 @@ function search()
         require './view/frontend/search.php';
     } else {
         setFlash('Ce mot n\'existe pas', 'danger');
-        header('Location:index.php?p=accueil');
+        header('Location:accueil');
     }
 }
 
@@ -454,7 +455,7 @@ function groupe_page()
         require './view/frontend/groupe.php';
     } else {
         setFlash('Ce groupe n\'existe pas', 'danger');
-        header('Location:index.php?p=accueil');
+        header('Location:accueil');
     }
 }
 
@@ -468,7 +469,7 @@ function kanji()
         $kanji = testKanji($_GET['id']);
         if ($kanji->rowCount() === 0) {
             setFlash("Aucun kanji avec cet id", "danger");
-            header("Location:index.php?p=accueil");
+            header("Location:accueil");
         }
         $_POST = $kanji->fetch();
         $_POST['japonais'] = listJaponaisToKanji($_GET['id']);
@@ -478,7 +479,7 @@ function kanji()
         require './view/frontend/kanji.php';
     } else {
         setFlash('Aucun kanji avec cet id', 'danger');
-        header('Location:index.php?p=accueil');
+        header('Location:accueil');
     }
 }
 
@@ -536,7 +537,7 @@ function history()
         require './view/frontend/history.php';
     } else {
         setFlash('Accès interdit', 'danger');
-        header('Location:index.php?p=accueil');
+        header('Location:accueil');
     }
 }
 

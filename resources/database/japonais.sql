@@ -18,6 +18,7 @@ create table `USER`
     `last_login` date               not null,
     `theme`      varchar(255)       not null,
     `kanji`      boolean            not null,
+    `slug`       varchar(255),
     primary key (`id`)
 ) engine = InnoDB;
 

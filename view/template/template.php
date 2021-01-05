@@ -48,24 +48,24 @@
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark " id="navbar-top">
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <ul class="navbar-nav mr-auto">
-            <a class="nav-item nav-link" href="index.php?p=accueil">Accueil</a>
+            <a class="nav-item nav-link" href="accueil">Accueil</a>
             <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
-                <a class="nav-item nav-link" href="index.php?p=listes">Mes listes</a>
-                <a class="nav-item nav-link" href="index.php?p=theme">Mes thèmes</a>
-                <a class="nav-item nav-link" href="index.php?p=history">Historique</a>
+                <a class="nav-item nav-link" href="listes">Mes listes</a>
+                <a class="nav-item nav-link" href="theme">Mes thèmes</a>
+                <a class="nav-item nav-link" href="historique">Historique</a>
                 <?php if ($_SESSION['admin'] == 1): ?>
                     <a class="nav-item nav-link" href="index.php?p=admin_portail">Administration</a>
                 <?php endif;
             endif; ?>
-            <a class="nav-item nav-link" href="index.php?p=courses">Cours</a>
+            <a class="nav-item nav-link" href="cours">Cours</a>
         </ul>
         <div class="navbar-nav">
             <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
-                <a class="nav-item nav-link" href="index.php?p=points" style="padding-bottom: 0;">
+                <a class="nav-item nav-link" href="points" style="padding-bottom: 0;">
                     <span id="points" style="vertical-align:middle;"><?= $_SESSION['points'] ?></span>
                     <img id="sakura-svg" class="svg" src="./resources/svgs/sakura.svg" alt="sakura">
                 </a>
-                <a class="nav-item nav-link" href="index.php?p=account" style="color: white;">Bienvenue,
+                <a class="nav-item nav-link" href="compte" style="color: white;">Bienvenue,
                     &thinsp; <?= $_SESSION['pseudo'] ?></a>
                 <a href="index.php?p=account">
                     <img class="icon" src="./resources/icons/<?= $_SESSION['icone'] ?>.png" alt="icone">
@@ -83,25 +83,25 @@
     <div class="pos-f-t">
         <div class="collapse" id="navbarToggleExternalContent">
             <ul class="navbar-nav mr-auto">
-                <a class="nav-item nav-link" href="index.php?p=accueil">Accueil</a>
+                <a class="nav-item nav-link" href="accueil">Accueil</a>
                 <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
-                    <a class="nav-item nav-link" href="index.php?p=listes">Mes listes</a>
-                    <a class="nav-item nav-link" href="index.php?p=theme">Mes thèmes</a>
-                    <a class="nav-item nav-link" href="index.php?p=history">Historique</a>
+                    <a class="nav-item nav-link" href="listes">Mes listes</a>
+                    <a class="nav-item nav-link" href="theme">Mes thèmes</a>
+                    <a class="nav-item nav-link" href="historique">Historique</a>
                     <?php if ($_SESSION['admin'] == 1): ?>
                         <a class="nav-item nav-link" href="index.php?p=admin_portail">Administration</a>
                     <?php endif;
                 endif; ?>
-                <a class="nav-item nav-link" href="index.php?p=courses">Cours</a>
+                <a class="nav-item nav-link" href="cours">Cours</a>
             </ul>
             <div class="navbar-nav">
                 <hr style="margin-top: 5px; margin-bottom: 5px">
                 <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
-                    <a class="nav-item nav-link" href="index.php?p=points">
+                    <a class="nav-item nav-link" href="points">
                         <span style="vertical-align:middle;"><?= $_SESSION['points'] ?></span>
                         <img id="sakura-svg" class="svg" src="./resources/svgs/sakura.svg" alt="sakura">
                     </a>
-                    <a class="nav-item nav-link" href="index.php?p=account" style="color: white;">Bienvenue,
+                    <a class="nav-item nav-link" href="compte" style="color: white;">Bienvenue,
                         &thinsp; <?= $_SESSION['pseudo'] ?></a>
                     <a class="nav-item nav-link" href="index.php?p=logout">Déconnexion</a>
                 <?php else: ?>
