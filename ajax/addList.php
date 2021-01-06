@@ -1,6 +1,6 @@
 <?php
 
-require '../controller/libs/base_url.php';
+require_once '../controller/libs/base_url.php';
 require_once '../model/frontend.php';
 
 $id_liste = $_POST['id_liste'];

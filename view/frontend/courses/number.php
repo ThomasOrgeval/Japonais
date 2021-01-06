@@ -16,7 +16,7 @@ ob_start(); ?>
         <tbody>
         <?php foreach ($_POST['data'] as $number) :
             $array = (array) $number ?>
-            <tr>
+            <tr onclick="textToAudio('<?= $array['romaji'] ?>')">
                 <td><?= $array['id'] ?></td>
                 <td><?= $array['kanji'] ?></td>
                 <td class="hidden"><?= $array['kana'] ?></td>

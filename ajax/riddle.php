@@ -1,6 +1,6 @@
 <?php
 
-require '../controller/libs/base_url.php';
+require_once '../controller/libs/base_url.php';
 session_start();
 require_once '../model/frontend.php';
 require_once '../model/backend.php';
