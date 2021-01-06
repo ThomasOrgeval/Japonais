@@ -1,6 +1,5 @@
 <?php
 
-require './controller/libs/base_url.php';
 require './controller/frontend.php';
 
 try {

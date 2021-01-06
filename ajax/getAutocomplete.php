@@ -1,6 +1,6 @@
 <?php
 
-require_once '../controller/libs/base_url.php';
+define('BASE_URL', 'https://lexiquejaponais.fr/');
 require_once '../model/frontend.php';
 
 if (!empty($_POST['keyword'])) :
