@@ -2,10 +2,10 @@
 
 function dbConnect()
 {
-    if ($_SERVER['HTTP_HOST'] === 'localhost') {
+    if ($_SEgRVER['HTTP_HOST'] === 'localhost') {
         $db = new PDO('mysql:host=localhost;dbname=lexiqumjaponais;charset=utf8', 'root', '');
     } else {
-        $var = (array) json_decode(file_get_contents('./model/env.json'));
+        $var = (array) json_decode(file_get_contents(BASE_URL . 'model/env.json'));
         $host = $var['HTTP_HOST'];
         $dbname = $var['HTTP_DBNAME'];
         $user = $var['HTTP_USER'];

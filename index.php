@@ -1,5 +1,6 @@
 <?php
 
+define('BASE_URL', 'https://lexiquejaponais.fr/');
 require './controller/frontend.php';
 
 try {
