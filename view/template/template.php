@@ -30,20 +30,6 @@
 
     <link rel="stylesheet" href="./resources/css/style.css">
 
-    <!-- jQuery -->
-    <script type="text/javascript" src="./resources/js/jquery.min.js"></script>
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="./resources/js/popper.min.js"></script>
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="./resources/js/bootstrap.min.js"></script>
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="./resources/js/mdb.min.js"></script>
-    <script src="./resources/js/all.js"></script>
-    <script src="./resources/js/addons/datatables2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.4.0/perfect-scrollbar.min.js"></script>
-
-    <script src="./resources/js/main.js"></script>
-
     <?php if (isset($_SESSION['theme']) && $_SESSION['theme'] != '0') : ?>
         <link rel="stylesheet" href="./resources/css/theme/<?= $_SESSION['theme'] ?>.css">
     <?php endif; ?>
@@ -289,6 +275,19 @@
     </div>
 </footer>
 
+<!-- jQuery -->
+<script type="text/javascript" src="./resources/js/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="./resources/js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="./resources/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="./resources/js/mdb.min.js"></script>
+<script src="./resources/js/all.js"></script>
+<script src="./resources/js/addons/datatables2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.4.0/perfect-scrollbar.min.js"></script>
+
+<script src="./resources/js/main.js"></script>
 <script>
     // SVG changer de couleur
     jQuery('img.svg').each(function () {
