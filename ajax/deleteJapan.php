@@ -1,5 +1,6 @@
 <?php
 
+require '../controller/libs/base_url.php';
 session_start();
 if ($_SESSION['connect'] === 'OK' && $_SESSION['admin'] == 1) {
     require_once '../model/frontend.php';

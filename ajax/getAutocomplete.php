@@ -1,5 +1,6 @@
 <?php
 
+require '../controller/libs/base_url.php';
 require_once '../model/frontend.php';
 
 if (!empty($_POST['keyword'])) :
