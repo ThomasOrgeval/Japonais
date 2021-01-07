@@ -13,24 +13,24 @@ ob_start(); ?>
         </div>
         <div class="col-md-8">
             <div class="row">
-                <div class="col-2">
-                    <!--a href="https://www.linkedin.com/in/thomas-orgeval/" target="_blank">
-                        <i class="fab fa-discord" style="width: 100%; height: 100%"></i>
-                    </a-->
-                </div>
-                <div class="col-2">
-                    <a href="mailto:orgevalthomas@gmail.com">
-                        <i class="fas fa-envelope" style="width: 100%; height: 100%"></i>
-                    </a>
-                </div>
-                <div class="col-2">
-                    <a href="https://github.com/ThomasOrgeval" target="_blank">
-                        <i class="fab fa-github" style="width: 100%; height: 100%"></i>
-                    </a>
-                </div>
-                <div class="col-2">
+                <!--div class="col-md-2">
                     <a href="https://www.linkedin.com/in/thomas-orgeval/" target="_blank">
-                        <i class="fab fa-linkedin" style="width: 100%; height: 100%"></i>
+                        <i class="fab fa-discord" style="width: 100%; height: 100%"></i>
+                    </a>
+                </div-->
+                <div class="col-md-2 col-4" style="margin-left: auto">
+                    <a href="mailto:orgevalthomas@gmail.com">
+                        <i class="fas fa-envelope contact-fa"></i>
+                    </a>
+                </div>
+                <div class="col-md-2 col-4">
+                    <a href="https://github.com/ThomasOrgeval" target="_blank">
+                        <i class="fab fa-github contact-fa"></i>
+                    </a>
+                </div>
+                <div class="col-md-2 col-4">
+                    <a href="https://www.linkedin.com/in/thomas-orgeval/" target="_blank">
+                        <i class="fab fa-linkedin contact-fa"></i>
                     </a>
                 </div>
             </div>
@@ -39,15 +39,15 @@ ob_start(); ?>
 
     <div class="row">
         <div class="col-md-8">
-            <div class="row">
+            <div class="row wide-screen">
                 <div class="col-2">
                     <a href="mailto:hakimrab@hotmail.fr">
-                        <i class="fas fa-envelope" style="width: 100%; height: 100%"></i>
+                        <i class="fas fa-envelope contact-fa"></i>
                     </a>
                 </div>
                 <div class="col-2">
                     <a href="https://www.instagram.com/hakimathor/" target="_blank">
-                        <i class="fab fa-instagram" style="width: 100%; height: 100%"></i>
+                        <i class="fab fa-instagram contact-fa"></i>
                     </a>
                 </div>
             </div>
@@ -58,6 +58,20 @@ ob_start(); ?>
             <ul class="list-unstyled">
                 <li style="margin-left: 20px">- Rabia Hakim</li>
             </ul>
+        </div>
+        <div class="col-md-8">
+            <div class="row small-screen">
+                <div class="col-6">
+                    <a href="mailto:hakimrab@hotmail.fr">
+                        <i class="fas fa-envelope contact-fa"></i>
+                    </a>
+                </div>
+                <div class="col-6">
+                    <a href="https://www.instagram.com/hakimathor/" target="_blank">
+                        <i class="fab fa-instagram contact-fa"></i>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 

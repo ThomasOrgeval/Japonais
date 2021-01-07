@@ -302,6 +302,10 @@ body.modal-open {
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
+.contact-fa {
+    font-size: 100px;
+}
+
 @-webkit-keyframes fadein {
     from {bottom: 0; opacity: 0;}
     to {bottom: 30px; opacity: 1;}
