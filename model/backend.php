@@ -93,9 +93,9 @@ function listJaponais()
 {
     $db = dbConnect();
     $select = $db->query("select j.id, kanji, kana, romaji, francais from lexiqumjaponais.JAPONAIS j
-left join lexiqumjaponais.TRADUCTION t on j.id = t.id_japonais
-inner join lexiqumjaponais.FRANCAIS f on t.id_word = f.id
-order by romaji");
+        left join lexiqumjaponais.TRADUCTION t on j.id = t.id_japonais
+        inner join lexiqumjaponais.FRANCAIS f on t.id_word = f.id
+        group by romaji");
     return $select->fetchAll();
 }
 
