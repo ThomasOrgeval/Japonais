@@ -65,7 +65,6 @@ function type_edit()
 function japonais()
 {
     if (connect_admin()) {
-        $_POST['japonais'] = listJaponais();
         require './view/backend/japonais.php';
     } else header('Location:accueil');
 }
