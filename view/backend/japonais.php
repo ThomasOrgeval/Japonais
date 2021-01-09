@@ -41,7 +41,7 @@ ob_start(); ?>
 
     <script>
         // Datatables
-        /*$(document).ready(function () {
+        $(document).ready(function () {
             $('#db').dataTable({
                 "paging": false,
                 "fnInitComplete": function () {
@@ -57,7 +57,7 @@ ob_start(); ?>
                 }]
             });
             $('.dataTables_length').addClass('bs-select');
-        });*/
+        });
 
         function deleteJaponais(id) {
             $.post(
@@ -76,6 +76,20 @@ ob_start(); ?>
                 },
                 'html'
             );
+        }
+
+        try {
+            // Create the performance observer.
+            const po = new PerformanceObserver((list) => {
+                for (const entry of list.getEntries()) {
+                    // Logs all server timing data for this response
+                    console.log('Server Timing', entry.serverTiming);
+                }
+            });
+            // Start listening for `navigation` entries to be dispatched.
+            po.observe({type: 'navigation', buffered: true});
+        } catch (e) {
+            // Do nothing if the browser doesn't support this API.
         }
     </script>
 
