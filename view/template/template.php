@@ -273,7 +273,7 @@
             </div>
         </div>
     </div>
-    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <div class="footer-copyright text-center py-3">© 2020-21 Copyright:
         <a href="accueil"> lexiquejaponais.fr.</a>
         All Rights Reserved.
         <a href="https://discord.gg/Mksrg3hDuv" target="_blank" style="margin-left: 8px">

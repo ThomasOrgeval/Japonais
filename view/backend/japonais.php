@@ -41,7 +41,7 @@ ob_start(); ?>
 
     <script>
         // Datatables
-        $(document).ready(function () {
+        /*$(document).ready(function () {
             $('#db').dataTable({
                 "paging": false,
                 "fnInitComplete": function () {
@@ -57,7 +57,7 @@ ob_start(); ?>
                 }]
             });
             $('.dataTables_length').addClass('bs-select');
-        });
+        });*/
 
         function deleteJaponais(id) {
             $.post(
