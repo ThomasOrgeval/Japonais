@@ -31,6 +31,7 @@ ob_start(); ?>
                 'html'
             )
         });
+
         function deleteJaponais(id) {
             $.post(
                 'ajax/deleteJapan.php',

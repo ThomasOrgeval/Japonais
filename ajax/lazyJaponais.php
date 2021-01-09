@@ -11,15 +11,7 @@ if ($_SESSION['connect'] === 'OK' && $_SESSION['admin'] == 1) {
             <td><?= $mot['kanji']; ?></td>
             <td class="hidden"><?= $mot['kana']; ?></td>
             <td><?= $mot['romaji']; ?></td>
-            <td class="hidden"><?php $francais = listFrancaisToJaponais($mot['id']);
-                if (sizeof($francais) > 1) {
-                    foreach ($francais as $value) {
-                        echo $value['francais'] . ", ";
-                    }
-                } elseif (sizeof($francais) == 1) {
-                    echo $francais['0']['francais'];
-                }
-                ?></td>
+            <td class="hidden"><?= $mot['francais']; ?></td>
             <td>
                 <a href="index.php?p=japonais_edit&id=<?= $mot['id']; ?>"
                    class="btn btn-outline-dark btn-sm">Edit</a>
