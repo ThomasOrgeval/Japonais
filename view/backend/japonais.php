@@ -26,25 +26,11 @@ ob_start(); ?>
                 {},
                 function (data) {
                     $('#row').append(data);
-                    $('#db').dataTable({
-                        "paging": false,
-                        "fnInitComplete": function () {
-                            const myCustomScrollbar = document.querySelector('#dt-vertical-scroll_wrapper .dataTables_scrollBody');
-                            const ps = new PerfectScrollbar(myCustomScrollbar);
-                        },
-                        "scrollY": 600,
-
-                        "aaSorting": [],
-                        columnDefs: [{
-                            orderable: false,
-                            targets: [0, 1, 4]
-                        }]
-                    });
-                    $('.dataTables_length').addClass('bs-select');
-                }
+                    $('#db').DataTable();
+                },
+                'html'
             )
         });
-
         function deleteJaponais(id) {
             $.post(
                 'ajax/deleteJapan.php',

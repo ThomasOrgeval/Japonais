@@ -92,7 +92,7 @@ function supprWord($id)
 function listJaponais()
 {
     $db = dbConnect();
-    $select = $db->query("select * from lexiqumjaponais.JAPONAIS order by romaji");
+    $select = $db->query("select id, kanji, kana, romaji from lexiqumjaponais.JAPONAIS order by romaji");
     return $select->fetchAll();
 }
 

@@ -5,8 +5,8 @@ session_start();
 if ($_SESSION['connect'] === 'OK' && $_SESSION['admin'] == 1) {
     require_once '../model/frontend.php';
     require_once '../model/backend.php';
-    $_POST['japonais'] = listJaponais();
-    foreach ($_POST['japonais'] as $mot): ?>
+    $japonais = listJaponais();
+    foreach ($japonais as $mot): ?>
         <tr id="row<?= $mot['id'] ?>">
             <td><?= $mot['kanji']; ?></td>
             <td class="hidden"><?= $mot['kana']; ?></td>
