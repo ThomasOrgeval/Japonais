@@ -77,6 +77,8 @@ try {
             theme();
         } elseif ($p === 'select_theme') {
             select_theme();
+        } elseif ($p === 'select_back') {
+            select_back();
         } elseif ($p === 'change_icon') {
             change_icon();
         } elseif ($p === 'save_account') {

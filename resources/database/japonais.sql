@@ -19,6 +19,7 @@ create table `USER`
     `theme`      varchar(255)       not null,
     `kanji`      boolean            not null,
     `slug`       varchar(255),
+    `background` varchar(255) not null ,
     primary key (`id`)
 ) engine = InnoDB;
 

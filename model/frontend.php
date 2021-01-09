@@ -30,7 +30,7 @@ function createUser($pseudo, $pass, $mail, $slug)
 function loginUser($mail, $pass)
 {
     $db = dbConnect();
-    $selectUser = $db->prepare('select id, pseudo, pass, mail, droits, nombre, icone, life, last_login, theme, kanji from lexiqumjaponais.USER where mail=?');
+    $selectUser = $db->prepare('select id, pseudo, pass, mail, droits, nombre, icone, life, last_login, theme, kanji, background from lexiqumjaponais.USER where mail=?');
     $selectUser->execute(array($mail));
     $selectUser = $selectUser->fetch();
     if (password_verify($pass, $selectUser['pass'])) {
@@ -125,6 +125,22 @@ function setTheme($id_user, $slug)
     $id_user = $db->quote($id_user);
     $slug = $db->quote($slug);
     $db->exec("update lexiqumjaponais.USER set theme=$slug where id=$id_user");
+}
+
+function setBackground($id_user, $slug)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    $slug = $db->quote($slug);
+    $db->exec("update lexiqumjaponais.USER set background=$slug where id=$id_user");
+}
+
+function getBackground($id_user)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    $select = $db->query("select background from lexiqumjaponais.USER where id=$id_user");
+    return $select->fetch();
 }
 
 /**
@@ -477,6 +493,26 @@ function listThemes()
     $select = $db->query("select RECOMPENSE.* from lexiqumjaponais.RECOMPENSE
         inner join lexiqumjaponais.RECOMPENSE_TYPE RT on RECOMPENSE.id_type = RT.id
         where type like 'Theme'");
+    return $select->fetchAll();
+}
+
+function listAchatBackgroundByAccount($id_user)
+{
+    $db = dbConnect();
+    $id_user = $db->quote($id_user);
+    $select = $db->query("select RECOMPENSE.id, RECOMPENSE.libelle, RECOMPENSE.date_parution, RECOMPENSE.slug, RECOMPENSE.cout, ACHAT.date_achat from lexiqumjaponais.ACHAT
+        inner join lexiqumjaponais.RECOMPENSE on RECOMPENSE.id = ACHAT.id_recompense
+        inner join lexiqumjaponais.RECOMPENSE_TYPE RT on RECOMPENSE.id_type = RT.id
+        where ACHAT.id_user=$id_user and RT.type like 'Background'");
+    return $select->fetchAll();
+}
+
+function listBackgrounds()
+{
+    $db = dbConnect();
+    $select = $db->query("select RECOMPENSE.* from lexiqumjaponais.RECOMPENSE
+        inner join lexiqumjaponais.RECOMPENSE_TYPE RT on RECOMPENSE.id_type = RT.id
+        where type like 'Background'");
     return $select->fetchAll();
 }
 

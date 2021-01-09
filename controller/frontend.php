@@ -55,6 +55,7 @@ function account()
                 $_POST['sakura'] = getSakura($_POST['user']['id']);
                 $_POST['listes'] = searchListeUser($_POST['user']['id']);
                 $_POST['chart'] = getSakuraLastMonth($_POST['user']['id']);
+                $_POST['background'] = getBackground($_POST['user']['id'])['background'] ?: 0;
             }
         } else {
             $_POST['icones_own'] = listAchatIconByAccount($_SESSION['id']);
@@ -222,6 +223,7 @@ function submitLogin($mail, $password)
             $_SESSION['connect'] = 'OK';
             $_SESSION['icone'] = $statements['icone'];
             $_SESSION['theme'] = $statements['theme'];
+            $_SESSION['background'] = $statements['background'];
             $_SESSION['kanji'] = $statements['kanji'];
             $_SESSION['riddle'] = getRiddle($_SESSION['id']);
 
@@ -395,10 +397,19 @@ function theme()
     if (connect()) {
         $_POST['themes'] = listThemes();
         $_POST['themes_own'] = listAchatThemeByAccount($_SESSION['id']);
+        $_POST['background'] = listBackgrounds();
+        $_POST['background_own'] = listAchatBackgroundByAccount($_SESSION['id']);
         foreach ($_POST['themes'] as $theme) {
             foreach ($_POST['themes_own'] as $theme1) {
                 if ($theme['libelle'] === $theme1['libelle']) {
                     unset($_POST['themes'][array_search($theme, $_POST['themes'], true)]);
+                }
+            }
+        }
+        foreach ($_POST['background'] as $background) {
+            foreach ($_POST['background_own'] as $background1) {
+                if ($background['libelle'] === $background1['libelle']) {
+                    unset($_POST['background'][array_search($background, $_POST['background'], true)]);
                 }
             }
         }
@@ -411,6 +422,15 @@ function select_theme()
     if (connect()) {
         setTheme($_SESSION['id'], $_GET['id']);
         $_SESSION['theme'] = $_GET['id'];
+        header('Location:accueil');
+    }
+}
+
+function select_back()
+{
+    if (connect()) {
+        setBackground($_SESSION['id'], $_GET['id']);
+        $_SESSION['background'] = $_GET['id'];
         header('Location:accueil');
     }
 }

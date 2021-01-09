@@ -18,3 +18,6 @@ alter table USER
 
 alter table GROUPE
     add column `slug` varchar(255);
+
+alter table USER
+    add column `background` varchar(255);

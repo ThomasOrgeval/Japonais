@@ -29,11 +29,14 @@
     <!-- jQuery -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
     <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
     <!--script src="./resources/js/all.js"></script-->
     <script src="./resources/js/addons/datatables2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.4.0/perfect-scrollbar.min.js"></script>
@@ -45,7 +48,16 @@
     <?php endif; ?>
 </head>
 
-<body>
+<body style="
+<?php if (isset($_POST['background'])) :
+    if ($_POST['background'] != '0' || empty($_POST['background'])) : ?>
+            background-image: url('./resources/background/<?= $_POST['background'] ?>.png');
+    <?php endif;
+elseif (isset($_SESSION['background']) && ($_SESSION['background'] != '0' || empty($_SESSION['background']))) : ?>
+        background-image: url('./resources/background/<?= $_SESSION['background'] ?>.png');
+<?php endif; ?>
+        "
+>
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark " id="navbar-top">
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <ul class="navbar-nav mr-auto">
