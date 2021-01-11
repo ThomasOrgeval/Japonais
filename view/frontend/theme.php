@@ -48,13 +48,13 @@ ob_start(); ?>
         </tbody>
     </table><br/>
 
-<?php if (isset($_POST['background']) && !empty($_POST['background'])) : ?>
+<?php if (isset($_POST['background_other']) && !empty($_POST['background_other'])) : ?>
     <div style="margin-left: 20px">
         <h4>Et les autres :</h4>
 
         <table>
             <tbody>
-            <?php foreach ($_POST['background'] as $background) : ?>
+            <?php foreach ($_POST['background_other'] as $background) : ?>
                 <td><a class="btn btn-outline-purple"
                        onclick="return confirm('Voulez-vous vraiment acheter cet arrière plan ?')"
                        href="index.php?p=achat&id_recompense=<?= $background['id'] ?>&page=theme"><?= $background['libelle'] ?></a>

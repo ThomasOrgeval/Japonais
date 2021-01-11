@@ -397,7 +397,7 @@ function theme()
     if (connect()) {
         $_POST['themes'] = listThemes();
         $_POST['themes_own'] = listAchatThemeByAccount($_SESSION['id']);
-        $_POST['background'] = listBackgrounds();
+        $_POST['background_other'] = listBackgrounds();
         $_POST['background_own'] = listAchatBackgroundByAccount($_SESSION['id']);
         foreach ($_POST['themes'] as $theme) {
             foreach ($_POST['themes_own'] as $theme1) {
@@ -406,10 +406,10 @@ function theme()
                 }
             }
         }
-        foreach ($_POST['background'] as $background) {
+        foreach ($_POST['background_other'] as $background) {
             foreach ($_POST['background_own'] as $background1) {
                 if ($background['libelle'] === $background1['libelle']) {
-                    unset($_POST['background'][array_search($background, $_POST['background'], true)]);
+                    unset($_POST['background_other'][array_search($background, $_POST['background_other'], true)]);
                 }
             }
         }
