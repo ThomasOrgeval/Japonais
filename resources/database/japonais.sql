@@ -19,7 +19,7 @@ create table `USER`
     `theme`      varchar(255)       not null,
     `kanji`      boolean            not null,
     `slug`       varchar(255),
-    `background` varchar(255) not null ,
+    `background` varchar(255)       not null,
     primary key (`id`)
 ) engine = InnoDB;
 
@@ -84,6 +84,13 @@ create table `FRANCAIS`
     primary key (`id`)
 ) engine = InnoDB;
 
+create table `JLPT`
+(
+    `id`    int not null,
+    `color` varchar(255),
+    primary key (`id`)
+) engine = InnoDB;
+
 create table `JAPONAIS`
 (
     `id`          int auto_increment not null,
@@ -91,11 +98,12 @@ create table `JAPONAIS`
     `kana`        varchar(255)       not null,
     `romaji`      varchar(255)       not null,
     `description` longtext,
+    `jlpt`        int,
     `id_type`     int,
     primary key (`id`),
-    foreign key (`id_type`) references TYPE (`id`)
-) engine = InnoDB,
-  character set utf8;
+    foreign key (`id_type`) references TYPE (`id`),
+    foreign key (`jlpt`) references JLPT (`id`)
+) engine = InnoDB;
 
 create table `ANGLAIS`
 (
@@ -115,8 +123,7 @@ create table `KANJI`
     `sens`     longtext,
     `sens_en`  longtext,
     primary key (`id`)
-) engine = InnoDB,
-  character set utf8;
+) engine = InnoDB;
 
 create table `JUKUGO`
 (
@@ -131,8 +138,7 @@ create table `JUKUGO`
     primary key (`id`),
     foreign key (`id_left_kanji`) references KANJI (`id`),
     foreign key (`id_right_kanji`) references KANJI (`id`)
-) engine = InnoDB,
-  character set utf8;
+) engine = InnoDB;
 
 create table `GROUPE`
 (

@@ -32,6 +32,10 @@ ob_start(); ?>
             <label for="id_type">Type de mot</label>
             <?= select('id_type', $_POST['type']); ?>
         </div>
+        <div class="form-group">
+            <label for="jlpt">Niveau JLPT</label>
+            <?= select('jlpt', $_POST['jlptValues']); ?>
+        </div>
 
         <div class="dropdown">
             <a class="btn btn-secondary dropdown-toggle" id="groupe" data-toggle="dropdown" aria-haspopup="true"

@@ -106,7 +106,7 @@ function testJaponaisID($id)
     return $db->query("select * from lexiqumjaponais.JAPONAIS where id=$id");
 }
 
-function editJaponais($kana, $kanji, $romaji, $description, $id_type, $id)
+function editJaponais($kana, $kanji, $romaji, $description, $id_type, $id, $jlpt)
 {
     $db = dbConnect();
     $kana = $db->quote($kana);
@@ -115,10 +115,11 @@ function editJaponais($kana, $kanji, $romaji, $description, $id_type, $id)
     $description = $db->quote($description);
     $id_type = $db->quote($id_type);
     $id = $db->quote($id);
-    return $db->query("update lexiqumjaponais.JAPONAIS set kanji=$kanji, kana=$kana, romaji=$romaji, description=$description, id_type=$id_type where id=$id");
+    $jlpt = $db->quote($jlpt);
+    return $db->query("update lexiqumjaponais.JAPONAIS set kanji=$kanji, kana=$kana, romaji=$romaji, description=$description, id_type=$id_type, jlpt=$jlpt where id=$id");
 }
 
-function createJaponais($kana, $kanji, $romaji, $description, $id_type)
+function createJaponais($kana, $kanji, $romaji, $description, $id_type, $jlpt)
 {
     $db = dbConnect();
     $kana = $db->quote($kana);
@@ -126,7 +127,8 @@ function createJaponais($kana, $kanji, $romaji, $description, $id_type)
     $romaji = $db->quote($romaji);
     $description = $db->quote($description);
     $id_type = $db->quote($id_type);
-    return $db->query("insert into lexiqumjaponais.JAPONAIS set kanji=$kanji, kana=$kana, romaji=$romaji, description=$description, id_type=$id_type");
+    $jlpt = $db->quote($jlpt);
+    return $db->query("insert into lexiqumjaponais.JAPONAIS set kanji=$kanji, kana=$kana, romaji=$romaji, description=$description, id_type=$id_type, jlpt=$jlpt");
 }
 
 function researchJaponais($search)

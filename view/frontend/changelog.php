@@ -36,6 +36,14 @@ ob_start(); ?>
                 <span class="font-weight-bold">On peut désormais voir les groupes enfants et parent de chacun des groupes
                     ainsi que les quantifieurs de chacun des groupes s'il existe</span>
             </li>
+            <li>
+                <span class="font-weight-bold">Ajout des backgrounds !</span> Vous pouvez les voir dans la section <a
+                        href="index.php?p=theme">"Mes thèmes"</a>
+            </li>
+            <li>
+                <span class="font-weight-bold">Ajout des niveaux JLPT !</span> (Japanese Language Proficiency Test)
+                allant de N5 (débutant) jusqu'à N1 (avancé)
+            </li>
         </ul>
         <hr class="black">
 
@@ -49,9 +57,10 @@ ob_start(); ?>
                     <li>Modifications côté administration</li>
                 </ul>
             </li>
-            <!--li>
-                <span class="font-weight-bold">Modification du htaccess</span> pour vous renvoyez les adresses http vers https 😊
-            </li-->
+            <li>
+                <span class="font-weight-bold">Modification du htaccess</span> pour vous renvoyez les adresses http vers
+                https 😊
+            </li>
         </ul>
     </div><br/>
 

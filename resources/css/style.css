@@ -310,6 +310,32 @@ body.modal-open {
     font-size: 100px;
 }
 
+.bleu {
+    font-size: initial !important;
+    color: blue;
+}
+
+.vert {
+    font-size: initial !important;
+    color: green;
+}
+
+.jaune {
+    font-size: initial !important;
+    color: yellow;
+}
+
+.orange {
+    font-size: initial !important;
+    color: orange;
+    background-color: initial !important;
+}
+
+.rouge {
+    font-size: initial !important;
+    color: red;
+}
+
 @-webkit-keyframes fadein {
     from {bottom: 0; opacity: 0;}
     to {bottom: 30px; opacity: 1;}

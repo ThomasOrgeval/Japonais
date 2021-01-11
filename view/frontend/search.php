@@ -22,6 +22,9 @@ ob_start(); ?>
                 <ul class="list-group list-group-flush list-search">
                     <li class="list-group-item text-center">
                         <?= key($_POST['type'][$i]) ?>
+                        <?php if (isset($japonais['jlpt']) && $japonais['jlpt'] != 0) {
+                            echo '- <span class="' . $japonais['color'] . '">JLPT : N' . $japonais['jlpt'] . '</span>';
+                        } ?>
                     </li>
                 </ul>
             <?php endif;

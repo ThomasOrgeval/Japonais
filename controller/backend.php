@@ -72,9 +72,10 @@ function japonais()
 function japonais_edit()
 {
     if (connect_admin()) {
+        $_POST['groupes'] = array();
+
         $types = listType();
         $type_list = array();
-        $_POST['groupes'] = array();
         foreach ($types as $type) {
             $type_list[$type['id']] = $type['type'];
         }
@@ -89,8 +90,10 @@ function japonais_edit()
             $_POST['groupes'] = listGroupeToJaponais($_GET['id']);
             $_POST['kanjis'] = listKanjiToJaponais($_GET['id']);
         }
+
         $_POST['otherGroupes'] = otherGroupe($_POST['groupes']);
         $_POST['type'] = $type_list;
+        $_POST['jlptValues'] = [0 => null, 1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5];
         require './view/backend/japonais_edit.php';
     } else header('Location:accueil');
 }
@@ -102,12 +105,13 @@ function japonais_add()
         $kana = securize($_POST['kana']);
         $romaji = securize($_POST['romaji']);
         $desc = securize($_POST['description']);
+        $jlpt = securize($_POST['jlpt']);
 
         if (isset($_GET['id']) && !empty($_GET['id'])) {
-            $addWord = editJaponais($kana, $kanji, $romaji, $desc, $_POST['id_type'], $_GET['id']);
+            $addWord = editJaponais($kana, $kanji, $romaji, $desc, $_POST['id_type'], $_GET['id'], $jlpt);
             $id = $_GET['id'];
         } else {
-            $addWord = createJaponais($kana, $kanji, $romaji, $desc, $_POST['id_type']);
+            $addWord = createJaponais($kana, $kanji, $romaji, $desc, $_POST['id_type'], $jlpt);
             $id = researchJaponais($romaji)['id'];
         }
         addJaponaisKanji($kanji, $id);
@@ -278,8 +282,8 @@ function addFrancais($id, $francais)
 
 function slug($str, $delimiter = '-')
 {
-    $unwanted_array = ['é'=>'e', 'è' => 'e', 'É' => 'e', 'ç' => 'c', 'È' => 'e', 'Ù' => 'u', 'ù' => 'u', 'À' => 'a', 'à' => 'a', 'Ç' => 'c', 'ô' => 'o', 'Ô' => 'o'];
-    $str = strtr( $str, $unwanted_array );
+    $unwanted_array = ['é' => 'e', 'è' => 'e', 'É' => 'e', 'ç' => 'c', 'È' => 'e', 'Ù' => 'u', 'ù' => 'u', 'À' => 'a', 'à' => 'a', 'Ç' => 'c', 'ô' => 'o', 'Ô' => 'o'];
+    $str = strtr($str, $unwanted_array);
     return strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter, preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $str))))), $delimiter));
 }
 
