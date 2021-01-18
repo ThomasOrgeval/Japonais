@@ -95,7 +95,7 @@ function listJaponais()
     $select = $db->query("select j.id, kanji, kana, romaji, francais from lexiqumjaponais.JAPONAIS j
         left join lexiqumjaponais.TRADUCTION t on j.id = t.id_japonais
         inner join lexiqumjaponais.FRANCAIS f on t.id_word = f.id
-        group by romaji");
+        group by kanji, romaji order by romaji");
     return $select->fetchAll();
 }
 
@@ -131,11 +131,12 @@ function createJaponais($kana, $kanji, $romaji, $description, $id_type, $jlpt)
     return $db->query("insert into lexiqumjaponais.JAPONAIS set kanji=$kanji, kana=$kana, romaji=$romaji, description=$description, id_type=$id_type, jlpt=$jlpt");
 }
 
-function researchJaponais($search)
+function researchJaponais($romaji, $kanji)
 {
     $db = dbConnect();
-    $search = $db->quote($search);
-    $select = $db->query("select id, kanji from lexiqumjaponais.JAPONAIS where romaji like $search");
+    $romaji = $db->quote($romaji);
+    $kanji = $db->quote($kanji);
+    $select = $db->query("select id, kanji from lexiqumjaponais.JAPONAIS where romaji like $romaji and kanji like $kanji");
     return $select->fetch();
 }
 

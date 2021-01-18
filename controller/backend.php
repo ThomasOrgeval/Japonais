@@ -112,7 +112,7 @@ function japonais_add()
             $id = $_GET['id'];
         } else {
             $addWord = createJaponais($kana, $kanji, $romaji, $desc, $_POST['id_type'], $jlpt);
-            $id = researchJaponais($romaji)['id'];
+            $id = researchJaponais($romaji, $kanji)['id'];
         }
         addJaponaisKanji($kanji, $id);
 
