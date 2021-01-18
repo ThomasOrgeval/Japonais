@@ -21,7 +21,7 @@ if (!empty($_POST['keyword'])) :
                 foreach ($types as $type) {
                     switch ($type['type']) {
                         case 'Verbe':
-                            if ($mot['romaji'] == 'Suru' || $mot['romaji'] == 'Kuru') $var = 'Verbe - Groupe 3 (Irrégulier)';
+                            if ($mot['romaji'] == 'Suru' || $mot['romaji'] == 'Kuru' || substr($mot['romaji'], strlen($mot['romaji']) - 4) == 'suru') $var = 'Verbe - Groupe 3 (Irrégulier)';
                             elseif (($end3 == 'eru' || $end3 == 'iru') && !in_array($mot['romaji'], $exceptFirstGroupe))
                                 $var = 'Verbe - Groupe 2 (Ichidan)';
                             else $var = 'Verbe - Groupe 1 (Godan)';
