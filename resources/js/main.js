@@ -91,8 +91,6 @@ function changeRiddle(mots, riddle, code) {
                 riddle: $('#riddle').val()
             },
             function (data) {
-                console.log(mots);
-                console.log(data);
                 if (data.success) {
                     let sakura = parseInt(document.getElementById('points').innerHTML) + 10;
                     $('#points').html(sakura);
