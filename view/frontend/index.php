@@ -48,7 +48,7 @@ ob_start(); ?>
         <?php foreach ($_POST['groups'] as $group): ?>
             <tr>
                 <td><a href="groupe/<?= $group['slug'] ?>"><?= $group['libelle'] ?></a></td>
-                <td class="hidden"><?= $group['parent'] ?></td>
+                <td class="hidden"><a href="groupe/<?= $group['parent_slug'] ?>"><?= $group['parent'] ?></a></td>
                 <td><?= $group['quantifieur'] ?></td>
             </tr>
         <?php endforeach; ?>

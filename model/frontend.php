@@ -264,7 +264,7 @@ function listRandomWords($nombre)
 function listRandomGroups($nombre)
 {
     $db = dbConnect();
-    $select = $db->query("select g.libelle, g2.libelle as parent, g.quantifieur, g.slug from lexiqumjaponais.GROUPE g
+    $select = $db->query("select g.libelle, g2.libelle as parent, g2.slug as parent_slug, g.quantifieur, g.slug from lexiqumjaponais.GROUPE g
     left join lexiqumjaponais.GROUPE g2 on g.id_parent = g2.id
     order by RAND() limit $nombre");
     return $select->fetchAll();
