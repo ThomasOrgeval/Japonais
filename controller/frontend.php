@@ -46,6 +46,15 @@ function logout()
 function account()
 {
     if (connect()) {
+        // Création des 30 derniers jours pour le système de dates
+        $today = new DateTime();
+        $dates = array();
+        for($i = 0; $i < 30; $i++) {
+            $dates[$i]['date'] = $today->format('Y-m-d');
+            $today->modify('-1 day');
+        }
+
+
         if (isset($_GET['user'])) {
             $_POST['user'] = searchUser($_GET['user']);
             if (empty($_POST['user'])) {
@@ -71,6 +80,15 @@ function account()
                 }
             }
         }
+
+        // Ajout des valeurs des sakuras obtenus chaque jour dans les 30 derniers jours
+        foreach ($_POST['chart'] as $chart) {
+            $dates[array_search($chart['date'], array_column($dates, 'date'))]['sakura'] = $chart['sakura'];
+        }
+        foreach ($dates as $key => $date) {
+            if (!isset($date['sakura'])) $dates[$key]['sakura'] = 0;
+        }
+        $_POST['chart'] = array_reverse($dates);
         require './view/frontend/account.php';
     }
 }

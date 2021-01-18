@@ -6,7 +6,7 @@ ob_start(); ?>
     <div id="v1.3" class="changelog-version">
         <div class="flexible">
             <h4 class="text-uppercase font-weight-bolder">Version 1.3
-                <span class="font-weight-lighter changelog-date">- 12 Janvier 2021<span>
+                <span class="font-weight-lighter changelog-date">- 18 Janvier 2021<span>
             </h4>
         </div>
         <hr class="black">
@@ -64,6 +64,10 @@ ob_start(); ?>
             <li>
                 <span class="font-weight-bold">Modification du htaccess</span> pour vous renvoyez les adresses http vers
                 https 😊
+            </li>
+            <li>
+                <span class="font-weight-bold">Correction des conjugaisons verbales des verbes finissants par suru</span>
+                (mais n'étant pas suru) <a href="https://lexiquejaponais.fr/recherche/saluer" target="_blank">exemple</a>
             </li>
         </ul>
     </div><br/>
