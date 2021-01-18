@@ -30,8 +30,33 @@ ob_start(); ?>
         <?php endforeach; ?>
         </tbody>
     </table>
+    <br/>
 <?php endif; ?>
+
+<?php if (!empty($_POST['groups'])) : ?>
+    <h3>Sélection aléatoire de groupes :</h3>
+    <br/>
+    <table class="table table-striped table-size">
+        <thead>
+        <tr>
+            <th>Groupe</th>
+            <th class="hidden">Groupe parent</th>
+            <th>Quantifieur</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($_POST['groups'] as $group): ?>
+            <tr>
+                <td><a href="groupe/<?= $group['slug'] ?>"><?= $group['libelle'] ?></a></td>
+                <td class="hidden"><?= $group['parent'] ?></td>
+                <td><?= $group['quantifieur'] ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
     <br/><br/>
+<?php endif; ?>
+
     <div class="card text-center">
         <div class="card-body" id="card">
             <h6 class="card-title" id="riddle">Trouve la bonne traduction !</h6>

@@ -48,6 +48,9 @@ ob_start(); ?>
                 <span class="font-weight-bold">Ajout de devinettes pour les groupes</span> lorsque ceux-ci ont au moins
                 5 mots.
             </li>
+            <li>
+                <span class="font-weight-bold">Ajout de 5 groupes aléatoires sur l'accueil !</span>
+            </li>
         </ul>
         <hr class="black">
 
@@ -68,6 +71,9 @@ ob_start(); ?>
             <li>
                 <span class="font-weight-bold">Correction des conjugaisons verbales des verbes finissants par suru</span>
                 (mais n'étant pas suru) <a href="https://lexiquejaponais.fr/recherche/saluer" target="_blank">exemple</a>
+            </li>
+            <li>
+               <span class="font-weight-bold">Ajout de l'historique des 30 derniers jours sur les profils</span>
             </li>
         </ul>
     </div><br/>
