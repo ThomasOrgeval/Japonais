@@ -53,7 +53,7 @@
     if ($_POST['background'] != '0' || empty($_POST['background'])) : ?>
             background-image: url('./resources/background/<?= $_POST['background'] ?>.png');
     <?php endif;
-elseif (isset($_SESSION['background']) && ($_SESSION['background'] != '0' || empty($_SESSION['background']))) : ?>
+elseif (isset($_SESSION['background']) && ($_SESSION['background'] != '0' || !empty($_SESSION['background']))) : ?>
         background-image: url('./resources/background/<?= $_SESSION['background'] ?>.png');
 <?php endif; ?>
         "

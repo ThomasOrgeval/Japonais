@@ -50,8 +50,6 @@ ob_start(); ?>
                 </form>
             <?php elseif ($_SESSION['life'] === 0) : ?>
                 <p class="card-text">Vous n'avez plus de vie, revenez demain !</p>
-            <?php else : ?>
-                <p class="card-text">Veuillez vous reconnecter s'il vous plait, l'affichage sera ensuite fonctionnel</p>
             <?php endif; ?>
         </div>
     </div>

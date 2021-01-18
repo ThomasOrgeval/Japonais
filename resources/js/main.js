@@ -38,6 +38,77 @@ function textToAudio(msg) {
     window.speechSynthesis.speak(speech);
 }
 
+function riddleGroup(group) {
+    let mots = [];
+    $.post(
+        'ajax/riddleGroup.php',
+        {
+            group: group
+        },
+        function (data) {
+            if (data.startsWith('success')) {
+                data = data.split(' -- ')[1];
+                mots = data.split('/');
+                mots.pop();
+                const riddle = mots.shift();
+                changeRiddle(mots, riddle, null);
+            } else {
+                console.log(data);
+            }
+        }
+    )
+}
+
+function changeRiddle(mots, riddle, code) {
+    const shallowCopy = mots.slice();
+    const riddleCopy = riddle;
+
+    if (code === null) code = '';
+    else if (code === 1) code = '<div class="green-text" id=\'result\'>Bravo !</div>';
+    else if (code === 2) code = '<div class="red-text" id=\'result\'>Dommage :(</div>';
+
+    $('#card').empty().html("<h6 class='card-title font-weight-bold'>Trouve la bonne traduction !</h6>" +
+        "<form id='riddle-form-aux'>" +
+        "<div id='riddle-div' class='flexible'>" +
+        "<p id='riddle-value' class='card-text' style='font-size: 100%'>" + riddleCopy + "</p>" +
+        "</div>" +
+        code +
+        "<input type='text' id='value' class='form-text riddle' autoComplete='off' required>" +
+        "<div class=\"progress\" style='height: 3px;'>\n" +
+        "  <div class=\"progress-bar\" role=\"progressbar\" style=\"width: 2%\" aria-valuenow=\"2\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\n" +
+        "</div>" +
+        "<input type='submit' id='riddle-btn-aux' class='btn btn-primary' value='Valider'>" +
+        "<input type='hidden' id='array' value='" + shallowCopy + "'>" +
+        "<input type='hidden' id='riddle' value='" + riddleCopy + "'>" +
+        "</form>");
+
+    $('#riddle-form-aux').submit(function (e) {
+        $.post(
+            'ajax/riddleGroup.php',
+            {
+                value: $('#value').val(),
+                array: $('#array').val(),
+                riddle: $('#riddle').val()
+            },
+            function (data) {
+                console.log(mots);
+                console.log(data);
+                if (data.success) {
+                    let sakura = parseInt(document.getElementById('points').innerHTML) + 10;
+                    $('#points').html(sakura);
+                    changeRiddle(data.success.array, data.success.riddle, 1);
+                } else if (data.failed) {
+                    changeRiddle(data.failed.array, data.failed.riddle, 2);
+                } else {
+                    console.log('json', data);
+                }
+            },
+            'json'
+        );
+        e.preventDefault();
+    });
+}
+
 $(document).ready(function () {
 
     $('#riddle-btn').click(function (e) {

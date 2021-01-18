@@ -6,7 +6,7 @@ ob_start(); ?>
     <div id="v1.3" class="changelog-version">
         <div class="flexible">
             <h4 class="text-uppercase font-weight-bolder">Version 1.3
-                <span class="font-weight-lighter changelog-date">- 05 Janvier 2021<span>
+                <span class="font-weight-lighter changelog-date">- 12 Janvier 2021<span>
             </h4>
         </div>
         <hr class="black">
@@ -34,7 +34,7 @@ ob_start(); ?>
             </li>
             <li>
                 <span class="font-weight-bold">On peut désormais voir les groupes enfants et parent de chacun des groupes
-                    ainsi que les quantifieurs de chacun des groupes s'il existe</span>
+                    ainsi que les quantifieurs de chacun des groupes s'ils existent</span>
             </li>
             <li>
                 <span class="font-weight-bold">Ajout des backgrounds !</span> Vous pouvez les voir dans la section <a
@@ -43,6 +43,10 @@ ob_start(); ?>
             <li>
                 <span class="font-weight-bold">Ajout des niveaux JLPT !</span> (Japanese Language Proficiency Test)
                 allant de N5 (débutant) jusqu'à N1 (avancé)
+            </li>
+            <li>
+                <span class="font-weight-bold">Ajout de devinettes pour les groupes</span> lorsque ceux-ci ont au moins
+                5 mots.
             </li>
         </ul>
         <hr class="black">

@@ -337,6 +337,32 @@ function listWordToGroupe($id_groupe)
     return $select->fetchAll();
 }
 
+function listFromGroupe($libelle)
+{
+    $db = dbConnect();
+    $libelle = $db->quote($libelle);
+    $select = $db->query("select francais, kanji, kana, romaji from lexiqumjaponais.FRANCAIS f
+    inner join lexiqumjaponais.TRADUCTION t on f.id = t.id_word
+    inner join lexiqumjaponais.JAPONAIS j on t.id_japonais = j.id
+    inner join lexiqumjaponais.JAPONAIS_GROUPE jg on jg.id_japonais = j.id
+    inner join lexiqumjaponais.GROUPE on jg.id_groupe = GROUPE.id
+    where GROUPE.libelle like $libelle");
+    return $select->fetchAll();
+}
+
+function listFromGroupeWithoutKanji($libelle)
+{
+    $db = dbConnect();
+    $libelle = $db->quote($libelle);
+    $select = $db->query("select francais, kana, romaji from lexiqumjaponais.FRANCAIS f
+    inner join lexiqumjaponais.TRADUCTION t on f.id = t.id_word
+    inner join lexiqumjaponais.JAPONAIS j on t.id_japonais = j.id
+    inner join lexiqumjaponais.JAPONAIS_GROUPE jg on jg.id_japonais = j.id
+    inner join lexiqumjaponais.GROUPE on jg.id_groupe = GROUPE.id
+    where GROUPE.libelle like $libelle");
+    return $select->fetchAll();
+}
+
 function addGroupeToJaponais($id_group, $id_japonais)
 {
     $db = dbConnect();

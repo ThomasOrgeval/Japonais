@@ -78,5 +78,17 @@ if (!empty($_POST['words'])) : ?>
         </table>
     <?php endforeach;
 endif;
+if (count($_POST['words']) >= 5) : ?>
+    <br/><br/>
+    <div class="card text-center">
+        <div class="card-body" id="card">
+            <a class="btn btn-primary" onclick="riddleGroup('<?= $_POST['groupe']['libelle'] ?>')">
+                Lancer une session d'énigmes
+            </a>
+        </div>
+    </div>
+
+    <div id="snackbar"></div>
+<?php endif;
 $content = ob_get_clean();
 require('./view/template/template.php'); ?>
