@@ -51,7 +51,7 @@ function account()
         // Création des 30 derniers jours pour le système de dates
         $today = new DateTime();
         $dates = array();
-        for($i = 0; $i < 30; $i++) {
+        for ($i = 0; $i < 30; $i++) {
             $dates[$i]['date'] = $today->format('Y-m-d');
             $today->modify('-1 day');
         }
@@ -463,18 +463,21 @@ function search()
 
         $_POST['francais'] = researchWord(securize($_GET['mot']));
         $_POST['japonais'] = listJaponaisToFrancais($_POST['francais']['id']);
-        $_POST['listes'] = listListes($_SESSION['id']);
-        $_POST['other_listes'] = haveListes($_SESSION['id'], $_POST['francais']['id']);
 
         foreach ($_POST['japonais'] as $japonais) {
             $_POST['groupes'][$japonais['id']] = selectGroupeFromJaponais($japonais['id']);
             array_push($_POST['type'], add_selection_type($japonais['id_type'], $japonais));
         }
 
-        foreach ($_POST['other_listes'] as $other_liste) {
-            foreach ($_POST['listes'] as $liste) {
-                if ($liste['nom'] === $other_liste['nom']) {
-                    unset($_POST['listes'][array_search($liste, $_POST['listes'], true)]);
+        if (isset($_SESSION) && !empty($_SESSION)) {
+            $_POST['listes'] = listListes($_SESSION['id']);
+            $_POST['other_listes'] = haveListes($_SESSION['id'], $_POST['francais']['id']);
+
+            foreach ($_POST['other_listes'] as $other_liste) {
+                foreach ($_POST['listes'] as $liste) {
+                    if ($liste['nom'] === $other_liste['nom']) {
+                        unset($_POST['listes'][array_search($liste, $_POST['listes'], true)]);
+                    }
                 }
             }
         }
@@ -496,7 +499,7 @@ function groupe_page()
         $_POST['words'] = listFrancaisAndJaponaisWhereGroupe($_POST['groupe']['id']);
         if (isset($_POST['enfant'])) {
             foreach ($_POST['enfant'] as $key => $enfant) {
-                $_POST['enfant'][$key]['words'] =  listFrancaisAndJaponaisWhereGroupe($enfant['id']);
+                $_POST['enfant'][$key]['words'] = listFrancaisAndJaponaisWhereGroupe($enfant['id']);
             }
         }
         require './view/frontend/groupe.php';

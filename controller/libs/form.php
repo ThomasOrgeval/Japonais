@@ -3,19 +3,19 @@
 function input($id)
 {
     $value = isset($_POST[$id]) ? $_POST[$id] : '';
-    return "<input type='text' class='form-control' id='$id' name='$id' value='$value'>";
+    return "<input type='text' class='form-control' id='$id' name='$id' value=\"$value\">";
 }
 
 function inputRequired($id)
 {
     $value = isset($_POST[$id]) ? $_POST[$id] : '';
-    return "<input type='text' class='form-control' id='$id' name='$id' value='$value' required>";
+    return "<input type='text' class='form-control' id='$id' name='$id' value=\"$value\" required>";
 }
 
 function inputReadonly($id)
 {
     $value = isset($_POST[$id]) ? $_POST[$id] : '';
-    return "<input type='text' class='form-control' id='$id' name='$id' value='$value' readonly>";
+    return "<input type='text' class='form-control' id='$id' name='$id' value=\"$value\" readonly>";
 }
 
 function inputNumber($id)

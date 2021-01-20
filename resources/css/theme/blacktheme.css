@@ -67,7 +67,7 @@ table.table tbody td a {
     color: white;
 }
 
-li {
+li, .card-header {
     background-color: #222222 !important;
 }
 

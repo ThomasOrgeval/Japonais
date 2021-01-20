@@ -195,3 +195,18 @@ function number()
     $_POST['data'] = $_POST['data']['nombre'];
     require './view/frontend/courses/number.php';
 }
+
+/**
+ * Musics
+ */
+
+function musics()
+{
+    $_POST['musics'] = selectMusics();
+    require './view/frontend/courses/musics.php';
+}
+function music_show()
+{
+    $_POST['music'] = selectMusic($_GET['slug']);
+    require './view/frontend/courses/music.php';
+}

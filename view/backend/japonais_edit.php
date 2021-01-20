@@ -91,7 +91,7 @@ ob_start(); ?>
                     <div class="form-group col-md-10">
                         <label class="small-screen" for="francais<?= $mot['id'] ?>">Traduction française</label>
                         <input type="text" class="form-control" id="francais<?= $mot['id'] ?>" name="francais[]"
-                               value="<?= $mot['francais']; ?>">
+                               value="<?= $mot['francais'] ?>">
                     </div>
                 </div>
             <?php endforeach;

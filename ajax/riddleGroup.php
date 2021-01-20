@@ -7,6 +7,7 @@ require_once '../model/backend.php';
 require_once '../controller/libs/accent.php';
 
 if (!isset($_POST['riddle'])) {
+
     if ($_SESSION['kanji'] == 1) $values = listFromGroupe($_POST['group']);
     else $values = listFromGroupeWithoutKanji($_POST['group']);
 
@@ -19,6 +20,7 @@ if (!isset($_POST['riddle'])) {
         $int = rand(0, count($values[$rand]) - 1);
         echo $values[$rand][$keys[$int]] . "/";
     }
+
 } else {
     $b = false;
     $french = true;

@@ -440,3 +440,62 @@ function otherGroupe($listPresent)
         return $listOther;
     } else return null;
 }
+
+/**
+ * Musique
+ */
+
+function music()
+{
+    if (connect_admin()) {
+        $_POST['music'] = listMusic();
+        require './view/backend/music.php';
+    } else header('Location:accueil');
+}
+
+function music_edit()
+{
+    if (connect_admin()) {
+        if (isset($_GET['id'])) {
+            if (nbrMusic($_GET['id']) === 0) {
+                setFlash('Il n\'y a pas de musique avec cet ID', 'danger');
+                header('Location: index.php?p=groupe');
+            }
+            $_POST = getMusic($_GET['id'])[0];
+        }
+        require './view/backend/music_edit.php';
+    } else header('Location:accueil');
+}
+
+function music_delete()
+{
+    if (connect_admin()) {
+        dropMusic($_GET['id']);
+        header('Location:index.php?p=music');
+    } else header('Location:accueil');
+}
+
+function music_add()
+{
+    if (connect_admin()) {
+        $anime = securize($_POST['anime']);
+        $chanteur = securize($_POST['chanteur']);
+        $titre = securize($_POST['titre']);
+        $slug = slug($chanteur . ' - ' . $titre);
+
+        if ($_GET['id'] > 0) {
+            editMusic($_GET['id'], $_POST['japonais'], $_POST['romaji'], $_POST['francais'], $anime, $chanteur, $titre, $slug);
+        } else {
+            addMusic($_POST['japonais'], $_POST['romaji'], $_POST['francais'], $anime, $chanteur, $titre, $slug);
+        }
+
+        if (!empty($_FILES['audio']['name'])) {
+            $audio = slug($_FILES['audio']['name']);
+            if (!file_exists("./resources/audio/" . $audio)) move_uploaded_file($_FILES['audio']['tmp_name'], "./resources/audio/" . $audio);
+            insertMusic($slug, $audio);
+        }
+
+        setFlash('La musique a bien été crée');
+        header('Location:index.php?p=music');
+    } else header('Location:accueil');
+}

@@ -594,3 +594,71 @@ function listAchateurFromRecompense($id_recompense)
         where id_recompense=$id_recompense");
     return $select->fetchAll();
 }
+
+/**
+ * Musique
+ */
+
+function listMusic()
+{
+    $db = dbConnect();
+    $select = $db->query("select id, anime, chanteur, titre from lexiqumjaponais.MUSIQUE");
+    return $select->fetchAll();
+}
+
+function nbrMusic($id)
+{
+    $db = dbConnect();
+    $id = $db->quote($id);
+    $select = $db->query("select id from lexiqumjaponais.MUSIQUE where id=$id");
+    return $select->rowCount();
+}
+
+function getMusic($id)
+{
+    $db = dbConnect();
+    $id = $db->quote($id);
+    return $db->query("select id, japonais, romaji, francais, anime, chanteur, titre, slug, audio from lexiqumjaponais.MUSIQUE where id=$id")->fetchAll();
+}
+
+function dropMusic($id)
+{
+    $db = dbConnect();
+    $id = $db->quote($id);
+    $db->query("delete from lexiqumjaponais.MUSIQUE where id=$id");
+}
+
+function addMusic($japonais, $romaji, $francais, $anime, $chanteur, $titre, $slug)
+{
+    $db = dbConnect();
+    $japonais = $db->quote($japonais);
+    $romaji = $db->quote($romaji);
+    $francais = $db->quote($francais);
+    $anime = $db->quote($anime);
+    $chanteur = $db->quote($chanteur);
+    $titre = $db->quote($titre);
+    $slug = $db->quote($slug);
+    $db->query("insert into lexiqumjaponais.MUSIQUE set japonais=$japonais, romaji=$romaji, francais=$francais, anime=$anime, chanteur=$chanteur, titre=$titre, slug=$slug");
+}
+
+function editMusic($id, $japonais, $romaji, $francais, $anime, $chanteur, $titre, $slug)
+{
+    $db = dbConnect();
+    $japonais = $db->quote($japonais);
+    $romaji = $db->quote($romaji);
+    $francais = $db->quote($francais);
+    $anime = $db->quote($anime);
+    $chanteur = $db->quote($chanteur);
+    $titre = $db->quote($titre);
+    $slug = $db->quote($slug);
+    $id = $db->quote($id);
+    $db->query("update lexiqumjaponais.MUSIQUE set japonais=$japonais, romaji=$romaji, francais=$francais, anime=$anime, chanteur=$chanteur, titre=$titre, slug=$slug where id=$id");
+}
+
+function insertMusic($slug, $audio)
+{
+    $db = dbConnect();
+    $audio = $db->quote($audio);
+    $slug = $db->quote($slug);
+    $db->query("update lexiqumjaponais.MUSIQUE set audio=$audio where slug like $slug");
+}

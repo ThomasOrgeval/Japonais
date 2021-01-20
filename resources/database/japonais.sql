@@ -260,6 +260,20 @@ create table `EXCEPTION`
     primary key (`id`)
 ) engine = InnoDB;
 
+create table `MUSIQUE`
+(
+    `id`       int auto_increment not null,
+    `japonais` longtext           not null,
+    `romaji` longtext           not null,
+    `francais` longtext           not null,
+    `anime`    varchar(255),
+    `chanteur` varchar(255),
+    `titre`    varchar(255),
+    `slug`    varchar(255),
+    `audio`    varchar(255),
+    primary key (`id`)
+) engine = InnoDB;
+
 delimiter |
 
 create trigger after_update_sakura

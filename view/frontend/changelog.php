@@ -3,6 +3,31 @@ ob_start(); ?>
 
     <h2 class="text-uppercase font-weight-bold">Nouveautés :</h2><br/>
 
+    <div id="v1.4" class="changelog-version">
+        <div class="flexible">
+            <h4 class="text-uppercase font-weight-bolder">Version 1.4
+                <span class="font-weight-lighter changelog-date">- 18 Janvier 2021<span>
+            </h4>
+        </div>
+        <hr class="black">
+
+        <h5 class="text-uppercase font-weight-bold green-text">Nouvelles fonctionnalités</h5>
+        <ul class="list-unstyled changelog-list">
+            <li>
+                <span class="font-weight-bold">Ajout des musiques !</span> Vous pouvez les retrouver dans la section
+                cours -> musique
+            </li>
+        </ul>
+        <hr class="black">
+
+        <h5 class="text-uppercase font-weight-bold orange-text">Correction de bugs & Mises à jour</h5>
+        <ul class="list-unstyled changelog-list">
+            <li>
+                <span class="font-weight-bold">Correction de l'affichage du thème basique sur les mots japonais</span>
+            </li>
+        </ul>
+    </div><br/>
+
     <div id="v1.3" class="changelog-version">
         <div class="flexible">
             <h4 class="text-uppercase font-weight-bolder">Version 1.3
@@ -70,10 +95,11 @@ ob_start(); ?>
             </li>
             <li>
                 <span class="font-weight-bold">Correction des conjugaisons verbales des verbes finissants par suru</span>
-                (mais n'étant pas suru) <a href="https://lexiquejaponais.fr/recherche/saluer" target="_blank">exemple</a>
+                (mais n'étant pas suru) <a href="https://lexiquejaponais.fr/recherche/saluer"
+                                           target="_blank">exemple</a>
             </li>
             <li>
-               <span class="font-weight-bold">Ajout de l'historique des 30 derniers jours sur les profils</span>
+                <span class="font-weight-bold">Ajout de l'historique des 30 derniers jours sur les profils</span>
             </li>
         </ul>
     </div><br/>

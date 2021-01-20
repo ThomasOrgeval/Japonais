@@ -105,6 +105,18 @@ try {
             courses();
         } elseif ($p === 'number') {
             number();
+        } elseif ($p === 'music') {
+            music();
+        } elseif ($p === 'music_edit') {
+            music_edit();
+        } elseif ($p === 'music_delete') {
+            music_delete();
+        } elseif ($p === 'music_add') {
+            music_add();
+        } elseif ($p === 'musics') {
+            musics();
+        } elseif ($p === 'music_show') {
+            music_show();
         }
     } else {
         accueil();

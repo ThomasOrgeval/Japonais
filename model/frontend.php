@@ -765,3 +765,20 @@ function listExceptions()
     $db = dbConnect();
     return $db->query("select libelle from lexiqumjaponais.EXCEPTION")->fetchAll(PDO::FETCH_COLUMN);
 }
+
+/**
+ * Music
+ */
+
+function selectMusics()
+{
+    $db = dbConnect();
+    return $db->query("select anime, chanteur, titre, slug from lexiqumjaponais.MUSIQUE")->fetchAll();
+}
+
+function selectMusic($slug)
+{
+    $db = dbConnect();
+    $slug = $db->quote($slug);
+    return $db->query("select japonais, romaji, francais, anime, chanteur, titre, audio from lexiqumjaponais.MUSIQUE where slug like $slug")->fetch();
+}

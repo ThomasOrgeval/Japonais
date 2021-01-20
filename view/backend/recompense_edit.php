@@ -1,4 +1,4 @@
-<?php $title = isset($_POST['id']) ? $_POST ['libelle'] . ' - Edition' : 'Nouvelle récompense';
+<?php $title = isset($_POST['id']) ? $_POST['libelle'] . ' - Edition' : 'Nouvelle récompense';
 ob_start(); ?>
 
     <h1 class="h1-admin">Editer une récompense</h1>

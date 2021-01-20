@@ -6,6 +6,7 @@ ob_start(); ?>
     <div class="row-cols-md-4">
         <a class="btn btn-outline-dark" href="nombres">Nombres</a>
         <a class="btn btn-outline-dark" href="kana">Kana</a>
+        <a class="btn btn-outline-dark" href="musique">Musique</a>
     </div>
 
 <?php $content = ob_get_clean();

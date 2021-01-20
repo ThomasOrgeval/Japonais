@@ -217,7 +217,7 @@ body.modal-open {
     background-color: #222222;
 }
 
-.card-body {
+.card-body, .card-header {
     background-color: white !important;
 }
 
@@ -334,6 +334,10 @@ body.modal-open {
 .rouge {
     font-size: initial !important;
     color: red;
+}
+
+#table-music p {
+    font-size: 18px;
 }
 
 @-webkit-keyframes fadein {

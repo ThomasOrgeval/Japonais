@@ -9,6 +9,7 @@ ob_start(); ?>
     <a class="btn btn-outline-dark" href="index.php?p=type">Les types</a>
     <a class="btn btn-outline-dark" href="index.php?p=kanjis">Les kanjis</a>
     <a class="btn btn-outline-dark" href="index.php?p=recompense">Les récompenses</a>
+    <a class="btn btn-outline-dark" href="index.php?p=music">Les musiques</a>
 </div>
 <?php $content = ob_get_clean();
 require('./view/template/template.php'); ?>
