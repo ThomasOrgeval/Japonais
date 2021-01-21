@@ -35,45 +35,7 @@ ob_start(); ?>
                 </div>
             </div>
         </div>
-    </div><br/><br/>
-
-    <div class="row">
-        <div class="col-md-8">
-            <div class="row wide-screen">
-                <div class="col-2">
-                    <a href="mailto:hakimrab@hotmail.fr">
-                        <i class="fas fa-envelope contact-fa"></i>
-                    </a>
-                </div>
-                <div class="col-2">
-                    <a href="https://www.instagram.com/hakimathor/" target="_blank">
-                        <i class="fab fa-instagram contact-fa"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <p>Quant à moi j'ai voulu rejoindre le projet où j'y développe également, mais en plus je suis le community
-                manager du projet !</p>
-            <ul class="list-unstyled">
-                <li style="margin-left: 20px">- Rabia Hakim</li>
-            </ul>
-        </div>
-        <div class="col-md-8">
-            <div class="row small-screen">
-                <div class="col-6">
-                    <a href="mailto:hakimrab@hotmail.fr">
-                        <i class="fas fa-envelope contact-fa"></i>
-                    </a>
-                </div>
-                <div class="col-6">
-                    <a href="https://www.instagram.com/hakimathor/" target="_blank">
-                        <i class="fab fa-instagram contact-fa"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+    </div><br/>
 
 <?php if (isset($_SESSION) && !empty($_SESSION) && $_SESSION['connect'] === 'OK') : ?>
     <div>
@@ -109,6 +71,7 @@ ob_start(); ?>
             );
         }
     </script>
+
 <?php endif;
 $content = ob_get_clean();
 require('./view/template/template.php'); ?>
