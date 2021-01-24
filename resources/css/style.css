@@ -283,6 +283,10 @@ body.modal-open {
         margin-right: 5px;
     }
 
+    .md-underline p{
+        text-decoration: underline;
+    }
+
 }
 
 #snackbar {
@@ -362,6 +366,7 @@ body.modal-open {
     height: 25px;
     width: 50%;
     text-align: center;
+    cursor: pointer;
 }
 
 .hide {
