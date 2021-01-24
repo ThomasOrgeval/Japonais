@@ -11,8 +11,12 @@ table.table thead th, table.table tbody td, table.table tfoot tr {
     color: white;
 }
 
-table.table tbody td a {
+table.table tbody td a, .div-music.row:hover {
     color: beige;
+}
+
+.div-music.row:nth-child(even) {
+    background-color: #101010;
 }
 
 .search-a {

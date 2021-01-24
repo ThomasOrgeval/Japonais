@@ -14,7 +14,7 @@ body, .content {
     color: #dbe2ef !important;
 }
 
-.page-footer, .page-footer a, .navbar a, .card-text, h1, h2, h3, h4, h5, h6, .button-a {
+.page-footer, .page-footer a, .navbar a, .card-text, h1, h2, h3, h4, h5, h6, .button-a, .div-music.row:hover {
     color: #3f72af !important;
 }
 

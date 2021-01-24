@@ -59,7 +59,7 @@ function riddleGroup(group) {
     )
 }
 
-function changeRiddle(mots, riddle, code) {
+function changeRiddle(mots, riddle, code, value = 2) {
     const shallowCopy = mots.slice();
     const riddleCopy = riddle;
 
@@ -75,7 +75,7 @@ function changeRiddle(mots, riddle, code) {
         code +
         "<input type='text' id='value' class='form-text riddle' autoComplete='off' required>" +
         "<div class=\"progress\" style='height: 3px;'>\n" +
-        "  <div class=\"progress-bar\" role=\"progressbar\" style=\"width: 2%\" aria-valuenow=\"2\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\n" +
+        "  <div class=\"progress-bar\" role=\"progressbar\" style=\"width: " + value + "%\" aria-valuenow=\"2\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\n" +
         "</div>" +
         "<input type='submit' id='riddle-btn-aux' class='btn btn-primary' value='Valider'>" +
         "<input type='hidden' id='array' value='" + shallowCopy + "'>" +
@@ -94,9 +94,10 @@ function changeRiddle(mots, riddle, code) {
                 if (data.success) {
                     let sakura = parseInt(document.getElementById('points').innerHTML) + 10;
                     $('#points').html(sakura);
-                    changeRiddle(data.success.array, data.success.riddle, 1);
+                    value = 100 - data.success.array.length / 0.2
+                    changeRiddle(data.success.array, data.success.riddle, 1, value);
                 } else if (data.failed) {
-                    changeRiddle(data.failed.array, data.failed.riddle, 2);
+                    changeRiddle(data.failed.array, data.failed.riddle, 2, value);
                 } else {
                     console.log('json', data);
                 }

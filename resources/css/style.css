@@ -340,6 +340,34 @@ body.modal-open {
     font-size: 18px;
 }
 
+.div-music p {
+    margin-bottom: 0;
+}
+
+.div-music.row:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+.div-music.row:hover{
+    color: gray;
+}
+
+.div-music [class^="col-"] {
+    margin-bottom: 4px;
+}
+
+.li-music {
+    margin: 0;
+    padding: 0;
+    height: 25px;
+    width: 50%;
+    text-align: center;
+}
+
+.hide {
+    display: none;
+}
+
 @-webkit-keyframes fadein {
     from {bottom: 0; opacity: 0;}
     to {bottom: 30px; opacity: 1;}

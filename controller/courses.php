@@ -208,5 +208,24 @@ function musics()
 function music_show()
 {
     $_POST['music'] = selectMusic($_GET['slug']);
+
+    $romaji = explode("<p>" , $_POST['music']['romaji'] );
+    $romaji = array_map( function($v) {
+        return "<p>" . $v;
+    }, $romaji );
+
+    $japonais = explode("<p>" , $_POST['music']['japonais'] );
+    $japonais = array_map( function($v) {
+        return "<p>" . $v;
+    }, $japonais );
+
+    $francais = explode("<p>" , $_POST['music']['francais'] );
+    $francais = array_map( function($v) {
+        return "<p>" . $v;
+    }, $francais );
+
+    $_POST['music']['romaji'] = $romaji;
+    $_POST['music']['japonais'] = $japonais;
+    $_POST['music']['francais'] = $francais;
     require './view/frontend/courses/music.php';
 }
