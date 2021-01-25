@@ -59,8 +59,6 @@ create table `MUSIQUE`
     primary key (`id`)
 ) engine = InnoDB;
 
--- Serveur et pc portable
-
 create table `TOKEN`
 (
     `id`      int auto_increment not null,
