@@ -10,16 +10,21 @@ require './controller/libs/type.php';
 require './controller/backend.php';
 require './controller/courses.php';
 require './model/frontend.php';
+require './model/template/Database.php';
 
 /**
  * Chargement de pages
+ * @throws Exception
  */
 
 function accueil()
 {
-    if (isset($_COOKIE['mail'], $_COOKIE['pass']) && !isset($_SESSION['pseudo'])) submitLogin($_COOKIE['mail'], $_COOKIE['pass']);
-
-    if (isset($_SESSION['new_life']) && $_SESSION['new_life'] === true) $_SESSION['new_life'] = false;
+    if (isset($_COOKIE['mail'], $_COOKIE['token']) && !isset($_SESSION['pseudo'])) {
+        $token = new Token();
+        if ($token->rowCountToken(securize($_COOKIE['token']), securize($_COOKIE['mail'])) === 1) {
+            submitToken();
+        } else logout();
+    }
 
     if (isset($_SESSION['nombreWords']) && !empty($_SESSION['nombreWords'])) $_POST['words'] = listRandomWords($_SESSION['nombreWords']);
     else $_POST['words'] = listRandomWords(10);
@@ -32,15 +37,16 @@ function accueil()
         $replace = preg_split('/(?<!^)(?!$)/u', $word['kanji']);
         $kanjis = find_kanji($word['kanji']);
     }
-
     require './view/frontend/index.php';
 }
 
 function logout()
 {
+    $token = new Token();
+    $token->unsetToken($_COOKIE['token']);
     session_destroy();
     setcookie('mail');
-    setcookie('pass');
+    setcookie('token');
     setcookie('theme');
     header('Location:accueil');
 }
@@ -226,8 +232,39 @@ function connect()
     return true;
 }
 
+function submitToken()
+{
+    $token = new Token();
+    if ($token->rowCountToken(securize($_COOKIE['token']), securize($_COOKIE['mail'])) === 1) {
+        $statements = $token->getUserWithToken(securize($_COOKIE['token']), securize($_COOKIE['mail']));
+        $_SESSION['pseudo'] = $statements['pseudo'];
+        $_SESSION['admin'] = $statements['droits'];
+        $_SESSION['id'] = $statements['id'];
+        $_SESSION['nombreWords'] = $statements['nombre'];
+        $_SESSION['points'] = getSakura($_SESSION['id'])['sakura'];
+        $_SESSION['connect'] = 'OK';
+        $_SESSION['icone'] = $statements['icone'];
+        $_SESSION['theme'] = $statements['theme'];
+        $_SESSION['background'] = $statements['background'];
+        $_SESSION['kanji'] = $statements['kanji'];
+        $_SESSION['riddle'] = getRiddle($_SESSION['id']);
+
+        if ($statements['last_login'] < date("Y-m-d") || $statements['last_login'] == null) {
+            setLastLogin($_SESSION['id']);
+            if ((int)$statements['life'] < 5) {
+                setLife($_SESSION['id'], (int)$statements['life'] + 1);
+                $_SESSION['life'] = (int)$statements['life'] + 1;
+            } else {
+                $_SESSION['life'] = (int)$statements['life'];
+            }
+        } else $_SESSION['life'] = (int)$statements['life'];
+        setFlash('Connexion réussie');
+    } else header('Location:accueil');
+}
+
 /**
  * Login
+ * @throws Exception
  */
 
 function submitLogin($mail, $password)
@@ -252,15 +289,17 @@ function submitLogin($mail, $password)
                 if ((int)$statements['life'] < 5) {
                     setLife($_SESSION['id'], (int)$statements['life'] + 1);
                     $_SESSION['life'] = (int)$statements['life'] + 1;
-                    $_SESSION['new_life'] = true;
                 } else {
                     $_SESSION['life'] = (int)$statements['life'];
                 }
-            } else {
-                $_SESSION['life'] = (int)$statements['life'];
-            }
+            } else $_SESSION['life'] = (int)$statements['life'];
             setcookie('mail', $mail, time() + 365 * 24 * 3600);
-            setcookie('pass', $password, time() + 365 * 24 * 3600);
+
+            $randomToken = bin2hex(random_bytes(24));
+            setcookie('token', $randomToken, time() + 365 * 24 * 3600);
+            $token = new Token();
+            $token->setToken($randomToken, $_SESSION['id']);
+
             setFlash('Connexion réussie');
         } else {
             setFlash('Mot de passe ou identifiant incorrect', 'danger');
@@ -334,7 +373,7 @@ function change_pass()
         if ($pass === $passVerif) {
             changePass($_SESSION['recup_mail'], password_hash($pass, PASSWORD_DEFAULT));
             deleteRecup($_SESSION['recup_id']);
-            unset($_SESSION['recup_mail'], $_SESSION['recup_code'], $_SESSION['recup_id']);
+            unset($_SESSION['recup_code'], $_SESSION['recup_id']);
             setFlash('Vous avez bien changé votre mot de passe !');
             submitLogin($_SESSION['recup_mail'], $pass);
         } else {
