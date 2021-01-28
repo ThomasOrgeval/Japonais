@@ -7,7 +7,7 @@ ob_start(); ?>
             :</h2>
     </div>
     <div class="col-md-4 text-center">
-        <audio controls>
+        <audio id="audio" controls>
             <source src="./resources/audio/<?= $_POST['music']['audio'] ?>" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
@@ -15,8 +15,9 @@ ob_start(); ?>
 </div>
 
 <?php if (!empty($_POST['music']['anime'])) : ?>
-    <p style="margin-bottom: 30px">Cette musique est utilisée dans : <span
-                class="font-weight-bold"><?= $_POST['music']['anime'] ?></span></p>
+    <p style="margin-bottom: 30px">Cette musique est utilisée dans :
+        <span class="font-weight-bold"><?= $_POST['music']['anime'] ?></span>
+    </p>
 <?php endif; ?>
 
 <div id="music-id">
@@ -36,7 +37,7 @@ ob_start(); ?>
             <div id="rj" class="col-md-6 hide">
                 <?= $_POST['music']['romaji'][$k] ?>
             </div>
-            <div class="col-md-6">
+            <div id="fr" class="col-md-6">
                 <?= $_POST['music']['francais'][$k] ?>
             </div>
         </div>

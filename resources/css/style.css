@@ -1,14 +1,13 @@
-.content {
+.content, .search {
     background-color: white;
 }
 
 .search {
     margin: 0;
     display: block;
-    background-color: white;
 }
 
-.search-a {
+.search-a, .color, .icon-secure {
     color: black;
 }
 
@@ -79,26 +78,20 @@
     text-align: center;
 }
 
-.color {
-    color: black;
-}
-
 .icon-table {
     width: 80px;
     height: 80px;
 }
 
-.icon-table-other {
+.icon-table-other, .icon-secure {
     position: absolute;
 }
 
 .icon-secure {
-    position: absolute;
     z-index: 1;
     opacity: 0.9;
     width: 40px;
     margin-top: 38px;
-    color: black;
 }
 
 .riddle {
@@ -281,6 +274,15 @@ body.modal-open {
         width: 32px;
         height: 32px;
         margin-right: 5px;
+    }
+
+    .div-music.row #jp p {
+        margin-top: 5px;
+        margin-bottom: 3px;
+    }
+
+    .div-music.row #fr p {
+        margin-bottom: 3px;
     }
 
 }
