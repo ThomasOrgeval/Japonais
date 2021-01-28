@@ -283,10 +283,6 @@ body.modal-open {
         margin-right: 5px;
     }
 
-    .md-underline p{
-        text-decoration: underline;
-    }
-
 }
 
 #snackbar {
@@ -350,6 +346,10 @@ body.modal-open {
 
 .div-music.row:nth-child(even) {
     background-color: #f8f8f8;
+}
+
+.div-music.row:nth-child(2n+1) {
+    background-color: #f1f1f1;
 }
 
 .div-music.row:hover{

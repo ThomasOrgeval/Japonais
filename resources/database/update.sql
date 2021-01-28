@@ -76,3 +76,15 @@ create event delete_token on schedule every 1 day starts '2020-01-01 00:00:00' o
     where expire < curdate();
 
 SET GLOBAL event_scheduler = "ON";
+
+-- pc portable et serveur
+
+create table `RADICAL`
+(
+    `id`      int auto_increment not null,
+    `cle`     varchar(255)       not null,
+    `ligne`   int                not null,
+    `lecture` varchar(255)       not null,
+    `sens`    varchar(255)       not null,
+    primary key (`id`)
+) engine = InnoDB;

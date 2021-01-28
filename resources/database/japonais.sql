@@ -284,6 +284,16 @@ create table `TOKEN`
     foreign key (`id_user`) references USER (`id`)
 ) engine = InnoDB;
 
+create table `RADICAL`
+(
+    `id`      int auto_increment not null,
+    `cle`     varchar(255)       not null,
+    `ligne`   int                not null,
+    `lecture` varchar(255)       not null,
+    `sens`    varchar(255)       not null,
+    primary key (`id`)
+) engine = InnoDB;
+
 delimiter |
 
 create trigger after_update_sakura

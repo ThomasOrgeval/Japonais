@@ -36,7 +36,7 @@ ob_start(); ?>
             <div id="rj" class="col-md-6 hide">
                 <?= $_POST['music']['romaji'][$k] ?>
             </div>
-            <div class="col-md-6 md-underline">
+            <div class="col-md-6">
                 <?= $_POST['music']['francais'][$k] ?>
             </div>
         </div>

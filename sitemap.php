@@ -3,37 +3,7 @@ header('Content-type: application/xml; charset=utf-8');
 $xml = '<?xml version="1.0" encoding="utf-8"?>';
 $xml .= '
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-    <url>
-        <loc>https://lexiquejaponais.fr/</loc>
-        <lastmod>20-01-2021</lastmod>
-        <changefreq>never</changefreq>
-        <priority>1.0</priority>
-    </url>
-    <url>
-        <loc>https://lexiquejaponais.fr/accueil</loc>
-        <lastmod>20-01-2021</lastmod>
-        <changefreq>never</changefreq>
-        <priority>1.0</priority>
-    </url>
-    <url>
-        <loc>https://lexiquejaponais.fr/cours</loc>
-        <lastmod>20-01-2021</lastmod>
-        <changefreq>yearly</changefreq>
-    </url>
-    <url>
-        <loc>https://lexiquejaponais.fr/nombres</loc>
-        <lastmod>20-01-2021</lastmod>
-        <changefreq>never</changefreq>
-    </url>
-    <url>
-        <loc>https://lexiquejaponais.fr/kana</loc>
-        <lastmod>20-01-2021</lastmod>
-        <changefreq>never</changefreq>
-    </url>
-    <url>
-        <loc>https://lexiquejaponais.fr/musique</loc>
-        <changefreq>monthly</changefreq>
-    </url>';
+    ';
 
 $list = [
     ['callable' => "getAllWords", 'prefix' => "https://lexiquejaponais.fr/recherche/", 'item' => "slug", 'freq' => "yearly"],
@@ -53,5 +23,36 @@ foreach ($list as $item) {
     }
 }
 
-$xml .= '</urlset>';
+$xml .= '    <url>
+        <loc>https://lexiquejaponais.fr/cours</loc>
+        <lastmod>20-01-2021</lastmod>
+        <changefreq>yearly</changefreq>
+    </url>
+    <url>
+        <loc>https://lexiquejaponais.fr/nombres</loc>
+        <lastmod>20-01-2021</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://lexiquejaponais.fr/kana</loc>
+        <lastmod>20-01-2021</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://lexiquejaponais.fr/musique</loc>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>https://lexiquejaponais.fr/</loc>
+        <lastmod>20-01-2021</lastmod>
+        <changefreq>never</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://lexiquejaponais.fr/accueil</loc>
+        <lastmod>20-01-2021</lastmod>
+        <changefreq>never</changefreq>
+        <priority>1.0</priority>
+    </url>
+</urlset>';
 echo $xml;

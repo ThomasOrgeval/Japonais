@@ -19,6 +19,10 @@ table.table tbody td a, .div-music.row:hover {
     background-color: #101010;
 }
 
+.div-music.row:nth-child(2n+1) {
+    background-color: #181818;
+}
+
 .search-a {
     color: white;
     background-color: #181818;

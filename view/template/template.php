@@ -9,10 +9,9 @@
     <?php endif; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8"/>
     <meta name="description"
-          content="Lexique japonais permet de s’exercer chaque jour, se lancer des défis, défier des amis, le tout dans
-          la langue de ごく (Goku) ! Lexique japonais contient tout ce que vous recherchez sur la langue japonaise.">
+          content="Lexique japonais permet de s’exercer chaque jour, se lancer des défis, défier des amis, le tout dans la langue de ごく (Goku) ! Lexique japonais contient tout ce que vous recherchez sur la langue japonaise.">
     <meta name="robots" content="noindex, nofollow">
-    <title><?= $title ?></title>
+    <title><?= isset($title) ? $title : 'Lexique Japonais'?></title>
     <link rel="shortcut icon" type="image" href="./resources/svgs/sakura_login.svg">
 
     <!-- Font Awesome -->

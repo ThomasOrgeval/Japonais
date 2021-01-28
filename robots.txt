@@ -4,4 +4,3 @@ Allow: /*
 Dissalow: /controller/
 Dissalow: /model/
 Dissalow: /ajax/
-Dissalow: /index.php
