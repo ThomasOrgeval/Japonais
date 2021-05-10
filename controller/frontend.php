@@ -1,21 +1,15 @@
 <?php
 
 session_start();
-mb_internal_encoding("UTF-8");
-require_once './controller/libs/form.php';
-require './controller/libs/session.php';
-require './controller/libs/mail.php';
-require './controller/libs/type.php';
+require __DIR__ . '/libs/form.php';
+require __DIR__ . '/libs/session.php';
+require __DIR__ . '/libs/mail.php';
+require __DIR__ . '/libs/type.php';
 
-require './controller/backend.php';
-require './controller/courses.php';
-require './model/frontend.php';
-require './model/template/Database.php';
-
-/**
- * Chargement de pages
- * @throws Exception
- */
+require __DIR__ . '/backend.php';
+require __DIR__ . '/courses.php';
+require __DIR__ . '/../model/frontend.php';
+require __DIR__ . '/../model/template/Database.php';
 
 function accueil()
 {
@@ -270,43 +264,38 @@ function submitToken()
 function submitLogin($mail, $password)
 {
     if (!empty($mail) && !empty($password)) {
-        $statements = loginUser($mail, $password);
+        $statements = loginUser(securize($mail), $password);
         if ($statements == true) {
-            $_SESSION['pseudo'] = $statements['pseudo'];
-            $_SESSION['admin'] = $statements['droits'];
-            $_SESSION['id'] = $statements['id'];
-            $_SESSION['nombreWords'] = $statements['nombre'];
-            $_SESSION['points'] = getSakura($_SESSION['id'])['sakura'];
-            $_SESSION['connect'] = 'OK';
-            $_SESSION['icone'] = $statements['icone'];
-            $_SESSION['theme'] = $statements['theme'];
-            $_SESSION['background'] = $statements['background'];
-            $_SESSION['kanji'] = $statements['kanji'];
-            $_SESSION['riddle'] = getRiddle($_SESSION['id']);
+            $_SESSION['Account']['pseudo'] = $statements['pseudo'];
+            $_SESSION['Account']['admin'] = $statements['droits'];
+            $_SESSION['Account']['id'] = $statements['id'];
+            $_SESSION['Account']['nombreWords'] = $statements['nombre'];
+            $_SESSION['Account']['points'] = getSakura($_SESSION['Account']['id'])['sakura'];
+            $_SESSION['Account']['icone'] = $statements['icone'];
+            $_SESSION['Account']['theme'] = $statements['theme'];
+            $_SESSION['Account']['background'] = $statements['background'];
+            $_SESSION['Account']['kanji'] = $statements['kanji'];
+            $_SESSION['Account']['riddle'] = getRiddle($_SESSION['Account']['id']);
 
             if ($statements['last_login'] < date("Y-m-d") || $statements['last_login'] == null) {
                 setLastLogin($_SESSION['id']);
                 if ((int)$statements['life'] < 5) {
                     setLife($_SESSION['id'], (int)$statements['life'] + 1);
-                    $_SESSION['life'] = (int)$statements['life'] + 1;
+                    $_SESSION['Account']['life'] = (int)$statements['life'] + 1;
                 } else {
-                    $_SESSION['life'] = (int)$statements['life'];
+                    $_SESSION['Account']['life'] = (int)$statements['life'];
                 }
-            } else $_SESSION['life'] = (int)$statements['life'];
+            } else $_SESSION['Account']['life'] = (int)$statements['life'];
             setcookie('mail', $mail, time() + 365 * 24 * 3600);
 
             $randomToken = bin2hex(random_bytes(24));
             setcookie('token', $randomToken, time() + 365 * 24 * 3600);
             $token = new Token();
-            $token->setToken($randomToken, $_SESSION['id']);
+            $token->setToken($randomToken, $_SESSION['Account']['id']);
 
             setFlash('Connexion réussie');
-        } else {
-            setFlash('Mot de passe ou identifiant incorrect', 'danger');
-        }
-    } else {
-        setFlash('Un champ est vide', 'danger');
-    }
+        } else setFlash('Mot de passe ou identifiant incorrect', 'danger');
+    } else setFlash('Un champ est vide', 'danger');
     header('Location:accueil');
 }
 

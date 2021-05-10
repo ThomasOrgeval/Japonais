@@ -9,43 +9,33 @@
     <?php endif; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8"/>
     <meta name="description"
-          content="Lexique japonais permet de s’exercer chaque jour, se lancer des défis, défier des amis, le tout dans
-          la langue de ごく (Goku) ! Lexique japonais contient tout ce que vous recherchez sur la langue japonaise.">
+          content="Lexique japonais permet de s’exercer chaque jour, se lancer des défis, défier des amis, le tout dans la langue de ごく (Goku) ! Lexique japonais contient tout ce que vous recherchez sur la langue japonaise.">
     <title><?= $title ?? 'Lexique Japonais' ?></title>
-    <link rel="shortcut icon" type="image" href="resources/svgs/sakura_login.svg">
+    <link rel="shortcut icon" type="image" href="resources/images/sakura.png">
 
+    <meta property="og:title" content="Lexique Japonais">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lexiquejaponais.fr">
+    <meta property="og:image" content="https://lexiquejaponais.fr/resources/images/sakura.png">
+    <meta property="og:description"
+          content="Lexique japonais permet de s’exercer chaque jour, se lancer des défis, défier des amis, le tout dans la langue de ごく (Goku) ! Lexique japonais contient tout ce que vous recherchez sur la langue japonaise.">
+
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-    <!-- Google Fonts Roboto -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-    <!-- Google Icons Material -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <!-- Bootstrap core CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <!-- Material Design Bootstrap -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
-    <!-- MDB Datatable -->
-    <link href="resources/css/addons/datatables2.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="resources/css/style.css">
 
     <!-- jQuery -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
-    <!--script src="./resources/js/all.js"></script-->
-    <script src="resources/js/addons/datatables2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.4.0/perfect-scrollbar.min.js"></script>
-
-    <script src="resources/js/main.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <?php if (isset($_SESSION['theme']) && $_SESSION['theme'] != '0') : ?>
         <link rel="stylesheet" href="./resources/css/theme/<?= $_SESSION['theme'] ?>.css">
     <?php endif; ?>
@@ -59,161 +49,138 @@
 elseif (isset($_SESSION['background']) && ($_SESSION['background'] != '0' || !empty($_SESSION['background']))) : ?>
         background-image: url('./resources/background/<?= $_SESSION['background'] ?>.png');
 <?php endif; ?>
-        "
+        font-family: 'M PLUS Rounded 1c', sans-serif;"
 >
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark" id="navbar-top">
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <ul class="navbar-nav mr-auto">
-            <a class="nav-item nav-link" href="accueil">Accueil</a>
-            <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
-                <a class="nav-item nav-link" href="listes">Mes listes</a>
-                <a class="nav-item nav-link" href="theme">Mes thèmes</a>
-                <a class="nav-item nav-link" href="historique">Historique</a>
-                <?php if ($_SESSION['admin'] == 1): ?>
-                    <a class="nav-item nav-link" href="index.php?p=admin_portail">Administration</a>
-                <?php endif;
-            endif; ?>
-            <a class="nav-item nav-link" href="cours">Cours</a>
-        </ul>
-        <div class="navbar-nav">
-            <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
-                <a class="nav-item nav-link" href="points" style="padding-bottom: 0;">
-                    <span id="points" style="vertical-align:middle;"><?= $_SESSION['points'] ?></span>
-                    <img id="sakura-svg" class="svg" src="./resources/svgs/sakura.svg" alt="sakura">
-                </a>
-                <a class="nav-item nav-link" href="compte" style="color: white;">Bienvenue,
-                    &thinsp; <?= $_SESSION['pseudo'] ?></a>
-                <a href="index.php?p=account">
-                    <img class="icon" src="./resources/icons/<?= $_SESSION['icone'] ?>.png" alt="icone">
-                </a>
-                <a class="nav-item nav-link" href="index.php?p=logout">Déconnexion</a>
-            <?php else: ?>
-                <a href="" class="nav-item nav-link" data-toggle="modal"
-                   data-target="#modalLoginForm">Connexion</a>
-            <?php endif; ?>
-        </div>
-    </div>
-</nav>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar-top-small">
-    <div class="pos-f-t">
-        <div class="collapse" id="navbarToggleExternalContent">
-            <ul class="navbar-nav mr-auto">
-                <a class="nav-item nav-link" href="accueil">Accueil</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-black fixed-top">
+    <div class="container-fluid">
+        <!-- Navbar brand -->
+        <a class="navbar-brand me-0" href="">
+            <img src="resources/images/sakura.png" height="22" alt="logo" style="margin-top: -3px">
+        </a>
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbar1"
+                aria-controls="navbar1" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar1">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item active"><a class="nav-link" aria-current="page" href="">Accueil</a></li>
                 <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
-                    <a class="nav-item nav-link" href="listes">Mes listes</a>
-                    <a class="nav-item nav-link" href="theme">Mes thèmes</a>
-                    <a class="nav-item nav-link" href="historique">Historique</a>
+                    <li class="nav-item active"><a class="nav-link" href="listes">Mes listes</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="theme">Mes thèmes</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="historique">Historique</a></li>
                     <?php if ($_SESSION['admin'] == 1): ?>
-                        <a class="nav-item nav-link" href="index.php?p=admin_portail">Administration</a>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="index.php?p=admin_portail">Administration</a>
+                        </li>
                     <?php endif;
                 endif; ?>
-                <a class="nav-item nav-link" href="cours">Cours</a>
+                <li class="nav-item active"><a class="nav-link" href="cours">Cours</a></li>
             </ul>
-            <div class="navbar-nav">
-                <hr style="margin-top: 5px; margin-bottom: 5px">
-                <?php if (isset($_SESSION['connect']) && $_SESSION['connect'] === 'OK'): ?>
-                    <a class="nav-item nav-link" href="points">
-                        <span style="vertical-align:middle;"><?= $_SESSION['points'] ?></span>
-                        <img id="sakura-svg" class="svg" src="./resources/svgs/sakura.svg" alt="sakura">
-                    </a>
-                    <a class="nav-item nav-link" href="compte" style="color: white;">Bienvenue,
-                        &thinsp; <?= $_SESSION['pseudo'] ?></a>
-                    <a class="nav-item nav-link" href="index.php?p=logout">Déconnexion</a>
+
+            <ul class="navbar-nav d-flex flex-row">
+                <?php if (isset($_SESSION['Account'])) : ?>
+                    <li class="nav-item me-3 me-lg-0">
+                        <a class="nav-link pb-0" href="points">
+                            <span id="points" class="align-middle"><?= $_SESSION['Account']['points'] ?></span>
+                            <img id="sakura-svg" class="svg" src="resources/svgs/sakura.svg" alt="sakura">
+                        </a>
+                    </li>
+                    <li class="nav-item me-3 me-lg-0">
+                        <a class="nav-link text-white"
+                           href="compte">Bienvenue, <?= $_SESSION['Account']['pseudo'] ?></a>
+                    </li>
+                    <li class="nav-item me-3 me-lg-0">
+                        <a href="index.php?p=account">
+                            <img class="icon" src="resources/icons/<?= $_SESSION['Account']['icone'] ?>.png"
+                                 alt="icone">
+                        </a>
+                    </li>
+                    <li class="nav-item me-3 me-lg-0">
+                        <a class="nav-link" href="index.php?p=logout">Déconnexion</a>
+                    </li>
                 <?php else: ?>
-                    <a href="" class="nav-item nav-link" data-toggle="modal"
-                       data-target="#modalLoginForm">Connexion</a>
+                    <li class="nav-item me-3 me-lg-0 ">
+                        <a class="nav-link" data-mdb-toggle="modal" data-mdb-target="#connect"
+                           role="button">Connexion</a>
+                    </li>
                 <?php endif; ?>
-            </div>
+            </ul>
         </div>
-        <nav class="navbar navbar-dark bg-dark">
-            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </nav>
     </div>
 </nav>
 
-<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="connect" tabindex="-1" aria-labelledby="connect" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form action="index.php?p=submitLogin" method="post">
-                <div class="modal-header text-center">
-                    <img src="./resources/svgs/sakura_login.svg" style="width: 40px">
-                    <h4 class="modal-title w-100 font-weight-bold">Connexion</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body mx-3">
-                    <div class="md-form mb-5">
-                        <i class="fas fa-envelope prefix grey-text"></i>
-                        <input type="email" id="login-mail" class="form-control validate" name="mail">
-                        <label data-error="wrong" data-success="right" for="login-mail">Votre adresse mail</label>
+            <div class="modal-body p-4">
+                <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="mdb-tab-login" data-mdb-toggle="pill" href="#pills-login"
+                           role="tab" aria-controls="pills-login" aria-selected="true">Connexion</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="mdb-tab-register" data-mdb-toggle="pill" href="#pills-register"
+                           role="tab" aria-controls="pills-register" aria-selected="false">Créer mon compte</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane fade active show" id="pills-login" role="tabpanel"
+                         aria-labelledby="mdb-tab-login">
+                        <form method="post" action="index.php?p=signIn">
+
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                <input type="email" id="loginMail" name="mail"
+                                       class="form-control" required>
+                                <label class="form-label" for="loginMail">Email</label>
+                            </div>
+
+                            <!-- Password input -->
+                            <div class="form-outline mb-4">
+                                <input type="password" id="loginPassword" name="pass"
+                                       class="form-control" required>
+                                <label class="form-label" for="loginPassword">Password</label>
+                            </div>
+
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary btn-block mb-4">Connexion</button>
+                        </form>
                     </div>
 
-                    <div class="md-form mb-4">
-                        <i class="fas fa-lock prefix grey-text"></i>
-                        <input type="password" id="login-pass" class="form-control validate" name="password">
-                        <label data-error="wrong" data-success="right" for="login-pass">Votre mot de passe</label>
+                    <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="mdb-tab-register">
+                        <form method="post" action="index.php?p=signUp">
+
+                            <!-- Pseudo input -->
+                            <div class="form-outline mb-4">
+                                <input type="text" id="registerPseudo" name="pseudo"
+                                       class="form-control" required>
+                                <label class="form-label" for="registerPseudo">Pseudo</label>
+                            </div>
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                <input type="email" id="registerEmail" name="mail"
+                                       class="form-control" required>
+                                <label class="form-label" for="registerEmail">Adresse mail</label>
+                            </div>
+                            <!-- Password input -->
+                            <div class="form-outline mb-4">
+                                <input type="password" id="registerPassword" name="pass" autocomplete="new-password"
+                                       class="form-control" minlength="8" required>
+                                <label class="form-label" for="registerPassword">Password (8 caractères au
+                                    minimum)</label>
+                            </div>
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary btn-block mb-1">Connexion</button>
+                        </form>
                     </div>
-                    <a href="" style="font-size: 13px" data-toggle="modal" data-target="#modalForgetPasswordForm"
-                       data-dismiss="modal">Mot de passe oublié ?</a>
                 </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <button type="submit" class="btn btn-purple">S'identifier</button>
-                    <div class="text-center">
-                        <a href="" class="btn btn-outline-purple" data-toggle="modal" data-target="#modalRegisterForm"
-                           data-dismiss="modal">Créer un compte</a>
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
-<div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form action="index.php?p=submitRegister" method="post">
-                <div class="modal-header text-center">
-                    <img src="./resources/svgs/sakura_login.svg" style="width: 40px">
-                    <h4 class="modal-title w-100 font-weight-bold">Créer votre compte</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body mx-3">
-                    <div class="md-form mb-5">
-                        <i class="fas fa-user prefix grey-text"></i>
-                        <input type="text" id="register-name" class="form-control validate" name="pseudo">
-                        <label data-error="wrong" data-success="right" for="register-name">Votre pseudo</label>
-                    </div>
-                    <div class="md-form mb-5">
-                        <i class="fas fa-envelope prefix grey-text"></i>
-                        <input type="email" id="register-mail" class="form-control validate" name="mail">
-                        <label data-error="wrong" data-success="right" for="register-mail">Votre adresse mail</label>
-                    </div>
 
-                    <div class="md-form mb-4">
-                        <i class="fas fa-lock prefix grey-text"></i>
-                        <input type="password" id="register-pass" class="form-control validate" name="password"
-                               data-parsley-minlength="8">
-                        <label data-error="wrong" data-success="right" for="register-pass">Votre mot de passe</label>
-                    </div>
-
-                </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <button class="btn btn-purple">Créer un compte</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="modalForgetPasswordForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<!--div class="modal fade" id="modalForgetPasswordForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -238,44 +205,45 @@ elseif (isset($_SESSION['background']) && ($_SESSION['background'] != '0' || !em
             </form>
         </div>
     </div>
-</div>
+</div-->
 
-<div class="container">
+<div id="content" class="container">
     <?= flash() ?>
-    <p>
-        <?php if ($_SERVER['HTTP_HOST'] === 'localhost') {
-            //var_dump($_COOKIE);
-            var_dump($_SESSION);
-            //var_dump($_POST);
-        } ?>
-    </p><br/>
-    <div class="content">
-        <?= $content ?>
-    </div>
+    <?= $content ?>
 </div>
 <br/><br/>
 </body>
-<footer class="page-footer font-small bg-dark pt-4">
-    <div class="container-fluid text-center text-md-left">
+
+<!-- Footer -->
+<footer class="page-footer pt-4">
+    <!-- Grid container -->
+    <div class="container-fluid text-center text-md-start">
+        <!--Grid row-->
         <div class="row">
-            <div class="col-md-6 mt-md-0 mt-3" style="padding-right: 20px">
+            <!--Grid column-->
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
                 <h5 class="text-uppercase">Description</h5>
                 <p>Lexique japonais est un site qui permet de retrouver des mots traduits du français ou de l'anglais
                     vers le japonais. Ce site est également un projet universitaire de L3 MIAGE. Toujours en
                     développement !</p>
             </div>
-            <hr class="clearfix w-100 d-md-none pb-3">
-            <div class="col-md-3 mb-md-0 mb-3">
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
                 <h5 class="text-uppercase">Statistiques :</h5>
 
-                <ul class="list-unstyled">
+                <ul class="list-unstyled mb-0">
                     <li>
                         <a href="stats">Statistiques</a>
                     </li>
                 </ul>
             </div>
-            <div class="col-md-3 mb-md-0 mb-3">
-                <h5 class="text-uppercase">Pages annexes :</h5>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase mb-0">Pages annexes :</h5>
 
                 <ul class="list-unstyled">
                     <li>
@@ -286,10 +254,16 @@ elseif (isset($_SESSION['background']) && ($_SESSION['background'] != '0' || !em
                     </li>
                 </ul>
             </div>
+            <!--Grid column-->
         </div>
+        <!--Grid row-->
     </div>
-    <div class="footer-copyright text-center py-3">© 2020-21 Copyright:
-        <a href="accueil"> lexiquejaponais.fr.</a>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2020-21 Copyright:
+        <a href=""> lexiquejaponais.fr.</a>
         All Rights Reserved.
         <a href="https://discord.gg/Mksrg3hDuv" target="_blank" style="margin-left: 8px">
             <i class="fab fa-discord"></i>
@@ -298,26 +272,22 @@ elseif (isset($_SESSION['background']) && ($_SESSION['background'] != '0' || !em
             <i class="fab fa-instagram"></i>
         </a>
     </div>
+    <!-- Copyright -->
 </footer>
-<script>
-    // SVG changer de couleur
-    $('img.svg').each(function () {
-        var $img = jQuery(this);
-        var imgID = $img.attr('id');
-        var imgClass = $img.attr('class');
-        var imgURL = $img.attr('src');
+<!-- Footer -->
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
+        integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG"
+        crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
+        integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
+        crossorigin="anonymous" defer></script>
+<!-- MDB core JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.4.0/perfect-scrollbar.min.js"
+        defer></script>
+<!-- JQuerry validation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js" defer></script>
 
-        $.get(imgURL, function (data) {
-            var $svg = jQuery(data).find('svg');
-            if (typeof imgID !== 'undefined') {
-                $svg = $svg.attr('id', imgID);
-            }
-            if (typeof imgClass !== 'undefined') {
-                $svg = $svg.attr('class', imgClass + ' replaced-svg');
-            }
-            $svg = $svg.removeAttr('xmlns:a');
-            $img.replaceWith($svg);
-        }, 'xml');
-    });
-</script>
+<script src="resources/js/main.js" defer></script>
 </html>

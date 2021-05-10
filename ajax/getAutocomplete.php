@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '../model/frontend.php';
+require_once __DIR__ . '/../model/frontend.php';
 
 if (!empty($_POST['keyword'])) :
     $key = htmlspecialchars($_POST['keyword']);

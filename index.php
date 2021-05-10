@@ -1,5 +1,6 @@
 <?php
 
+mb_internal_encoding("UTF-8");
 require './controller/frontend.php';
 
 try {
@@ -17,8 +18,8 @@ try {
             deleteGroupe($_GET['id']);
         } elseif ($p === 'logout') {
             logout();
-        } elseif ($p === 'submitLogin') {
-            submitLogin($_POST['mail'], $_POST['password']);
+        } elseif ($p === 'signIn') {
+            submitLogin($_POST['mail'], $_POST['pass']);
         } elseif ($p === 'submitRegister') {
             submitRegister($_POST['pseudo'], $_POST['password'], $_POST['mail']);
         } elseif ($p === 'listes') {
