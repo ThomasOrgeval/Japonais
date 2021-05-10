@@ -2,7 +2,7 @@
 header('Content-type: application/xml; charset=utf-8');
 $xml = '<?xml version="1.0" encoding="utf-8"?>';
 $xml .= '
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     ';
 
 $list = [
@@ -25,17 +25,17 @@ foreach ($list as $item) {
 
 $xml .= '    <url>
         <loc>https://lexiquejaponais.fr/cours</loc>
-        <lastmod>20-01-2021</lastmod>
+        <lastmod>2021-01-20</lastmod>
         <changefreq>yearly</changefreq>
     </url>
     <url>
         <loc>https://lexiquejaponais.fr/nombres</loc>
-        <lastmod>20-01-2021</lastmod>
+        <lastmod>2021-01-20</lastmod>
         <changefreq>never</changefreq>
     </url>
     <url>
         <loc>https://lexiquejaponais.fr/kana</loc>
-        <lastmod>20-01-2021</lastmod>
+        <lastmod>2021-01-20</lastmod>
         <changefreq>never</changefreq>
     </url>
     <url>
@@ -44,13 +44,13 @@ $xml .= '    <url>
     </url>
     <url>
         <loc>https://lexiquejaponais.fr/</loc>
-        <lastmod>20-01-2021</lastmod>
+        <lastmod>2021-01-20</lastmod>
         <changefreq>never</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://lexiquejaponais.fr/accueil</loc>
-        <lastmod>20-01-2021</lastmod>
+        <lastmod>2021-01-20</lastmod>
         <changefreq>never</changefreq>
         <priority>1.0</priority>
     </url>
