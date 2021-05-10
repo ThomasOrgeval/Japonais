@@ -588,9 +588,10 @@ function selectRecompense($id)
  * Autocomplete
  */
 
-function autocompleteMots($key)
+function autocompleteMots($key): array
 {
     $db = dbConnect();
+    $key = $db->quote($key);
     $select = $db->query("select francais, slug, j.id_type, type, j.romaji from lexiqumjaponais.FRANCAIS 
         inner join lexiqumjaponais.TRADUCTION t on FRANCAIS.id = t.id_word
         inner join lexiqumjaponais.JAPONAIS j on t.id_japonais = j.id
@@ -599,7 +600,7 @@ function autocompleteMots($key)
     return $select->fetchAll();
 }
 
-function getTypes($key)
+function getTypes($key): array
 {
     $db = dbConnect();
     $select = $db->query("select type from lexiqumjaponais.FRANCAIS 
@@ -610,7 +611,7 @@ function getTypes($key)
     return $select->fetchAll();
 }
 
-function autocompleteUser($key, $id_user)
+function autocompleteUser($key, $id_user): array
 {
     $db = dbConnect();
     $id_user = $db->quote($id_user);

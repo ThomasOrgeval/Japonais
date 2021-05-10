@@ -9,10 +9,10 @@
     <?php endif; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8"/>
     <meta name="description"
-          content="Lexique japonais permet de s’exercer chaque jour, se lancer des défis, défier des amis, le tout dans la langue de ごく (Goku) ! Lexique japonais contient tout ce que vous recherchez sur la langue japonaise.">
-    <meta name="robots" content="noindex, nofollow">
-    <title><?= isset($title) ? $title : 'Lexique Japonais'?></title>
-    <link rel="shortcut icon" type="image" href="./resources/svgs/sakura_login.svg">
+          content="Lexique japonais permet de s’exercer chaque jour, se lancer des défis, défier des amis, le tout dans
+          la langue de ごく (Goku) ! Lexique japonais contient tout ce que vous recherchez sur la langue japonaise.">
+    <title><?= $title ?? 'Lexique Japonais' ?></title>
+    <link rel="shortcut icon" type="image" href="resources/svgs/sakura_login.svg">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
@@ -25,9 +25,9 @@
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
     <!-- MDB Datatable -->
-    <link href="./resources/css/addons/datatables2.min.css" rel="stylesheet">
+    <link href="resources/css/addons/datatables2.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="./resources/css/style.css">
+    <link rel="stylesheet" href="resources/css/style.css">
 
     <!-- jQuery -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -41,10 +41,10 @@
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
     <!--script src="./resources/js/all.js"></script-->
-    <script src="./resources/js/addons/datatables2.min.js"></script>
+    <script src="resources/js/addons/datatables2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.4.0/perfect-scrollbar.min.js"></script>
 
-    <script src="./resources/js/main.js"></script>
+    <script src="resources/js/main.js"></script>
 
     <?php if (isset($_SESSION['theme']) && $_SESSION['theme'] != '0') : ?>
         <link rel="stylesheet" href="./resources/css/theme/<?= $_SESSION['theme'] ?>.css">
@@ -61,7 +61,7 @@ elseif (isset($_SESSION['background']) && ($_SESSION['background'] != '0' || !em
 <?php endif; ?>
         "
 >
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark " id="navbar-top">
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark" id="navbar-top">
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <ul class="navbar-nav mr-auto">
             <a class="nav-item nav-link" href="accueil">Accueil</a>
@@ -301,13 +301,13 @@ elseif (isset($_SESSION['background']) && ($_SESSION['background'] != '0' || !em
 </footer>
 <script>
     // SVG changer de couleur
-    jQuery('img.svg').each(function () {
+    $('img.svg').each(function () {
         var $img = jQuery(this);
         var imgID = $img.attr('id');
         var imgClass = $img.attr('class');
         var imgURL = $img.attr('src');
 
-        jQuery.get(imgURL, function (data) {
+        $.get(imgURL, function (data) {
             var $svg = jQuery(data).find('svg');
             if (typeof imgID !== 'undefined') {
                 $svg = $svg.attr('id', imgID);
