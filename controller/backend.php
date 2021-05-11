@@ -4,9 +4,8 @@ require './model/backend.php';
 
 function admin_portail()
 {
-    if (connect_admin()) {
-        require './view/backend/index.php';
-    } else header('Location:accueil');
+    if (connect_admin()) require './view/backend/index.php';
+    else header('Location:accueil');
 }
 
 function groupe()
@@ -43,7 +42,7 @@ function type()
 {
     if (connect_admin()) {
         $_POST['type'] = listType();
-        require './view/backend/type.php';
+        require 'view/backend/type.php';
     } else header('Location:accueil');
 }
 
@@ -64,9 +63,8 @@ function type_edit()
 
 function japonais()
 {
-    if (connect_admin()) {
-        require './view/backend/japonais.php';
-    } else header('Location:accueil');
+    if (connect_admin()) require './view/backend/japonais.php';
+    else header('Location:accueil');
 }
 
 function japonais_edit()
@@ -76,17 +74,14 @@ function japonais_edit()
 
         $types = listType();
         $type_list = array();
-        foreach ($types as $type) {
-            $type_list[$type['id']] = $type['type'];
-        }
+        foreach ($types as $type) $type_list[$type['id']] = $type['type'];
 
         if (isset($_GET['id'])) {
-            $japonais = testJaponaisID($_GET['id']);
-            if ($japonais->rowCount() === 0) {
+            if (testJaponaisID($_GET['id'])) {
                 setFlash("Il n'y a pas de mot japonais avec cet ID", "danger");
                 header("Location:index.php?p=japonais");
             }
-            $_POST = $japonais->fetch();
+            $_POST = getJaponais($_GET['id']);
             $_POST['groupes'] = listGroupeToJaponais($_GET['id']);
             $_POST['kanjis'] = listKanjiToJaponais($_GET['id']);
         }
@@ -101,11 +96,11 @@ function japonais_edit()
 function japonais_add()
 {
     if (connect_admin()) {
-        $kanji = securize($_POST['kanji']);
-        $kana = securize($_POST['kana']);
-        $romaji = securize($_POST['romaji']);
-        $desc = securize($_POST['description']);
-        $jlpt = securize($_POST['jlpt']);
+        $kanji = secure($_POST['kanji']);
+        $kana = secure($_POST['kana']);
+        $romaji = secure($_POST['romaji']);
+        $desc = secure($_POST['description']);
+        $jlpt = secure($_POST['jlpt']);
 
         if (isset($_GET['id']) && !empty($_GET['id'])) {
             $addWord = editJaponais($kana, $kanji, $romaji, $desc, $_POST['id_type'], $_GET['id'], $jlpt);
@@ -136,12 +131,8 @@ function japonais_add()
             }
         }
 
-        if ($addWord === false) {
-            setFlash('Le mot n\'a pas été ajouté', 'danger');
-            throw new Exception();
-        }
-
-        setFlash('Le mot a bien été crée');
+        if ($addWord === false) setFlash('Le mot n\'a pas été ajouté', 'danger');
+        else setFlash('Le mot a bien été crée');
         header('Location:index.php?p=japonais');
     } else header('Location:accueil');
 }
@@ -149,7 +140,7 @@ function japonais_add()
 function kanjis()
 {
     if (connect_admin()) {
-        $_POST['kanji'] = listKanji();
+        $_POST['kanji'] = getKanjis();
         require './view/backend/kanjis.php';
     } else header('Location:accueil');
 }
@@ -157,14 +148,12 @@ function kanjis()
 function kanji_edit()
 {
     if (connect_admin()) {
-
         if (isset($_GET['id'])) {
-            $kanji = testKanji($_GET['id']);
-            if ($kanji->rowCount() === 0) {
+            if (!existKanji($_GET['id'])) {
                 setFlash("Il n'y a pas de kanji avec cet ID", "danger");
                 header("Location:index.php?p=kanji");
             }
-            $_POST = $kanji->fetch();
+            $_POST = getKanji($_GET['id']);
             $_POST['japonais'] = listJaponaisToKanji($_GET['id']);
         }
         require './view/backend/kanji_edit.php';
@@ -184,17 +173,14 @@ function recompense_edit()
     if (connect_admin()) {
         $types = listTypeRecompense();
         $type_list = array();
-        foreach ($types as $type) {
-            $type_list[$type['id']] = $type['type'];
-        }
+        foreach ($types as $type) $type_list[$type['id']] = $type['type'];
 
         if (isset($_GET['id'])) {
-            $recompense = testRecompense($_GET['id']);
-            if ($recompense->rowCount() === 0) {
+            if (!existRecompense($_GET['id'])) {
                 setFlash("Il n'y a pas de récompense avec cet ID", "danger");
                 header("Location:index.php?p=recompense");
             }
-            $_POST = $recompense->fetch();
+            $_POST = getRecompense($_GET['id']);
             $_POST['acheteurs'] = listAchateurFromRecompense($_GET['id']);
         }
         require './view/backend/recompense_edit.php';
@@ -210,25 +196,24 @@ function connect_admin()
     return true;
 }
 
-function securize($var)
+function secure($var): string
 {
     $var = htmlspecialchars($var);
     $var = trim($var);
-    $var = strip_tags($var);
-    return $var;
+    return strip_tags($var);
 }
 
 /**
  * Groupe
  */
 
-function addGroupe()
+function groupe_add()
 {
     if (connect_admin()) {
-        $libelle = securize($_POST['libelle']);
-        if (strlen($_POST['id_parent']) != 0 && (int)$_POST['id_parent'] != 0) $id_parent = (int)securize($_POST['id_parent']);
+        $libelle = secure($_POST['libelle']);
+        if (strlen($_POST['id_parent']) != 0 && (int)$_POST['id_parent'] != 0) $id_parent = (int)secure($_POST['id_parent']);
         else $id_parent = null;
-        $quantifieur = securize($_POST['quantifieur']);
+        $quantifieur = secure($_POST['quantifieur']);
         $slug = slug($libelle);
 
         if ($_GET['id'] > 0) {
@@ -247,17 +232,12 @@ function addGroupe()
     } else header('Location:accueil');
 }
 
-function deleteGroupe($id)
+function groupe_delete()
 {
     if (connect_admin()) {
-        deleteAllGroupe($id);
-        $deleteGroupe = supprGroupe($id);
-        if ($deleteGroupe === false) {
-            setFlash('Le groupe n\'a pas été supprimé', 'danger');
-            throw new Exception();
-        }
-
-        setFlash('Le groupe a bien été supprimé');
+        deleteAllGroupe($_GET['id']);
+        if (!supprGroupe($_GET['id'])) setFlash('Le groupe n\'a pas été supprimé', 'danger');
+        else setFlash('Le groupe a bien été supprimé');
         header('Location:index.php?p=groupe');
     } else header('Location:accueil');
 }
@@ -269,8 +249,8 @@ function deleteGroupe($id)
 function addFrancais($id, $francais)
 {
     if (connect_admin()) {
-        $francais = securize($francais);
-        $slug = securize(slug($francais));
+        $francais = secure($francais);
+        $slug = secure(slug($francais));
 
         if ($id > 0) {
             editWord($francais, $id, $slug);
@@ -291,38 +271,26 @@ function slug($str, $delimiter = '-')
  * Type
  */
 
-function addType()
+function type_add()
 {
     if (connect_admin()) {
-        $type = securize($_POST['type']);
-        $type_jp = securize($_POST['type_jp']);
+        $type = secure($_POST['type']);
+        $type_jp = secure($_POST['type_jp']);
 
-        if ($_GET['id'] > 0) {
-            $addType = editType($_GET['id'], $type, $type_jp);
-        } else {
-            $addType = createType($type, $type_jp);
-        }
+        if ($_GET['id'] > 0) $addType = editType($_GET['id'], $type, $type_jp);
+        else $addType = createType($type, $type_jp);
 
-        if ($addType === false) {
-            setFlash('Le type n\'a pas été ajouté', 'danger');
-            throw new Exception();
-        }
-
-        setFlash('Le type a bien été crée');
+        if ($addType === false) setFlash('Le type n\'a pas été ajouté', 'danger');
+        else setFlash('Le type a bien été crée');
         header('Location:index.php?p=type');
     } else header('Location:accueil');
 }
 
-function deleteType($id)
+function type_delete()
 {
     if (connect_admin()) {
-        $deleteType = supprType($id);
-        if ($deleteType === false) {
-            setFlash('Le type n\'a pas été supprimé', 'danger');
-            throw new Exception();
-        }
-
-        setFlash('Le type a bien été supprimé');
+        if (!supprType($_GET['id'])) setFlash('Le type n\'a pas été supprimé', 'danger');
+        else setFlash('Le type a bien été supprimé');
         header('Location:index.php?p=type');
     } else header('Location:accueil');
 }
@@ -335,7 +303,7 @@ function deleteType($id)
 function addAnglais($id, $anglais)
 {
     if (connect_admin()) {
-        $anglais = securize($anglais);
+        $anglais = secure($anglais);
 
         if ($id > 0) {
             editAnglais($anglais, $id);
@@ -349,7 +317,7 @@ function addAnglais($id, $anglais)
  * Kanji
  */
 
-function saveKanji()
+function kanji_save()
 {
     if (connect_admin()) {
         $addKanji = editKanji($_POST['id'], $_POST['on_yomi'], $_POST['kun_yomi'], $_POST['sens'], $_POST['sens_en']);
@@ -387,39 +355,29 @@ function find_kanji($var)
  * Récompense
  */
 
-function addRecompense()
+function recompense_add()
 {
     if (connect_admin()) {
-        if (preg_match('/^[a-z\-0-9]+$/', $_POST['slug'])) {
-            if ($_GET['id'] > 0) {
-                $addRecompense = editRecompense($_GET['id'], $_POST['libelle'], $_POST['cout'], $_POST['slug'], $_POST['id_type']);
-            } else {
-                $addRecompense = createRecompense($_POST['libelle'], $_POST['cout'], $_POST['slug'], $_POST['id_type']);
-            }
+        $libelle = secure($_POST['libelle']);
+        $cost = secure($_POST['cout']);
+        $slug = secure($_POST['slug']);
+        if (preg_match('/^[a-z\-0-9]+$/', $slug)) {
+            if ($_GET['id'] > 0) $addRecompense = editRecompense($_GET['id'], $libelle, $cost, $slug, $_POST['id_type']);
+            else $addRecompense = createRecompense($libelle, $cost, $slug, $_POST['id_type']);
 
-            if ($addRecompense === false) {
-                setFlash('La récompense n\'a pas été ajouté', 'danger');
-                throw new Exception();
-            }
-
-            setFlash('La récompense a bien été crée');
+            if (!$addRecompense) setFlash('La récompense n\'a pas été ajouté', 'danger');
+            else setFlash('La récompense a bien été crée');
             header('Location:index.php?p=recompense');
-        } else {
-            setFlash("Le slug n'est pas valide", 'danger');
-        }
+        } else setFlash("Le slug n'est pas valide", 'danger');
     } else header('Location:accueil');
 }
 
-function deleteRecompense($id)
+function recompense_delete()
 {
     if (connect_admin()) {
-        $delete = supprRecompense($id);
-        if ($delete === false) {
-            setFlash('La récompense n\'a pas été supprimée', 'danger');
-            throw new Exception();
-        }
+        if (supprRecompense($_GET['id'])) setFlash('La récompense a bien été supprimée');
+        else setFlash('La récompense n\'a pas été supprimée', 'danger');
 
-        setFlash('La récompense a bien été supprimée');
         header('Location:index.php?p=recompense');
     } else header('Location:accueil');
 }
@@ -448,7 +406,7 @@ function otherGroupe($listPresent)
 function music()
 {
     if (connect_admin()) {
-        $_POST['music'] = listMusic();
+        $_POST['music'] = getMusics();
         require './view/backend/music.php';
     } else header('Location:accueil');
 }
@@ -457,13 +415,13 @@ function music_edit()
 {
     if (connect_admin()) {
         if (isset($_GET['id'])) {
-            if (nbrMusic($_GET['id']) === 0) {
+            if (!existMusic($_GET['id'])) {
                 setFlash('Il n\'y a pas de musique avec cet ID', 'danger');
                 header('Location: index.php?p=groupe');
             }
-            $_POST = getMusic($_GET['id'])[0];
+            $_POST = getMusic($_GET['id']);
         }
-        require './view/backend/music_edit.php';
+        require 'view/backend/music_edit.php';
     } else header('Location:accueil');
 }
 
@@ -478,16 +436,13 @@ function music_delete()
 function music_add()
 {
     if (connect_admin()) {
-        $anime = securize($_POST['anime']);
-        $chanteur = securize($_POST['chanteur']);
-        $titre = securize($_POST['titre']);
+        $anime = secure($_POST['anime']);
+        $chanteur = secure($_POST['chanteur']);
+        $titre = secure($_POST['titre']);
         $slug = slug($chanteur . ' - ' . $titre);
 
-        if ($_GET['id'] > 0) {
-            editMusic($_GET['id'], $_POST['japonais'], $_POST['romaji'], $_POST['francais'], $anime, $chanteur, $titre, $slug);
-        } else {
-            addMusic($_POST['japonais'], $_POST['romaji'], $_POST['francais'], $anime, $chanteur, $titre, $slug);
-        }
+        if ($_GET['id'] > 0) editMusic($_GET['id'], $_POST['japonais'], $_POST['romaji'], $_POST['francais'], $anime, $chanteur, $titre, $slug);
+        else addMusic($_POST['japonais'], $_POST['romaji'], $_POST['francais'], $anime, $chanteur, $titre, $slug);
 
         if (!empty($_FILES['audio']['name'])) {
             $audio = slug($_FILES['audio']['name']);

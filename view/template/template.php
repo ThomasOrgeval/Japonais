@@ -233,7 +233,7 @@ elseif (isset($_SESSION['background']) && ($_SESSION['background'] != '0' || !em
             <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
                 <h5 class="text-uppercase">Statistiques :</h5>
 
-                <ul class="list-unstyled mb-0">
+                <ul class="list-unstyled">
                     <li>
                         <a href="stats">Statistiques</a>
                     </li>

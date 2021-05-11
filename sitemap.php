@@ -1,4 +1,4 @@
-<?php require './model/sitemap.php';
+<?php require 'model/sitemap.php';
 header('Content-type: application/xml; charset=utf-8');
 $xml = '<?xml version="1.0" encoding="utf-8"?>';
 $xml .= '
@@ -41,12 +41,6 @@ $xml .= '    <url>
     <url>
         <loc>https://lexiquejaponais.fr/musique</loc>
         <changefreq>monthly</changefreq>
-    </url>
-    <url>
-        <loc>https://lexiquejaponais.fr/</loc>
-        <lastmod>2021-01-20</lastmod>
-        <changefreq>never</changefreq>
-        <priority>1.0</priority>
     </url>
     <url>
         <loc>https://lexiquejaponais.fr/accueil</loc>

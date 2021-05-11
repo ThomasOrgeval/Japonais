@@ -67,9 +67,8 @@ function searchUser($pseudo)
 function searchMail($mail)
 {
     $db = dbConnect();
-    $selectUser = $db->prepare('select pseudo from USER where mail=?');
-    $selectUser->execute(array($mail));
-    return $selectUser->fetch();
+    $mail = $db->quote($mail);
+    return $db->prepare("select pseudo from USER where mail = $mail")->fetch();
 }
 
 function changePass($mail, $pass)
@@ -86,15 +85,7 @@ function saveAccount($id, $words, $kanji)
     $id = $db->quote($id);
     $words = $db->quote($words);
     $kanji = $db->quote($kanji);
-    $db->exec("update USER set nombre=$words, kanji=$kanji where id=$id");
-}
-
-function changeIcon($id_icon)
-{
-    $db = dbConnect();
-    $id_icon = $db->quote($id_icon);
-    $select = $db->query("select * from RECOMPENSE where id=$id_icon");
-    return $select->fetch();
+    $db->query("update USER set nombre = $words, kanji = $kanji where id=$id");
 }
 
 function setIcon($id_user, $slug)
@@ -102,7 +93,7 @@ function setIcon($id_user, $slug)
     $db = dbConnect();
     $id_user = $db->quote($id_user);
     $slug = $db->quote($slug);
-    $db->exec("update USER set icone=$slug where id=$id_user");
+    $db->query("update USER set icone = $slug where id = $id_user");
 }
 
 function setLife($id_user, $life)
@@ -221,12 +212,11 @@ function updateRecup($mail, $code)
     $db->exec("update RECUPERATION set code=$code where mail=$mail");
 }
 
-function searchRecupMail($mail)
+function searchRecupMail($mail): bool
 {
     $db = dbConnect();
-    $selectUser = $db->prepare('select id from RECUPERATION where mail=?');
-    $selectUser->execute(array($mail));
-    return $selectUser->rowCount();
+    $mail = $db->quote($mail);
+    return $db->query("select id from RECUPERATION where mail like $mail")->rowCount() === 1;
 }
 
 function searchRecup($mail, $code)
@@ -234,7 +224,7 @@ function searchRecup($mail, $code)
     $db = dbConnect();
     $mail = $db->quote($mail);
     $code = $db->quote($code);
-    return $db->query("select * from RECUPERATION where code=$code and mail=$mail");
+    return $db->query("select * from RECUPERATION where code = $code and mail = $mail")->fetch();
 }
 
 function deleteRecup($id)
@@ -316,58 +306,48 @@ function listFrancaisToJaponaisWord($japonais)
  * Listes
  */
 
-function listListes($id_user)
+function getListes($id_user): array
 {
     $db = dbConnect();
     $id_user = $db->quote($id_user);
-    $select = $db->query("select id, nom, description, id_confidentiality, id_user from LISTES where id_user=$id_user");
-    return $select->fetchAll();
+    return $db->query("select id, nom, description, id_confidentiality, id_user from LISTES where id_user=$id_user")->fetchAll();
 }
 
 function selectListe($id)
 {
     $db = dbConnect();
     $id = $db->quote($id);
-    $select = $db->query("select id, nom, description, id_confidentiality, id_user from LISTES where id=$id");
-    return $select->fetch();
+    return $db->query("select id, nom, description, id_confidentiality, id_user from LISTES where id=$id")->fetch();
 }
 
 function selectUserFromListe($id_liste)
 {
     $db = dbConnect();
     $id_liste = $db->quote($id_liste);
-    $select = $db->query("select USER.icone, USER.pseudo from USER 
-    inner join LISTES 
-        on USER.id = LISTES.id_user
-    where LISTES.id=$id_liste");
-    return $select->fetch();
+    return $db->query("select USER.icone, USER.pseudo from USER 
+        inner join LISTES on USER.id = LISTES.id_user
+        where LISTES.id = $id_liste")->fetch();
 }
 
-function haveListes($id_user, $id_francais)
+function haveListes($id_user, $id_francais): array
 {
     $db = dbConnect();
     $id_user = $db->quote($id_user);
     $id_francais = $db->quote($id_francais);
-    $select = $db->query("select LISTES.id, nom, description, id_confidentiality, id_user from LISTES 
-    inner join WORDS_LISTES wl 
-        on LISTES.id = wl.id_liste
-    inner join FRANCAIS fr
-        on wl.id_word = fr.id
-    where id_user=$id_user and fr.id=$id_francais");
-    return $select->fetchAll();
+    return $db->query("select LISTES.id, nom, description, id_confidentiality, id_user from LISTES 
+        inner join WORDS_LISTES wl on LISTES.id = wl.id_liste
+        inner join FRANCAIS fr on wl.id_word = fr.id
+        where id_user = $id_user and fr.id = $id_francais")->fetchAll();
 }
 
-function selectFrancaisFromListe($id)
+function selectFrancaisFromListe($id): array
 {
     $db = dbConnect();
     $id = $db->quote($id);
-    $select = $db->query("select FRANCAIS.* from FRANCAIS 
-    inner join WORDS_LISTES wl 
-        on FRANCAIS.id = wl.id_word
-    inner join LISTES l
-        on wl.id_liste = l.id
-    where l.id=$id");
-    return $select->fetchAll();
+    return $db->query("select FRANCAIS.* from FRANCAIS 
+        inner join WORDS_LISTES wl on FRANCAIS.id = wl.id_word
+        inner join LISTES l on wl.id_liste = l.id
+        where l.id=$id")->fetchAll();
 }
 
 function supprListe($id)
@@ -434,8 +414,7 @@ function researchWord($search)
 {
     $db = dbConnect();
     $search = $db->quote($search);
-    $select = $db->query("select * from FRANCAIS where slug like $search");
-    return $select->fetch();
+    return $db->query("select id, francais, slug from FRANCAIS where slug like $search")->fetch();
 }
 
 function researchGroupeSlug($search)
@@ -453,39 +432,35 @@ function groupeParent($id)
     return $db->query("select * from GROUPE where id=$id")->fetch();
 }
 
-function groupeEnfant($id)
+function groupeEnfant($id): array
 {
     $db = dbConnect();
     $id = $db->quote($id);
     return $db->query("select * from GROUPE where id_parent=$id")->fetchAll();
 }
 
-function listJaponaisToFrancais($id_francais)
+function listJaponaisToFrancais($id_francais): array
 {
     $db = dbConnect();
     $id_francais = $db->quote($id_francais);
-    $select = $db->query("select JAPONAIS.*, j.color as color from JAPONAIS
-    left join JLPT j 
-        on j.id = JAPONAIS.jlpt
-    inner join TRADUCTION t
-        on t.id_japonais = JAPONAIS.id
-    where id_word=$id_francais order by id_type");
-    return $select->fetchAll();
+    return $db->query("select JAPONAIS.*, j.color as color from JAPONAIS
+        left join JLPT j on j.id = JAPONAIS.jlpt
+        inner join TRADUCTION t on t.id_japonais = JAPONAIS.id
+        where id_word = $id_francais order by id_type")->fetchAll();
 }
 
 /**
  * Achat
  */
 
-function listAchatByAccount($id_user)
+function listAchatByAccount($id_user): array
 {
     $db = dbConnect();
     $id_user = $db->quote($id_user);
-    $select = $db->query("select RECOMPENSE.libelle, RECOMPENSE.date_parution, RECOMPENSE.slug, RECOMPENSE.cout, ACHAT.date_achat, type from RECOMPENSE
+    return $db->query("select RECOMPENSE.libelle, RECOMPENSE.date_parution, RECOMPENSE.slug, RECOMPENSE.cout, ACHAT.date_achat, type from RECOMPENSE
         inner join ACHAT on RECOMPENSE.id = ACHAT.id_recompense
         inner join RECOMPENSE_TYPE on RECOMPENSE.id_type = RECOMPENSE_TYPE.id
-        where ACHAT.id_user=$id_user");
-    return $select->fetchAll();
+        where ACHAT.id_user=$id_user")->fetchAll();
 }
 
 function listAchatThemeByAccount($id_user)
@@ -539,34 +514,31 @@ function listAchatIconByAccount($id_user)
     return $select->fetchAll();
 }
 
-function listIcons()
+function getIcons(): array
 {
     $db = dbConnect();
-    $select = $db->query("select RECOMPENSE.* from RECOMPENSE
+    return $db->query("select RECOMPENSE.* from RECOMPENSE
         inner join RECOMPENSE_TYPE RT on RECOMPENSE.id_type = RT.id
-        where type like 'Icone'");
-    return $select->fetchAll();
+        where type like 'Icone'")->fetchAll();
 }
 
-function haveIcon($id_user, $id_icon)
+function getIcon($id_user, $id_icon)
 {
     $db = dbConnect();
     $id_user = $db->quote($id_user);
     $id_icon = $db->quote($id_icon);
-    $select = $db->query("select RECOMPENSE.id from ACHAT
+    return $db->query("select RECOMPENSE.id, RECOMPENSE.slug from ACHAT
         inner join RECOMPENSE on RECOMPENSE.id = ACHAT.id_recompense
-        inner join RECOMPENSE_TYPE RT on RECOMPENSE.id_type = RT.id
-        where ACHAT.id_user=$id_user and RT.type like 'Icone' and ACHAT.id_recompense=$id_icon");
-    return $select->fetch();
+        inner join RECOMPENSE_TYPE rt on RECOMPENSE.id_type = rt.id
+        where ACHAT.id_user=$id_user and rt.type like 'Icone' and ACHAT.id_recompense=$id_icon")->fetch();
 }
 
-function achatByUser($id_user, $id_recompense)
+function achatByUser($id_user, $id_recompense): bool
 {
     $db = dbConnect();
     $id_user = $db->quote($id_user);
     $id_recompense = $db->quote($id_recompense);
-    $select = $db->query("select * from ACHAT where id_user=$id_user and id_recompense=$id_recompense");
-    return $select->fetch();
+    return $db->query("select id from ACHAT where id_user=$id_user and id_recompense=$id_recompense")->rowCount() === 1;
 }
 
 function achatdb($id_user, $id_recompense)

@@ -99,11 +99,18 @@ function listJaponais()
     return $select->fetchAll();
 }
 
-function testJaponaisID($id)
+function getJaponais($id)
 {
     $db = dbConnect();
     $id = $db->quote($id);
-    return $db->query("select * from JAPONAIS where id=$id");
+    return $db->query("select id, kanji, kana, romaji, description, id_type, jlpt from JAPONAIS where id = $id")->fetch();
+}
+
+function testJaponaisID($id): bool
+{
+    $db = dbConnect();
+    $id = $db->quote($id);
+    return $db->query("select id from JAPONAIS where id = $id")->rowCount() === 1;
 }
 
 function editJaponais($kana, $kanji, $romaji, $description, $id_type, $id, $jlpt)
@@ -493,18 +500,24 @@ function listJaponaisToKanji($id_kanji)
  * Kanji
  */
 
-function listKanji()
+function getKanjis(): array
 {
     $db = dbConnect();
-    $select = $db->query("select id, kanji, grade from KANJI");
-    return $select->fetchAll();
+    return $db->query("select id, kanji, grade from KANJI")->fetchAll();
 }
 
-function testKanji($id_kanji)
+function getKanji($id)
 {
     $db = dbConnect();
-    $id = $db->quote($id_kanji);
-    return $db->query("select * from KANJI where id=$id");
+    $id = $db->quote($id);
+    return $db->query("select id, kanji, lignes, grade, on_yomi, kun_yomi, sens, sens_en from KANJI where id = $id")->fetch();
+}
+
+function existKanji($id): bool
+{
+    $db = dbConnect();
+    $id = $db->quote($id);
+    return $db->query("select id from KANJI where id = $id")->rowCount() === 1;
 }
 
 function editKanji($id, $on, $kun, $sens, $sens_en)
@@ -529,11 +542,18 @@ function testKanjiContains($kanji)
  * Recompense
  */
 
-function testRecompense($id)
+function getRecompense($id): bool
 {
     $db = dbConnect();
     $id = $db->quote($id);
-    return $db->query("select * from RECOMPENSE where id=$id");
+    return $db->query("select id, libelle, slug, cout, date_parution, id_type from RECOMPENSE where id=$id")->fetch();
+}
+
+function existRecompense($id): bool
+{
+    $db = dbConnect();
+    $id = $db->quote($id);
+    return $db->query("select id from RECOMPENSE where id=$id")->rowCount() === 1;
 }
 
 function listRecompense()
@@ -599,26 +619,24 @@ function listAchateurFromRecompense($id_recompense)
  * Musique
  */
 
-function listMusic()
+function getMusics(): array
 {
     $db = dbConnect();
-    $select = $db->query("select id, anime, chanteur, titre from MUSIQUE");
-    return $select->fetchAll();
-}
-
-function nbrMusic($id)
-{
-    $db = dbConnect();
-    $id = $db->quote($id);
-    $select = $db->query("select id from MUSIQUE where id=$id");
-    return $select->rowCount();
+    return $db->query("select id, anime, chanteur, titre from MUSIQUE")->fetchAll();
 }
 
 function getMusic($id)
 {
     $db = dbConnect();
     $id = $db->quote($id);
-    return $db->query("select id, japonais, romaji, francais, anime, chanteur, titre, slug, audio from MUSIQUE where id=$id")->fetchAll();
+    return $db->query("select id, japonais, romaji, francais, anime, chanteur, titre, slug, audio from MUSIQUE where id=$id")->fetch();
+}
+
+function existMusic($id): bool
+{
+    $db = dbConnect();
+    $id = $db->quote($id);
+    return $db->query("select id from MUSIQUE where id=$id")->rowCount() === 1;
 }
 
 function dropMusic($id)

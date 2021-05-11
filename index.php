@@ -5,123 +5,174 @@ require './controller/frontend.php';
 
 try {
     if (isset($_GET['p'])) {
-        $p = $_GET['p'];
-        if ($p === 'accueil') {
-            accueil();
-        } elseif ($p === 'groupe') {
-            groupe();
-        } elseif ($p === 'groupe_edit') {
-            groupe_edit();
-        } elseif ($p === 'groupe_add') {
-            addGroupe();
-        } elseif ($p === 'groupe_delete') {
-            deleteGroupe($_GET['id']);
-        } elseif ($p === 'logout') {
-            logout();
-        } elseif ($p === 'signIn') {
-            submitLogin($_POST['mail'], $_POST['pass']);
-        } elseif ($p === 'submitRegister') {
-            submitRegister($_POST['pseudo'], $_POST['password'], $_POST['mail']);
-        } elseif ($p === 'listes') {
-            listes();
-        } elseif ($p === 'liste_edit') {
-            liste_edit();
-        } elseif ($p === 'liste_delete') {
-            deleteListe($_GET['id']);
-        } elseif ($p === 'liste_add') {
-            if (isset($_POST['save'])) {
-                addListe($_POST['nom'], $_POST['description'], $_POST['id_confidentiality'], $_GET['id']);
-            }
-        } elseif ($p === 'account') {
-            account();
-        } elseif ($p === 'admin_portail') {
-            admin_portail();
-        } elseif ($p === 'type') {
-            type();
-        } elseif ($p === 'type_edit') {
-            type_edit();
-        } elseif ($p === 'type_add') {
-            addType();
-        } elseif ($p === 'type_delete') {
-            deleteType($_GET['id']);
-        } elseif ($p === 'japonais') {
-            japonais();
-        } elseif ($p === 'japonais_edit') {
-            japonais_edit();
-        } elseif ($p === 'japonais_add') {
-            japonais_add();
-        } elseif ($p === 'kanjis') {
-            kanjis();
-        } elseif ($p === 'kanji_edit') {
-            kanji_edit();
-        } elseif ($p === 'kanji_save') {
-            saveKanji();
-        } elseif ($p === 'points') {
-            points();
-        } elseif ($p === 'recompense') {
-            recompense();
-        } elseif ($p === 'recompense_edit') {
-            recompense_edit();
-        } elseif ($p === 'recompense_add') {
-            addRecompense();
-        } elseif ($p === 'recompense_delete') {
-            deleteRecompense($_GET['id']);
-        } elseif ($p === 'achat') {
-            achat();
-        } elseif ($p === 'forget_password') {
-            forget_password();
-        } elseif ($p === 'send_code') {
-            recup_code();
-        } elseif ($p === 'change_pass') {
-            change_pass();
-        } elseif ($p === 'theme') {
-            theme();
-        } elseif ($p === 'select_theme') {
-            select_theme();
-        } elseif ($p === 'select_back') {
-            select_back();
-        } elseif ($p === 'change_icon') {
-            change_icon();
-        } elseif ($p === 'save_account') {
-            save_account();
-        } elseif ($p === 'search') {
-            search();
-        } elseif ($p === 'groupe_search') {
-            groupe_page();
-        } elseif ($p === 'liste') {
-            liste();
-        } elseif ($p === 'changelog') {
-            changelog();
-        } elseif ($p === 'statistiques') {
-            statistiques();
-        } elseif ($p === 'kanji') {
-            kanji();
-        } elseif ($p === 'contact') {
-            contact();
-        } elseif ($p === 'kana') {
-            kana();
-        } elseif ($p === 'history') {
-            history();
-        } elseif ($p === 'courses') {
-            courses();
-        } elseif ($p === 'number') {
-            number();
-        } elseif ($p === 'music') {
-            music();
-        } elseif ($p === 'music_edit') {
-            music_edit();
-        } elseif ($p === 'music_delete') {
-            music_delete();
-        } elseif ($p === 'music_add') {
-            music_add();
-        } elseif ($p === 'musics') {
-            musics();
-        } elseif ($p === 'music_show') {
-            music_show();
+        switch ($_GET['p']) {
+            case 'accueil':
+                accueil();
+                break;
+            case 'signIn':
+                submitLogin($_POST['mail'], $_POST['pass']);
+                break;
+            case 'signUp':
+                submitRegister($_POST['pseudo'], $_POST['pass'], $_POST['mail']);
+                break;
+            case 'logout':
+                logout();
+                break;
+            case 'groupe':
+                groupe();
+                break;
+            case 'groupe_edit':
+                groupe_edit();
+                break;
+            case 'groupe_add':
+                groupe_add();
+                break;
+            case 'groupe_delete':
+                groupe_delete();
+                break;
+            case 'listes':
+                listes();
+                break;
+            case 'liste_edit':
+                liste_edit();
+                break;
+            case 'liste_delete':
+                liste_delete();
+                break;
+            case 'liste_add':
+                liste_add();
+                break;
+            case 'account':
+                account();
+                break;
+            case 'admin_portail':
+                admin_portail();
+                break;
+            case 'type':
+                type();
+                break;
+            case 'type_edit':
+                type_edit();
+                break;
+            case 'type_add':
+                type_add();
+                break;
+            case 'type_delete':
+                type_delete();
+                break;
+            case 'japonais':
+                japonais();
+                break;
+            case 'japonais_edit':
+                japonais_edit();
+                break;
+            case 'japonais_add':
+                japonais_add();
+                break;
+            case 'kanjis':
+                kanjis();
+                break;
+            case 'kanji_edit':
+                kanji_edit();
+                break;
+            case 'kanji_save':
+                kanji_save();
+                break;
+            case 'points':
+                points();
+                break;
+            case 'recompense':
+                recompense();
+                break;
+            case 'recompense_edit':
+                recompense_edit();
+                break;
+            case 'recompense_add':
+                recompense_add();
+                break;
+            case 'recompense_delete':
+                recompense_delete();
+                break;
+            case 'achat':
+                achat();
+                break;
+            case 'forget_pass':
+                forget_password();
+                break;
+            case 'send_code':
+                send_code();
+                break;
+            case 'change_pass':
+                change_pass();
+                break;
+            case 'theme':
+                theme();
+                break;
+            case 'select_theme':
+                select_theme();
+                break;
+            case 'select_back':
+                select_back();
+                break;
+            case 'change_icon':
+                change_icon();
+                break;
+            case 'save_account':
+                save_account();
+                break;
+            case 'search':
+                search();
+                break;
+            case 'groupe_search':
+                groupe_page();
+                break;
+            case 'liste':
+                liste();
+                break;
+            case 'changelog':
+                changelog();
+                break;
+            case 'statistiques':
+                statistiques();
+                break;
+            case 'kanji':
+                kanji();
+                break;
+            case 'contact':
+                contact();
+                break;
+            case 'kana':
+                kana();
+                break;
+            case 'history':
+                history();
+                break;
+            case 'courses':
+                courses();
+                break;
+            case 'number':
+                number();
+                break;
+            case 'music':
+                music();
+                break;
+            case 'music_edit':
+                music_edit();
+                break;
+            case 'music_add':
+                music_add();
+                break;
+            case 'musique_delete':
+                music_delete();
+                break;
+            case 'musics':
+                musics();
+                break;
+            case 'music_show':
+                music_show();
+                break;
         }
-    } else {
-        accueil();
-    }
+    } else header('Location:accueil');
 } catch (Exception $e) {
     $php_errormsg = $e->getMessage();
     require './view/error.php';
