@@ -260,7 +260,7 @@ function addFrancais($id, $francais)
     } else header('Location:accueil');
 }
 
-function slug($str, $delimiter = '-')
+function slug($str, $delimiter = '-'): string
 {
     $unwanted_array = ['é' => 'e', 'è' => 'e', 'É' => 'e', 'ç' => 'c', 'È' => 'e', 'Ù' => 'u', 'ù' => 'u', 'À' => 'a', 'à' => 'a', 'Ç' => 'c', 'ô' => 'o', 'Ô' => 'o'];
     $str = strtr($str, $unwanted_array);

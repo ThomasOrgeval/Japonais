@@ -217,27 +217,25 @@ function submitToken()
     $token = new Token();
     if ($token->rowCountToken(secure($_COOKIE['token']), secure($_COOKIE['mail'])) === 1) {
         $statements = $token->getUserWithToken(secure($_COOKIE['token']), secure($_COOKIE['mail']));
-        $_SESSION['pseudo'] = $statements['pseudo'];
-        $_SESSION['admin'] = $statements['droits'];
-        $_SESSION['id'] = $statements['id'];
-        $_SESSION['nombreWords'] = $statements['nombre'];
-        $_SESSION['points'] = getSakura($_SESSION['id'])['sakura'];
-        $_SESSION['connect'] = 'OK';
-        $_SESSION['icone'] = $statements['icone'];
-        $_SESSION['theme'] = $statements['theme'];
-        $_SESSION['background'] = $statements['background'];
-        $_SESSION['kanji'] = $statements['kanji'];
-        $_SESSION['riddle'] = getRiddle($_SESSION['id']);
+        $_SESSION['Account']['pseudo'] = $statements['pseudo'];
+        $_SESSION['Account']['admin'] = $statements['droits'];
+        $_SESSION['Account']['id'] = $statements['id'];
+        $_SESSION['Account']['nombreWords'] = $statements['nombre'];
+        $_SESSION['Account']['points'] = getSakura($_SESSION['id'])['sakura'];
+        $_SESSION['Account']['connect'] = 'OK';
+        $_SESSION['Account']['icone'] = $statements['icone'];
+        $_SESSION['Account']['theme'] = $statements['theme'];
+        $_SESSION['Account']['background'] = $statements['background'];
+        $_SESSION['Account']['kanji'] = $statements['kanji'];
+        $_SESSION['Account']['riddle'] = getRiddle($_SESSION['id']);
 
         if ($statements['last_login'] < date("Y-m-d") || $statements['last_login'] == null) {
-            setLastLogin($_SESSION['id']);
+            setLastLogin($_SESSION['Account']['id']);
             if ((int)$statements['life'] < 5) {
-                setLife($_SESSION['id'], (int)$statements['life'] + 1);
-                $_SESSION['life'] = (int)$statements['life'] + 1;
-            } else {
-                $_SESSION['life'] = (int)$statements['life'];
-            }
-        } else $_SESSION['life'] = (int)$statements['life'];
+                setLife($_SESSION['Account']['id'], (int)$statements['life'] + 1);
+                $_SESSION['Account']['life'] = (int)$statements['life'] + 1;
+            } else $_SESSION['Account']['life'] = (int)$statements['life'];
+        } else $_SESSION['Account']['life'] = (int)$statements['life'];
         setFlash('Connexion réussie');
     } else header('Location:accueil');
 }
@@ -282,14 +280,10 @@ function submitLogin($mail, $password)
 
 function submitRegister($pseudo, $password, $mail)
 {
-    $pseudo = secure($pseudo);
-    $password = secure($password);
-    $mail = secure($mail);
-
     if (!empty($pseudo) && !empty($password) && !empty($mail)) {
-        $correctMail = searchMail($mail);
-        $correctPseudo = searchPseudo($pseudo);
-        $correctSlug = searchSlug(slug($pseudo));
+        $correctMail = searchMail(secure($mail));
+        $correctPseudo = searchPseudo(secure($pseudo));
+        $correctSlug = searchSlug(slug(secure($pseudo)));
         if ($correctMail) {
             setFlash('L\'adresse mail est déjà utilisée', 'danger');
             header('Location:accueil');
@@ -298,8 +292,8 @@ function submitRegister($pseudo, $password, $mail)
             header('Location:accueil');
         } else {
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
-            createUser($pseudo, $password_hash, $mail, slug($pseudo));
-            submitLogin($mail, $password);
+            createUser(secure($pseudo), $password_hash, secure($mail), slug(secure($pseudo)));
+            submitLogin(secure($mail), $password);
         }
     }
 }
