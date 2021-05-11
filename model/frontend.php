@@ -23,6 +23,7 @@ function createUser($pseudo, $pass, $mail, $slug)
     $pseudo = $db->quote($pseudo);
     $pass = $db->quote($pass);
     $mail = $db->quote($mail);
+    $slug = $db->quote($slug);
     $db->query("insert into USER(pseudo, pass, mail, date, droits, nombre, icone, life, last_login, theme, kanji, slug) 
                         values ($pseudo, $pass, $mail, curdate(), 0, 10, 0, 5, curdate(), 0, 1, $slug) ");
 }

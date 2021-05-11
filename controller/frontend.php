@@ -278,9 +278,10 @@ function submitLogin($mail, $password)
     header('Location:accueil');
 }
 
-function submitRegister($pseudo, $password, $mail)
+function submitRegister($pseudo, $pass, $mail)
 {
-    if (!empty($pseudo) && !empty($password) && !empty($mail)) {
+    var_dump($pseudo, $pass, $mail);
+    if (!empty($pseudo) && !empty($pass) && !empty($mail)) {
         $correctMail = searchMail(secure($mail));
         $correctPseudo = searchPseudo(secure($pseudo));
         $correctSlug = searchSlug(slug(secure($pseudo)));
@@ -291,9 +292,9 @@ function submitRegister($pseudo, $password, $mail)
             setFlash('Le pseudo est déjà utilisé', 'danger');
             header('Location:accueil');
         } else {
-            $password_hash = password_hash($password, PASSWORD_DEFAULT);
+            $password_hash = password_hash($pass, PASSWORD_DEFAULT);
             createUser(secure($pseudo), $password_hash, secure($mail), slug(secure($pseudo)));
-            submitLogin(secure($mail), $password);
+            submitLogin(secure($mail), $pass);
         }
     }
 }
