@@ -1,7 +1,6 @@
 <?php
 
-define('BASE_URL', 'https://lexiquejaponais.fr/');
-require_once '../model/frontend.php';
+require_once __DIR__ . '/../model/frontend.php';
 
 $id_liste = $_POST['id_liste'];
 $id_mot = $_POST['id_mot'];

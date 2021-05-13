@@ -1,14 +1,13 @@
 <?php
 
-define('BASE_URL', 'https://lexiquejaponais.fr/');
 session_start();
-require_once '../model/frontend.php';
+require_once __DIR__ . '/../model/frontend.php';
 
 if (!empty($_POST['keyword'])) :
     $key = htmlspecialchars($_POST['keyword']);
     $key = trim($key);
     $key = strip_tags($key);
-    $users = autocompleteUser($key, $_SESSION['id']);
+    $users = autocompleteUser($key, $_SESSION['Account']['id']);
 
     if (!empty($users)) : ?>
         <ul class="list-group list-group-flush" id="research">

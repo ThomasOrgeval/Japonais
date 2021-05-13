@@ -1,11 +1,10 @@
-<?php $title = isset($_POST['id']) ? $_POST['nom'] . ' - Edition' : 'Ma nouvelle liste';
+<?php $title = $_POST['nom'] . ' - Edition' ?? 'Ma nouvelle liste';
 ob_start(); ?>
 
     <h1 class="h1-admin">Editer une liste</h1>
 
-    <form action="index.php?p=liste_add<?php if (isset($_GET['id'])) {
-        echo '&id=' . $_GET['id'];
-    } ?>" method="post" style="display: flex;">
+    <form action="index.php?p=liste_add<?php if (isset($_GET['id'])) echo '&id=' . $_GET['id']; ?>"
+          method="post" class="d-flex">
         <div class="col-sm-8">
             <div class="form-group">
                 <label for="nom">Nom de la liste</label>

@@ -1,5 +1,5 @@
 User-Agent: *
-Sitemap: http://www.lexiquejaponais.com/sitemap.xml
+Sitemap: http://www.lexiquejaponais.fr/sitemap.xml
 Allow: /*
 Dissalow: /controller/
 Dissalow: /model/

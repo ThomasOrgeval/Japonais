@@ -1,10 +1,9 @@
 <?php
 
-define('BASE_URL', 'https://lexiquejaponais.fr/');
 session_start();
-if ($_SESSION['connect'] === 'OK' && $_SESSION['admin'] == 1) {
-    require_once '../model/frontend.php';
-    require_once '../model/backend.php';
+if ($_SESSION['Account']['admin'] != 1 && isAdmin($_SESSION['Account']['pseudo'])) {
+    require_once __DIR__ . '/../model/frontend.php';
+    require_once __DIR__ . '/../model/backend.php';
 
     deleteAllKanjiForJaponais($_POST['id']);
     deleteAllGroupeForJaponais($_POST['id']);

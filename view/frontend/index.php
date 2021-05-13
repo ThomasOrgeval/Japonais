@@ -1,12 +1,14 @@
 <?php ob_start(); ?>
 
-    <input type="text" style="width: 100%" id="autocomplete" class="autocomplete-bar" name="mot" placeholder="Recherche"
-           autocomplete="off">
-    <div id="search" class="search" style="width: 100%"></div><br/><br/>
+    <div class="row mb-3">
+        <label for="autocomplete"></label>
+        <input type="text" id="autocomplete" class="autocomplete-bar" name="mot" placeholder="Recherche"
+               autocomplete="off">
+        <div id="search" class="search p-0"></div>
+    </div>
 
 <?php if (!empty($_POST['words'])): ?>
-    <h3>Sélection aléatoire de mots :</h3>
-    <br/>
+    <h3 class="mb-2">Sélection aléatoire de mots :</h3>
     <table class="table table-striped table-size">
         <thead>
         <tr>
@@ -56,27 +58,32 @@
     <br/><br/>
 <?php endif; ?>
 
+<?php if (isset($_SESSION['Account'])) : ?>
     <div class="card text-center">
         <div class="card-body" id="card">
             <h6 class="card-title" id="riddle">Trouve la bonne traduction !</h6>
-            <?php if (isset($_SESSION['riddle']) && $_SESSION['life'] > 0) : ?>
+            <?php if (isset($_SESSION['Account']['riddle']) && $_SESSION['Account']['life'] > 0) : ?>
                 <form id="riddle-form">
-                    <div id="riddle-div" class="flexible">
-                        <p id="riddle-value" class="card-text" style="font-size: 100%"><?= $_SESSION['riddle'] ?></p>
+                    <div id="riddle-div" class="d-flex h5">
+                        <p id="riddle-value" class="card-text"><?= $_SESSION['Account']['riddle'] ?></p>
                         <p class="life">
-                            <img id="heart" class="svg" src="./resources/svgs/heart.svg" alt="heart"> :
-                            <span id="life"><?= $_SESSION['life'] ?></span>
+                            <img id="heart" class="svg" src="resources/svgs/heart.svg" alt="heart"> :
+                            <span id="life"><?= $_SESSION['Account']['life'] ?></span>
                         </p>
                     </div>
                     <div id="result"></div>
-                    <input type="text" id="value" class="form-text riddle" autocomplete="off" required><br/>
-                    <input type="submit" id="riddle-btn" class="btn btn-primary" value="Valider">
+                    <div class="form-outline mb-4">
+                        <input type="text" id="value" class="form-control" autocomplete="off" required>
+                        <label for="value" class="form-label">Devinette</label>
+                    </div>
+                    <input type="submit" id="riddle-btn" class="btn btn-primary btn-lg btn-block" value="Valider">
                 </form>
-            <?php elseif ($_SESSION['life'] === 0) : ?>
+            <?php else : ?>
                 <p class="card-text">Vous n'avez plus de vie, revenez demain !</p>
             <?php endif; ?>
         </div>
     </div>
+<?php endif; ?>
 
     <div id="snackbar"></div>
 

@@ -1,9 +1,12 @@
 <?php $title = $_POST['kanji'];;
 ob_start(); ?>
 
-    <input type="text" style="width: 100%" id="autocomplete" class="autocomplete-bar" name="mot"
-           placeholder="Recherche" autocomplete="off">
-    <div id="search" class="search" style="width: 100%"></div><br/><br/>
+    <div class="row mb-3">
+        <label for="autocomplete"></label>
+        <input type="text" id="autocomplete" class="autocomplete-bar" name="mot" placeholder="Recherche"
+               autocomplete="off">
+        <div id="search" class="search p-0"></div>
+    </div>
 
     <div class="card" style="margin: 0 auto;">
         <div class="card-header" style="cursor: pointer" onclick="modalKanji()">
@@ -28,7 +31,7 @@ ob_start(); ?>
         </ul>
         <div class="card-body">
             <?php if (!empty($_POST['japonais'])) : ?>
-            <span class="font-weight-bold">Liste des mots utilisant ce kanji :</span><br/><br>
+                <span class="font-weight-bold">Liste des mots utilisant ce kanji :</span><br/><br>
                 <?php $i = count($_POST['japonais']);
                 foreach ($_POST['japonais'] as $japonais) : ?>
                     <a class="card-link button-a" href="recherche/<?= $japonais['slug'] ?>">

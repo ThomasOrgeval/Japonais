@@ -1,0 +1,54 @@
+<files .htaccess>
+order allow,deny
+deny from all
+</files>
+
+RewriteEngine on
+Options +FollowSymlinks
+Options -Indexes
+
+## www -> no-www
+# RewriteCond %{HTTP_HOST} ^www\.(.+)$
+# RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L,NE,QSA]
+## http -> https
+# RewriteCond %{HTTPS} off
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,NE,QSA]
+
+RewriteRule recherche/([a-zA-Z0-9-]+)$ index.php?p=search&mot=$1
+RewriteRule kanji/([0-9]+)$ index.php?p=kanji&id=$1
+RewriteRule groupe/([a-zA-Z0-9-]+)$ index.php?p=groupe_search&id=$1
+RewriteRule accueil$ index.php?p=accueil
+RewriteRule listes$ index.php?p=listes
+RewriteRule liste_edit$ index.php?p=liste_edit
+RewriteRule liste_edit/([0-9]+)$ index.php?p=liste_edit&id=$1
+RewriteRule theme$ index.php?p=theme
+RewriteRule historique$ index.php?p=history
+RewriteRule cours$ index.php?p=courses
+RewriteRule points$ index.php?p=points
+RewriteRule compte$ index.php?p=account
+RewriteRule compte/$ index.php?p=account
+RewriteRule compte/([a-zA-Z0-9-]+)$ index.php?p=account&user=$1
+
+RewriteRule stats$ index.php?p=statistiques
+RewriteRule changelog$ index.php?p=changelog
+RewriteRule contact$ index.php?p=contact
+
+RewriteRule kana$ index.php?p=kana
+RewriteRule nombres$ index.php?p=number
+RewriteRule musique$ index.php?p=musics
+RewriteRule musique/([a-zA-Z0-9-]+)$ index.php?p=music_show&slug=$1
+
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType resources/image/jpg "access 1 year"
+ExpiresByType resources/image/jpeg "access 1 year"
+ExpiresByType resources/image/png "access 1 year"
+ExpiresByType resources/image/svg "access 1 year"
+ExpiresByType resources/css/css "access 1 month"
+ExpiresByType resources/template/pdf "access 1 month"
+ExpiresByType resources/js/javascript "access 1 month"
+ExpiresByType resources/js/x-javascript "access 1 month"
+ExpiresDefault "access 2 days"
+</IfModule>

@@ -1,10 +1,9 @@
 <?php
 
-define('BASE_URL', 'https://lexiquejaponais.fr/');
 session_start();
-require_once '../model/frontend.php';
-require_once '../model/backend.php';
-require_once '../controller/libs/accent.php';
+require_once __DIR__ . '/../model/frontend.php';
+require_once __DIR__ . '/../model/backend.php';
+require_once __DIR__ . '/../controller/libs/accent.php';
 
 $value = accents(mb_strtolower($_POST['value']));
 
@@ -12,9 +11,9 @@ $bool = false;
 $french = true;
 $sakura = 0;
 
-$traducts = listJaponaisToFrancaisWord($_SESSION['riddle']);
+$traducts = listJaponaisToFrancaisWord($_SESSION['Account']['riddle']);
 if ($traducts == null) {
-    $traducts = listFrancaisToJaponaisWord($_SESSION['riddle']);
+    $traducts = listFrancaisToJaponaisWord($_SESSION['Account']['riddle']);
     $french = false;
 }
 
@@ -35,25 +34,25 @@ foreach ($traducts as $traduct) {
 }
 
 if (rand(0, 1) === 1) { // Sélection mot japonais
-    if ($_SESSION['kanji'] == 1) $japonais = rand(0, 2);
+    if ($_SESSION['Account']['kanji'] == 1) $japonais = rand(0, 2);
     else $japonais = rand(0, 1);
 
-    if ($japonais === 0) $_SESSION['riddle'] = selectOneRandomWord()['romaji'];
-    elseif ($japonais === 1) $_SESSION['riddle'] = selectOneRandomWord()['kana'];
-    else $_SESSION['riddle'] = selectOneRandomWord()['kanji'];
+    if ($japonais === 0) $_SESSION['Account']['riddle'] = selectOneRandomWord()['romaji'];
+    elseif ($japonais === 1) $_SESSION['Account']['riddle'] = selectOneRandomWord()['kana'];
+    else $_SESSION['Account']['riddle'] = selectOneRandomWord()['kanji'];
 } else { // Sélection mot francais
-    $_SESSION['riddle'] = selectOneRandomWord()['francais'];
+    $_SESSION['Account']['riddle'] = selectOneRandomWord()['francais'];
 }
 
 if ($bool) {
-    $_SESSION['points'] += $sakura;
-    setSakura($_SESSION['id'], $sakura);
-    setRiddle($_SESSION['id'], $_SESSION['riddle'], 1);
+    $_SESSION['Account']['points'] += $sakura;
+    setSakura($_SESSION['Account']['id'], $sakura);
+    setRiddle($_SESSION['Account']['id'], $_SESSION['Account']['riddle'], 1);
     echo "Success - " . $sakura;
 } else {
-    --$_SESSION['life'];
-    setLife($_SESSION['id'], $_SESSION['life']);
-    setRiddle($_SESSION['id'], $_SESSION['riddle'], 0);
+    --$_SESSION['Account']['life'];
+    setLife($_SESSION['Account']['id'], $_SESSION['Account']['life']);
+    setRiddle($_SESSION['Account']['id'], $_SESSION['Account']['riddle'], 0);
     if ($french) {
         echo "Failed - " . $traducts[0]['romaji'];
     } else {

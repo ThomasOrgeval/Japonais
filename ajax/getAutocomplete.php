@@ -1,7 +1,6 @@
 <?php
 
-define('BASE_URL', 'https://lexiquejaponais.fr/');
-require_once '../model/frontend.php';
+require_once __DIR__ . '/../model/frontend.php';
 
 if (!empty($_POST['keyword'])) :
     $key = htmlspecialchars($_POST['keyword']);

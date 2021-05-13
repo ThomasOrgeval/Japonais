@@ -1,7 +1,7 @@
 <?php $title = 'Points';
 ob_start(); ?>
 
-    <h3>Vous avez : <?= $_SESSION['points'] ?>
+    <h3>Vous avez : <?= $_SESSION['Account']['points'] ?>
         <img id="sakura-svg-points" class="svg" src="./resources/svgs/sakura.svg" alt="sakura">
     </h3>
 

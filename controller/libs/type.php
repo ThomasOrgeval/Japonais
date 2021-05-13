@@ -3,18 +3,19 @@
 function add_selection_type($type, $base)
 {
     $type = testType($type)->fetch()['type'];
+    $end1 = substr($base['romaji'], strlen($base['romaji']) - 1);
     $end2 = substr($base['romaji'], strlen($base['romaji']) - 2);
     $end3 = substr($base['romaji'], strlen($base['romaji']) - 3);
-
-    $romaji = substr($base['romaji'], 0, -2);
-    $kana = substr($base['kana'], 0, -3);
-    $kanji = substr($base['kanji'], 0, -3);
 
     $exceptFirstGroupe = listExceptions();
 
     switch ($type) {
 
         case 'Verbe' :
+            $romaji = substr($base['romaji'], 0, -2);
+            $kana = substr($base['kana'], 0, -3);
+            $kanji = substr($base['kanji'], 0, -3);
+
             if ($base['romaji'] == 'Suru' || substr($base['romaji'], strlen($base['romaji']) - 4) == 'suru') { // Groupe 3 irréguliers
                 if ($base['romaji'] != 'Suru') {
                     $romaji = substr($base['romaji'], 0, -4);
@@ -52,7 +53,7 @@ function add_selection_type($type, $base)
                         "Romaji" => ["Affirmatif neutre" => $romaji . $romajiNeg . "te", "Négatif neutre" => $romaji . $romajiNeg . "runa", "Affirmatif polie" => $romaji . $romajiNeg . "te kudasai", "Négatif polie" => $romaji . $romajiNeg . "nai de kudasai"]
                     ], // Impératif
 
-                    "Volutive" => [
+                    "Volitive" => [
                         "Kanji" => ["Neutre" => $kanji . $kanjiNeg . "よう", "Négatif neutre" => $kanji . $kanjiNeg . "まい", "Poli" => $kanji . $kanjiNeg . "ましょう", "Négatif polie" => $kanji . $kanjiNeg . "ますまい"],
                         "Kana" => ["Neutre" => $kana . $kanjiNeg . "よう", "Négatif neutre" => $kana . $kanjiNeg . "まい", "Poli" => $kana . $kanjiNeg . "ましょう", "Négatif polie" => $kana . $kanjiNeg . "ますまい"],
                         "Romaji" => ["Neutre" => $romaji . $romajiNeg . "you", "Négatif neutre" => $romaji . $romajiNeg . "mai", "Poli" => $romaji . $romajiNeg . "mashou", "Négatif polie" => $romaji . $romajiNeg . "masumai"]
@@ -85,7 +86,7 @@ function add_selection_type($type, $base)
                     "Causatif (Factitif)" => [
                         "Kanji" => ["Affirmatif neutre" => $kanji . "させる", "Négatif neutre" => $kanji . "させない", "Affirmatif polie" => $kanji . "させます", "Négatif polie" => $kanji . "させません"],
                         "Kana" => ["Affirmatif neutre" => $kana . "させる", "Négatif neutre" => $kana . "させない", "Affirmatif polie" => $kana . "させます", "Négatif polie" => $kana . "させません"],
-                        "Romaji" => ["Affirmatif neutre" => $romaji . $romajiSase . "ru", "Négatif neutre" => $romaji . $romajiSase . "nai", "Affirmatif polie" => $romaji . $romajiSase . "masu", "Négatif polie" => $romaji . $romajiSase .  "masen"]
+                        "Romaji" => ["Affirmatif neutre" => $romaji . $romajiSase . "ru", "Négatif neutre" => $romaji . $romajiSase . "nai", "Affirmatif polie" => $romaji . $romajiSase . "masu", "Négatif polie" => $romaji . $romajiSase . "masen"]
                     ], // Causatif
 
                     "Passif (Subir)" => [
@@ -139,7 +140,7 @@ function add_selection_type($type, $base)
                         "Romaji" => ["Affirmatif neutre" => $romaji . "te", "Négatif neutre" => $romaji . "nasaruna", "Affirmatif polie" => $romaji . "te kudasai", "Négatif polie" => $romaji . "nai de kudasai"]
                     ], // Impératif
 
-                    "Volutive" => [
+                    "Volitive" => [
                         "Kanji" => ["Affirmatif neutre" => $kanji . "よう", "Négatif neutre" => $kanji . "まい", "Affirmatif polie" => $kanji . "ましょう", "Négatif polie" => $kanji . "ますまい"],
                         "Kana" => ["Affirmatif neutre" => $kana . "よう", "Négatif neutre" => $kana . "まい", "Affirmatif polie" => $kana . "ましょう", "Négatif polie" => $kana . "ますまい"],
                         "Romaji" => ["Affirmatif neutre" => $romajiNeg . "you", "Négatif neutre" => $romaji . "mai", "Affirmatif polie" => $romaji . "mashou", "Négatif polie" => $romaji . "masumai"]
@@ -215,7 +216,7 @@ function add_selection_type($type, $base)
                         "Romaji" => ["Affirmatif neutre" => $romaji . "nasai", "Négatif neutre" => $romaji . "runa", "Affirmatif polie" => $romaji . "te kudasai", "Négatif polie" => $romaji . "nai de kudasai"]
                     ], // Impératif
 
-                    "Volutive" => [
+                    "Volitive" => [
                         "Kanji" => ["Neutre" => $kanji . "よう", "Négatif neutre" => $kanji . "まい", "Poli" => $kanji . "ましょう", "Négatif polie" => $kanji . "ますまい"],
                         "Kana" => ["Neutre" => $kana . "よう", "Négatif neutre" => $kana . "まい", "Poli" => $kana . "ましょう", "Négatif polie" => $kana . "ますまい"],
                         "Romaji" => ["Neutre" => $romaji . "you", "Négatif neutre" => $romaji . "mai", "Poli" => $romaji . "mashou", "Négatif polie" => $romaji . "masumai"]
@@ -299,7 +300,7 @@ function add_selection_type($type, $base)
                             "Romaji" => ["Affirmatif neutre" => $romaji . "rinasai", "Affirmatif polie" => $romaji . "tte kudasai", "Négatif polie" => $romaji . "ranai de kudasai"]
                         ], // Impératif
 
-                        "Volutive" => [
+                        "Volitive" => [
                             "Kanji" => ["Neutre" => $kanji . "よう", "Négatif neutre" => $kanji . "るまい", "Poli" => $kanji . "りましょう", "Négatif polie" => $kanji . "りますまい"],
                             "Kana" => ["Neutre" => $kana . "よう", "Négatif neutre" => $kana . "るまい", "Poli" => $kana . "りましょう", "Négatif polie" => $kana . "りますまい"],
                             "Romaji" => ["Neutre" => $romaji . "you", "Négatif neutre" => $romaji . "rumai", "Poli" => $romaji . "rimashou", "Négatif polie" => $romaji . "rimasumai"]
@@ -382,7 +383,7 @@ function add_selection_type($type, $base)
                                 "Romaji" => ["Affirmatif neutre" => $romaji . "kinasai", "Affirmatif polie" => $romaji . "tte kudasai", "Négatif polie" => $romaji . "kanai de kudasai"]
                             ], // Impératif
 
-                            "Volutive" => [
+                            "Volitive" => [
                                 "Kanji" => ["Neutre" => $kanji . "こう", "Négatif neutre" => $kanji . "くまい", "Poli" => $kanji . "きましょう", "Négatif polie" => $kanji . "きますまい"],
                                 "Kana" => ["Neutre" => $kana . "こう", "Négatif neutre" => $kana . "くまい", "Poli" => $kana . "きましょう", "Négatif polie" => $kana . "きますまい"],
                                 "Romaji" => ["Neutre" => $romaji . "kou", "Négatif neutre" => $romaji . "kumai", "Poli" => $romaji . "kimashou", "Négatif polie" => $romaji . "kimasumai"]
@@ -462,7 +463,7 @@ function add_selection_type($type, $base)
                                 "Romaji" => ["Affirmatif neutre" => $romaji . "kinasai", "Affirmatif polie" => $romaji . "ite kudasai", "Négatif polie" => $romaji . "kanai de kudasai"]
                             ], // Impératif
 
-                            "Volutive" => [
+                            "Volitive" => [
                                 "Kanji" => ["Neutre" => $kanji . "こう", "Négatif neutre" => $kanji . "くまい", "Poli" => $kanji . "きましょう", "Négatif polie" => $kanji . "きますまい"],
                                 "Kana" => ["Neutre" => $kana . "こう", "Négatif neutre" => $kana . "くまい", "Poli" => $kana . "きましょう", "Négatif polie" => $kana . "きますまい"],
                                 "Romaji" => ["Neutre" => $romaji . "kou", "Négatif neutre" => $romaji . "kumai", "Poli" => $romaji . "kimashou", "Négatif polie" => $romaji . "kimasumai"]
@@ -545,7 +546,7 @@ function add_selection_type($type, $base)
                             "Romaji" => ["Affirmatif neutre" => $romaji . "ginasai", "Affirmatif polie" => $romaji . "tte kudasai", "Négatif polie" => $romaji . "ganai de kudasai"]
                         ], // Impératif
 
-                        "Volutive" => [
+                        "Volitive" => [
                             "Kanji" => ["Neutre" => $kanji . "ごう", "Négatif neutre" => $kanji . "ぐまい", "Poli" => $kanji . "ぎましょう", "Négatif polie" => $kanji . "ぎますまい"],
                             "Kana" => ["Neutre" => $kana . "ごう", "Négatif neutre" => $kana . "ぐまい", "Poli" => $kana . "ぎましょう", "Négatif polie" => $kana . "ぎますまい"],
                             "Romaji" => ["Neutre" => $romaji . "gou", "Négatif neutre" => $romaji . "gumai", "Poli" => $romaji . "gimashou", "Négatif polie" => $romaji . "gimasumai"]
@@ -627,7 +628,7 @@ function add_selection_type($type, $base)
                             "Romaji" => ["Affirmatif neutre" => $romaji . "chinasai", "Affirmatif polie" => $romaji . "tte kudasai", "Négatif polie" => $romaji . "tanai de kudasai"]
                         ], // Impératif
 
-                        "Volutive" => [
+                        "Volitive" => [
                             "Kanji" => ["Neutre" => $kanji . "とう", "Négatif neutre" => $kanji . "つまい", "Poli" => $kanji . "ちましょう", "Négatif polie" => $kanji . "ちますまい"],
                             "Kana" => ["Neutre" => $kana . "とう", "Négatif neutre" => $kana . "つまい", "Poli" => $kana . "ちましょう", "Négatif polie" => $kana . "ちますまい"],
                             "Romaji" => ["Neutre" => $romaji . "tou", "Négatif neutre" => $romaji . "tsumai", "Poli" => $romaji . "chimashou", "Négatif polie" => $romaji . "chimasumai"]
@@ -709,7 +710,7 @@ function add_selection_type($type, $base)
                             "Romaji" => ["Affirmatif neutre" => $romaji . "shinasai", "Affirmatif polie" => $romaji . "shite kudasai", "Négatif polie" => $romaji . "sanai de kudasai"]
                         ], // Impératif
 
-                        "Volutive" => [
+                        "Volitive" => [
                             "Kanji" => ["Neutre" => $kanji . "そう", "Négatif neutre" => $kanji . "すまい", "Poli" => $kanji . "しましょう", "Négatif polie" => $kanji . "しますまい"],
                             "Kana" => ["Neutre" => $kana . "そう", "Négatif neutre" => $kana . "すまい", "Poli" => $kana . "しましょう", "Négatif polie" => $kana . "しますまい"],
                             "Romaji" => ["Neutre" => $romaji . "sou", "Négatif neutre" => $romaji . "sumai", "Poli" => $romaji . "shimashou", "Négatif polie" => $romaji . "shimasumai"]
@@ -791,7 +792,7 @@ function add_selection_type($type, $base)
                             "Romaji" => ["Affirmatif neutre" => $romaji . "ninasai", "Affirmatif polie" => $romaji . "nde kudasai", "Négatif polie" => $romaji . "nanai de kudasai"]
                         ], // Impératif
 
-                        "Volutive" => [
+                        "Volitive" => [
                             "Kanji" => ["Neutre" => $kanji . "のう", "Négatif neutre" => $kanji . "ぬまい", "Poli" => $kanji . "にましょう", "Négatif polie" => $kanji . "にますまい"],
                             "Kana" => ["Neutre" => $kana . "のう", "Négatif neutre" => $kana . "ぬまい", "Poli" => $kana . "にましょう", "Négatif polie" => $kana . "にますまい"],
                             "Romaji" => ["Neutre" => $romaji . "nou", "Négatif neutre" => $romaji . "numai", "Poli" => $romaji . "nimashou", "Négatif polie" => $romaji . "nimasumai"]
@@ -873,7 +874,7 @@ function add_selection_type($type, $base)
                             "Romaji" => ["Affirmatif neutre" => $romaji . "minasai", "Affirmatif polie" => $romaji . "nde kudasai", "Négatif polie" => $romaji . "manai de kudasai"]
                         ], // Impératif
 
-                        "Volutive" => [
+                        "Volitive" => [
                             "Kanji" => ["Neutre" => $kanji . "もう", "Négatif neutre" => $kanji . "むまい", "Poli" => $kanji . "みましょう", "Négatif polie" => $kanji . "みますまい"],
                             "Kana" => ["Neutre" => $kana . "もう", "Négatif neutre" => $kana . "むまい", "Poli" => $kana . "みましょう", "Négatif polie" => $kana . "みますまい"],
                             "Romaji" => ["Neutre" => $romaji . "mou", "Négatif neutre" => $romaji . "mumai", "Poli" => $romaji . "mimashou", "Négatif polie" => $romaji . "mimasumai"]
@@ -955,7 +956,7 @@ function add_selection_type($type, $base)
                             "Romaji" => ["Affirmatif neutre" => $romaji . "binasai", "Affirmatif polie" => $romaji . "nde kudasai", "Négatif polie" => $romaji . "banai de kudasai"]
                         ], // Impératif
 
-                        "Volutive" => [
+                        "Volitive" => [
                             "Kanji" => ["Neutre" => $kanji . "ぼう", "Négatif neutre" => $kanji . "ぶまい", "Poli" => $kanji . "びましょう", "Négatif polie" => $kanji . "びますまい"],
                             "Kana" => ["Neutre" => $kana . "ぼう", "Négatif neutre" => $kana . "ぶまい", "Poli" => $kana . "びましょう", "Négatif polie" => $kana . "びますまい"],
                             "Romaji" => ["Neutre" => $romaji . "bou", "Négatif neutre" => $romaji . "bumai", "Poli" => $romaji . "bimashou", "Négatif polie" => $romaji . "bimasumai"]
@@ -1039,7 +1040,7 @@ function add_selection_type($type, $base)
                             "Romaji" => ["Affirmatif neutre" => $romaji . "inasai", "Affirmatif polie" => $romaji . "tte kudasai", "Négatif polie" => $romaji . "wanai de kudasai"]
                         ], // Impératif
 
-                        "Volutive" => [
+                        "Volitive" => [
                             "Kanji" => ["Neutre" => $kanji . "おう", "Négatif neutre" => $kanji . "うまい", "Poli" => $kanji . "いましょう", "Négatif polie" => $kanji . "いますまい"],
                             "Kana" => ["Neutre" => $kana . "おう", "Négatif neutre" => $kana . "うまい", "Poli" => $kana . "いましょう", "Négatif polie" => $kana . "いますまい"],
                             "Romaji" => ["Neutre" => $romaji . "ou", "Négatif neutre" => $romaji . "umai", "Poli" => $romaji . "imashou", "Négatif polie" => $romaji . "imasumai"]
@@ -1104,7 +1105,17 @@ function add_selection_type($type, $base)
             }
             break;
         case 'Adjectif':
-            $add = ["Adjectif" => "value"];
+            $romaji = substr($base['romaji'], 0, -1);
+            $kana = substr($base['kana'], 0, -3);
+            $kanji = substr($base['kanji'], 0, -3);
+
+            if ($end1 == "i") {
+                $add = ["Adjectif (Keiyoushi)" => [
+                    "Kanji" => ["Affirmative neutre" => $kanji . "い", "Négative neutre" => $kanji . "くない"],
+                    "Kana" => ["Affirmative neutre" => $kana . "い", "Négative neutre" => $kana . "くない"],
+                    "Romaji" => ["Affirmative neutre" => $romaji . "i", "Négative neutre" => $romaji . "kunai"]
+                ]];
+            } else $add = ["Adjectif" => "value"];
             break;
         case 'Nom':
             $add = ["Nom" => "value"];

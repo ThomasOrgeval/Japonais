@@ -182,7 +182,7 @@ function kana()
     }
     array_push($_POST['kana']['y'], ['hiragana' => '', 'katakana' => '', 'romaji' => '']);
     array_push($_POST['kana']['y'], ['hiragana' => '', 'katakana' => '', 'romaji' => '']);
-    require './view/frontend/courses/kana.php';
+    require 'view/frontend/courses/kana.php';
 }
 
 /**
@@ -191,9 +191,8 @@ function kana()
 
 function number()
 {
-    $_POST['data'] = (array) json_decode(file_get_contents('./resources/database/nombre.json'));
-    $_POST['data'] = $_POST['data']['nombre'];
-    require './view/frontend/courses/number.php';
+    $_POST['data'] = (array)json_decode(file_get_contents('./resources/database/nombre.json'))['nombre'];
+    require 'view/frontend/courses/number.php';
 }
 
 /**
@@ -203,29 +202,30 @@ function number()
 function musics()
 {
     $_POST['musics'] = selectMusics();
-    require './view/frontend/courses/musics.php';
+    require 'view/frontend/courses/musics.php';
 }
+
 function music_show()
 {
     $_POST['music'] = selectMusic($_GET['slug']);
 
-    $romaji = explode("<p>" , $_POST['music']['romaji'] );
-    $romaji = array_map( function($v) {
+    $romaji = explode("<p>", $_POST['music']['romaji']);
+    $romaji = array_map(function ($v) {
         return "<p>" . $v;
-    }, $romaji );
+    }, $romaji);
 
-    $japonais = explode("<p>" , $_POST['music']['japonais'] );
-    $japonais = array_map( function($v) {
+    $japonais = explode("<p>", $_POST['music']['japonais']);
+    $japonais = array_map(function ($v) {
         return "<p>" . $v;
-    }, $japonais );
+    }, $japonais);
 
-    $francais = explode("<p>" , $_POST['music']['francais'] );
-    $francais = array_map( function($v) {
+    $francais = explode("<p>", $_POST['music']['francais']);
+    $francais = array_map(function ($v) {
         return "<p>" . $v;
-    }, $francais );
+    }, $francais);
 
     $_POST['music']['romaji'] = $romaji;
     $_POST['music']['japonais'] = $japonais;
     $_POST['music']['francais'] = $francais;
-    require './view/frontend/courses/music.php';
+    require 'view/frontend/courses/music.php';
 }

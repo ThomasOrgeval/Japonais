@@ -13,26 +13,26 @@ function dbConnect()
     return $db;
 }
 
-function getAllWords()
+function getAllWords(): array
 {
     $db = dbConnect();
-    return $db->query("select slug from lexiqumjaponais.FRANCAIS where slug is not null and slug <>''")->fetchAll();
+    return $db->query("select slug from FRANCAIS where slug is not null and slug <>''")->fetchAll();
 }
 
-function getAllGroups()
+function getAllGroups(): array
 {
     $db = dbConnect();
-    return $db->query("select slug from lexiqumjaponais.GROUPE where slug is not null and slug <>''")->fetchAll();
+    return $db->query("select slug from GROUPE where slug is not null and slug <>''")->fetchAll();
 }
 
-function getAllKanjis()
+function getAllKanjis(): array
 {
     $db = dbConnect();
-    return $db->query("select id from lexiqumjaponais.KANJI")->fetchAll();
+    return $db->query("select id from KANJI")->fetchAll();
 }
 
-function getAllMusics()
+function getAllMusics(): array
 {
     $db = dbConnect();
-    return $db->query("select slug from lexiqumjaponais.MUSIQUE")->fetchAll();
+    return $db->query("select slug from MUSIQUE")->fetchAll();
 }

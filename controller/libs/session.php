@@ -1,6 +1,6 @@
 <?php
 
-function flash()
+function flash(): string
 {
     if (isset($_SESSION['Flash'])) {
         $flash = "<script>

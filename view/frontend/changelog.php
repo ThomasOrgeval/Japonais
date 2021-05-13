@@ -6,7 +6,7 @@ ob_start(); ?>
     <div id="v1.4" class="changelog-version">
         <div class="flexible">
             <h4 class="text-uppercase font-weight-bolder">Version 1.4
-                <span class="font-weight-lighter changelog-date">- 18 Janvier 2021<span>
+                <span class="font-weight-lighter changelog-date">- 05 Mai 2021<span>
             </h4>
         </div>
         <hr class="black">
@@ -14,8 +14,7 @@ ob_start(); ?>
         <h5 class="text-uppercase font-weight-bold green-text">Nouvelles fonctionnalités</h5>
         <ul class="list-unstyled changelog-list">
             <li>
-                <span class="font-weight-bold">Ajout des musiques !</span> Vous pouvez les retrouver dans la section
-                cours -> musique
+                <span class="font-weight-bold">Ajout des formes négatives pour les adjectifs en -i</span>
             </li>
         </ul>
         <hr class="black">
@@ -23,7 +22,8 @@ ob_start(); ?>
         <h5 class="text-uppercase font-weight-bold orange-text">Correction de bugs & Mises à jour</h5>
         <ul class="list-unstyled changelog-list">
             <li>
-                <span class="font-weight-bold">Correction de l'affichage du thème basique sur les mots japonais</span>
+                <span class="font-weight-bold">Problème avec la sitemap </span> ce qui neutralise le référencement du
+                site
             </li>
         </ul>
     </div><br/>
@@ -76,6 +76,10 @@ ob_start(); ?>
             <li>
                 <span class="font-weight-bold">Ajout de 5 groupes aléatoires sur l'accueil !</span>
             </li>
+            <li>
+                <span class="font-weight-bold">Ajout des musiques !</span> Vous pouvez les retrouver dans la section
+                cours -> musique
+            </li>
         </ul>
         <hr class="black">
 
@@ -100,6 +104,9 @@ ob_start(); ?>
             </li>
             <li>
                 <span class="font-weight-bold">Ajout de l'historique des 30 derniers jours sur les profils</span>
+            </li>
+            <li>
+                <span class="font-weight-bold">Correction de l'affichage du thème basique sur les mots japonais</span>
             </li>
         </ul>
     </div><br/>
