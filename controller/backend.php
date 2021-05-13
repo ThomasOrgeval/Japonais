@@ -189,7 +189,7 @@ function recompense_edit()
 
 function connect_admin()
 {
-    if ($_SESSION['connect'] !== 'OK' || $_SESSION['admin'] === 0) {
+    if ($_SESSION['Account']['admin'] != 1 && isAdmin($_SESSION['Account']['pseudo'])) {
         header('Location:accueil');
         return false;
     }

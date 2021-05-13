@@ -13,14 +13,15 @@ require __DIR__ . '/../model/template/Database.php';
 
 function accueil()
 {
-    if (isset($_COOKIE['mail'], $_COOKIE['token']) && !isset($_SESSION['pseudo'])) {
+    if (isset($_COOKIE['mail'], $_COOKIE['token']) && !isset($_SESSION['Account']['pseudo'])) {
         $token = new Token();
         if ($token->rowCountToken(secure($_COOKIE['token']), secure($_COOKIE['mail'])) === 1) {
             submitToken();
         } else logout();
     }
 
-    if (isset($_SESSION['nombreWords']) && !empty($_SESSION['nombreWords'])) $_POST['words'] = listRandomWords($_SESSION['nombreWords']);
+    if (isset($_SESSION['Account']['nombreWords']) && !empty($_SESSION['Account']['nombreWords']))
+        $_POST['words'] = listRandomWords($_SESSION['Account']['nombreWords']);
     else $_POST['words'] = listRandomWords(10);
 
     $_POST['groups'] = listRandomGroups(5);
@@ -31,7 +32,7 @@ function accueil()
         $replace = preg_split('/(?<!^)(?!$)/u', $word['kanji']);
         $kanjis = find_kanji($word['kanji']);
     }
-    require './view/frontend/index.php';
+    require 'view/frontend/index.php';
 }
 
 function logout()
@@ -95,10 +96,10 @@ function account()
 function change_icon()
 {
     if (connect()) {
-        if (isset($_GET['id']) && !empty($_GET['id'])) {
+        if (isset($_GET['id']) && (!empty($_GET['id']) | $_GET['id'] == 0)) {
             if ($_GET['id'] == 0) {
-                setIcon($_SESSION['Account']['id'], $_GET['id']);
-                $_SESSION['icone'] = $_GET['id'];
+                setIcon($_SESSION['Account']['id'], 0);
+                $_SESSION['Account']['icone'] = 0;
             } elseif ($icone = getIcon($_SESSION['Account']['id'], $_GET['id'])) {
                 setIcon($_SESSION['Account']['id'], $icone['slug']);
                 $_SESSION['Account']['icone'] = $icone['slug'];
@@ -205,7 +206,7 @@ function achat()
 
 function connect()
 {
-    if ($_SESSION['connect'] !== 'OK') {
+    if (!$_SESSION['Account']) {
         header('Location:accueil');
         return false;
     }

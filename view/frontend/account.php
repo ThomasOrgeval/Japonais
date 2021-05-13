@@ -1,19 +1,21 @@
 <?php
 $title = isset($_POST['user']) ? $_POST['user']['pseudo'] : 'Mon compte';
-$icone = isset($_POST['user']) ? $_POST['user']['icone'] : $_SESSION['icone'];
+$icone = isset($_POST['user']) ? $_POST['user']['icone'] : $_SESSION['Account']['icone'];
 ob_start(); ?>
 
-    <input type="text" style="width: 100%" id="autocompleteusers" class="autocomplete-bar" name="user"
-           placeholder="Chercher un utilisateur" autocomplete="off">
-    <div id="search" class="search" style="width: 100%"></div>
-    <br/><br/>
+    <div class="row mb-5">
+        <label for="autocompleteusers"></label>
+        <input type="text" style="width: 100%" id="autocompleteusers" class="autocomplete-bar" name="user"
+               placeholder="Chercher un utilisateur" autocomplete="off">
+        <div id="search" class="search p-0"></div>
+    </div>
 
     <div class="row">
         <div class="col-md-4">
             <?php if (isset($_POST['user'])) : ?>
                 <img class="icon-account" src="./resources/icons/<?= $icone ?>.png" alt="icone">
             <?php else: ?>
-                <a data-toggle="modal" data-target="#modalIcon">
+                <a data-mdb-toggle="modal" data-mdb-target="#modalIcon" role="button">
                     <div class="container-img">
                         <img class="icon-account" src="./resources/icons/<?= $icone ?>.png" alt="icone">
                         <div class="hover-img">
@@ -28,51 +30,59 @@ ob_start(); ?>
             <?php if (!isset($_POST['user'])) : ?>
             <form action="index.php?p=save_account" method="post">
                 <?php endif; ?>
-                <div class="form-group">
-                    <label for="pseudo">Pseudo</label>
+                <div class="mb-5 form-outline">
                     <?php if (isset($_POST['user']) && !empty($_POST['user'])) : ?>
                         <input type="text" class="form-control" id="pseudo" name="pseudo"
                                value="<?= $_POST['user']['pseudo'] ?>"
                                readonly>
                     <?php else : ?>
                         <input type="text" class="form-control" id="pseudo" name="pseudo"
-                               value="<?= $_SESSION['pseudo'] ?>"
+                               value="<?= $_SESSION['Account']['pseudo'] ?>"
                                readonly>
                     <?php endif; ?>
+                    <label for="pseudo" class="form-label">Pseudo</label>
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-6">
-                        <label for="points">Nombre de Sakuras</label>
-                        <input type="text" class="form-control" id="points"
-                               value="<?= $_POST['sakura']['sakura'] ?>" readonly>
+                    <div class="col-md-6">
+                        <div class="mb-5 form-outline">
+                            <input type="text" class="form-control" id="points"
+                                   value="<?= $_POST['sakura']['sakura'] ?>" readonly>
+                            <label for="points" class="form-label">Nombre de Sakuras</label>
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="pointstotal">Nombre de Sakuras au total</label>
-                        <input type="text" class="form-control" id="pointstotal"
-                               value="<?= $_POST['sakura']['sakura_total'] ?>" readonly>
+                    <div class="col-md-6">
+                        <div class="mb-5 form-outline">
+                            <input type="text" class="form-control" id="pointstotal"
+                                   value="<?= $_POST['sakura']['sakura_total'] ?>" readonly>
+                            <label for="pointstotal" class="form-label">Nombre de Sakuras au total</label>
+                        </div>
                     </div>
                 </div>
                 <?php if (isset($_POST['user'])) : ?>
-                    <div class="form-group">
-                        <label for="last_login">Dernière connexion</label>
+                    <div class="mb-5 form-outline">
                         <input type="text" class="form-control" id="last_login" name="last_login"
-                               value="<?= $_POST['user']['last_login'] ?>" readonly><br/>
+                               value="<?= $_POST['user']['last_login'] ?>" readonly>
+                        <label for="last_login" class="form-label">Dernière connexion</label>
                     </div>
                 <?php else : ?>
                 <div class="row">
-                    <div class="form-group col-md-6">
-                        <label for="nombrewords">Nombre de mots affichés sur l'accueil</label>
-                        <input type="number" class="form-control" id="nombrewords" name="nombrewords"
-                               value="<?= $_SESSION['nombreWords'] ?>">
+                    <div class="col-md-6">
+                        <div class="mb-5 form-outline">
+                            <input type="number" class="form-control" id="nombrewords" name="nombrewords"
+                                   value="<?= $_SESSION['Account']['nombreWords'] ?>">
+                            <label for="nombrewords" class="form-label">Nombre de mots affichés sur l'accueil</label>
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <input type="checkbox" class="form-check-input" style="margin-left: 5px" id="kanji" name="kanji"
-                               value="kanji" <?php if ($_SESSION['kanji'] == 1) echo 'checked'; ?>>
-                        <label class="form-check-label" style="margin-left: 20px" for="kanji">Kanji dans les énigmes ?</label>
+                    <div class="col-md-6">
+                        <div class="mb-5 form-check">
+                            <input type="checkbox" class="form-check-input" id="kanji" name="kanji"
+                                   value="kanji" <?php if ($_SESSION['Account']['kanji'] == 1) echo 'checked'; ?>>
+                            <label class="form-check-label" for="kanji">Kanji dans les énigmes ?</label>
+                        </div>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-purple" name="save">Enregistrer</button>
+                <button type="submit" class="btn btn-block btn-lg btn-primary" name="save">Enregistrer</button>
             </form>
         <?php endif; ?>
         </div>
@@ -105,8 +115,8 @@ ob_start(); ?>
 <?php endif; ?>
 
 <?php if (!isset($_POST['user'])) : ?>
-    <div class="modal fade" id="modalIcon" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" id="modalIcon" tabindex="-1" aria-labelledby="modalIcon" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header text-center">
                     <img src="./resources/svgs/sakura_login.svg" style="width: 40px">

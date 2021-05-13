@@ -1,14 +1,13 @@
 <?php
 
-define('BASE_URL', 'https://lexiquejaponais.fr/');
 session_start();
-require_once '../model/frontend.php';
-require_once '../model/backend.php';
-require_once '../controller/libs/accent.php';
+require_once __DIR__ . '/../model/frontend.php';
+require_once __DIR__ . '/../model/backend.php';
+require_once __DIR__ . '/../controller/libs/accent.php';
 
 if (!isset($_POST['riddle'])) {
 
-    if ($_SESSION['kanji'] == 1) $values = listFromGroupe($_POST['group']);
+    if ($_SESSION['Account']['kanji'] == 1) $values = listFromGroupe($_POST['group']);
     else $values = listFromGroupeWithoutKanji($_POST['group']);
 
     $rand_keys = array();
@@ -53,8 +52,8 @@ if (!isset($_POST['riddle'])) {
             'array' => $vars
         ]];
 
-        $_SESSION['points'] += 10;
-        setSakura($_SESSION['id'], 10);
+        $_SESSION['Account']['points'] += 10;
+        setSakura($_SESSION['Account']['id'], 10);
     } else {
         array_push($vars, $_POST['riddle']);
         $array = array();

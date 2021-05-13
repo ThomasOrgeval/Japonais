@@ -1,36 +1,36 @@
 <?php
 
-function input($id)
+function input($id): string
 {
-    $value = isset($_POST[$id]) ? $_POST[$id] : '';
+    $value = $_POST[$id] ?? '';
     return "<input type='text' class='form-control' id='$id' name='$id' value=\"$value\">";
 }
 
-function inputRequired($id)
+function inputRequired($id): string
 {
-    $value = isset($_POST[$id]) ? $_POST[$id] : '';
+    $value = $_POST[$id] ?? '';
     return "<input type='text' class='form-control' id='$id' name='$id' value=\"$value\" required>";
 }
 
-function inputReadonly($id)
+function inputReadonly($id): string
 {
-    $value = isset($_POST[$id]) ? $_POST[$id] : '';
+    $value = $_POST[$id] ?? '';
     return "<input type='text' class='form-control' id='$id' name='$id' value=\"$value\" readonly>";
 }
 
-function inputNumber($id)
+function inputNumber($id): string
 {
-    $value = isset($_POST[$id]) ? $_POST[$id] : '0';
+    $value = $_POST[$id] ?? '0';
     return "<input type='number' class='form-control' id='$id' name='$id' value='$value'>";
 }
 
-function textarea($id)
+function textarea($id): string
 {
-    $value = isset($_POST[$id]) ? $_POST[$id] : '';
+    $value = $_POST[$id] ?? '';
     return "<textarea type='text' class='form-control' id='$id' name='$id'>$value</textarea>";
 }
 
-function select($id, $list = array())
+function select($id, $list = array()): string
 {
     $return = "<select class='form-control' id='$id' name='$id'>";
     foreach ($list as $k => $value) {
@@ -44,7 +44,7 @@ function select($id, $list = array())
     return $return;
 }
 
-function selectFormListe($list, $id, $arraylist = array())
+function selectFormListe($list, $id, $arraylist = array()): string
 {
     $return = "<select class='form-control' id='$id' name='$id'>";
     foreach ($arraylist as $k => $value) {

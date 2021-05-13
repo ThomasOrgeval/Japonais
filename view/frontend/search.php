@@ -1,10 +1,12 @@
 <?php $title = $_POST['francais']['francais'];
 ob_start(); ?>
 
-    <label for="autocomplete"></label>
-    <input type="text" style="width: 100%" id="autocomplete" class="autocomplete-bar" name="mot" placeholder="Recherche"
-           autocomplete="off">
-    <div id="search" class="search" style="width: 100%"></div><br/><br/>
+    <div class="row mb-3">
+        <label for="autocomplete"></label>
+        <input type="text" id="autocomplete" class="autocomplete-bar" name="mot" placeholder="Recherche"
+               autocomplete="off">
+        <div id="search" class="search p-0"></div>
+    </div>
 
     <div class="form-group card mx-auto">
         <div class="card-header">
@@ -129,7 +131,7 @@ ob_start(); ?>
         <?php endforeach;
     elseif ($list != null && substr(key($list), 0, 8) == 'Adjectif') :
         foreach ($list as $value) :
-        var_dump($value);
+            var_dump($value);
         endforeach;
     endif;
 endforeach; ?>
