@@ -23,7 +23,8 @@
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap"
+          rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <!-- Bootstrap core CSS -->
@@ -46,10 +47,9 @@
     if ($_POST['background'] != '0' || empty($_POST['background'])) : ?>
             background-image: url('./resources/background/<?= $_POST['background'] ?>.png');
     <?php endif;
-elseif (isset($_SESSION['background']) && ($_SESSION['background'] != '0' || !empty($_SESSION['background']))) : ?>
-        background-image: url('./resources/background/<?= $_SESSION['background'] ?>.png');
-<?php endif; ?>
-        font-family: 'M PLUS Rounded 1c', sans-serif;"
+elseif (isset($_SESSION['Account']['background']) && ($_SESSION['Account']['background'] != '0' || !empty($_SESSION['Account']['background']))) : ?>
+        background-image: url('./resources/background/<?= $_SESSION['Account']['background'] ?>.png');
+<?php endif; ?>"
 >
 <nav class="navbar navbar-expand-lg navbar-dark bg-black fixed-top">
     <div class="container-fluid">
@@ -77,7 +77,7 @@ elseif (isset($_SESSION['background']) && ($_SESSION['background'] != '0' || !em
                 <li class="nav-item active"><a class="nav-link" href="cours">Cours</a></li>
             </ul>
 
-            <ul class="navbar-nav d-flex flex-row">
+            <ul class="navbar-nav d-flex">
                 <?php if (isset($_SESSION['Account'])) : ?>
                     <li class="nav-item me-3 me-lg-0">
                         <a class="nav-link pb-0" href="points">
@@ -86,11 +86,8 @@ elseif (isset($_SESSION['background']) && ($_SESSION['background'] != '0' || !em
                         </a>
                     </li>
                     <li class="nav-item me-3 me-lg-0">
-                        <a class="nav-link text-white"
-                           href="compte">Bienvenue, <?= $_SESSION['Account']['pseudo'] ?></a>
-                    </li>
-                    <li class="nav-item me-3 me-lg-0">
-                        <a href="index.php?p=account">
+                        <a class="nav-link text-white" href="compte">
+                            <span><?= $_SESSION['Account']['pseudo'] ?></span>
                             <img class="icon" src="resources/icons/<?= $_SESSION['Account']['icone'] ?>.png"
                                  alt="icone">
                         </a>
@@ -288,6 +285,8 @@ elseif (isset($_SESSION['background']) && ($_SESSION['background'] != '0' || !em
         defer></script>
 <!-- JQuerry validation -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js" defer></script>
+<!-- Chart JS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1/dist/chart.min.js" defer></script>
 
 <script src="resources/js/main.js" defer></script>
 </html>

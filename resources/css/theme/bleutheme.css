@@ -7,7 +7,7 @@ body, .container {
 }
 
 #sakura-svg-points, #sakura-svg {
-    fill: #112d4e;
+    fill: #205695;
 }
 
 .autocomplete-bar::placeholder {
@@ -19,7 +19,7 @@ body, .container {
 }
 
 .card h4, .button-a:hover, .btn-outline-dark:hover, .changelog-version li {
-    color: #112d4e !important;
+    color: #205695 !important;
 }
 
 table.table thead th, table.table tbody td, table.table tfoot tr, table.table tbody td a {
@@ -37,11 +37,11 @@ table.table thead th, table.table tbody td, table.table tfoot tr, table.table tb
 
 .btn-outline-dark {
     color: #3f72af !important;
-    border-color: #112d4e !important;
+    border-color: #205695 !important;
 }
 
 .btn-purple, .btn-primary {
-    background-color: #112d4e !important;
+    background-color: #205695 !important;
 }
 
 .green-table {

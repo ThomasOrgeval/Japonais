@@ -1,294 +1,293 @@
-drop database if exists lexiqumjaponais;
-create database lexiqumjaponais character set UTF8;
-use lexiqumjaponais;
+drop database if exists japonais;
+create database japonais character set UTF8;
+use japonais;
 
-SET GLOBAL event_scheduler = "ON";
-
-create table `USER`
+create table user
 (
-    `id`         int auto_increment not null,
-    `pseudo`     varchar(255)       not null,
-    `pass`       varchar(255)       not null,
-    `mail`       varchar(255)       not null,
-    `date`       date               not null,
-    `droits`     int                not null,
-    `nombre`     int                not null,
-    `icone`      varchar(255)       not null,
-    `life`       int                not null,
-    `last_login` date               not null,
-    `theme`      varchar(255)       not null,
-    `kanji`      boolean            not null,
-    `slug`       varchar(255),
-    `background` varchar(255)       not null,
-    primary key (`id`)
+    id         int auto_increment not null,
+    pseudo     varchar(255)       not null,
+    pass       varchar(255)       not null,
+    mail       varchar(255)       not null,
+    date       date               not null,
+    droits     int                not null,
+    nombre     int                not null,
+    icone      varchar(255)       not null,
+    life       int                not null,
+    last_login date               not null,
+    theme      varchar(255)       not null,
+    kanji      boolean            not null,
+    slug       varchar(255),
+    background varchar(255)       not null,
+    primary key (id)
 ) engine = InnoDB;
 
-create table `RECUPERATION`
+create table recuperation
 (
-    `id`   int auto_increment not null,
-    `mail` varchar(255)       not null,
-    `code` int                not null,
-    primary key (`id`)
+    id   int auto_increment not null,
+    mail varchar(255)       not null,
+    code int                not null,
+    primary key (id)
 ) engine = InnoDB;
 
-create table `RECOMPENSE_TYPE`
+create table recompense_type
 (
-    `id`   int auto_increment not null,
-    `type` varchar(255)       not null,
-    primary key (`id`)
+    id   int auto_increment not null,
+    type varchar(255)       not null,
+    primary key (id)
 ) engine = InnoDB;
 
-create table `RECOMPENSE`
+create table recompense
 (
-    `id`            int auto_increment not null,
-    `libelle`       varchar(255)       not null,
-    `slug`          varchar(255)       not null,
-    `cout`          int                not null,
-    `date_parution` date,
-    `id_type`       int,
-    primary key (`id`),
-    foreign key (`id_type`) references RECOMPENSE_TYPE (`id`)
+    id            int auto_increment not null,
+    libelle       varchar(255)       not null,
+    slug          varchar(255)       not null,
+    cout          int                not null,
+    date_parution date,
+    id_type       int,
+    primary key (id),
+    foreign key (id_type) references recompense_type (id)
 ) engine = InnoDB;
 
-create table `ACHAT`
+create table achat
 (
-    `id`            int auto_increment not null,
-    `id_user`       int                not null,
-    `id_recompense` int                not null,
-    `date_achat`    date,
-    primary key (`id`),
-    foreign key (`id_user`) references `USER` (`id`),
-    foreign key (`id_recompense`) references `RECOMPENSE` (`id`)
+    id            int auto_increment not null,
+    id_user       int                not null,
+    id_recompense int                not null,
+    date_achat    date,
+    primary key (id),
+    foreign key (id_user) references user (id),
+    foreign key (id_recompense) references recompense (id)
 ) engine = InnoDB;
 
-create table `TYPE`
+create table type
 (
-    `id`      int auto_increment not null,
-    `type`    varchar(255)       not null,
-    `type_jp` varchar(255),
-    primary key (`id`)
+    id      int auto_increment not null,
+    type    varchar(255)       not null,
+    type_jp varchar(255),
+    primary key (id)
 ) engine = InnoDB;
 
-create table `CONFIDENTIALITY`
+create table confidentiality
 (
-    `id`              int auto_increment not null,
-    `confidentiality` varchar(255)       not null,
-    primary key (`id`)
+    id              int auto_increment not null,
+    confidentiality varchar(255)       not null,
+    primary key (id)
 ) engine = InnoDB;
 
-create table `FRANCAIS`
+create table francais
 (
-    `id`       int auto_increment not null,
-    `francais` varchar(255)       not null,
-    `slug`     varchar(255),
-    primary key (`id`)
+    id       int auto_increment not null,
+    francais varchar(255)       not null,
+    slug     varchar(255),
+    primary key (id)
 ) engine = InnoDB;
 
-create table `JLPT`
+create table jlpt
 (
-    `id`    int not null,
-    `color` varchar(255),
-    primary key (`id`)
+    id    int not null,
+    color varchar(255),
+    primary key (id)
 ) engine = InnoDB;
 
-create table `JAPONAIS`
+create table japonais
 (
-    `id`          int auto_increment not null,
-    `kanji`       varchar(255)       not null,
-    `kana`        varchar(255)       not null,
-    `romaji`      varchar(255)       not null,
-    `description` longtext,
-    `jlpt`        int,
-    `id_type`     int,
-    primary key (`id`),
-    foreign key (`id_type`) references TYPE (`id`),
-    foreign key (`jlpt`) references JLPT (`id`)
+    id          int auto_increment not null,
+    kanji       varchar(255)       not null,
+    kana        varchar(255)       not null,
+    romaji      varchar(255)       not null,
+    description longtext,
+
+    jlpt        int,
+    id_type     int,
+    primary key (id),
+    foreign key (id_type) references TYPE (id),
+    foreign key (jlpt) references JLPT (id)
 ) engine = InnoDB;
 
-create table `ANGLAIS`
+create table anglais
 (
-    `id`      int auto_increment not null,
-    `anglais` varchar(255)       not null,
-    primary key (`id`)
+    id      int auto_increment not null,
+    anglais varchar(255)       not null,
+    primary key (id)
 ) engine = InnoDB;
 
-create table `KANJI`
+create table kanji
 (
-    `id`       int auto_increment not null,
-    `kanji`    varchar(1)         not null,
-    `lignes`   int,
-    `grade`    int,
-    `on_yomi`  varchar(255),
-    `kun_yomi` varchar(255),
-    `sens`     longtext,
-    `sens_en`  longtext,
-    primary key (`id`)
+    id       int auto_increment not null,
+    kanji    varchar(1)         not null,
+    lignes   int,
+    grade    int,
+    on_yomi  varchar(255),
+    kun_yomi varchar(255),
+    sens     longtext,
+    sens_en  longtext,
+    primary key (id)
 ) engine = InnoDB;
 
-create table `JUKUGO`
+create table jukugo
 (
-    `id`             int auto_increment not null,
-    `jukugo`         char(2)            not null,
-    `id_left_kanji`  int                not null,
-    `id_right_kanji` int                not null,
-    `frequence`      int,
-    `type`           varchar(255),
-    `prononciation`  varchar(255),
-    `traduction`     varchar(255),
-    primary key (`id`),
-    foreign key (`id_left_kanji`) references KANJI (`id`),
-    foreign key (`id_right_kanji`) references KANJI (`id`)
+    id             int auto_increment not null,
+    jukugo         char(2)            not null,
+    id_left_kanji  int                not null,
+    id_right_kanji int                not null,
+    frequence      int,
+    type           varchar(255),
+    prononciation  varchar(255),
+    traduction     varchar(255),
+    primary key (id),
+    foreign key (id_left_kanji) references kanji (id),
+    foreign key (id_right_kanji) references kanji (id)
 ) engine = InnoDB;
 
-create table `GROUPE`
+create table groupe
 (
-    `id`          int auto_increment not null,
-    `libelle`     varchar(255)       not null,
-    `id_parent`   int,
-    `quantifieur` varchar(255),
-    `slug`        varchar(255),
-    primary key (`id`),
-    foreign key (`id_parent`) references `GROUPE` (`id`)
+    id          int auto_increment not null,
+    libelle     varchar(255)       not null,
+    id_parent   int,
+    quantifieur varchar(255),
+    slug        varchar(255),
+    primary key (id),
+    foreign key (id_parent) references groupe (id)
 ) engine = InnoDB;
 
-create table `LISTES`
+create table listes
 (
-    `id`                 int auto_increment not null,
-    `nom`                varchar(255)       not null,
-    `description`        longtext           not null,
-    `id_confidentiality` int                not null,
-    `id_user`            int                not null,
-    primary key (`id`),
-    foreign key (`id_user`) references `USER` (`id`),
-    foreign key (`id_confidentiality`) references `CONFIDENTIALITY` (`id`)
+    id                 int auto_increment not null,
+    nom                varchar(255)       not null,
+    description        longtext           not null,
+    id_confidentiality int                not null,
+    id_user            int                not null,
+    primary key (id),
+    foreign key (id_user) references user (id),
+    foreign key (id_confidentiality) references confidentiality (id)
 ) engine = InnoDB;
 
-create table `JAPONAIS_GROUPE`
+create table japonais_groupe
 (
-    `id`          int auto_increment not null,
-    `id_japonais` int                not null,
-    `id_groupe`   int                not null,
-    primary key (`id`),
-    foreign key (`id_japonais`) references JAPONAIS (`id`),
-    foreign key (`id_groupe`) references GROUPE (`id`)
+    id          int auto_increment not null,
+    id_japonais int                not null,
+    id_groupe   int                not null,
+    primary key (id),
+    foreign key (id_japonais) references japonais (id),
+    foreign key (id_groupe) references groupe (id)
 ) engine = InnoDB;
 
-create table `WORDS_LISTES`
+create table words_listes
 (
-    `id`       int auto_increment not null,
-    `id_word`  int                not null,
-    `id_liste` int                not null,
-    primary key (`id`),
-    foreign key (`id_word`) references FRANCAIS (`id`),
-    foreign key (`id_liste`) references LISTES (`id`)
+    id       int auto_increment not null,
+    id_word  int                not null,
+    id_liste int                not null,
+    primary key (id),
+    foreign key (id_word) references francais (id),
+    foreign key (id_liste) references listes (id)
 ) engine = InnoDB;
 
-create table `JAPONAIS_KANJI`
+create table japonais_kanji
 (
-    `id`          int auto_increment not null,
-    `id_japonais` int                not null,
-    `id_kanji`    int                not null,
-    primary key (`id`),
-    foreign key (`id_japonais`) references JAPONAIS (`id`),
-    foreign key (`id_kanji`) references KANJI (`id`)
+    id          int auto_increment not null,
+    id_japonais int                not null,
+    id_kanji    int                not null,
+    primary key (id),
+    foreign key (id_japonais) references japonais (id),
+    foreign key (id_kanji) references kanji (id)
 ) engine = InnoDB;
 
-create table `TRADUCTION`
+create table traduction
 (
-    `id`          int auto_increment not null,
-    `id_word`     int,
-    `id_japonais` int,
-    `id_anglais`  int,
-    primary key (`id`),
-    foreign key (`id_word`) references FRANCAIS (`id`),
-    foreign key (`id_japonais`) references JAPONAIS (`id`),
-    foreign key (`id_anglais`) references ANGLAIS (`id`)
+    id          int auto_increment not null,
+    id_word     int,
+    id_japonais int,
+    id_anglais  int,
+    primary key (id),
+    foreign key (id_word) references francais (id),
+    foreign key (id_japonais) references japonais (id),
+    foreign key (id_anglais) references anglais (id)
 ) engine = InnoDB;
 
-create table `SAKURA`
+create table sakura
 (
-    `id_user`      int not null,
-    `sakura`       int not null,
-    `sakura_total` int not null,
-    primary key (`id_user`),
-    foreign key (`id_user`) references USER (`id`)
+    id_user      int not null,
+    sakura       int not null,
+    sakura_total int not null,
+    primary key (id_user),
+    foreign key (id_user) references user (id)
 ) engine = InnoDB;
 
-create table `HISTORIQUE_SAKURA`
+create table historique_sakura
 (
-    `id`      int auto_increment not null,
-    `sakura`  int                not null,
-    `date`    date               not null,
-    `id_user` int                not null,
-    primary key (`id`),
-    foreign key (`id_user`) references USER (`id`)
+    id      int auto_increment not null,
+    sakura  int                not null,
+    date    date               not null,
+    id_user int                not null,
+    primary key (id),
+    foreign key (id_user) references user (id)
 ) engine = InnoDB;
 
-create table `RIDDLE`
+create table riddle
 (
-    `id_user`       int          not null,
-    `riddle`        varchar(255) not null,
-    `last_response` boolean      not null,
-    primary key (`id_user`),
-    foreign key (`id_user`) references USER (`id`)
+    id_user       int          not null,
+    riddle        varchar(255) not null,
+    last_response boolean      not null,
+    primary key (id_user),
+    foreign key (id_user) references user (id)
 ) engine = InnoDB;
 
-create table `HISTORIQUE_RIDDLE`
+create table historique_riddle
 (
-    `id`       int auto_increment not null,
-    `id_user`  int                not null,
-    `riddle`   varchar(255)       not null,
-    `response` boolean            not null,
-    `life`     date               not null,
-    primary key (`id`),
-    foreign key (`id_user`) references USER (`id`)
+    id       int auto_increment not null,
+    id_user  int                not null,
+    riddle   varchar(255)       not null,
+    response boolean            not null,
+    life     date               not null,
+    primary key (id),
+    foreign key (id_user) references user (id)
 ) engine = InnoDB;
 
-create table `KANA`
+create table kana
 (
-    `id`       int auto_increment not null,
-    `hiragana` varchar(255),
-    `katakana` varchar(255),
-    `romaji`   varchar(255)       not null,
-    primary key (`id`)
+    id       int auto_increment not null,
+    hiragana varchar(255),
+    katakana varchar(255),
+    romaji   varchar(255)       not null,
+    primary key (id)
 ) engine = InnoDB;
 
-create table `EXCEPTION`
+create table exception
 (
-    `id`      int auto_increment not null,
-    `libelle` varchar(255),
-    primary key (`id`)
+    id      int auto_increment not null,
+    libelle varchar(255),
+    primary key (id)
 ) engine = InnoDB;
 
-create table `MUSIQUE`
+create table musique
 (
-    `id`       int auto_increment not null,
-    `japonais` longtext           not null,
-    `romaji`   longtext           not null,
-    `francais` longtext           not null,
-    `anime`    varchar(255),
-    `chanteur` varchar(255),
-    `titre`    varchar(255),
-    `slug`     varchar(255),
-    `audio`    varchar(255),
-    primary key (`id`)
+    id       int auto_increment not null,
+    japonais longtext           not null,
+    romaji   longtext           not null,
+    francais longtext           not null,
+    anime    varchar(255),
+    chanteur varchar(255),
+    titre    varchar(255),
+    slug     varchar(255),
+    audio    varchar(255),
+    primary key (id)
 ) engine = InnoDB;
 
-create table `TOKEN`
+create table token
 (
-    `id`      int auto_increment not null,
-    `id_user` int                not null,
-    `token`   char(48)           not null,
-    `expire`  date               not null,
-    primary key (`id`),
-    foreign key (`id_user`) references USER (`id`)
+    id      int auto_increment not null,
+    id_user int                not null,
+    token   char(48)           not null,
+    expire  date               not null,
+    primary key (id),
+    foreign key (id_user) references user (id)
 ) engine = InnoDB;
 
 delimiter |
 
 create trigger after_update_sakura
     after update
-    on SAKURA
+    on sakura
     for each row
 begin
     declare id_user_sakura int;
@@ -296,58 +295,58 @@ begin
     declare last_date date;
     set id_user_sakura = old.id_user;
     set nb_sakura = new.sakura_total - old.sakura_total;
-    set last_date = (select `date` from HISTORIQUE_SAKURA where id_user = id_user_sakura order by `date` desc limit 1);
+    set last_date = (select date from historique_sakura where id_user = id_user_sakura order by date desc limit 1);
     call insert_sakura_history(id_user_sakura, nb_sakura, last_date);
 end |
 
 create trigger after_update_riddle
     after update
-    on RIDDLE
+    on riddle
     for each row
 begin
-    insert into HISTORIQUE_RIDDLE(riddle, response, life, id_user) value (old.riddle, new.last_response, curdate(), old.id_user);
+    insert into historique_riddle(riddle, response, life, id_user) value (old.riddle, new.last_response, curdate(), old.id_user);
 end |
 
 create trigger after_insert_user
     after insert
-    on USER
+    on user
     for each row
 begin
     declare random varchar(255);
-    set random = (select francais from FRANCAIS order by rand() limit 1);
-    insert into SAKURA(id_user, sakura, sakura_total) value (new.id, 0, 0);
-    insert into RIDDLE(id_user, last_response, riddle) value (new.id, true, random);
+    set random = (select francais from francais order by rand() limit 1);
+    insert into sakura(id_user, sakura, sakura_total) value (new.id, 0, 0);
+    insert into riddle(id_user, last_response, riddle) value (new.id, true, random);
 end |
 
 create trigger before_delete_user
     before delete
-    on USER
+    on user
     for each row
 begin
-    delete from SAKURA where id_user = old.id;
-    delete from RIDDLE where id_user = old.id;
-    delete from HISTORIQUE_SAKURA where id_user = old.id;
-    delete from HISTORIQUE_RIDDLE where id_user = old.id;
-    delete from ACHAT where id_user = old.id;
-    delete from LISTES where id_user = old.id;
+    delete from sakura where id_user = old.id;
+    delete from riddle where id_user = old.id;
+    delete from historique_sakura where id_user = old.id;
+    delete from historique_riddle where id_user = old.id;
+    delete from achat where id_user = old.id;
+    delete from listes where id_user = old.id;
 end |
 
-drop procedure if exists `insert_sakura_history`|
+drop procedure if exists insert_sakura_history|
 create procedure insert_sakura_history(in id_user_sakura int, in nb_sakura int, in last_date date)
 begin
     if (last_date = curdate()) then
-        update HISTORIQUE_SAKURA set sakura = sakura + nb_sakura where date = curdate() and id_user = id_user_sakura;
+        update historique_sakura set sakura = sakura + nb_sakura where date = curdate() and id_user = id_user_sakura;
     else
-        insert into HISTORIQUE_SAKURA(sakura, date, id_user) value (nb_sakura, curdate(), id_user_sakura);
+        insert into historique_sakura(sakura, date, id_user) value (nb_sakura, curdate(), id_user_sakura);
     end if;
 end |
 
 delimiter ;
 
 create view select_day as
-select sum(sakura) sakura, u.pseudo
-from HISTORIQUE_SAKURA hs
-         inner join USER u on hs.id_user = u.id
+select sum(sakura) as sakura, u.pseudo
+from historique_sakura hs
+         inner join user u on hs.id_user = u.id
 where hs.date <= curdate()
   and hs.date > date_sub(curdate(), interval 1 day)
 group by id_user
@@ -355,9 +354,9 @@ order by sakura desc
 limit 5;
 
 create view select_week as
-select sum(sakura) sakura, u.pseudo
-from HISTORIQUE_SAKURA hs
-         inner join USER u on hs.id_user = u.id
+select sum(sakura) as sakura, u.pseudo
+from historique_sakura hs
+         inner join user u on hs.id_user = u.id
 where hs.date <= curdate()
   and hs.date > date_sub(curdate(), interval 1 week)
 group by id_user
@@ -365,23 +364,11 @@ order by sakura desc
 limit 5;
 
 create view select_month as
-select sum(sakura) sakura, u.pseudo
-from HISTORIQUE_SAKURA hs
-         inner join USER u on hs.id_user = u.id
+select sum(sakura) as sakura, u.pseudo
+from historique_sakura hs
+         inner join user u on hs.id_user = u.id
 where hs.date <= curdate()
   and hs.date > date_sub(curdate(), interval 1 month)
 group by id_user
 order by sakura desc
 limit 5;
-
-create event delete_history_riddle on schedule every 1 day starts '2020-12-01 00:00:00' on completion not preserve enable
-    do
-    delete
-    from HISTORIQUE_RIDDLE
-    where life < curdate() - interval 14 day;
-
-create event delete_token on schedule every 1 day starts '2020-01-01 00:00:00' on completion not preserve enable
-    do
-    delete
-    from TOKEN
-    where expire < curdate();

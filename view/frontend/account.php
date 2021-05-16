@@ -1,11 +1,10 @@
-<?php
-$title = isset($_POST['user']) ? $_POST['user']['pseudo'] : 'Mon compte';
+<?php $title = isset($_POST['user']) ? $_POST['user']['pseudo'] : 'Mon compte';
 $icone = isset($_POST['user']) ? $_POST['user']['icone'] : $_SESSION['Account']['icone'];
 ob_start(); ?>
 
-    <div class="row mb-5">
+    <div class="row mx-2 pt-3 my-5">
         <label for="autocompleteusers"></label>
-        <input type="text" style="width: 100%" id="autocompleteusers" class="autocomplete-bar" name="user"
+        <input type="text" id="autocompleteusers" class="autocomplete-bar" name="user"
                placeholder="Chercher un utilisateur" autocomplete="off">
         <div id="search" class="search p-0"></div>
     </div>
@@ -169,30 +168,32 @@ ob_start(); ?>
 <?php endif; ?>
 
     <script>
-        new Chart(document.getElementById("sakura"), {
-            type: 'line',
-            data: {
-                labels: [<?php foreach ($_POST['chart'] as $value): ?>
-                    "<?= $value['date'] ?>",
-                    <?php endforeach; ?>],
-                datasets: [{
-                    label: [<?php if (isset($_POST['user'])) : ?>
-                        "Courbe de <?= $_POST['user']['pseudo'] ?>"
-                        <?php else : ?>
-                        "Ma courbe des sakuras"
-                        <?php endif; ?>],
-                    data: [<?php foreach ($_POST['chart'] as $value): ?>
-                        <?= $value['sakura'] ?>,
-                        <?php endforeach; ?> ],
-                    fill: false,
-                    backgroundColor: ["rgba(255,34,79,0.2)"],
-                    borderColor: ["rgb(255,0,54)"],
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true
-            }
+        $(document).ready(function () {
+            new Chart(document.getElementById("sakura"), {
+                type: 'line',
+                data: {
+                    labels: [<?php foreach ($_POST['chart'] as $value): ?>
+                        "<?= $value['date'] ?>",
+                        <?php endforeach; ?>],
+                    datasets: [{
+                        label: [<?php if (isset($_POST['user'])) : ?>
+                            "Courbe de <?= $_POST['user']['pseudo'] ?>"
+                            <?php else : ?>
+                            "Ma courbe des sakuras"
+                            <?php endif; ?>],
+                        data: [<?php foreach ($_POST['chart'] as $value): ?>
+                            <?= $value['sakura'] ?>,
+                            <?php endforeach; ?> ],
+                        fill: false,
+                        backgroundColor: ["rgba(255,34,79,0.2)"],
+                        borderColor: ["rgb(255,0,54)"],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
         });
     </script>
 

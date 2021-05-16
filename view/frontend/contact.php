@@ -32,9 +32,9 @@ ob_start(); ?>
         </div>
     </div>
 
-<?php if (isset($_SESSION) && !empty($_SESSION) && $_SESSION['connect'] === 'OK') : ?>
+<?php if (isset($_SESSION['Account']) && !empty($_SESSION['Account'])) : ?>
     <div>
-        <div class="md-form purple-textarea">
+        <div class="md-form">
             <textarea id="feedback" class="md-textarea form-control" rows="3"></textarea>
             <label for="feedback">Message de retour</label>
         </div>

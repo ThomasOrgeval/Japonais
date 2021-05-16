@@ -1,9 +1,9 @@
 <?php
 
 session_start();
-if ($_SESSION['Account']['admin'] != 1 && isAdmin($_SESSION['Account']['pseudo'])) {
-    require_once __DIR__ . '/../model/frontend.php';
-    require_once __DIR__ . '/../model/backend.php';
+require_once __DIR__ . '/../model/frontend.php';
+require_once __DIR__ . '/../model/backend.php';
+if ($_SESSION['Account']['admin'] == 1 && isAdmin($_SESSION['Account']['pseudo'])) {
 
     deleteAllKanjiForJaponais($_POST['id']);
     deleteAllGroupeForJaponais($_POST['id']);

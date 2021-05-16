@@ -1,27 +1,18 @@
 <?php
 
-function flash(): string
+function flash(): ?string
 {
+    $flash = null;
     if (isset($_SESSION['Flash'])) {
-        $flash = "<script>
-                    $(document).ready(function () {
-                        $('toast').toast('show');      
-                    })
-                </script>
-
-                <div class='toast alert alert-" . $_SESSION['Flash']['type'] . " hidden' id='toast' style='position: absolute; top: 80px; right: 50px; opacity: 0.8;'>
-                    <div class='toast-header'>
-                        <strong class='mr-auto'><i class='fa fa-book'></i> " . $_SESSION['Flash']['message'] . "</strong>
-                    </div>
-                    <!--div class='toast-body'></div-->
-                </div>";
+        $flash = '<div class="alert alert-' . $_SESSION['Flash']['type'] . ' text-center" style="font-size:' . $_SESSION['Flash']['size'] .'%" role="alert">' . $_SESSION['Flash']['message'] .'</div>';
         unset($_SESSION['Flash']);
-        return $flash;
     }
+    return $flash;
 }
 
-function setFlash($message, $type = 'success')
+function setFlash($message, $type = 'primary', $size = 100)
 {
     $_SESSION['Flash']['message'] = $message;
     $_SESSION['Flash']['type'] = $type;
+    $_SESSION['Flash']['size'] = $size;
 }

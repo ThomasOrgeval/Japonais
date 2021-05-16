@@ -3,8 +3,16 @@ body, .content {
     color: white;
 }
 
-.navbar {
-    background-color: #202020 !important;
+.form-control, .form-select, .navbar {
+    background-color: #262626 !important;
+}
+
+.form-control[readonly] {
+    background-color: #555555 !important;
+}
+
+.bg-danger[readonly], .bg-danger {
+    background-color: rgba(255, 0, 0, 0.44) !important
 }
 
 table.table thead th, table.table tbody td, table.table tfoot tr {
@@ -75,8 +83,8 @@ table.table tbody td a, .div-music.row:hover {
     color: white;
 }
 
-li, .card-header {
-    background-color: #222222 !important;
+.form-label, .form-control, .form-select, option {
+    color: #a7a7a7 !important;
 }
 
 .speaker {

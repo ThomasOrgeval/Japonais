@@ -1,178 +1,200 @@
 <?php $title = isset($_POST['id']) ? $title = $_POST['kanji'] . ' - Edition' : 'Mon nouveau mot';
 ob_start(); ?>
 
-    <h1 class="h1-admin">Editer un mot japonais</h1>
+    <h1 class="h1-admin mb-5">Editer un mot japonais</h1>
 
     <form action="index.php?p=japonais_add<?php if (isset($_GET['id'])) {
         echo '&id=' . $_GET['id'];
-    } ?>" method="post" autocomplete="off">
+    } ?>" method="post" autocomplete="off" class="mb-4">
         <?php if (isset($_GET['id'])): ?>
-            <div class="form-group">
-                <label for="id">ID</label>
+            <div class="form-outline mb-4">
                 <?= inputReadonly('id'); ?>
+                <label class="form-label" for="id">ID</label>
             </div>
         <?php endif; ?>
-        <div class="form-group">
-            <label for="kanji">Mot en kanji</label>
+        <div class="form-outline mb-4">
             <?= input('kanji'); ?>
+            <label class="form-label" for="kanji">Mot en kanji</label>
         </div>
-        <div class="form-group">
-            <label for="kana">Mot en kana</label>
+        <div class="form-outline mb-4">
             <?= input('kana'); ?>
+            <label class="form-label" for="kana">Mot en kana</label>
         </div>
-        <div class="form-group">
-            <label for="romaji">Mot en romaji</label>
+        <div class="form-outline mb-4">
             <?= input('romaji'); ?>
+            <label class="form-label" for="romaji">Mot en romaji</label>
         </div>
-        <div class="form-group">
-            <label for="description">Description</label>
+        <div class="form-outline mb-4">
             <?= textarea('description'); ?>
+            <label class="form-label" for="description">Description</label>
         </div>
-        <div class="form-group">
-            <label for="id_type">Type de mot</label>
-            <?= select('id_type', $_POST['type']); ?>
+        <hr class="my-5">
+        <div class="mb-4">
+            <?= select('id_type', $_POST['type'], 'Type de mot'); ?>
         </div>
-        <div class="form-group">
-            <label for="jlpt">Niveau JLPT</label>
-            <?= select('jlpt', $_POST['jlptValues']); ?>
+        <div class="mb-4">
+            <?= select('jlpt', $_POST['jlptValues'], 'Niveau JLPT'); ?>
         </div>
-
+        <hr class="my-5">
         <div class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" id="groupe" data-toggle="dropdown" aria-haspopup="true"
-               aria-expanded="false">Les groupes</a>
+            <button class="btn btn-primary btn-block btn-lg dropdown-toggle" id="groupe" type="button"
+                    data-mdb-toggle="dropdown" aria-expanded="false" data-mdb-dropdown-animation="off">
+                Les groupes
+            </button>
             <div class="dropdown-menu" aria-labelledby="groupe">
-                <?php if (!empty($_POST['groupes'])) :
-                    foreach ($_POST['groupes'] as $group) : ?>
-                        <div id="grp-<?= $group['id'] ?>" class="dropdown-item"
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+                    <?php if (!empty($_POST['groupes'])) :
+                        foreach ($_POST['groupes'] as $group) : ?>
+                            <div id="grp-<?= $group['id'] ?>"
+                                 onclick="addGroup('<?= $group['id'] ?>')">
+                                <div class="d-flex justify-content-between dropdown-item">
+                                    <?= $group['libelle'] ?>
+                                    <img id="check" class="svg" src="./resources/svgs/check.svg"
+                                         alt="<?= $group['libelle'] ?>">
+                                    <input type="hidden" value="1" name="groupe[<?= $group['id'] ?>]">
+                                </div>
+                            </div>
+                        <?php endforeach;
+                    endif;
+                    foreach ($_POST['otherGroupes'] as $group) : ?>
+                        <div id="grp-<?= $group['id'] ?>"
                              onclick="addGroup('<?= $group['id'] ?>')">
-                            <div class="flexible">
+                            <div class="d-flex justify-content-between dropdown-item">
                                 <?= $group['libelle'] ?>
-                                <img id="check" class="svg" src="./resources/svgs/check.svg"
+                                <img id="uncheck" class="svg" src="./resources/svgs/uncheck.svg"
                                      alt="<?= $group['libelle'] ?>">
-                                <input type="hidden" value="1" name="groupe[<?= $group['id'] ?>]">
+                                <input type="hidden" value="0" name="groupe[<?= $group['id'] ?>]">
                             </div>
                         </div>
-                    <?php endforeach;
-                endif;
-                foreach ($_POST['otherGroupes'] as $group) : ?>
-                    <div id="grp-<?= $group['id'] ?>" class="dropdown-item"
-                         onclick="addGroup('<?= $group['id'] ?>')">
-                        <div class="flexible">
-                            <?= $group['libelle'] ?>
-                            <img id="uncheck" class="svg" src="./resources/svgs/uncheck.svg"
-                                 alt="<?= $group['libelle'] ?>">
-                            <input type="hidden" value="0" name="groupe[<?= $group['id'] ?>]">
-                        </div>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
         <br/>
-        <hr class="black">
+        <hr class="my-4">
 
-        <h3 class="font-weight-bold">Traduction :</h3><br/>
-        <h5 class="font-weight-bold">Français :</h5>
-        <hr>
-        <div class="flexible wide-screen">
-            <div class="form-group col-md-2">ID</div>
-            <div class="form-group col-md-10">Traduction française</div>
-        </div>
+        <h3 class="font-weight-bold mb-4">Traduction :</h3>
 
-        <?php if (isset($_GET['id'])) $mots = listFrancaisToJaponais($_GET['id']);
-        if (!empty($mots)):
-            foreach ($mots as $mot): ?>
-                <div id="fr_<?= $mot['id'] ?>" class="row">
-                    <div class="form-group col-md-2">
-                        <label class="small-screen" for="id_francais<?= $mot['id'] ?>">ID</label>
-                        <input type="text" class="form-control bg-danger" id="id_francais<?= $mot['id'] ?>"
-                               name="id_francais[]" style="cursor: pointer; color: white"
-                               value="<?= $mot['id']; ?>" readonly onclick="remove('fr', '<?= $mot['id'] ?>')">
+        <h6 class="heading-small text-muted mb-4">Français</h6>
+        <hr class="my-4">
+        <div class="mx-4">
+            <?php if (isset($_GET['id'])) $mots = listFrancaisToJaponais($_GET['id']);
+            if (!empty($mots)):
+                foreach ($mots as $mot): ?>
+                    <div id="fr_<?= $mot['id'] ?>" class="row">
+                        <div class="col-md-2">
+                            <div class="form-outline mb-4">
+                                <input type="text" class="form-control bg-danger clickable"
+                                       id="id_francais<?= $mot['id'] ?>" name="id_francais[]" readonly
+                                       value="<?= $mot['id']; ?>" onclick="remove('fr', '<?= $mot['id'] ?>')">
+                                <label class="form-label" for="id_francais<?= $mot['id'] ?>">ID</label>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="form-outline mb-4">
+                                <input type="text" class="form-control" name="francais[]"
+                                       id="francais<?= $mot['id'] ?>" value="<?= $mot['francais'] ?>">
+                                <label class="form-label" for="francais<?= $mot['id'] ?>">Français</label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group col-md-10">
-                        <label class="small-screen" for="francais<?= $mot['id'] ?>">Traduction française</label>
-                        <input type="text" class="form-control" id="francais<?= $mot['id'] ?>" name="francais[]"
-                               value="<?= $mot['francais'] ?>">
+                <?php endforeach;
+            else: ?>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-outline mb-4">
+                            <?= inputReadonly('id_francais[]'); ?>
+                            <label class="form-label">ID</label>
+                        </div>
                     </div>
-                </div>
-            <?php endforeach;
-        else: ?>
-            <div class="row">
-                <div class="form-group col-md-2">
-                    <label class="small-screen">ID</label>
-                    <?= inputReadonly('id_francais[]'); ?>
-                </div>
-                <div class="form-group col-md-10">
-                    <label class="small-screen">Français</label>
-                    <?= input('francais[]'); ?>
-                </div>
-            </div>
-        <?php endif; ?>
-
-        <div class="invisible hidden row" id="duplicate1">
-            <div class="form-group col-md-2">
-                <label class="small-screen">ID</label>
-                <?= inputReadonly('id_francais[]'); ?>
-            </div>
-            <div class="form-group col-md-10">
-                <label class="small-screen">Français</label>
-                <?= input('francais[]'); ?>
-            </div>
-        </div>
-
-        <a class="small btn btn-outline-dark" id="duplicatebtn1">Ajouter une traduction</a><br/><br/>
-
-        <h5 class="font-weight-bold">Anglais :</h5>
-        <hr>
-        <div class="flexible wide-screen">
-            <div class="form-group col-md-2">ID</div>
-            <div class="form-group col-md-10">Traduction anglaise</div>
-        </div>
-
-        <?php if (isset($_GET['id'])) $mots = listAnglaisToJaponais($_GET['id']);
-        if (!empty($mots)):
-            foreach ($mots as $mot): ?>
-                <div id="en_<?= $mot['id'] ?>" class="row">
-                    <div class="form-group col-md-2" onclick="remove('en', '<?= $mot['id'] ?>')">
-                        <label class="small-screen" for="id_anglais<?= $mot['id'] ?>">ID</label>
-                        <input type='text' class='form-control bg-danger' id='id_anglais<?= $mot['id'] ?>'
-                               name='id_anglais[]' style="cursor: pointer; color: white"
-                               value="<?= $mot['id']; ?>" readonly>
-                    </div>
-                    <div class="form-group col-md-10">
-                        <label class="small-screen" for="anglais<?= $mot['id'] ?>">Anglais</label>
-                        <input type='text' class='form-control' id='anglais<?= $mot['id'] ?>' name='anglais[]'
-                               value="<?= $mot['anglais']; ?>">
+                    <div class="col-md-10">
+                        <div class="form-outline mb-4">
+                            <?= input('francais[]'); ?>
+                            <label class="form-label">Français</label>
+                        </div>
                     </div>
                 </div>
-            <?php endforeach;
-        else: ?>
-            <div class="row">
-                <div class="form-group col-md-2">
-                    <label class="small-screen">ID</label>
-                    <?= inputReadonly('id_anglais[]'); ?>
-                </div>
-                <div class="form-group col-md-10">
-                    <label class="small-screen">Anglais</label>
-                    <?= input('anglais[]'); ?>
-                </div>
-            </div>
-        <?php endif; ?>
+            <?php endif; ?>
 
-        <div class="invisible hidden row" id="duplicate2">
-            <div class="form-group col-md-2">
-                <label class="small-screen">ID</label>
-                <?= inputReadonly('id_anglais[]'); ?>
+            <div class="d-none row" id="duplicate1">
+                <div class="col-md-2">
+                    <div class="form-outline mb-4">
+                        <?= inputReadonly('id_francais[]'); ?>
+                        <label class="form-label">ID</label>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="form-outline mb-4">
+                        <?= input('francais[]'); ?>
+                        <label class="form-label">Français</label>
+                    </div>
+                </div>
             </div>
-            <div class="form-group col-md-10">
-                <label class="small-screen">Anglais</label>
-                <?= input('anglais[]'); ?>
-            </div>
+
+            <a class="btn btn-block btn-sm btn-outline-secondary mb-4" id="duplicatebtn1">Ajouter une traduction</a>
         </div>
 
-        <a class="small btn btn-outline-dark wide-screen" id="duplicatebtn2">Ajouter une traduction</a><br/><br/>
+        <h6 class="heading-small text-muted mb-4">Anglais</h6>
+        <hr class="my-4">
+        <div class="mx-4">
+            <?php if (isset($_GET['id'])) $mots = listAnglaisToJaponais($_GET['id']);
+            if (!empty($mots)):
+                foreach ($mots as $mot): ?>
+                    <div id="en_<?= $mot['id'] ?>" class="row">
+                        <div class="col-md-2">
+                            <div class="form-outline mb-4" onclick="remove('en', '<?= $mot['id'] ?>')">
+                                <input type='text' class='form-control bg-danger clickable'
+                                       id='id_anglais<?= $mot['id'] ?>' name='id_anglais[]'
+                                       value="<?= $mot['id']; ?>" readonly>
+                                <label class="form-label" for="id_anglais<?= $mot['id'] ?>">ID</label>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="form-outline mb-4">
+                                <input type='text' class='form-control' id='anglais<?= $mot['id'] ?>'
+                                       name='anglais[]' value="<?= $mot['anglais']; ?>">
+                                <label class="form-label" for="anglais<?= $mot['id'] ?>">Anglais</label>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach;
+            else: ?>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-outline mb-4">
+                            <?= inputReadonly('id_anglais[]'); ?>
+                            <label class="form-label">ID</label>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="form-outline mb-4">
+                            <?= input('anglais[]'); ?>
+                            <label class="form-label">Anglais</label>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <div class="d-none row" id="duplicate2">
+                <div class="col-md-2">
+                    <div class="form-outline mb-4">
+                        <?= inputReadonly('id_anglais[]'); ?>
+                        <label class="form-label">ID</label>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="form-outline mb-4">
+                        <?= input('anglais[]'); ?>
+                        <label class="form-label">Anglais</label>
+                    </div>
+                </div>
+            </div>
+
+            <a class="btn btn-block btn-sm btn-outline-secondary mb-4" id="duplicatebtn2">Ajouter une traduction</a>
+        </div>
 
         <button type="submit" class="btn btn-green" name="save">Enregistrer</button>
-    </form><br/><br/>
+    </form>
 
 <?php if (!empty($_POST['kanjis'])): ?>
     <div>
@@ -200,20 +222,15 @@ ob_start(); ?>
 <?php endif ?>
 
     <script>
-        (function ($) {
-            $('#duplicatebtn1').click(function (e) {
-                e.preventDefault();
-                var $clone = $('#duplicate1').clone().attr('id', '').removeClass('invisible').removeClass('hidden');
-                $('#duplicate1').before($clone);
-            })
-        })(jQuery);
-        (function ($) {
-            $('#duplicatebtn2').click(function (e) {
-                e.preventDefault();
-                var $clone = $('#duplicate2').clone().attr('id', '').removeClass('invisible').removeClass('hidden');
-                $('#duplicate2').before($clone);
-            })
-        })(jQuery);
+        $('#duplicatebtn1').click(function (e) {
+            e.preventDefault();
+            $('#duplicate1').before($('#duplicate1').clone().attr('id', '').removeClass('d-none'));
+        });
+
+        $('#duplicatebtn2').click(function (e) {
+            e.preventDefault();
+            $('#duplicate2').before($('#duplicate2').clone().attr('id', '').removeClass('d-none'));
+        });
 
         function addGroup(id_group) {
             if ($('#grp-' + id_group + ' > div > input').val() == 0) {
@@ -235,13 +252,9 @@ ob_start(); ?>
                     id: id
                 },
                 function (data) {
-                    if (data === 'success') {
-                        $('#' + lang + '_' + id).remove();
-                    } else if(data === 'fail') {
-                        console.log('Accès non autorisé');
-                    } else {
-                        console.log(data);
-                    }
+                    if (data === 'success') $('#' + lang + '_' + id).remove();
+                    else if (data === 'fail') console.log('Accès non autorisé');
+                    else console.log(data);
                 },
                 'html'
             );

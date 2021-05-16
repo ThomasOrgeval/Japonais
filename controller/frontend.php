@@ -117,7 +117,7 @@ function save_account()
         $kanji = isset($_POST['kanji']) ? 1 : 0;
         if (is_numeric($words)) {
             if ($words > 100) $words = 100;
-            saveAccount($_SESSION['id'], $words, $kanji);
+            saveAccount($_SESSION['Account']['id'], $words, $kanji);
             $_SESSION['Account']['nombreWords'] = $words;
             $_SESSION['Account']['kanji'] = $kanji;
             setFlash('Modifications enregistrées !');
@@ -129,7 +129,7 @@ function save_account()
 function liste()
 {
     $_POST['liste'] = selectListe($_GET['id']);
-    if (!empty($_POST['liste']) && ($_POST['liste']['id_user'] == $_SESSION['id'] || $_POST['liste']['id_confidentiality'] == 1)) {
+    if (!empty($_POST['liste']) && ($_POST['liste']['id_user'] == $_SESSION['Account']['id'] || $_POST['liste']['id_confidentiality'] == 1)) {
         $_POST['user'] = selectUserFromListe($_GET['id']);
         $_POST['mots'] = selectFrancaisFromListe($_GET['id']);
         require 'view/frontend/liste.php';
@@ -142,7 +142,7 @@ function liste()
 function listes()
 {
     if (connect()) {
-        $_POST['listes'] = getListes($_SESSION['id']);
+        $_POST['listes'] = getListes($_SESSION['Account']['id']);
         require './view/frontend/listes.php';
     }
 }
@@ -158,7 +158,7 @@ function liste_edit()
 
         if (isset($_GET['id'])) {
             $_POST = selectListe($_GET['id']);
-            if (empty($_POST) || $_POST['id_user'] != $_SESSION['id']) {
+            if (empty($_POST) || $_POST['id_user'] != $_SESSION['Account']['id']) {
                 unset($_POST);
                 setFlash('Vous n\'avez pas accès à cette liste');
                 header('Location:listes');
@@ -193,7 +193,7 @@ function achat()
             if ($points['sakura'] >= $cout) {
                 achatdb($_SESSION['Account']['id'], $_GET['id_recompense']);
                 buySakura($_SESSION['Account']['id'], $points['sakura'] - $cout);
-                $_SESSION['points'] = getSakura($_SESSION['id'])['sakura'];
+                $_SESSION['points'] = getSakura($_SESSION['Account']['id'])['sakura'];
                 setFlash('Vous avez bien ajouté ce lot !');
             } else setFlash('Vous n\'avez pas assez de points :(', 'danger');
         }
@@ -222,13 +222,12 @@ function submitToken()
         $_SESSION['Account']['admin'] = $statements['droits'];
         $_SESSION['Account']['id'] = $statements['id'];
         $_SESSION['Account']['nombreWords'] = $statements['nombre'];
-        $_SESSION['Account']['points'] = getSakura($_SESSION['id'])['sakura'];
-        $_SESSION['Account']['connect'] = 'OK';
+        $_SESSION['Account']['points'] = getSakura($_SESSION['Account']['id'])['sakura'];
         $_SESSION['Account']['icone'] = $statements['icone'];
         $_SESSION['Account']['theme'] = $statements['theme'];
         $_SESSION['Account']['background'] = $statements['background'];
         $_SESSION['Account']['kanji'] = $statements['kanji'];
-        $_SESSION['Account']['riddle'] = getRiddle($_SESSION['id']);
+        $_SESSION['Account']['riddle'] = getRiddle($_SESSION['Account']['id']);
 
         if ($statements['last_login'] < date("Y-m-d") || $statements['last_login'] == null) {
             setLastLogin($_SESSION['Account']['id']);
@@ -237,7 +236,6 @@ function submitToken()
                 $_SESSION['Account']['life'] = (int)$statements['life'] + 1;
             } else $_SESSION['Account']['life'] = (int)$statements['life'];
         } else $_SESSION['Account']['life'] = (int)$statements['life'];
-        setFlash('Connexion réussie');
     } else header('Location:accueil');
 }
 
@@ -258,9 +256,9 @@ function submitLogin($mail, $password)
             $_SESSION['Account']['riddle'] = getRiddle($_SESSION['Account']['id']);
 
             if ($statements['last_login'] < date("Y-m-d") || $statements['last_login'] == null) {
-                setLastLogin($_SESSION['id']);
+                setLastLogin($_SESSION['Account']['id']);
                 if ((int)$statements['life'] < 5) {
-                    setLife($_SESSION['id'], (int)$statements['life'] + 1);
+                    setLife($_SESSION['Account']['id'], (int)$statements['life'] + 1);
                     $_SESSION['Account']['life'] = (int)$statements['life'] + 1;
                 } else {
                     $_SESSION['Account']['life'] = (int)$statements['life'];
@@ -281,12 +279,10 @@ function submitLogin($mail, $password)
 
 function submitRegister($pseudo, $pass, $mail)
 {
-    var_dump($pseudo, $pass, $mail);
     if (!empty($pseudo) && !empty($pass) && !empty($mail)) {
-        $correctMail = searchMail(secure($mail));
         $correctPseudo = searchPseudo(secure($pseudo));
         $correctSlug = searchSlug(slug(secure($pseudo)));
-        if ($correctMail) {
+        if (searchMail(secure($mail))) {
             setFlash('L\'adresse mail est déjà utilisée', 'danger');
             header('Location:accueil');
         } elseif ($correctPseudo || $correctSlug) {
@@ -295,7 +291,7 @@ function submitRegister($pseudo, $pass, $mail)
         } else {
             $password_hash = password_hash($pass, PASSWORD_DEFAULT);
             createUser(secure($pseudo), $password_hash, secure($mail), slug(secure($pseudo)));
-            submitLogin(secure($mail), $pass);
+            submitLogin($mail, $pass);
         }
     }
 }
@@ -361,8 +357,8 @@ function liste_add()
         $nom = secure($_POST['nom']);
         $desc = secure($_POST['description']);
 
-        if ($_GET['id'] > 0) $addListe = editListe($nom, $desc, $_POST['id_confidentiality'], $_GET['id'], $_SESSION['id']);
-        else $addListe = createListe($nom, $desc, $_POST['id_confidentiality'], $_SESSION['id']);
+        if ($_GET['id'] > 0) $addListe = editListe($nom, $desc, $_POST['id_confidentiality'], $_GET['id'], $_SESSION['Account']['id']);
+        else $addListe = createListe($nom, $desc, $_POST['id_confidentiality'], $_SESSION['Account']['id']);
 
         if ($addListe === false) setFlash('La liste n\'a pas été ajoutée', 'danger');
         else setFlash('La liste a bien été crée');
@@ -454,8 +450,8 @@ function search()
         }
 
         if (isset($_SESSION) && !empty($_SESSION)) {
-            $_POST['listes'] = getListes($_SESSION['id']);
-            $_POST['other_listes'] = haveListes($_SESSION['id'], $_POST['francais']['id']);
+            $_POST['listes'] = getListes($_SESSION['Account']['id']);
+            $_POST['other_listes'] = haveListes($_SESSION['Account']['id'], $_POST['francais']['id']);
 
             foreach ($_POST['other_listes'] as $other_liste) {
                 foreach ($_POST['listes'] as $liste) {

@@ -30,14 +30,12 @@ function textarea($id): string
     return "<textarea type='text' class='form-control' id='$id' name='$id'>$value</textarea>";
 }
 
-function select($id, $list = array()): string
+function select($id, $list = array(), $label = 'Choisir une entrée'): string
 {
-    $return = "<select class='form-control' id='$id' name='$id'>";
+    $return = "<select class='form-select' id='$id' name='$id' required><option>$label</option>";
     foreach ($list as $k => $value) {
         $selected = '';
-        if (isset($_POST[$id]) && $k == $_POST[$id]) {
-            $selected = ' selected="selected"';
-        }
+        if (isset($_POST[$id]) && $k == $_POST[$id]) $selected = ' selected';
         $return .= "<option value='$k' $selected>$value</option>";
     }
     $return .= "</select>";

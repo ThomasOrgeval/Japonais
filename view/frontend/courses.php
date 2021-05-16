@@ -1,7 +1,7 @@
 <?php $title = 'Cours';
 ob_start(); ?>
 
-    <h1 class="font-weight-bold">Les cours</h1><br/>
+    <h1 class="font-weight-bold mb-4">Les cours</h1>
 
     <div class="row-cols-md-4">
         <a class="btn btn-outline-dark" href="nombres">Nombres</a>

@@ -4,7 +4,7 @@ function isAdmin($pseudo): bool
 {
     $db = dbConnect();
     $pseudo = $db->quote($pseudo);
-    return $db->query("select droits from USER where pseudo like $pseudo")['droits'];
+    return $db->query("select droits from USER where pseudo like $pseudo")->fetch()['droits'];
 }
 
 /**

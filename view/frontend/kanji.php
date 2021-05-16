@@ -1,4 +1,4 @@
-<?php $title = $_POST['kanji'];;
+<?php $title = $_POST['kanji'];
 ob_start(); ?>
 
     <div class="row mb-3">
@@ -8,8 +8,8 @@ ob_start(); ?>
         <div id="search" class="search p-0"></div>
     </div>
 
-    <div class="card" style="margin: 0 auto;">
-        <div class="card-header" style="cursor: pointer" onclick="modalKanji()">
+    <div class="card mx-auto">
+        <div class="card-header clickable" onclick="modalKanji()">
             <h4 class="card-title text-center" style="margin-top: 20px"><?= $_POST['kanji'] ?></h4>
         </div>
         <ul class="list-group list-group-flush">
@@ -19,10 +19,10 @@ ob_start(); ?>
             <li class="list-group-item">
                 <span>Grade : <?= $_POST['grade'] ?></span>
             </li>
-            <li class="list-group-item" data-toggle="tooltip" data-placement="top" title="Lecture chinoise">
+            <li class="list-group-item" data-mdb-toggle="tooltip" title="Lecture chinoise">
                 <span>On_yomi : <?= $_POST['on_yomi'] ?></span>
             </li>
-            <li class="list-group-item" data-toggle="tooltip" data-placement="top" title="Lecture japonaise">
+            <li class="list-group-item" data-mdb-toggle="tooltip" title="Lecture japonaise">
                 <span>Kun_yomi : <?= $_POST['kun_yomi'] ?></span>
             </li>
             <li class="list-group-item">
@@ -56,10 +56,6 @@ ob_start(); ?>
     </div>
 
     <script>
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-
         function modalKanji() {
             $('#modalKanji').modal('show');
         }

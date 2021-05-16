@@ -1,3 +1,27 @@
+@font-face {
+    font-family: 'japanese';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../fonts/MPLUSRounded1c-Regular.ttf) format('truetype');
+    unicode-range: U+4???, U+5???;
+}
+
+@font-face {
+    font-family: 'open sans';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../fonts/OpenSans-Regular.ttf) format('truetype');
+}
+
+body {
+    font-family: 'japanese', "open sans", sans-serif;
+    font-size: 18px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
 #content {
     margin-top: 80px;
     margin-bottom: 22px;
@@ -174,10 +198,6 @@
     font-weight: bold;
 }
 
-.card {
-    border: 1px solid rgba(0,0,0,.125);
-}
-
 .changelog-version {
     margin-left: 20px;
     margin-right: 20px;
@@ -200,23 +220,6 @@ body.modal-open {
     overflow-x: hidden;
 }
 
-.purple-textarea textarea.md-textarea:focus:not([readonly]) {
-    border-bottom: 1px solid #8433ec;
-    box-shadow: 0 1px 0 0 #8433ec;
-}
-
-.purple-textarea textarea.md-textarea:focus:not([readonly])+label {
-    color: #8433ec;
-}
-
-.card {
-    background-color: #222222;
-}
-
-.card-body, .card-header {
-    background-color: white !important;
-}
-
 @media screen and (min-width: 768px) {
 
     #navbar-top-small {
@@ -235,10 +238,6 @@ body.modal-open {
 
     .small-screen {
         display: none !important;
-    }
-
-    .card {
-        width: 18rem;
     }
 
 }

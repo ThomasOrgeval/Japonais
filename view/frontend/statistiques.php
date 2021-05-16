@@ -1,7 +1,7 @@
 <?php $title = 'Statistiques';
 ob_start(); ?>
 
-    <div class="row">
+    <div class="row pt-5 my-3">
         <div class="col-sm">
             <h6 class="font-weight-bold">Utilisateurs :
                 <span class="font-weight-normal"><?= $_POST['stats']['users'] ?></span>
@@ -63,183 +63,185 @@ ob_start(); ?>
     </div>
 
     <script>
-        new Chart(document.getElementById("leaderboard"), {
-            type: 'horizontalBar',
-            data: {
-                labels: [<?php foreach ($_POST['stats']['leaders'] as $user): ?>
-                    "<?= $user['pseudo'] ?>",
-                    <?php endforeach; ?>],
-                datasets: [{
-                    data: [<?php foreach ($_POST['stats']['leaders'] as $user): ?>
-                        <?= $user['sakura'] ?>,
+        $(document).ready(function () {
+            new Chart(document.getElementById("leaderboard"), {
+                type: 'bar',
+                data: {
+                    labels: [<?php foreach ($_POST['stats']['leaders'] as $user): ?>
+                        "<?= $user['pseudo'] ?>",
                         <?php endforeach; ?>],
-                    fill: false,
-                    backgroundColor: ["rgba(255,34,79,0.2)", "rgba(255,143,32,0.2)",
-                        "rgba(255,191,40,0.2)", "rgba(30,190,190,0.2)", "rgba(21,149,236,0.2)"
-                    ],
-                    borderColor: ["rgb(255,0,54)", "rgb(255,127,0)", "rgb(255,180,0)",
-                        "rgb(33,191,191)", "rgb(21,150,238)"
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    xAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
+                    datasets: [{
+                        label: 'meilleurs joueurs actuels',
+                        data: [<?php foreach ($_POST['stats']['leaders'] as $user): ?>
+                            <?= $user['sakura'] ?>,
+                            <?php endforeach; ?>],
+                        fill: false,
+                        backgroundColor: ["rgba(255,34,79,0.2)", "rgba(255,143,32,0.2)",
+                            "rgba(255,191,40,0.2)", "rgba(30,190,190,0.2)", "rgba(21,149,236,0.2)"
+                        ],
+                        borderColor: ["rgb(255,0,54)", "rgb(255,127,0)", "rgb(255,180,0)",
+                            "rgb(33,191,191)", "rgb(21,150,238)"
+                        ],
+                        borderWidth: 1
                     }]
                 },
-                responsive: true,
-                legend: {
-                    display: false
+                options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    responsive: true,
+                    legend: {
+                        display: false
+                    }
                 }
-            }
-        });
+            });
 
-        new Chart(document.getElementById("leaderboard2"), {
-            type: 'horizontalBar',
-            data: {
-                labels: [<?php foreach ($_POST['stats']['leaders2'] as $user): ?>
-                    "<?= $user['pseudo'] ?>",
-                    <?php endforeach; ?>],
-                datasets: [{
-                    data: [<?php foreach ($_POST['stats']['leaders2'] as $user): ?>
-                        <?= $user['sakura_total'] ?>,
+            new Chart(document.getElementById("leaderboard2"), {
+                type: 'bar',
+                data: {
+                    labels: [<?php foreach ($_POST['stats']['leaders2'] as $user): ?>
+                        "<?= $user['pseudo'] ?>",
                         <?php endforeach; ?>],
-                    fill: false,
-                    backgroundColor: ["rgba(255,34,79,0.2)", "rgba(255,143,32,0.2)",
-                        "rgba(255,191,40,0.2)", "rgba(30,190,190,0.2)", "rgba(21,149,236,0.2)"
-                    ],
-                    borderColor: ["rgb(255,0,54)", "rgb(255,127,0)", "rgb(255,180,0)",
-                        "rgb(33,191,191)", "rgb(21,150,238)"
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    xAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
+                    datasets: [{
+                        data: [<?php foreach ($_POST['stats']['leaders2'] as $user): ?>
+                            <?= $user['sakura_total'] ?>,
+                            <?php endforeach; ?>],
+                        fill: false,
+                        backgroundColor: ["rgba(255,34,79,0.2)", "rgba(255,143,32,0.2)",
+                            "rgba(255,191,40,0.2)", "rgba(30,190,190,0.2)", "rgba(21,149,236,0.2)"
+                        ],
+                        borderColor: ["rgb(255,0,54)", "rgb(255,127,0)", "rgb(255,180,0)",
+                            "rgb(33,191,191)", "rgb(21,150,238)"
+                        ],
+                        borderWidth: 1
                     }]
                 },
-                responsive: true,
-                legend: {
-                    display: false
+                options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    responsive: true,
+                    legend: {
+                        display: false
+                    }
                 }
-            }
-        });
+            });
 
-        new Chart(document.getElementById("leaderboardDay"), {
-            type: 'horizontalBar',
-            data: {
-                labels: [<?php foreach ($_POST['stats']['day'] as $user): ?>
-                    "<?= $user['pseudo'] ?>",
-                    <?php endforeach; ?>],
-                datasets: [{
-                    data: [<?php foreach ($_POST['stats']['day'] as $user): ?>
-                        <?= $user['sakura'] ?>,
+            new Chart(document.getElementById("leaderboardDay"), {
+                type: 'bar',
+                data: {
+                    labels: [<?php foreach ($_POST['stats']['day'] as $user): ?>
+                        "<?= $user['pseudo'] ?>",
                         <?php endforeach; ?>],
-                    fill: false,
-                    backgroundColor: ["rgba(255,34,79,0.2)", "rgba(255,143,32,0.2)",
-                        "rgba(255,191,40,0.2)", "rgba(30,190,190,0.2)", "rgba(21,149,236,0.2)"
-                    ],
-                    borderColor: ["rgb(255,0,54)", "rgb(255,127,0)", "rgb(255,180,0)",
-                        "rgb(33,191,191)", "rgb(21,150,238)"
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    xAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
+                    datasets: [{
+                        data: [<?php foreach ($_POST['stats']['day'] as $user): ?>
+                            <?= $user['sakura'] ?>,
+                            <?php endforeach; ?>],
+                        fill: false,
+                        backgroundColor: ["rgba(255,34,79,0.2)", "rgba(255,143,32,0.2)",
+                            "rgba(255,191,40,0.2)", "rgba(30,190,190,0.2)", "rgba(21,149,236,0.2)"
+                        ],
+                        borderColor: ["rgb(255,0,54)", "rgb(255,127,0)", "rgb(255,180,0)",
+                            "rgb(33,191,191)", "rgb(21,150,238)"
+                        ],
+                        borderWidth: 1
                     }]
                 },
-                responsive: true,
-                legend: {
-                    display: false
+                options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    responsive: true,
+                    legend: {
+                        display: false
+                    }
                 }
-            }
-        });
+            });
 
-        new Chart(document.getElementById("leaderboardWeek"), {
-            type: 'horizontalBar',
-            data: {
-                labels: [<?php foreach ($_POST['stats']['week'] as $user): ?>
-                    "<?= $user['pseudo'] ?>",
-                    <?php endforeach; ?>],
-                datasets: [{
-                    data: [<?php foreach ($_POST['stats']['week'] as $user): ?>
-                        <?= $user['sakura'] ?>,
+            new Chart(document.getElementById("leaderboardWeek"), {
+                type: 'bar',
+                data: {
+                    labels: [<?php foreach ($_POST['stats']['week'] as $user): ?>
+                        "<?= $user['pseudo'] ?>",
                         <?php endforeach; ?>],
-                    fill: false,
-                    backgroundColor: ["rgba(255,34,79,0.2)", "rgba(255,143,32,0.2)",
-                        "rgba(255,191,40,0.2)", "rgba(30,190,190,0.2)", "rgba(21,149,236,0.2)"
-                    ],
-                    borderColor: ["rgb(255,0,54)", "rgb(255,127,0)", "rgb(255,180,0)",
-                        "rgb(33,191,191)", "rgb(21,150,238)"
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    xAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
+                    datasets: [{
+                        data: [<?php foreach ($_POST['stats']['week'] as $user): ?>
+                            <?= $user['sakura'] ?>,
+                            <?php endforeach; ?>],
+                        fill: false,
+                        backgroundColor: ["rgba(255,34,79,0.2)", "rgba(255,143,32,0.2)",
+                            "rgba(255,191,40,0.2)", "rgba(30,190,190,0.2)", "rgba(21,149,236,0.2)"
+                        ],
+                        borderColor: ["rgb(255,0,54)", "rgb(255,127,0)", "rgb(255,180,0)",
+                            "rgb(33,191,191)", "rgb(21,150,238)"
+                        ],
+                        borderWidth: 1
                     }]
                 },
-                responsive: true,
-                legend: {
-                    display: false
+                options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    responsive: true,
+                    legend: {
+                        display: false
+                    }
                 }
-            }
-        });
+            });
 
-        new Chart(document.getElementById("leaderboardMonth"), {
-            type: 'horizontalBar',
-            data: {
-                labels: [<?php foreach ($_POST['stats']['month'] as $user): ?>
-                    "<?= $user['pseudo'] ?>",
-                    <?php endforeach; ?>],
-                datasets: [{
-                    data: [<?php foreach ($_POST['stats']['month'] as $user): ?>
-                        <?= $user['sakura'] ?>,
+            new Chart(document.getElementById("leaderboardMonth"), {
+                type: 'bar',
+                data: {
+                    labels: [<?php foreach ($_POST['stats']['month'] as $user): ?>
+                        "<?= $user['pseudo'] ?>",
                         <?php endforeach; ?>],
-                    fill: false,
-                    backgroundColor: ["rgba(255,34,79,0.2)", "rgba(255,143,32,0.2)",
-                        "rgba(255,191,40,0.2)", "rgba(30,190,190,0.2)", "rgba(21,149,236,0.2)"
-                    ],
-                    borderColor: ["rgb(255,0,54)", "rgb(255,127,0)", "rgb(255,180,0)",
-                        "rgb(33,191,191)", "rgb(21,150,238)"
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    xAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
+                    datasets: [{
+                        data: [<?php foreach ($_POST['stats']['month'] as $user): ?>
+                            <?= $user['sakura'] ?>,
+                            <?php endforeach; ?>],
+                        fill: false,
+                        backgroundColor: ["rgba(255,34,79,0.2)", "rgba(255,143,32,0.2)",
+                            "rgba(255,191,40,0.2)", "rgba(30,190,190,0.2)", "rgba(21,149,236,0.2)"
+                        ],
+                        borderColor: ["rgb(255,0,54)", "rgb(255,127,0)", "rgb(255,180,0)",
+                            "rgb(33,191,191)", "rgb(21,150,238)"
+                        ],
+                        borderWidth: 1
                     }]
                 },
-                responsive: true,
-                legend: {
-                    display: false
+                options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    responsive: true,
+                    legend: {
+                        display: false
+                    }
                 }
-            }
-        });
+            });
 
-        const kanjiCanvas = document.getElementById('kanjisboard');
-        var kanjiBar = new Chart(kanjiCanvas.getContext('2d'), {
+            const kanjiCanvas = document.getElementById('kanjisboard');
+            let kanjiBar = new Chart(kanjiCanvas.getContext('2d'), {
                 type: 'doughnut',
                 data: {
                     labels: [<?php foreach ($_POST['stats']['kanjis'] as $kanji): ?>
@@ -256,20 +258,21 @@ ob_start(); ?>
                 options: {
                     responsive: true
                 }
-        });
+            });
 
-        kanjiCanvas.onclick = function(e) {
-            const slice = kanjiBar.getElementAtEvent(e);
-            if (!slice.length) return;
-            const label = slice[0]._model.label;
-            switch (label) {
+            kanjiCanvas.onclick = function (e) {
+                const slice = kanjiBar.getElementAtEvent(e);
+                if (!slice.length) return;
+                const label = slice[0]._model.label;
+                switch (label) {
                 <?php foreach ($_POST['stats']['kanjis'] as $kanji): ?>
                     case '<?= $kanji['kanji'] ?> <?= $kanji['kun_yomi'] ?>':
                         window.open('https://lexiquejaponais.fr/kanji/<?= $kanji['id'] ?>');
                         break;
                 <?php endforeach; ?>
+                }
             }
-        }
+        });
     </script>
 
 <?php $content = ob_get_clean();

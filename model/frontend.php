@@ -24,8 +24,8 @@ function createUser($pseudo, $pass, $mail, $slug)
     $pass = $db->quote($pass);
     $mail = $db->quote($mail);
     $slug = $db->quote($slug);
-    $db->query("insert into USER(pseudo, pass, mail, date, droits, nombre, icone, life, last_login, theme, kanji, slug) 
-                        values ($pseudo, $pass, $mail, curdate(), 0, 10, 0, 5, curdate(), 0, 1, $slug) ");
+    $db->query("insert into USER(pseudo, pass, mail, date, droits, nombre, icone, life, last_login, theme, kanji, slug, background) 
+                        values ($pseudo, $pass, $mail, curdate(), 0, 10, 0, 5, curdate(), 0, 1, $slug, 0) ");
 }
 
 function loginUser($mail, $pass)
@@ -69,7 +69,7 @@ function searchMail($mail)
 {
     $db = dbConnect();
     $mail = $db->quote($mail);
-    return $db->prepare("select pseudo from USER where mail = $mail")->fetch();
+    return $db->query("select pseudo from USER where mail = $mail")->rowCount() === 1;
 }
 
 function changePass($mail, $pass)
@@ -77,7 +77,7 @@ function changePass($mail, $pass)
     $db = dbConnect();
     $mail = $db->quote($mail);
     $pass = $db->quote($pass);
-    $db->exec("update USER set pass=$pass where mail like $mail");
+    $db->query("update USER set pass=$pass where mail like $mail");
 }
 
 function saveAccount($id, $words, $kanji)

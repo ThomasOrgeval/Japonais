@@ -77,9 +77,10 @@ function japonais_edit()
         foreach ($types as $type) $type_list[$type['id']] = $type['type'];
 
         if (isset($_GET['id'])) {
-            if (testJaponaisID($_GET['id'])) {
+            if (!testJaponaisID($_GET['id'])) {
                 setFlash("Il n'y a pas de mot japonais avec cet ID", "danger");
                 header("Location:index.php?p=japonais");
+                exit();
             }
             $_POST = getJaponais($_GET['id']);
             $_POST['groupes'] = listGroupeToJaponais($_GET['id']);
@@ -189,7 +190,7 @@ function recompense_edit()
 
 function connect_admin()
 {
-    if ($_SESSION['Account']['admin'] != 1 && isAdmin($_SESSION['Account']['pseudo'])) {
+    if ($_SESSION['Account']['admin'] != 1 || !isAdmin($_SESSION['Account']['pseudo'])) {
         header('Location:accueil');
         return false;
     }

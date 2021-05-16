@@ -1,6 +1,6 @@
 <?php ob_start(); ?>
 
-    <div class="row mb-3">
+    <div class="row mx-2 pt-4 my-4">
         <label for="autocomplete"></label>
         <input type="text" id="autocomplete" class="autocomplete-bar" name="mot" placeholder="Recherche"
                autocomplete="off">
