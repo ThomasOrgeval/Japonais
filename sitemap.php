@@ -1,9 +1,10 @@
-<?php require 'model/sitemap.php';
+<?php
+
+require 'model/sitemap.php';
 header('Content-type: application/xml; charset=utf-8');
-$xml = '<?xml version="1.0" encoding="utf-8"?>';
-$xml .= '
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    ';
+
+$xml = '<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
 $list = [
     ['callable' => "getAllWords", 'prefix' => "https://lexiquejaponais.fr/recherche/", 'item' => "slug", 'freq' => "yearly"],

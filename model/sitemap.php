@@ -3,7 +3,7 @@
 function dbConnect()
 {
     if ($_SERVER['HTTP_HOST'] === 'localhost') {
-        $db = new PDO('mysql:host=localhost;dbname=lexiqumjaponais;charset=utf8', 'root', '');
+        $db = new PDO('mysql:host=localhost;dbname=japonais;charset=utf8', 'root', '');
     } else {
         $var = (array) json_decode(file_get_contents('https://lexiquejaponais.fr/model/env.json'));
         $db = new PDO('mysql:host=' . $var['HTTP_HOST'] . '; dbname=' . $var['HTTP_DBNAME'] . '; charset=utf8', $var['HTTP_USER'], $var['HTTP_MDP']);

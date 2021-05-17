@@ -11,12 +11,12 @@
     <meta name="description"
           content="Lexique japonais permet de s’exercer chaque jour, se lancer des défis, défier des amis, le tout dans la langue de ごく (Goku) ! Lexique japonais contient tout ce que vous recherchez sur la langue japonaise.">
     <title><?= $title ?? 'Lexique Japonais' ?></title>
-    <link rel="shortcut icon" type="image" href="resources/images/sakura.png">
+    <link rel="shortcut icon" type="image" href="resources/images/sakura.webp">
 
     <meta property="og:title" content="Lexique Japonais">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://lexiquejaponais.fr">
-    <meta property="og:image" content="https://lexiquejaponais.fr/resources/images/sakura.png">
+    <meta property="og:image" content="https://lexiquejaponais.fr/resources/images/sakura.webp">
     <meta property="og:description"
           content="Lexique japonais permet de s’exercer chaque jour, se lancer des défis, défier des amis, le tout dans la langue de ごく (Goku) ! Lexique japonais contient tout ce que vous recherchez sur la langue japonaise.">
 
@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="resources/css/style.css">
 
     <?php if (isset($_SESSION['Account']['theme']) && $_SESSION['Account']['theme'] != '0') : ?>
-        <link rel="stylesheet" href="./resources/css/theme/<?= $_SESSION['Account']['theme'] ?>.css">
+        <link rel="stylesheet" href="resources/css/theme/<?= $_SESSION['Account']['theme'] ?>.css">
     <?php endif; ?>
 </head>
 
