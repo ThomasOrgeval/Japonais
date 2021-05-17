@@ -30,6 +30,8 @@
 
     <link rel="stylesheet" href="resources/css/style.css">
 
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <?php if (isset($_SESSION['Account']['theme']) && $_SESSION['Account']['theme'] != '0') : ?>
         <link rel="stylesheet" href="resources/css/theme/<?= $_SESSION['Account']['theme'] ?>.css">
     <?php endif; ?>
@@ -48,7 +50,7 @@ elseif (isset($_SESSION['Account']['background']) && ($_SESSION['Account']['back
     <div class="container-fluid">
         <!-- Navbar brand -->
         <a class="navbar-brand me-0" href="">
-            <img src="resources/images/sakura.png" height="22" alt="logo" style="margin-top: -3px">
+            <img src="resources/images/sakura.webp" height="22" alt="logo" style="margin-top: -3px">
         </a>
         <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbar1"
                 aria-controls="navbar1" aria-expanded="false" aria-label="Toggle navigation">
@@ -266,8 +268,6 @@ elseif (isset($_SESSION['Account']['background']) && ($_SESSION['Account']['back
 </footer>
 <!-- Footer -->
 
-<!-- jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!-- Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
         integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG"
