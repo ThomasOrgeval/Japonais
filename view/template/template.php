@@ -20,11 +20,6 @@
     <meta property="og:description"
           content="Lexique japonais permet de s’exercer chaque jour, se lancer des défis, défier des amis, le tout dans la langue de ごく (Goku) ! Lexique japonais contient tout ce que vous recherchez sur la langue japonaise.">
 
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap"
-          rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <!-- Bootstrap core CSS -->
@@ -35,8 +30,6 @@
 
     <link rel="stylesheet" href="resources/css/style.css">
 
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <?php if (isset($_SESSION['Account']['theme']) && $_SESSION['Account']['theme'] != '0') : ?>
         <link rel="stylesheet" href="./resources/css/theme/<?= $_SESSION['Account']['theme'] ?>.css">
     <?php endif; ?>
@@ -272,6 +265,9 @@ elseif (isset($_SESSION['Account']['background']) && ($_SESSION['Account']['back
     <!-- Copyright -->
 </footer>
 <!-- Footer -->
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!-- Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
         integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG"

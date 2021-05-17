@@ -147,7 +147,7 @@ $(document).ready(function () {
 
                         toast('+' + data.split(' - ')[1]);
                     } else if (data.startsWith('Failed')) {
-                        if (session['life'] === 0) {
+                        if (session.Account.life === 0) {
                             $('#riddle-form').remove();
                             $('#riddle').append("<br/><br/><p class='card-text'>Vous n'avez plus de vie, revenez demain !</p>");
                         } else {
