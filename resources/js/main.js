@@ -143,7 +143,7 @@ $(document).ready(function () {
                         $('#result').html("<p class='text-success'>Bonne réponse !</p>");
                         let sakura = parseInt(document.getElementById('points').innerHTML) + parseInt(data.split(' - ')[1]);
                         $('#points').html(sakura);
-                        $('#riddle-value').html(session['riddle']);
+                        $('#riddle-value').html(session.Account.riddle);
 
                         toast('+' + data.split(' - ')[1]);
                     } else if (data.startsWith('Failed')) {
@@ -152,14 +152,12 @@ $(document).ready(function () {
                             $('#riddle').append("<br/><br/><p class='card-text'>Vous n'avez plus de vie, revenez demain !</p>");
                         } else {
                             $('#result').html("<p class='text-danger'>Dommage, ce n'est pas ça !</p>");
-                            $('#life').html(session['life']);
-                            $('#riddle-value').html(session['riddle']);
+                            $('#life').html(session.Account.life);
+                            $('#riddle-value').html(session.Account.riddle);
                         }
 
                         toast('Traduction : ' + data.split(' - ')[1]);
-                    } else {
-                        console.log(data);
-                    }
+                    } else console.log(data);
                     $('#value').val("");
                 });
 
