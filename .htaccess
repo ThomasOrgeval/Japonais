@@ -1,4 +1,4 @@
-Header set Connection keep-alive
+# Header set Connection keep-alive
 
 <files .htaccess>
 order allow,deny

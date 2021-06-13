@@ -58,12 +58,9 @@ table.table tbody td a, .div-music.row:hover {
     fill: deeppink;
 }
 
-.modal-content {
-    background-color: #222222;
-}
-
-.card {
-    background-color: #222222;
+.modal-content, .card, li.list-group-item, .changelog-version, .accordion-item, .accordion-button {
+    background-color: #222222 !important;
+    color: white !important;
 }
 
 .card-text {
@@ -89,10 +86,6 @@ table.table tbody td a, .div-music.row:hover {
 
 .speaker {
     fill: white;
-}
-
-.changelog-version {
-    background-color: #222222 !important;
 }
 
 .black-text {
