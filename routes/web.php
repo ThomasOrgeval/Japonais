@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [AccueilController::class, 'index'])->name('/');
 
 Route::get('/logout', [AccueilController::class, 'logout'])->name('logout');
-Route::get('/login', [AccueilController::class, 'login'])->name('login');
+Route::post('/login', [AccueilController::class, 'login'])->name('login');
+Route::post('/signUp', [AccueilController::class, 'signUp'])->name('signUp');
 Route::get('/lang/{lang}', [AccueilController::class, 'lang'])->where('lang', '[a-z]+');
 
 Route::get('/admin', [AdminController::class, 'index'])->name('admin');

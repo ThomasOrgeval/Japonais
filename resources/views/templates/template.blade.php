@@ -12,7 +12,6 @@
     <meta property="og:description"
           content="Lexique japonais permet de s’exercer chaque jour, se lancer des défis, défier des amis, le tout dans la langue de ごく (Goku) ! Lexique japonais contient tout ce que vous recherchez sur la langue japonaise.">
 
-
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
     <!-- MDB -->
@@ -27,7 +26,6 @@
 <header>
     @include('templates.navbar')
 </header>
-<!--Main layout-->
 <main style="margin-top: 58px">
     @include('templates.modal')
     <div class="container pt-4">

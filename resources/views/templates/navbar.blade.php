@@ -90,7 +90,9 @@
                     </li>
                 @else
                     <li class="nav-item me-3 me-lg-0">
-                        <a class="nav-link" href="{{ route('login') }}"><i class="fas fa-user"></i></a>
+                        <a class="nav-link" data-mdb-toggle="modal" data-mdb-target="#connect" role="button">
+                            <i class="fas fa-user"></i>
+                        </a>
                     </li>
                 @endif
             </ul>
