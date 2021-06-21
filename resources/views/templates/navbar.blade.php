@@ -60,17 +60,20 @@
                        aria-expanded="false">
                         @switch(Cookie::get('lang'))
                             @case('cn')
-                            <i class="china flag"></i>
+                            <i class="flag-china flag"></i>
+                            @break
+                            @case('kr')
+                            <i class="flag-south-korea flag"></i>
                             @break
                             @default
-                            <i class="japan flag"></i>
+                            <i class="flag-japan flag"></i>
                         @endswitch
                     </a>
 
                     <ul class="dropdown-menu" aria-labelledby="language">
                         <li>
                             <a class="dropdown-item" href="{{ url('lang/jp') }}">
-                                <i class="japan flag"></i> 日本語
+                                <i class="flag-japan flag"></i> 日本語
                             </a>
                         </li>
                         <li>
@@ -78,7 +81,15 @@
                         </li>
                         <li>
                             <a class="dropdown-item" href="{{ url('lang/cn') }}">
-                                <i class="china flag"></i> 中文
+                                <i class="flag-china flag"></i> 中文
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="my-0">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ url('lang/kr') }}">
+                                <i class="flag-south-korea flag"></i> 한국어
                             </a>
                         </li>
                     </ul>

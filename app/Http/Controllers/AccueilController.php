@@ -26,7 +26,7 @@ class AccueilController extends Controller
 
     public function lang($lang)
     {
-        if (in_array($lang, ['cn', 'jp']))
+        if (in_array($lang, ['cn', 'jp', 'kr']))
             Cookie::queue('lang', $lang, 60*24*365);
         return redirect('');
     }
