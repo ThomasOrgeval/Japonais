@@ -49,7 +49,7 @@ create table translations
     id         int auto_increment not null primary key,
     label      varchar(255)       not null,
     slug       varchar(255)       not null,
-    lang       enum ('fr', 'en')  not null,
+    lang       enum ('fr', 'en', 'es', 'pt')  not null,
     created_at datetime           not null default now(),
     updated_at datetime           not null default now() on update now()
 ) engine = InnoDB;
